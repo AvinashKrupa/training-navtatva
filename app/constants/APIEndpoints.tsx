@@ -1,3 +1,5 @@
 import React from "react";
-const API = {};
+const API = {
+  GET_CATEGORY: "",
+};
 export default API;
