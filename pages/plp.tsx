@@ -10,7 +10,7 @@ const ProductListingScreen: NextPage = () => {
           <div className="container-fluid">
             <div className="row">
               <div className="col-md-1 align-self-center">
-                <a href="#">
+                <a href="/">
                   <img
                     src="images/logo-2.png"
                     alt="logo"
