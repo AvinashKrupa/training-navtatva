@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
-import constants from "../constants/constant";
 
 interface RefreshToken {
   status: number;
@@ -46,9 +45,6 @@ export abstract class HTTPBaseService {
     config.headers["Content-Type"] = `application/json`;
     config.headers["Accept"] = `application/json`;
     config.headers["Authorization"] = `Bearer ${this.token}`;
-    if (config.url?.startsWith("api/v1/upload/doc")) {
-      config.headers["api_key"] = constants.APIKEY;
-    }
     return config;
   };
 

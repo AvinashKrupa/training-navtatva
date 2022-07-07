@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import type { NextPage } from "next";
 import Slider from "react-slick";
 import {
@@ -10,7 +10,113 @@ import {
   menuSliderSettings,
   occasionSetting,
 } from "../app/utils/sliderConfig";
+import { useDebouncedEffect } from "../app/utils/useDebouncedEffect";
+import NavMenuCategory from "../app/components/layouts/category";
 const HomeScreen: NextPage = () => {
+  const [selectedSubCat, setSelectedSubCat] = useState<any>([]);
+
+  useDebouncedEffect(() => console.log(selectedSubCat), [selectedSubCat], 1000);
+  const [categroyMenu, setCategoryMenu] = useState([
+    {
+      id: "f3a6b4c1-b5d3-429f-9162-a3dff46c7cbd",
+      type: "category",
+      category_image: "images/cate-1.jpg",
+      status: "live",
+      name: "Men's Kurtas",
+      slug: "men_kurtas",
+      description: "Men's Kurtas",
+      children: [
+        {
+          id: "825a7dd0-5c3a-4ff4-abef-da0c66ca978e",
+          type: "category",
+          status: "live",
+          name: "Men",
+          slug: "men",
+          description: "men",
+          children: [
+            {
+              id: "c35cb8dc-e855-4585-9305-478246b77b33",
+              type: "category",
+              status: "live",
+              name: "Men's T-Shirts",
+              slug: "men_t_shirt",
+              description: "Men's T-Shirts",
+            },
+            {
+              id: "f3a6b4c1-b5d3-429f-9162-a3dff46c7cbd",
+              type: "category",
+              status: "live",
+              name: "Men's Kurtas",
+              slug: "men_kurtas",
+              description: "Men's Kurtas",
+            },
+          ],
+        },
+        {
+          id: "4343feae-5201-44fa-8a23-bdcd11930b0f",
+          type: "category",
+          status: "live",
+          name: "Woman",
+          slug: "woman",
+          description: "woman",
+        },
+      ],
+    },
+    {
+      id: "c35cb8dc-e855-4585-9305-478246b77b33",
+      type: "category",
+      category_image: "images/cate-2.jpg",
+      status: "live",
+      name: "Men's T-Shirts",
+      slug: "men_t_shirt",
+      description: "Men's T-Shirts",
+    },
+    {
+      id: "4343feae-5201-44fa-8a23-bdcd11930b0f",
+      type: "category",
+      category_image: "images/cate-3.jpg",
+      status: "live",
+      name: "Woman",
+      slug: "woman",
+      description: "woman",
+    },
+    {
+      id: "825a7dd0-5c3a-4ff4-abef-da0c66ca978e",
+      type: "category",
+      category_image: "images/cate-4.jpg",
+      status: "live",
+      name: "Men",
+      slug: "men",
+      description: "men",
+    },
+    {
+      id: "a84db0b3-5c9c-4472-bc85-0685e5ea5af7",
+      type: "category",
+      category_image: "images/cate-5.jpg",
+      status: "live",
+      name: "Apparel",
+      slug: "apparel",
+      description: "apparel",
+    },
+    {
+      id: "825a7dd0-5c3a-4ff4-abef-da0c66ca978e",
+      type: "category",
+      category_image: "images/cate-6.jpg",
+      status: "live",
+      name: "Accessories",
+      slug: "accessories",
+      description: "accessories",
+    },
+    {
+      id: "825a7dd0-5c3a-4ff4-abef-da0c66ca978e",
+      type: "category",
+      category_image: "images/cate-7.jpg",
+      status: "live",
+      name: "Fancy",
+      slug: "fancy",
+      description: "fancy",
+    },
+  ]);
   return (
     <div class="home">
       <div className="wrapper">
@@ -110,232 +216,49 @@ const HomeScreen: NextPage = () => {
             <div className="col-lg-12 px-0">
               <div className="testimonial-slider">
                 <Slider {...menuSliderSettings}>
-                  <div className="thumb position-relative text-center category-thumb">
-                    <a href="/plp">
-                      <img
-                        className="img-fluid"
-                        src="images/cate-1.jpg"
-                        alt=""
+                  {categroyMenu.map((info) => {
+                    console.log(info);
+                    return (
+                      <NavMenuCategory
+                        title={info.name}
+                        image={info.category_image}
+                        onClick={() => {
+                          if (selectedSubCat.length == 0) {
+                            setSelectedSubCat(info.children || []);
+                          } else {
+                            setSelectedSubCat([]);
+                          }
+                        }}
                       />
-                      <p className="fs-20">Sarees</p>
-                      <div className="overlay" />
-                    </a>
-                  </div>
-                  <div className="thumb position-relative text-center category-thumb">
-                    <a href="/plp">
-                      <img
-                        className="img-fluid"
-                        src="images/cate-2.jpg"
-                        alt=""
-                      />
-                      <p className="fs-20">Lehengas</p>
-                      <div className="overlay" />
-                    </a>
-                  </div>
-                  <div className="thumb position-relative text-center category-thumb">
-                    <a href="/plp">
-                      <img
-                        className="img-fluid"
-                        src="images/cate-3.jpg"
-                        alt=""
-                      />
-                      <p className="fs-20">Kurtis &amp; Tunics</p>
-                      <div className="overlay" />
-                    </a>
-                  </div>
-                  <div className="thumb position-relative text-center category-thumb">
-                    <a href="/plp">
-                      <img
-                        className="img-fluid"
-                        src="images/cate-4.jpg"
-                        alt=""
-                      />
-                      <p className="fs-20">Kurta Sets</p>
-                      <div className="overlay" />
-                    </a>
-                  </div>
-                  <div className="thumb position-relative text-center category-thumb">
-                    <a href="/plp">
-                      <img
-                        className="img-fluid"
-                        src="images/cate-5.jpg"
-                        alt=""
-                      />
-                      <p className="fs-20">Sharara Sets</p>
-                      <div className="overlay" />
-                    </a>
-                  </div>
-                  <div className="thumb position-relative text-center category-thumb">
-                    <a href="/plp">
-                      <img
-                        className="img-fluid"
-                        src="images/cate-6.jpg"
-                        alt=""
-                      />
-                      <p className="fs-20">Jewellery</p>
-                      <div className="overlay" />
-                    </a>
-                  </div>
-                  <div className="thumb position-relative text-center category-thumb">
-                    <a href="/plp">
-                      <img
-                        className="img-fluid"
-                        src="images/cate-7.jpg"
-                        alt=""
-                      />
-                      <p className="fs-20">Accessories</p>
-                      <div className="overlay" />
-                    </a>
-                  </div>
+                    );
+                  })}
                 </Slider>
               </div>
 
               <div
                 className="bg-white subcategory p-4"
-                style={{ display: "none" }}
+                style={{
+                  display: selectedSubCat.length == 0 ? "none" : "block",
+                }}
               >
                 <div className="row">
                   <div className="col-md-8 d-block d-lg-flex">
-                    <ul className="me-5">
-                      <li>
-                        <h4>Featured</h4>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                    </ul>
-                    <ul className="me-5">
-                      <li>
-                        <h4>Featured</h4>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                    </ul>
-                    <ul className="me-5">
-                      <li>
-                        <h4>Featured</h4>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                    </ul>
-                    <ul className="me-5">
-                      <li>
-                        <h4>Featured</h4>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                      <li>
-                        <a href="#">Lorem</a>
-                      </li>
-                    </ul>
+                    {selectedSubCat.map((info: any) => {
+                      return (
+                        <ul className="me-5">
+                          <li>
+                            <h4>{info.name}</h4>
+                          </li>
+                          {info?.children?.map((info: any) => {
+                            return (
+                              <li>
+                                <a href="#">{info.name}</a>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      );
+                    })}
                   </div>
                   <div className="col-md-12 col-lg-4 mt-4 mt-lg-0">
                     <img
