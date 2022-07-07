@@ -12,9 +12,10 @@ import {
 } from "../app/utils/sliderConfig";
 import { useDebouncedEffect } from "../app/utils/useDebouncedEffect";
 import NavMenuCategory from "../app/components/layouts/category";
+import { Modal } from "react-bootstrap";
 const HomeScreen: NextPage = () => {
   const [selectedSubCat, setSelectedSubCat] = useState<any>([]);
-
+  const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);
   useDebouncedEffect(() => console.log(selectedSubCat), [selectedSubCat], 1000);
   const [categroyMenu, setCategoryMenu] = useState([
     {
@@ -176,6 +177,10 @@ const HomeScreen: NextPage = () => {
                   placeholder="Kurtis"
                   aria-label="Kurtis"
                   aria-describedby="addon-wrapping"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    setOpenSearchBox(true);
+                  }}
                 />
                 <button type="button" className="closebtn d-md-none">
                   <i className="fas fa-xmark fa-fw" />
@@ -4032,14 +4037,26 @@ const HomeScreen: NextPage = () => {
       </div>
       {/* End Fixed Button */}
       {/* Search Popup */}
-      <div className="modal fade " id="searchPopup">
-        <div className="modal-dialog" role="document">
+
+      <Modal
+        show={openSearchBox}
+        animation={true}
+        className=""
+        shadow-lg
+        border
+        size={"xl"}
+        id="searchPopup"
+      >
+        <Modal.Dialog role={"document"}>
           <div className="modal-content">
             <button
               type="button"
               className="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
+              onClick={()=>{
+                setOpenSearchBox(false)
+              }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -4238,8 +4255,8 @@ const HomeScreen: NextPage = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </Modal.Dialog>
+      </Modal>
     </div>
   );
 };
