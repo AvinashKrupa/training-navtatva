@@ -257,7 +257,7 @@ const HomeScreen: NextPage = () => {
                           {info?.children?.map((info: any) => {
                             return (
                               <li>
-                                <a href="#">{info.name}</a>
+                                <a href={`/shop/${info.name}`}>{info.name}</a>
                               </li>
                             );
                           })}
@@ -4037,9 +4037,9 @@ const HomeScreen: NextPage = () => {
       </div>
       {/* End Fixed Button */}
       {/* Search Popup */}
-      <SearchPopup 
-        openSearchBox = { openSearchBox } 
-        setOpenSearchBox= {setOpenSearchBox} 
+      <SearchPopup
+        openSearchBox={openSearchBox}
+        setOpenSearchBox={setOpenSearchBox}
       />
     </div>
   );
