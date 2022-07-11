@@ -1,6 +1,6 @@
 import React from "react";
 
-const CategoryFilter = () => {
+const CategoryFilter = (props: any) => {
     return (
       <div className="col-lg-3 mb-5 mb-lg-0">
         <div className="leftside-bar">
@@ -12,7 +12,7 @@ const CategoryFilter = () => {
           </h6>
           <div className="category-box">
             <h5 className="category-box-title">
-              Category{" "}
+              Category {" "} [{props.categorySlug}]
               <button
                 type="button"
                 className="d-lg-none float-end categoty-btn"

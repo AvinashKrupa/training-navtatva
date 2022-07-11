@@ -1,9 +1,21 @@
 import React0 from "react";
+import ExploreBlock from "../common/ExploreBlock";
+import SpinBlock from "../common/SpinBlock";
 
 const ProductSmallBlock = (props: any) => {
     return (
         <div className="col-xl-6">
+            {
+                props.exploreBlock && (
+                    <ExploreBlock />
+                )
+            }
             <div className={"product-block bg-"+props.bg_type}>
+                {
+                    props.spinBlock && (
+                        <SpinBlock />
+                    )
+                }
                 <div className="row g-0">
                     <div className="col-sm-7">
                         <div className="product-image position-relative">

@@ -12,7 +12,7 @@ const ProductQuickView = () => {
                         <a href="#" data-id={1}>
                             <img
                             className
-                            src="images/detail-thumb1.png"
+                            src="/images/detail-thumb1.png"
                             alt="Detail image"
                             />
                         </a>
@@ -21,7 +21,7 @@ const ProductQuickView = () => {
                         <a href="#" data-id={2}>
                             <img
                             className
-                            src="images/detail-thumb2.png"
+                            src="/images/detail-thumb2.png"
                             alt="Detail image"
                             />
                         </a>
@@ -30,7 +30,7 @@ const ProductQuickView = () => {
                         <a href="#" data-id={3}>
                             <img
                             className
-                            src="images/detail-thumb3.png"
+                            src="/images/detail-thumb3.png"
                             alt="Detail image"
                             />
                         </a>
@@ -39,7 +39,7 @@ const ProductQuickView = () => {
                         <a href="#" data-id={4}>
                             <img
                             className
-                            src="images/detail-thumb4.png"
+                            src="/images/detail-thumb4.png"
                             alt="Detail image"
                             />
                         </a>
@@ -48,35 +48,35 @@ const ProductQuickView = () => {
                     <div className="img-display">
                         <div className="img-showcase">
                         <img
-                            src="images/detail-pick-1.png"
+                            src="/images/detail-pick-1.png"
                             alt="Detail image"
                         />
                         <img
-                            src="images/detail-pick-1.png"
+                            src="/images/detail-pick-1.png"
                             alt="Detail image"
                         />
                         <img
-                            src="images/detail-pick-1.png"
+                            src="/images/detail-pick-1.png"
                             alt="Detail image"
                         />
                         <img
-                            src="images/detail-pick-1.png"
+                            src="/images/detail-pick-1.png"
                             alt="Detail image"
                         />
                         </div>
                     </div>
                     <div className="view">
-                        <img src="images/view.png" alt="Detail image" />
+                        <img src="/images/view.png" alt="Detail image" />
                     </div>
                     <div className="speaker pe-5">
                         <a href="#" className="d-block mb-5">
-                        <img src="images/wishlist-detail.png" />
+                        <img src="/images/wishlist-detail.png" />
                         </a>
                         <a href="#" className="d-block  mb-5">
-                        <img src="images/volume.png" />
+                        <img src="/images/volume.png" />
                         </a>
                         <a href="#" className="d-block  mb-5">
-                        <img src="images/swap.png" />
+                        <img src="/images/swap.png" />
                         </a>
                     </div>
                     </div>

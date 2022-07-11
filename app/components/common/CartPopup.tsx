@@ -19,14 +19,14 @@ const CartPopup = () => {
                         <p>
                         Women Teal Blue Beige Ethnic Motifs Printed Straight Kurti
                         </p>
-                        <img src="images/img1.png" className="img-fluid" />
+                        <img src="/images/img1.png" className="img-fluid" />
                     </div>
                     </div>
                     <div className="col-12 col-md-7">
                     <div className="cart-right-area">
                         <h4 className="text-center">
                         <img
-                            src="images/bucket.png"
+                            src="/images/bucket.png"
                             className="img-fluid d-block mx-auto mb-2"
                         />
                         Bulk Order

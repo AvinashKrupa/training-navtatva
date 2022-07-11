@@ -8,7 +8,7 @@ const Header = () => {
               <div className="col-md-1 align-self-center">
                 <a href="/">
                   <img
-                    src="images/logo-2.png"
+                    src="/images/logo-2.png"
                     alt="logo"
                     className="img-fluid desk-logo d-none d-md-block"
                   />
@@ -18,7 +18,7 @@ const Header = () => {
                 <nav className="navbar navbar-expand-lg p-0">
                   <a className="navbar-brand d-md-none" href="#">
                     <img
-                      src="images/logo-2.png"
+                      src="/images/logo-2.png"
                       alt="logo"
                       className="img-fluid desk-logo"
                     />
@@ -77,7 +77,7 @@ const Header = () => {
                         href="#"
                         title
                       >
-                        <img src="images/refresh.png" alt="" />
+                        <img src="/images/refresh.png" alt="" />
                       </a>
                     </li>
                     <li className="list-inline-item">
@@ -86,12 +86,12 @@ const Header = () => {
                         href="#"
                         title
                       >
-                        <img src="images/wishlist.png" alt="" />
+                        <img src="/images/wishlist.png" alt="" />
                       </a>
                     </li>
                     <li className="list-inline-item">
                       <a className="cart rounded-circle d-block" href="#" title>
-                        <img src="images/cart.png" alt="" />
+                        <img src="/images/cart.png" alt="" />
                       </a>
                     </li>
                     <li className="list-inline-item">
@@ -99,7 +99,7 @@ const Header = () => {
                         <img
                           width={32}
                           height={32}
-                          src="images/user.png"
+                          src="/images/user.png"
                           alt=""
                         />
                       </a>

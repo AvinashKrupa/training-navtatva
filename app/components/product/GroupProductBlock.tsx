@@ -8,7 +8,7 @@ const GroupProductBlock = () => {
                 <div className="col-6 col-sm-6 col-lg-3">
                 <div className="product-image position-relative">
                     <img
-                    src="images/img4.png"
+                    src="/images/img4.png"
                     className="img-fluid"
                     />
                 </div>
@@ -124,7 +124,7 @@ const GroupProductBlock = () => {
                 <div className="col-6 col-sm-6 col-lg-3 order-2 order-lg-3">
                 <div className="product-image position-relative">
                     <img
-                    src="images/img5.png"
+                    src="/images/img5.png"
                     className="img-fluid"
                     />
                 </div>
