@@ -233,3 +233,72 @@ export const preferenceSliderSetting = {
     },
   ],
 };
+
+export const pdpSliderSetting = {
+  infinite: true,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: true,
+  dots: false,
+  margin: 30,
+  responsive: [
+      {
+          breakpoint: 1025,
+          settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+          }
+      },
+      {
+          breakpoint: 999,
+          settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+          }
+      }
+      ,
+        {
+          breakpoint: 767,
+          settings: {
+              slidesToShow: 1,
+              slidesToScroll: 2,
+          }
+      }
+  ],
+};
+
+export const ocassionSliderSetting = {
+  infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    arrows: true,
+    dots: false,
+    margin: 30,
+    responsive: [
+        {
+            breakpoint: 1025,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+            }
+        },
+        {
+            breakpoint: 999,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2
+            }
+        }
+        ,
+          {
+            breakpoint: 767,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 2,
+            }
+        }
+    ],
+};
+
+
+
