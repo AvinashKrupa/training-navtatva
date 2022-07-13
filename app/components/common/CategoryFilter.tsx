@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TwoThumbInputRange } from "react-two-thumb-input-range";
 
 const CategoryFilter = (props: any) => {
-  const [value, setValue] = useState([1000, 4333]);
+  const [value, setValue] = useState([0, 100000]);
   const onValueChange = (values: any) => {
     setValue(values);
   };
@@ -10,7 +10,7 @@ const CategoryFilter = (props: any) => {
     <div className="col-lg-3 mb-5 mb-lg-0">
       <div className="leftside-bar">
         <h6 className="main-title d-flex justify-content-between">
-          Filters{" "}
+          Filters
           <buttton type="button" className="btn-reset">
             <i className="fas fa-arrows-rotate fa-fw" /> Reset All
           </buttton>
@@ -42,7 +42,7 @@ const CategoryFilter = (props: any) => {
         </div>
         <div className="category-box">
           <h5 className="category-box-title">
-            Color{" "}
+            Color
             <button type="button" className="d-lg-none float-end categoty-btn">
               <i className="fas fa-angle-down fa-fw" />
             </button>
@@ -82,7 +82,7 @@ const CategoryFilter = (props: any) => {
         </div>
         <div className="category-box">
           <h5 className="category-box-title">
-            Price{" "}
+            Price
             <button type="button" className="d-lg-none float-end categoty-btn">
               <i className="fas fa-angle-down fa-fw" />
             </button>
@@ -92,8 +92,8 @@ const CategoryFilter = (props: any) => {
               <TwoThumbInputRange
                 onChange={onValueChange}
                 values={value}
-                min={1000}
-                max={10000}
+                min={0}
+                max={100000}
               />
             </div>
             <button type="button" className="btn btn-sm w-100">
@@ -103,7 +103,7 @@ const CategoryFilter = (props: any) => {
         </div>
         <div className="category-box">
           <h5 className="category-box-title">
-            Brand{" "}
+            Brand
             <button type="button" className="d-lg-none float-end categoty-btn">
               <i className="fas fa-angle-down fa-fw" />
             </button>
@@ -143,7 +143,7 @@ const CategoryFilter = (props: any) => {
         </div>
         <div className="category-box">
           <h5 className="category-box-title">
-            Discount range{" "}
+            Discount range
             <button type="button" className="d-lg-none float-end categoty-btn">
               <i className="fas fa-angle-down fa-fw" />
             </button>
@@ -173,7 +173,7 @@ const CategoryFilter = (props: any) => {
         </div>
         <div className="category-box">
           <h5 className="category-box-title">
-            Material{" "}
+            Material
             <button type="button" className="d-lg-none float-end categoty-btn">
               <i className="fas fa-angle-down fa-fw" />
             </button>
@@ -203,7 +203,7 @@ const CategoryFilter = (props: any) => {
         </div>
         <div className="category-box">
           <h5 className="category-box-title">
-            Occasion{" "}
+            Occasion
             <button type="button" className="d-lg-none float-end categoty-btn">
               <i className="fas fa-angle-down fa-fw" />
             </button>
@@ -233,7 +233,7 @@ const CategoryFilter = (props: any) => {
         </div>
         <div className="category-box">
           <h5 className="category-box-title d-flex justify-content-between">
-            Print{" "}
+            Print
             <button type="button" className="d-lg-none float-end categoty-btn">
               <i className="fas fa-angle-down fa-fw" />
             </button>
