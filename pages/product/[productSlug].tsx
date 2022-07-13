@@ -8,12 +8,15 @@ import {
 } from "../../app/utils/sliderConfig";
 import Header from "../../app/components/common/Header";
 import Footer from "../../app/components/common/Footer";
+import ProductLightBlock from "../../app/components/product/ProductLightBlock";
+import { products } from "../../app/constants/sampleData";
 
 const ProductBySlugScreen: NextPage = () => {
 
   const router = useRouter();
   const { productSlug } = router.query;
   const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);
+  const [detailTab, setDetailTab] = useState<number>(0);
 
    return (
     <div className="product-detail-page">
@@ -125,8 +128,8 @@ const ProductBySlugScreen: NextPage = () => {
                                                     <tr>
                                                         <td>
                                                             <span>Size</span>
-                                                            <select className="form-select">
-                                                                <option selected={true}>36</option>
+                                                            <select className="form-select" defaultValue={0}>
+                                                                <option value="0">36</option>
                                                                 <option value="1">28</option>
                                                                 <option value="2">34</option>
                                                                 <option value="3">40</option>
@@ -134,8 +137,8 @@ const ProductBySlugScreen: NextPage = () => {
                                                         </td>
                                                         <td>
                                                             <span>Qty</span>
-                                                            <select className="form-select">
-                                                                <option selected={true}>10</option>
+                                                            <select className="form-select" defaultValue={0}>
+                                                                <option value="0">10</option>
                                                                 <option value="1">20</option>
                                                                 <option value="2">34</option>
                                                                 <option value="3">40</option>
@@ -158,8 +161,8 @@ const ProductBySlugScreen: NextPage = () => {
                                                     <tr>
                                                         <td>
                                                             <span>Size</span>
-                                                            <select className="form-select">
-                                                                <option selected={true}>36</option>
+                                                            <select className="form-select" defaultValue={0}>
+                                                                <option value="0">36</option>
                                                                 <option value="1">28</option>
                                                                 <option value="2">34</option>
                                                                 <option value="3">40</option>
@@ -167,8 +170,8 @@ const ProductBySlugScreen: NextPage = () => {
                                                         </td>
                                                         <td>
                                                             <span>Qty</span>
-                                                            <select className="form-select">
-                                                                <option selected={true}>10</option>
+                                                            <select className="form-select" defaultValue={0}>
+                                                                <option value="0">10</option>
                                                                 <option value="1">20</option>
                                                                 <option value="2">34</option>
                                                                 <option value="3">40</option>
@@ -191,8 +194,8 @@ const ProductBySlugScreen: NextPage = () => {
                                                     <tr>
                                                         <td>
                                                             <span>Size</span>
-                                                            <select className="form-select">
-                                                                <option selected={true}>36</option>
+                                                            <select className="form-select" defaultValue={0}>
+                                                                <option value="0">36</option>
                                                                 <option value="1">28</option>
                                                                 <option value="2">34</option>
                                                                 <option value="3">40</option>
@@ -200,8 +203,8 @@ const ProductBySlugScreen: NextPage = () => {
                                                         </td>
                                                         <td>
                                                             <span>Qty</span>
-                                                            <select className="form-select">
-                                                                <option selected={true}>10</option>
+                                                            <select className="form-select" defaultValue={0}>
+                                                                <option value="0">10</option>
                                                                 <option value="1">20</option>
                                                                 <option value="2">34</option>
                                                                 <option value="3">40</option>
@@ -324,8 +327,8 @@ const ProductBySlugScreen: NextPage = () => {
                                                     <tr>
                                                         <td>
                                                             <span>Size</span>
-                                                            <select className="form-select">
-                                                                <option selected={true}>36</option>
+                                                            <select className="form-select" defaultValue={0}>
+                                                                <option value="0">36</option>
                                                                 <option value="1">28</option>
                                                                 <option value="2">34</option>
                                                                 <option value="3">40</option>
@@ -333,8 +336,8 @@ const ProductBySlugScreen: NextPage = () => {
                                                         </td>
                                                         <td>
                                                             <span>Qty</span>
-                                                            <select className="form-select">
-                                                                <option selected={true}>10</option>
+                                                            <select className="form-select" defaultValue={0}>
+                                                                <option value="0">10</option>
                                                                 <option value="1">20</option>
                                                                 <option value="2">34</option>
                                                                 <option value="3">40</option>
@@ -357,8 +360,8 @@ const ProductBySlugScreen: NextPage = () => {
                                                     <tr>
                                                         <td>
                                                             <span>Size</span>
-                                                            <select className="form-select">
-                                                                <option selected={true}>36</option>
+                                                            <select className="form-select" defaultValue={0}>
+                                                                <option value="0">36</option>
                                                                 <option value="1">28</option>
                                                                 <option value="2">34</option>
                                                                 <option value="3">40</option>
@@ -366,8 +369,8 @@ const ProductBySlugScreen: NextPage = () => {
                                                         </td>
                                                         <td>
                                                             <span>Qty</span>
-                                                            <select className="form-select">
-                                                                <option selected={true}>10</option>
+                                                            <select className="form-select" defaultValue={0}>
+                                                                <option value="0">10</option>
                                                                 <option value="1">20</option>
                                                                 <option value="2">34</option>
                                                                 <option value="3">40</option>
@@ -390,8 +393,8 @@ const ProductBySlugScreen: NextPage = () => {
                                                     <tr>
                                                         <td>
                                                             <span>Size</span>
-                                                            <select className="form-select">
-                                                                <option selected={true}>36</option>
+                                                            <select className="form-select" defaultValue={0}>
+                                                                <option value="0">36</option>
                                                                 <option value="1">28</option>
                                                                 <option value="2">34</option>
                                                                 <option value="3">40</option>
@@ -399,8 +402,8 @@ const ProductBySlugScreen: NextPage = () => {
                                                         </td>
                                                         <td>
                                                             <span>Qty</span>
-                                                            <select className="form-select">
-                                                                <option selected={true}>10</option>
+                                                            <select className="form-select" defaultValue={0}>
+                                                                <option value="0">10</option>
                                                                 <option value="1">20</option>
                                                                 <option value="2">34</option>
                                                                 <option value="3">40</option>
@@ -529,7 +532,7 @@ const ProductBySlugScreen: NextPage = () => {
 
                   <ul className="nav nav-tabs border-0 justify-content-between mb-3" id="myTab" role="tablist">
                       <li className="nav-item" role="presentation">
-                          <button className="nav-link active font-sb bg-1" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
+                          <button className={"nav-link font-sb bg-1 " + (detailTab == 0 ? "active": "")} id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected={detailTab == 2 ? true: false} onClick = { () => setDetailTab(0)}>
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-text-left" viewBox="0 0 16 16">
                                   <path
                                       fill-rule="evenodd"
@@ -540,7 +543,7 @@ const ProductBySlugScreen: NextPage = () => {
                           </button>
                       </li>
                       <li className="nav-item" role="presentation">
-                          <button className="nav-link font-sb bg-2 second" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
+                          <button className={"nav-link font-sb bg-2 second " + (detailTab == 1 ? "active": "")} id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected={detailTab == 2 ? true: false} onClick = { () => setDetailTab(1)}>
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
                                   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                               </svg>
@@ -548,7 +551,7 @@ const ProductBySlugScreen: NextPage = () => {
                           </button>
                       </li>
                       <li className="nav-item" role="presentation">
-                          <button className="nav-link font-sb bg-3 third" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">
+                          <button className={"nav-link font-sb bg-3 third " + (detailTab == 2 ? "active": "")} id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected={detailTab == 2 ? true: false} onClick = { () => setDetailTab(2)}>
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-star" viewBox="0 0 16 16">
                                   <path
                                       d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"
@@ -559,7 +562,7 @@ const ProductBySlugScreen: NextPage = () => {
                       </li>
                   </ul>
                   <div className="tab-content" id="myTabContent">
-                      <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                      <div className={"tab-pane fade " + (detailTab == 0 ? "active show": "")} id="home" role="tabpanel" aria-labelledby="home-tab">
                           <h4 className="fs-20 font-sb">About the Brand</h4>
                           <p>
                               Everything created at the House of Pataudi is inspired by the modern Indian sensibility. We believe in a seamless weave of the past with the present. Our carefully crafted pieces give expression to a refined
@@ -584,7 +587,7 @@ const ProductBySlugScreen: NextPage = () => {
                               elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus.
                           </p>
                       </div>
-                      <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      <div className={"tab-pane fade " + (detailTab == 1 ? "active show": "")} id="profile" role="tabpanel" aria-labelledby="profile-tab">
                           <div className="row">
                               <div className="col-md-4">
                                   <img src="/images/ref-1.png" alt="" className="img-fluid" />
@@ -614,7 +617,7 @@ const ProductBySlugScreen: NextPage = () => {
                               </div>
                           </div>
                       </div>
-                      <div className="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                      <div className={"tab-pane fade " + (detailTab == 2 ? "active show": "")} id="contact" role="tabpanel" aria-labelledby="contact-tab">
                           <div className="row">
                               <div className="col-md-6 col-lg-5">
                                   <div className="totalReview mb-5">
@@ -912,126 +915,13 @@ const ProductBySlugScreen: NextPage = () => {
                       <div className="col-md-12 mt-4 mt-lg-5 position-relative sliderView Occasion">
                           <div className="ocassion-slider">
                               <Slider {...ocassionSliderSetting}>
-                                <div className="thumb position-relative text-center">
-                                    <div className="bg1">
-                                        <a href="#"><img className="w-100" src="/images/Occassion1.png" alt="" /></a>
-                                        <div className="hoverBlock">
-                                            <div className="overlay text-center">
-                                                <p className="fs-13 font-r text-color-1">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti</p>
-                                                <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
-                                                <a href="#" className="btn-border fs-13 text-color-3">More Info</a>
-                                                <a href="#" className="btn fs-13">Add to Cart</a>
-                                            </div>
-                                            <div className="speaker">
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/wishlist-detail.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/volume.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/swap.png" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="thumb position-relative text-center">
-                                    <div className="bg2">
-                                        <a href="#"><img className="w-100" src="/images/Occassion2.png" alt="" /></a>
-                                        <div className="hoverBlock">
-                                            <div className="overlay text-center">
-                                                <p className="fs-13 font-r text-color-1">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti</p>
-                                                <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
-                                                <a href="#" className="btn-border fs-13 text-color-3">More Info</a>
-                                                <a href="#" className="btn fs-13">Add to Cart</a>
-                                            </div>
-                                            <div className="speaker">
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/wishlist-detail.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/volume.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/swap.png" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="thumb position-relative text-center">
-                                    <div className="bg3">
-                                        <a href="#"><img className="w-100" src="/images/Occassion3.png" alt="" /></a>
-                                        <div className="hoverBlock">
-                                            <div className="overlay text-center">
-                                                <p className="fs-13 font-r text-color-1">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti</p>
-                                                <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
-                                                <a href="#" className="btn-border fs-13 text-color-3">More Info</a>
-                                                <a href="#" className="btn fs-13">Add to Cart</a>
-                                            </div>
-                                            <div className="speaker">
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/wishlist-detail.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/volume.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/swap.png" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="thumb position-relative text-center">
-                                    <div className="bg4">
-                                        <a href="#"><img className="w-100" src="/images/Occassion4.png" alt="" /></a>
-                                        <div className="hoverBlock">
-                                            <div className="overlay text-center">
-                                                <p className="fs-13 font-r text-color-1">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti</p>
-                                                <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
-                                                <a href="#" className="btn-border fs-13 text-color-3">More Info</a>
-                                                <a href="#" className="btn fs-13">Add to Cart</a>
-                                            </div>
-                                            <div className="speaker">
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/wishlist-detail.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/volume.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/swap.png" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="thumb position-relative text-center">
-                                    <div className="bg4">
-                                        <a href="#"><img className="w-100" src="/images/Occassion4.png" alt="" /></a>
-                                        <div className="hoverBlock">
-                                            <div className="overlay text-center">
-                                                <p className="fs-13 font-r text-color-1">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti</p>
-                                                <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
-                                                <a href="#" className="btn-border fs-13 text-color-3">More Info</a>
-                                                <a href="#" className="btn fs-13">Add to Cart</a>
-                                            </div>
-                                            <div className="speaker">
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/wishlist-detail.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/volume.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/swap.png" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {
+                                    products?.slice(0,5)?.map( (item: any, index: number) => {
+                                        return (
+                                        <ProductLightBlock key={index} {...item} />
+                                        )
+                                    })
+                                }
                               </Slider>
                           </div>
                       </div>
@@ -1073,126 +963,13 @@ const ProductBySlugScreen: NextPage = () => {
                       <div className="col-md-12 mt-4 mt-lg-5 position-relative sliderView Occasion">
                           <div className="ocassion-slider">
                             <Slider {...ocassionSliderSetting}>
-                                <div className="thumb position-relative text-center">
-                                    <div className="bg1">
-                                        <a href="#"><img className="w-100" src="/images/Occassion1.png" alt="" /></a>
-                                        <div className="hoverBlock">
-                                            <div className="overlay text-center">
-                                                <p className="fs-13 font-r text-color-1">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti</p>
-                                                <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
-                                                <a href="#" className="btn-border fs-13 text-color-3">More Info</a>
-                                                <a href="#" className="btn fs-13">Add to Cart</a>
-                                            </div>
-                                            <div className="speaker">
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/wishlist-detail.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/volume.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/swap.png" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="thumb position-relative text-center">
-                                    <div className="bg2">
-                                        <a href="#"><img className="w-100" src="/images/Occassion2.png" alt="" /></a>
-                                        <div className="hoverBlock">
-                                            <div className="overlay text-center">
-                                                <p className="fs-13 font-r text-color-1">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti</p>
-                                                <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
-                                                <a href="#" className="btn-border fs-13 text-color-3">More Info</a>
-                                                <a href="#" className="btn fs-13">Add to Cart</a>
-                                            </div>
-                                            <div className="speaker">
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/wishlist-detail.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/volume.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/swap.png" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="thumb position-relative text-center">
-                                    <div className="bg3">
-                                        <a href="#"><img className="w-100" src="/images/Occassion3.png" alt="" /></a>
-                                        <div className="hoverBlock">
-                                            <div className="overlay text-center">
-                                                <p className="fs-13 font-r text-color-1">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti</p>
-                                                <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
-                                                <a href="#" className="btn-border fs-13 text-color-3">More Info</a>
-                                                <a href="#" className="btn fs-13">Add to Cart</a>
-                                            </div>
-                                            <div className="speaker">
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/wishlist-detail.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/volume.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/swap.png" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="thumb position-relative text-center">
-                                    <div className="bg4">
-                                        <a href="#"><img className="w-100" src="/images/Occassion4.png" alt="" /></a>
-                                        <div className="hoverBlock">
-                                            <div className="overlay text-center">
-                                                <p className="fs-13 font-r text-color-1">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti</p>
-                                                <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
-                                                <a href="#" className="btn-border fs-13 text-color-3">More Info</a>
-                                                <a href="#" className="btn fs-13">Add to Cart</a>
-                                            </div>
-                                            <div className="speaker">
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/wishlist-detail.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/volume.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/swap.png" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="thumb position-relative text-center">
-                                    <div className="bg4">
-                                        <a href="#"><img className="w-100" src="/images/Occassion4.png" alt="" /></a>
-                                        <div className="hoverBlock">
-                                            <div className="overlay text-center">
-                                                <p className="fs-13 font-r text-color-1">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti</p>
-                                                <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
-                                                <a href="#" className="btn-border fs-13 text-color-3">More Info</a>
-                                                <a href="#" className="btn fs-13">Add to Cart</a>
-                                            </div>
-                                            <div className="speaker">
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/wishlist-detail.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/volume.png" />
-                                                </a>
-                                                <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                    <img src="/images/swap.png" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {
+                                    products?.slice(0,5)?.map( (item: any, index: number) => {
+                                        return (
+                                        <ProductLightBlock key={index} {...item} />
+                                        )
+                                    })
+                                }
                             </Slider>
                           </div>
                       </div>
@@ -1208,126 +985,13 @@ const ProductBySlugScreen: NextPage = () => {
                       <div className="col-md-12 mt-4 mt-lg-5 position-relative sliderView Occasion">
                           <div className="ocassion-slider">
                             <Slider {...ocassionSliderSetting}>
-                              <div className="thumb position-relative text-center">
-                                  <div className="bg1">
-                                      <a href="#"><img className="w-100" src="/images/Occassion1.png" alt="" /></a>
-                                      <div className="hoverBlock">
-                                          <div className="overlay text-center">
-                                              <p className="fs-13 font-r text-color-1">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti</p>
-                                              <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
-                                              <a href="#" className="btn-border fs-13 text-color-3">More Info</a>
-                                              <a href="#" className="btn fs-13">Add to Cart</a>
-                                          </div>
-                                          <div className="speaker">
-                                              <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                  <img src="/images/wishlist-detail.png" />
-                                              </a>
-                                              <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                  <img src="/images/volume.png" />
-                                              </a>
-                                              <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                  <img src="/images/swap.png" />
-                                              </a>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div className="thumb position-relative text-center">
-                                  <div className="bg2">
-                                      <a href="#"><img className="w-100" src="/images/Occassion2.png" alt="" /></a>
-                                      <div className="hoverBlock">
-                                          <div className="overlay text-center">
-                                              <p className="fs-13 font-r text-color-1">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti</p>
-                                              <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
-                                              <a href="#" className="btn-border fs-13 text-color-3">More Info</a>
-                                              <a href="#" className="btn fs-13">Add to Cart</a>
-                                          </div>
-                                          <div className="speaker">
-                                              <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                  <img src="/images/wishlist-detail.png" />
-                                              </a>
-                                              <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                  <img src="/images/volume.png" />
-                                              </a>
-                                              <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                  <img src="/images/swap.png" />
-                                              </a>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div className="thumb position-relative text-center">
-                                  <div className="bg3">
-                                      <a href="#"><img className="w-100" src="/images/Occassion3.png" alt="" /></a>
-                                      <div className="hoverBlock">
-                                          <div className="overlay text-center">
-                                              <p className="fs-13 font-r text-color-1">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti</p>
-                                              <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
-                                              <a href="#" className="btn-border fs-13 text-color-3">More Info</a>
-                                              <a href="#" className="btn fs-13">Add to Cart</a>
-                                          </div>
-                                          <div className="speaker">
-                                              <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                  <img src="/images/wishlist-detail.png" />
-                                              </a>
-                                              <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                  <img src="/images/volume.png" />
-                                              </a>
-                                              <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                  <img src="/images/swap.png" />
-                                              </a>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div className="thumb position-relative text-center">
-                                  <div className="bg4">
-                                      <a href="#"><img className="w-100" src="/images/Occassion4.png" alt="" /></a>
-                                      <div className="hoverBlock">
-                                          <div className="overlay text-center">
-                                              <p className="fs-13 font-r text-color-1">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti</p>
-                                              <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
-                                              <a href="#" className="btn-border fs-13 text-color-3">More Info</a>
-                                              <a href="#" className="btn fs-13">Add to Cart</a>
-                                          </div>
-                                          <div className="speaker">
-                                              <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                  <img src="/images/wishlist-detail.png" />
-                                              </a>
-                                              <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                  <img src="/images/volume.png" />
-                                              </a>
-                                              <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                  <img src="/images/swap.png" />
-                                              </a>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div className="thumb position-relative text-center">
-                                  <div className="bg4">
-                                      <a href="#"><img className="w-100" src="/images/Occassion4.png" alt="" /></a>
-                                      <div className="hoverBlock">
-                                          <div className="overlay text-center">
-                                              <p className="fs-13 font-r text-color-1">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti</p>
-                                              <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
-                                              <a href="#" className="btn-border fs-13 text-color-3">More Info</a>
-                                              <a href="#" className="btn fs-13">Add to Cart</a>
-                                          </div>
-                                          <div className="speaker">
-                                              <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                  <img src="/images/wishlist-detail.png" />
-                                              </a>
-                                              <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                  <img src="/images/volume.png" />
-                                              </a>
-                                              <a href="#" className="d-block mb-5" tabIndex={0}>
-                                                  <img src="/images/swap.png" />
-                                              </a>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
+                                {
+                                    products?.slice(0,5)?.map( (item: any, index: number) => {
+                                        return (
+                                        <ProductLightBlock key={index} {...item} />
+                                        )
+                                    })
+                                }
                             </Slider>
                           </div>
                       </div>
@@ -1342,12 +1006,12 @@ const ProductBySlugScreen: NextPage = () => {
                           <h4 className="fs-20 text-color-2">₹3,450</h4>
                           <span className="fs-13 text-color-6">₹1,999 off (22%)</span>
                           <span className="mx-3">or</span>
-                          <span className="fs-13">₹3,399 +<img src="images/coins.png" alt="" /> 51</span>
+                          <span className="fs-13">₹3,399 +<img src="/images/coins.png" alt="" /> 51</span>
                       </div>
                       <h5 className="fs-10 text-color-7 mt-2">Hurry! Only <strong>24 Items</strong> Left in Stock</h5>
                   </li>
                   <li className="list-inline-item offset-lg-2 mt-3 mt-lg-0 text-center text-lg-start">
-                      <a href="#" className="wishlist"><img className="me-2" src="images/wishlist-detail.png" alt="" /></a>
+                      <a href="#" className="wishlist"><img className="me-2" src="/images/wishlist-detail.png" alt="" /></a>
                       <a href="#" className="btn-border fs-20 me-2 d-none d-lg-inline-block">Request Semple</a>
                       <a href="#" className="btn-border fs-20 me-2 d-lg-none">Wishlist</a>
                       <a href="#" className="btn fs-20">Add to Cart</a>
