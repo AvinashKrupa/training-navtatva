@@ -75,6 +75,7 @@ const ProductSmallBlock = (props: any) => {
                                 <a
                                     href="#"
                                     className="btn-outline btn-sm w-100 mb-2"
+                                    onClick={ () => props.setOpenProductQuickView(true)}
                                 >
                                     Quick View
                                 </a>
@@ -83,6 +84,9 @@ const ProductSmallBlock = (props: any) => {
                                     className="btn btn-sm w-100 cart-btn"
                                     data-bs-toggle="modal"
                                     data-bs-target="#exampleModal"
+                                    onClick={() => {
+                                        props.setOpenCartPopup(true)
+                                    }}
                                 >
                                     Add to Cart
                                 </button>

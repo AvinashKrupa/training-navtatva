@@ -13,111 +13,11 @@ import {
 import { useDebouncedEffect } from "../app/utils/useDebouncedEffect";
 import NavMenuCategory from "../app/components/layouts/category";
 import SearchPopup from "../app/components/common/SearchPopup";
+import { categroyMenu } from "../app/constants/sampleData";
 const HomeScreen: NextPage = () => {
   const [selectedSubCat, setSelectedSubCat] = useState<any>([]);
   const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);
-  useDebouncedEffect(() => console.log(selectedSubCat), [selectedSubCat], 1000);
-  const [categroyMenu, setCategoryMenu] = useState([
-    {
-      id: "f3a6b4c1-b5d3-429f-9162-a3dff46c7cbd",
-      type: "category",
-      category_image: "images/cate-1.jpg",
-      status: "live",
-      name: "Men's Kurtas",
-      slug: "men_kurtas",
-      description: "Men's Kurtas",
-      children: [
-        {
-          id: "825a7dd0-5c3a-4ff4-abef-da0c66ca978e",
-          type: "category",
-          status: "live",
-          name: "Men",
-          slug: "men",
-          description: "men",
-          children: [
-            {
-              id: "c35cb8dc-e855-4585-9305-478246b77b33",
-              type: "category",
-              status: "live",
-              name: "Men's T-Shirts",
-              slug: "men_t_shirt",
-              description: "Men's T-Shirts",
-            },
-            {
-              id: "f3a6b4c1-b5d3-429f-9162-a3dff46c7cbd",
-              type: "category",
-              status: "live",
-              name: "Men's Kurtas",
-              slug: "men_kurtas",
-              description: "Men's Kurtas",
-            },
-          ],
-        },
-        {
-          id: "4343feae-5201-44fa-8a23-bdcd11930b0f",
-          type: "category",
-          status: "live",
-          name: "Woman",
-          slug: "woman",
-          description: "woman",
-        },
-      ],
-    },
-    {
-      id: "c35cb8dc-e855-4585-9305-478246b77b33",
-      type: "category",
-      category_image: "images/cate-2.jpg",
-      status: "live",
-      name: "Men's T-Shirts",
-      slug: "men_t_shirt",
-      description: "Men's T-Shirts",
-    },
-    {
-      id: "4343feae-5201-44fa-8a23-bdcd11930b0f",
-      type: "category",
-      category_image: "images/cate-3.jpg",
-      status: "live",
-      name: "Woman",
-      slug: "woman",
-      description: "woman",
-    },
-    {
-      id: "825a7dd0-5c3a-4ff4-abef-da0c66ca978e",
-      type: "category",
-      category_image: "images/cate-4.jpg",
-      status: "live",
-      name: "Men",
-      slug: "men",
-      description: "men",
-    },
-    {
-      id: "a84db0b3-5c9c-4472-bc85-0685e5ea5af7",
-      type: "category",
-      category_image: "images/cate-5.jpg",
-      status: "live",
-      name: "Apparel",
-      slug: "apparel",
-      description: "apparel",
-    },
-    {
-      id: "825a7dd0-5c3a-4ff4-abef-da0c66ca978e",
-      type: "category",
-      category_image: "images/cate-6.jpg",
-      status: "live",
-      name: "Accessories",
-      slug: "accessories",
-      description: "accessories",
-    },
-    {
-      id: "825a7dd0-5c3a-4ff4-abef-da0c66ca978e",
-      type: "category",
-      category_image: "images/cate-7.jpg",
-      status: "live",
-      name: "Fancy",
-      slug: "fancy",
-      description: "fancy",
-    },
-  ]);
+  useDebouncedEffect(() => console.log(selectedSubCat), [selectedSubCat], 1000);  
   return (
     <div className="home">
       <div className="wrapper">
@@ -188,17 +88,17 @@ const HomeScreen: NextPage = () => {
               </div>
               <ul className="iconBar text-center">
                 <li className="list-inline-item">
-                  <a className="reverse rounded-circle d-block" href="#" title>
+                  <a className="reverse rounded-circle d-block" href="#" title={""}>
                     <img src="images/refresh.png" alt="" />
                   </a>
                 </li>
                 <li className="list-inline-item">
-                  <a className="wishlist rounded-circle d-block" href="#" title>
+                  <a className="wishlist rounded-circle d-block" href="#" title={""}>
                     <img src="images/wishlist.png" alt="" />
                   </a>
                 </li>
                 <li className="list-inline-item">
-                  <a className="cart rounded-circle d-block" href="#" title>
+                  <a className="cart rounded-circle d-block" href="#" title={""}>
                     <img src="images/cart.png" alt="" />
                   </a>
                 </li>
@@ -206,7 +106,7 @@ const HomeScreen: NextPage = () => {
                   <a
                     className="user rounded-circle d-block user-img"
                     href="#"
-                    title
+                    title={""}
                   >
                     <img width={32} height={32} src="images/user.png" alt="" />
                   </a>
@@ -221,10 +121,10 @@ const HomeScreen: NextPage = () => {
             <div className="col-lg-12 px-0">
               <div className="testimonial-slider">
                 <Slider {...menuSliderSettings}>
-                  {categroyMenu.map((info) => {
-                    console.log(info);
+                  {categroyMenu?.map((info: any, index: number) => {                   
                     return (
                       <NavMenuCategory
+                        key={index}
                         title={info.name}
                         image={info.category_image}
                         onClick={() => {
@@ -1831,7 +1731,6 @@ const HomeScreen: NextPage = () => {
                         <div className="img-item">
                           <a href="#" data-id={1}>
                             <img
-                              className
                               src="images/detail-thumb1.png"
                               alt="Detail image"
                             />
@@ -1840,7 +1739,6 @@ const HomeScreen: NextPage = () => {
                         <div className="img-item">
                           <a href="#" data-id={2}>
                             <img
-                              className
                               src="images/detail-thumb2.png"
                               alt="Detail image"
                             />
@@ -1849,7 +1747,6 @@ const HomeScreen: NextPage = () => {
                         <div className="img-item">
                           <a href="#" data-id={3}>
                             <img
-                              className
                               src="images/detail-thumb3.png"
                               alt="Detail image"
                             />
@@ -1858,7 +1755,6 @@ const HomeScreen: NextPage = () => {
                         <div className="img-item">
                           <a href="#" data-id={4}>
                             <img
-                              className
                               src="images/detail-thumb4.png"
                               alt="Detail image"
                             />
@@ -2083,7 +1979,7 @@ const HomeScreen: NextPage = () => {
                         </div>
                       </div>
                       <div className="resquest">
-                        <a href="#" className="font-m" title>
+                        <a href="#" className="font-m" title={""}>
                           Request Sample
                         </a>
                       </div>
@@ -3667,7 +3563,7 @@ const HomeScreen: NextPage = () => {
                       type="text"
                       className="form-control text-color-1"
                       id="staticEmail2"
-                      defaultValue
+                      defaultValue={""}
                     />
                   </div>
                   <button type="submit" className="btn btn-primary mb-2">

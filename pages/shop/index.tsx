@@ -17,6 +17,8 @@ import Paging from "../../app/components/common/Paging";
 const ProductListingScreen: NextPage = () => {
 
    const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);
+   const [openProductQuickView, setOpenProductQuickView] = useState<boolean>(false);
+   const [openCartPopup, setOpenCartPopup] = useState<boolean>(false);
 
    return (
     <div>
@@ -39,35 +41,57 @@ const ProductListingScreen: NextPage = () => {
                     {
                        products?.slice(0,2)?.map( (item: any, index: number) => {
                         return (
-                          <ProductSmallBlock key={index} {...item} />
+                          <ProductSmallBlock 
+                            key={index} 
+                            {...item}
+                            setOpenProductQuickView = {setOpenProductQuickView}
+                            setOpenCartPopup = { setOpenCartPopup }
+                          />
                         )
                       })
                     }  
-                    <GroupProductBlock />
+                    <GroupProductBlock 
+                      setOpenProductQuickView = { setOpenProductQuickView }
+                      setOpenCartPopup = { setOpenCartPopup }
+                    />
                     {
                        products?.slice(2,4)?.map( (item: any, index: number) => {
                         return (
-                          <ProductSmallBlock key={index} {...item} />
+                          <ProductSmallBlock 
+                            key={index} 
+                            {...item}
+                            setOpenProductQuickView = {setOpenProductQuickView}
+                            setOpenCartPopup = { setOpenCartPopup }
+                          />
                         )
                       })
                     } 
                   </div>
                 </div>
                 <SortingBlock />
-                <div className="rightside-bar">
-                  <ProductQuickView />
+                <div className="rightside-bar">                  
                   <div className="row">
                     {
                        products?.slice(4,5)?.map( (item: any, index: number) => {
                         return (
-                          <ProductSmallBlock key={index} {...item} spinBlock={true}/>
+                          <ProductSmallBlock 
+                            key={index} 
+                            {...item}
+                            setOpenProductQuickView = {setOpenProductQuickView}
+                            setOpenCartPopup = { setOpenCartPopup }
+                          />
                         )
                       })
                     } 
                     {
                        products?.slice(5,6)?.map( (item: any, index: number) => {
                         return (
-                          <ProductSmallBlock key={index} {...item} exploreBlock={true}/>
+                          <ProductSmallBlock 
+                            key={index} 
+                            {...item}
+                            setOpenProductQuickView = {setOpenProductQuickView}
+                            setOpenCartPopup = { setOpenCartPopup }
+                          />
                         )
                       })
                     }                   
@@ -84,11 +108,18 @@ const ProductListingScreen: NextPage = () => {
         {/* End Footer */}
       </div>
       {/* Cart Popup */}
-      <CartPopup />
+      <CartPopup 
+        openCartPopup = { openCartPopup }
+        setOpenCartPopup = { setOpenCartPopup }
+      />
       {/* Search Popup */}
       <SearchPopup 
         openSearchBox = { openSearchBox } 
-        setOpenSearchBox= {setOpenSearchBox} 
+        setOpenSearchBox= { setOpenSearchBox } 
+      />
+      <ProductQuickView 
+        openProductQuickView={ openProductQuickView }
+        setOpenProductQuickView={ setOpenProductQuickView }
       />
     </div>
   );

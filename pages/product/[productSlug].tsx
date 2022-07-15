@@ -14,8 +14,7 @@ import { products } from "../../app/constants/sampleData";
 const ProductBySlugScreen: NextPage = () => {
 
   const router = useRouter();
-  const { productSlug } = router.query;
-  const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);
+  //const { productSlug } = router.query;
   const [detailTab, setDetailTab] = useState<number>(0);
 
    return (
@@ -89,7 +88,7 @@ const ProductBySlugScreen: NextPage = () => {
                                     <div className="custom-radios">
                                         <p className="fs-14 font-r text-color-1 mt-4 mb-3">Colours Available</p>
                                         <div>
-                                            <input type="radio" id="color-1" name="color" value="color-1" checked={false} tabIndex={0} />
+                                            <input type="radio" id="color-1" name="color" value="color-1" defaultChecked={false} tabIndex={0} />
                                             <label htmlFor="color-1">
                                                 <span>
                                                     <div></div>
@@ -148,7 +147,7 @@ const ProductBySlugScreen: NextPage = () => {
                                                             <span className="align-self-center">Color</span>
                                                             <div className="custom-radios">
                                                                 <div>
-                                                                    <input type="radio" id="color-3" name="color" value="color-3" checked={false} tabIndex={0} />
+                                                                    <input type="radio" id="color-3" name="color" value="color-3" defaultChecked={false} tabIndex={0} />
                                                                     <label htmlFor="color-3">
                                                                         <span>
                                                                             <div></div>
@@ -181,7 +180,7 @@ const ProductBySlugScreen: NextPage = () => {
                                                             <span className="align-self-center">Color</span>
                                                             <div className="custom-radios">
                                                                 <div>
-                                                                    <input type="radio" id="color-2" name="color" value="color-2" checked={false} tabIndex={0} />
+                                                                    <input type="radio" id="color-2" name="color" value="color-2" defaultChecked={false} tabIndex={0} />
                                                                     <label htmlFor="color-2">
                                                                         <span>
                                                                             <div></div>
@@ -214,7 +213,7 @@ const ProductBySlugScreen: NextPage = () => {
                                                             <span className="align-self-center">Color</span>
                                                             <div className="custom-radios">
                                                                 <div>
-                                                                    <input type="radio" id="color-1" name="color" value="color-1" checked={false} tabIndex={0} />
+                                                                    <input type="radio" id="color-1" name="color" value="color-1" defaultChecked={false} tabIndex={0} />
                                                                     <label htmlFor="color-1">
                                                                         <span>
                                                                             <div></div>
@@ -288,7 +287,7 @@ const ProductBySlugScreen: NextPage = () => {
                                     <div className="custom-radios">
                                         <p className="fs-14 font-r text-color-1 mt-4 mb-3">Colours Available</p>
                                         <div>
-                                            <input type="radio" id="color-1" name="color" value="color-1" checked={false} tabIndex={0} />
+                                            <input type="radio" id="color-1" name="color" value="color-1" defaultChecked={false} tabIndex={0} />
                                             <label htmlFor="color-1">
                                                 <span>
                                                     <div></div>
@@ -347,7 +346,7 @@ const ProductBySlugScreen: NextPage = () => {
                                                             <span className="align-self-center">Color</span>
                                                             <div className="custom-radios">
                                                                 <div>
-                                                                    <input type="radio" id="color-3" name="color" value="color-3" checked={false} tabIndex={0} />
+                                                                    <input type="radio" id="color-3" name="color" value="color-3" defaultChecked={false} tabIndex={0} />
                                                                     <label htmlFor="color-3">
                                                                         <span>
                                                                             <div></div>
@@ -380,7 +379,7 @@ const ProductBySlugScreen: NextPage = () => {
                                                             <span className="align-self-center">Color</span>
                                                             <div className="custom-radios">
                                                                 <div>
-                                                                    <input type="radio" id="color-2" name="color" value="color-2" checked={false} tabIndex={0} />
+                                                                    <input type="radio" id="color-2" name="color" value="color-2" defaultChecked={false} tabIndex={0} />
                                                                     <label htmlFor="color-2">
                                                                         <span>
                                                                             <div></div>
@@ -413,7 +412,7 @@ const ProductBySlugScreen: NextPage = () => {
                                                             <span className="align-self-center">Color</span>
                                                             <div className="custom-radios">
                                                                 <div>
-                                                                    <input type="radio" id="color-1" name="color" value="color-1" checked={false} tabIndex={0} />
+                                                                    <input type="radio" id="color-1" name="color" value="color-1" defaultChecked={false} tabIndex={0} />
                                                                     <label htmlFor="color-1">
                                                                         <span>
                                                                             <div></div>
@@ -456,7 +455,7 @@ const ProductBySlugScreen: NextPage = () => {
                       <div className="custom-radios">
                           <p className="fs-12 font-r text-color-1 mt-4 mb-3">Color</p>
                           <div>
-                              <input type="radio" id="color-1" name="color" value="color-1" checked={false} tabIndex={0} />
+                              <input type="radio" id="color-1" name="color" value="color-1" defaultChecked={false} tabIndex={0} />
                               <label htmlFor="color-1">
                                   <span>
                                       <div></div>
@@ -535,7 +534,7 @@ const ProductBySlugScreen: NextPage = () => {
                           <button className={"nav-link font-sb bg-1 " + (detailTab == 0 ? "active": "")} id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected={detailTab == 2 ? true: false} onClick = { () => setDetailTab(0)}>
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-text-left" viewBox="0 0 16 16">
                                   <path
-                                      fill-rule="evenodd"
+                                      fillRule="evenodd"
                                       d="M2 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"
                                   />
                               </svg>
@@ -604,7 +603,7 @@ const ProductBySlugScreen: NextPage = () => {
                                               <a className="fs-20 font-r text-white" href="#" title="View Collectio">
                                                   View Collection
                                                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
-                                                      <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                                                      <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
                                                   </svg>
                                               </a>
                                           </div>
@@ -929,25 +928,25 @@ const ProductBySlugScreen: NextPage = () => {
                           <a href="#" className="btn btn-outline-danger ms-3">
                               Womens Kurtis
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
-                                  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
+                                  <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
                               </svg>
                           </a>
                           <a href="#" className="btn btn-outline-danger ms-3">
                               Printed
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
-                                  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
+                                  <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
                               </svg>
                           </a>
                           <a href="#" className="btn btn-outline-danger ms-3">
                               Cotton
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
-                                  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
+                                  <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
                               </svg>
                           </a>
                           <a href="#" className="btn btn-outline-danger ms-3">
                               Three-Quarter Sleeve
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
-                                  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
+                                  <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
                               </svg>
                           </a>
                       </div>
