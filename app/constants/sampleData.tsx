@@ -185,4 +185,8 @@ export const filters: any = {
       },
     ]
   },
+  "prices" : {
+    "title": "Price",
+    "name": "price"
+  }
 }

@@ -27,6 +27,17 @@ const CategoryBox = (props: any) => {
                 )
               })
             }
+            {
+              props?.name == "price" && (
+                <>
+                  <div className="slider-box mb-4">
+                      <input type="text" id="priceRange" readOnly={true}/>
+                      <div id="price-range" className="slider"></div>
+                  </div>
+                  <button type="button" className="btn btn-sm w-100">Set Price</button>
+                </>
+              )
+            }
           </div>
         </div>
     )

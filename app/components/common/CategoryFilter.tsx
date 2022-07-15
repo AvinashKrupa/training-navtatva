@@ -17,6 +17,7 @@ const CategoryFilter = (props: any) => {
     materials,
     occasions,
     prints,
+    prices,
   } = filters;
   
   return (
@@ -29,16 +30,9 @@ const CategoryFilter = (props: any) => {
         <CategoryBox 
           {...colors}
         />
-        <div className="category-box">
-          <h5 className="category-box-title">Price <button type="button" className="float-end categoty-btn"><i className="fas fa-angle-down fa-fw"></i></button></h5>
-          <div className="category-area">
-            <div className="slider-box mb-4">
-                <input type="text" id="priceRange" readOnly={true}/>
-                <div id="price-range" className="slider"></div>
-            </div>
-            <button type="button" className="btn btn-sm w-100">Set Price</button>
-          </div>
-        </div>
+        <CategoryBox 
+          {...prices}
+        />
         <CategoryBox 
           {...brands}
         />
