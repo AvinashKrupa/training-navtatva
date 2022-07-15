@@ -37,8 +37,8 @@ const CartPopup = () => {
                             <tr>
                                 <td>
                                 <span>Size</span>
-                                <select className="form-select">
-                                    <option selected>36</option>
+                                <select className="form-select" defaultValue={36}>
+                                    <option value={36}>36</option>
                                     <option value={1}>28</option>
                                     <option value={2}>34</option>
                                     <option value={3}>40</option>
@@ -46,8 +46,8 @@ const CartPopup = () => {
                                 </td>
                                 <td>
                                 <span>Qty</span>
-                                <select className="form-select">
-                                    <option selected>10</option>
+                                <select className="form-select" defaultValue={10}>
+                                    <option value={10}>10</option>
                                     <option value={1}>20</option>
                                     <option value={2}>34</option>
                                     <option value={3}>40</option>
@@ -58,8 +58,8 @@ const CartPopup = () => {
                             <tr>
                                 <td>
                                 <span>Size</span>
-                                <select className="form-select">
-                                    <option selected>36</option>
+                                <select className="form-select" defaultValue={36}>
+                                    <option value={36}>36</option>
                                     <option value={1}>28</option>
                                     <option value={2}>34</option>
                                     <option value={3}>40</option>
@@ -67,8 +67,8 @@ const CartPopup = () => {
                                 </td>
                                 <td>
                                 <span>Qty</span>
-                                <select className="form-select">
-                                    <option selected>10</option>
+                                <select className="form-select" defaultValue={10}>
+                                    <option value={10}>10</option>
                                     <option value={1}>20</option>
                                     <option value={2}>34</option>
                                     <option value={3}>40</option>
@@ -79,8 +79,8 @@ const CartPopup = () => {
                             <tr>
                                 <td>
                                 <span>Size</span>
-                                <select className="form-select">
-                                    <option selected>36</option>
+                                <select className="form-select" defaultValue={36}>
+                                    <option value={36}>36</option>
                                     <option value={1}>28</option>
                                     <option value={2}>34</option>
                                     <option value={3}>40</option>
@@ -88,8 +88,8 @@ const CartPopup = () => {
                                 </td>
                                 <td>
                                 <span>Qty</span>
-                                <select className="form-select">
-                                    <option selected>10</option>
+                                <select className="form-select" defaultValue={10}>
+                                    <option value={10}>10</option>
                                     <option value={1}>20</option>
                                     <option value={2}>34</option>
                                     <option value={3}>40</option>

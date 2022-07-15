@@ -119,7 +119,7 @@ const HomeScreen: NextPage = () => {
     },
   ]);
   return (
-    <div class="home">
+    <div className="home">
       <div className="wrapper">
         <header className="main-header header-main">
           <div className="row">
@@ -139,7 +139,7 @@ const HomeScreen: NextPage = () => {
                 data-bs-toggle="modal"
                 data-bs-target="#searchPopup"
               >
-                <span className>
+                <span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -372,7 +372,7 @@ const HomeScreen: NextPage = () => {
                   <div className="discount h-100">
                     <ul className="d-flex">
                       <li className="list-inline-item">
-                        <img className src="images/discount.png" alt="" />
+                        <img src="images/discount.png" alt="" />
                       </li>
                       <li className="fs-42 text-white list-inline-item ms-3">
                         <p className="fs-90">20%</p>
@@ -1813,7 +1813,7 @@ const HomeScreen: NextPage = () => {
         </section>
       </div>
       {/* Designer’s Pick */}
-      <section className>
+      <section>
         <div className="card-wrapper pb-5">
           <div className="wrapper">
             <div className="heading3 py-5">

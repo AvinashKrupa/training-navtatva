@@ -11,7 +11,6 @@ const ProductQuickView = () => {
                         <div className="img-item">
                         <a href="#" data-id={1}>
                             <img
-                            className
                             src="/images/detail-thumb1.png"
                             alt="Detail image"
                             />
@@ -20,7 +19,6 @@ const ProductQuickView = () => {
                         <div className="img-item">
                         <a href="#" data-id={2}>
                             <img
-                            className
                             src="/images/detail-thumb2.png"
                             alt="Detail image"
                             />
@@ -29,7 +27,6 @@ const ProductQuickView = () => {
                         <div className="img-item">
                         <a href="#" data-id={3}>
                             <img
-                            className
                             src="/images/detail-thumb3.png"
                             alt="Detail image"
                             />
@@ -38,7 +35,6 @@ const ProductQuickView = () => {
                         <div className="img-item">
                         <a href="#" data-id={4}>
                             <img
-                            className
                             src="/images/detail-thumb4.png"
                             alt="Detail image"
                             />
@@ -270,7 +266,7 @@ const ProductQuickView = () => {
                         </div>
                     </div>
                     <div className="resquest">
-                        <a href="#" className="font-m" title>
+                        <a href="#" className="font-m" title="Request sample">
                         Request Sample
                         </a>
                     </div>

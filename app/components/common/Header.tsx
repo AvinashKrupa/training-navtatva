@@ -75,7 +75,7 @@ const Header = () => {
                       <a
                         className="reverse rounded-circle d-block"
                         href="#"
-                        title
+                        title=""
                       >
                         <img src="/images/refresh.png" alt="" />
                       </a>
@@ -84,18 +84,18 @@ const Header = () => {
                       <a
                         className="wishlist rounded-circle d-block"
                         href="#"
-                        title
+                        title=""
                       >
                         <img src="/images/wishlist.png" alt="" />
                       </a>
                     </li>
                     <li className="list-inline-item">
-                      <a className="cart rounded-circle d-block" href="#" title>
+                      <a className="cart rounded-circle d-block" href="#" title="">
                         <img src="/images/cart.png" alt="" />
                       </a>
                     </li>
                     <li className="list-inline-item">
-                      <a className="user rounded-circle d-block" href="#" title>
+                      <a className="user rounded-circle d-block" href="#" title="">
                         <img
                           width={32}
                           height={32}

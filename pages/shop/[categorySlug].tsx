@@ -32,7 +32,7 @@ const ProductListingByCategorySlugScreen: NextPage = () => {
           <div className="container-fluid">
             <div className="row">
               <CategoryFilter categorySlug = {categorySlug}/>
-              <div className="col-lg-9">
+              <div className="col-lg-9 col-xl-10">
                 <div className="rightside-bar">
                   <SearchBlock 
                     setOpenSearchBox = {setOpenSearchBox} 
