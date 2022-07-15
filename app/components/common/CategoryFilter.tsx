@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { TwoThumbInputRange } from "react-two-thumb-input-range";
 import CategoryBox from "./CategoryBox";
 import { filters } from "../../constants/sampleData";
 
 const CategoryFilter = (props: any) => {
-  const [value, setValue] = useState([0, 100000]);
-  const onValueChange = (values: any) => {
-    setValue(values);
+  
+  const [priceRangeValue, setPriceRangeValue] = useState<any>([0, 100000]);
+  const onPriceValueChange = (values: any) => {
+    setPriceRangeValue(values);
   };
 
   const { 
@@ -30,7 +30,9 @@ const CategoryFilter = (props: any) => {
         <CategoryBox 
           {...colors}
         />
-        <CategoryBox 
+        <CategoryBox
+          priceRangeValue = { priceRangeValue }
+          onPriceValueChange = { onPriceValueChange }
           {...prices}
         />
         <CategoryBox 

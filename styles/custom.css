@@ -1,3 +1,6 @@
 #checkOut .modal-content {
     border: none;
 }
+.price-range-filter > div {
+    width: auto!important;
+}
