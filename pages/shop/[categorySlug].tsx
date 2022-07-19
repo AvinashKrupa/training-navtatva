@@ -18,11 +18,13 @@ import Paging from "../../app/components/common/Paging";
 const ProductListingByCategorySlugScreen: NextPage = () => {
 
   const router = useRouter();
-  const { categorySlug } = router.query;
+  //const { categorySlug } = router.query;
   const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);
+   const [openProductQuickView, setOpenProductQuickView] = useState<boolean>(false);
+   const [openCartPopup, setOpenCartPopup] = useState<boolean>(false);
 
    return (
-    <div>
+    <>
       <div className="wrapper">
         {/* Header */}
         <Header/>
@@ -31,7 +33,7 @@ const ProductListingByCategorySlugScreen: NextPage = () => {
         <section className="category-section">
           <div className="container-fluid">
             <div className="row">
-              <CategoryFilter categorySlug = {categorySlug}/>
+              <CategoryFilter />
               <div className="col-lg-9 col-xl-10">
                 <div className="rightside-bar">
                   <SearchBlock 
@@ -42,35 +44,57 @@ const ProductListingByCategorySlugScreen: NextPage = () => {
                     {
                        products?.slice(0,2)?.map( (item: any, index: number) => {
                         return (
-                          <ProductSmallBlock key={index} {...item} />
+                          <ProductSmallBlock 
+                            key={index} 
+                            {...item}
+                            setOpenProductQuickView = {setOpenProductQuickView}
+                            setOpenCartPopup = { setOpenCartPopup }
+                          />
                         )
                       })
                     }  
-                    <GroupProductBlock />
+                    <GroupProductBlock 
+                      setOpenProductQuickView = { setOpenProductQuickView }
+                      setOpenCartPopup = { setOpenCartPopup }
+                    />
                     {
                        products?.slice(2,4)?.map( (item: any, index: number) => {
                         return (
-                          <ProductSmallBlock key={index} {...item} />
+                          <ProductSmallBlock 
+                            key={index} 
+                            {...item}
+                            setOpenProductQuickView = {setOpenProductQuickView}
+                            setOpenCartPopup = { setOpenCartPopup }
+                          />
                         )
                       })
                     } 
                   </div>
                 </div>
                 <SortingBlock />
-                <div className="rightside-bar">
-                  <ProductQuickView />
+                <div className="rightside-bar">                  
                   <div className="row">
                     {
                        products?.slice(4,5)?.map( (item: any, index: number) => {
                         return (
-                          <ProductSmallBlock key={index} {...item} spinBlock={true}/>
+                          <ProductSmallBlock 
+                            key={index} 
+                            {...item}
+                            setOpenProductQuickView = {setOpenProductQuickView}
+                            setOpenCartPopup = { setOpenCartPopup }
+                          />
                         )
                       })
                     } 
                     {
                        products?.slice(5,6)?.map( (item: any, index: number) => {
                         return (
-                          <ProductSmallBlock key={index} {...item} exploreBlock={true}/>
+                          <ProductSmallBlock 
+                            key={index} 
+                            {...item}
+                            setOpenProductQuickView = {setOpenProductQuickView}
+                            setOpenCartPopup = { setOpenCartPopup }
+                          />
                         )
                       })
                     }                   
@@ -87,13 +111,20 @@ const ProductListingByCategorySlugScreen: NextPage = () => {
         {/* End Footer */}
       </div>
       {/* Cart Popup */}
-      <CartPopup />
+      <CartPopup 
+        openCartPopup = { openCartPopup }
+        setOpenCartPopup = { setOpenCartPopup }
+      />
       {/* Search Popup */}
       <SearchPopup 
         openSearchBox = { openSearchBox } 
-        setOpenSearchBox= {setOpenSearchBox} 
+        setOpenSearchBox= { setOpenSearchBox } 
       />
-    </div>
+      <ProductQuickView 
+        openProductQuickView={ openProductQuickView }
+        setOpenProductQuickView={ setOpenProductQuickView }
+      />
+    </>
   );
 };
 

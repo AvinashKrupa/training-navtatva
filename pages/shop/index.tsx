@@ -21,7 +21,7 @@ const ProductListingScreen: NextPage = () => {
    const [openCartPopup, setOpenCartPopup] = useState<boolean>(false);
 
    return (
-    <div>
+    <>
       <div className="wrapper">
         {/* Header */}
         <Header/>
@@ -121,7 +121,7 @@ const ProductListingScreen: NextPage = () => {
         openProductQuickView={ openProductQuickView }
         setOpenProductQuickView={ setOpenProductQuickView }
       />
-    </div>
+    </>
   );
 };
 
