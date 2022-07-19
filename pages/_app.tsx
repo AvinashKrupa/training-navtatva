@@ -12,6 +12,7 @@ import "../styles/slick.min.css";
 import "../styles/slick-theme.min.css";
 import "../styles/style.css";
 import "../styles/custom.css";
+import "../styles/multiRangeSlider.css";
 
 import "../styles/responsive.css";
 // import $ from "jquery";

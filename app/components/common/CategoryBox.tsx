@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TwoThumbInputRange } from "react-two-thumb-input-range";
+import MultiRangeSlider from "../elements/MultiRangeSlider";
 
 const CategoryBox = (props: any) => {
 
@@ -32,19 +32,17 @@ const CategoryBox = (props: any) => {
           props?.name == "price" && (
             <>
               <div style={{ marginTop: "15%" }} className="mb-4 price-range-filter">
-                <TwoThumbInputRange
-                  trackColor = {"#F9BC60"}
-                  thumbColor = {"#300056"}
-                  railColor = {"#300056"}
-                  onChange={props.onPriceValueChange}
-                  values={props.priceRangeValue}
+                <MultiRangeSlider
                   min={1000}
                   max={10000}
+                  onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}
                 />
               </div>
+              
               <button type="button" className="btn btn-sm w-100">
                 Set Price
               </button>
+             
             </>
           )
         }
