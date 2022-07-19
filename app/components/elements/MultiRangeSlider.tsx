@@ -62,7 +62,7 @@ const MultiRangeSlider = (props: any) => {
                 setMinVal(value);
                 event.target.value = value.toString();
                 }}
-                className={classnames("thumb thumb--zindex-3", {
+                className={classnames("range-thumb thumb--zindex-3", {
                 "thumb--zindex-5": minVal > props.max - 100
                 })}
             />
@@ -77,7 +77,7 @@ const MultiRangeSlider = (props: any) => {
                 setMaxVal(value);
                 event.target.value = value.toString();
                 }}
-                className="thumb thumb--zindex-4"
+                className="range-thumb thumb--zindex-4"
             />
 
             <div className="range-slider">
