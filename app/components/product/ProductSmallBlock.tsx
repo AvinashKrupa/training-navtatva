@@ -31,6 +31,10 @@ const ProductSmallBlock = (props: any) => {
                             </button>
                             <span className="img-name">Cotton + Khaadi</span>
                         </div>
+                        <div className="discountBar text-white">
+                            <h4 className="fs-16 font-sb">20% Discount</h4>
+                            <p className="fs-13 font-r">22 : 38 : 18</p>
+                        </div>
                     </div>
                     <div className="col-sm-5">
                         <div className="product-content-area">
