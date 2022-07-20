@@ -60,4 +60,47 @@ export class CatalogService extends HTTPBaseService {
         });
     });
   };
+  public getBrand = () => {
+    return new Promise((resolve: any, reject: any) => {
+      this.instance
+        .get(API.GET_CATEGORY_TREE)
+        .then((response) => {
+          if (response.status == 200) {
+            let message = response.data;
+            Toast.showSuccess(message);
+            resolve(response);
+          } else {
+            let message = response.data.message;
+            Toast.showError(message);
+            reject(response);
+          }
+        })
+        .catch((error) => {
+          Toast.showError(error.message);
+          reject(error);
+        });
+    });
+  };
+
+  public getCategoryWithSubCategory = () => {
+    return new Promise((resolve: any, reject: any) => {
+      this.instance
+        .get(API.GET_CATEGORY_TREE)
+        .then((response) => {
+          if (response.status == 200) {
+            let message = response.data;
+            Toast.showSuccess(message);
+            resolve(response);
+          } else {
+            let message = response.data.message;
+            Toast.showError(message);
+            reject(response);
+          }
+        })
+        .catch((error) => {
+          Toast.showError(error.message);
+          reject(error);
+        });
+    });
+  };
 }

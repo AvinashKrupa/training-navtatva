@@ -53,7 +53,7 @@ export abstract class HTTPBaseService {
     if (error.response?.status === 401) {
       const refreshToken = await this.refreshToken();
       if (refreshToken.status === 200) {
-        this.token = refreshToken.data.hashToken;
+        this.token = refreshToken.data.access_token;
         localStorage.setItem("hashToken", this.token);
         return this.instance(originalRequest);
       }
@@ -74,11 +74,13 @@ export abstract class HTTPBaseService {
       },
     };
 
-    return axios.post(
-      `${this.baseURL}/User/RenewToken`,
-      refreshTokenRequest,
-      options
-    );
+    return axios.get(`${this.baseURL}/access-token`);
+
+    // return axios.get(
+    //   `${this.baseURL}/access-token`,
+    //   refreshTokenRequest,
+    //   options
+    // );
   }
 
   private addRequestOptionsForClientSecrect() {
