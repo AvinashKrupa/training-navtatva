@@ -63,7 +63,7 @@ export class CatalogService extends HTTPBaseService {
   public getBrand = () => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
-        .get(API.GET_CATEGORY_TREE)
+        .get(API.GET_BRANDS)
         .then((response) => {
           if (response.status == 200) {
             let message = response.data;
@@ -82,10 +82,10 @@ export class CatalogService extends HTTPBaseService {
     });
   };
 
-  public getCategoryWithSubCategory = () => {
+  public getOccasion = () => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
-        .get(API.GET_CATEGORY_TREE)
+        .get(API.GET_OCCASION)
         .then((response) => {
           if (response.status == 200) {
             let message = response.data;
