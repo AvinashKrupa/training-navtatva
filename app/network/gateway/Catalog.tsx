@@ -9,9 +9,9 @@ export class CatalogService extends HTTPBaseService {
     super(constants.baseURL, token);
   }
 
-  public static getInstance(token: string) {
+  public static getInstance(token?: string) {
     if (!this.classInstance) {
-      this.classInstance = new CatalogService(token);
+      this.classInstance = new CatalogService(token ?? "");
     }
 
     return this.classInstance;

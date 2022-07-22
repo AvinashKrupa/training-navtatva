@@ -17,7 +17,12 @@ export abstract class HTTPBaseService {
     this.instance = axios.create({
       baseURL,
     });
-    this.token = token;
+
+    if (token && token != "") {
+      this.token = token;
+    } else {
+      this.token = localStorage.getItem("hashToken") ?? "";
+    }
 
     this.initializeRequestInterceptor();
     this.initializeResponseInterceptor();
@@ -41,10 +46,21 @@ export abstract class HTTPBaseService {
     }, this.handleError);
   };
 
-  private handleRequest = (config: AxiosRequestConfig) => {
+  private handleRequest = async (config: AxiosRequestConfig) => {
+    // if (this.token == "") {
+    //   const refreshToken = await this.refreshToken();
+    //   if (refreshToken.status === 200) {
+    //     this.token = refreshToken.data.access_token;
+    //     localStorage.setItem("hashToken", this.token);
+    //     console.log("hashToken", this.token);
+    //     //  return this.instance(originalRequest);
+    //   }
+    // }
     config.headers["Content-Type"] = `application/json`;
     config.headers["Accept"] = `application/json`;
     config.headers["Authorization"] = `Bearer ${this.token}`;
+    config.headers["accessToken"] = `${this.token}`;
+
     return config;
   };
 
@@ -63,18 +79,18 @@ export abstract class HTTPBaseService {
   };
 
   private async refreshToken(): Promise<RefreshToken> {
-    const refreshTokenRequest = {
-      hashToken: this.token,
-    };
+    // const refreshTokenRequest = {
+    //   hashToken: this.token,
+    // };
 
-    const { data } = await this.addRequestOptionsForClientSecrect();
-    const options: AxiosRequestConfig = {
-      headers: {
-        CLIENT_KEY: data.clientKey,
-      },
-    };
+    // const { data } = await this.addRequestOptionsForClientSecrect();
+    // const options: AxiosRequestConfig = {
+    //   headers: {
+    //     CLIENT_KEY: data.clientKey,
+    //   },
+    // };
 
-    return axios.get(`${this.baseURL}/access-token`);
+    return axios.get(`${this.baseURL}access-token`);
 
     // return axios.get(
     //   `${this.baseURL}/access-token`,
@@ -84,6 +100,6 @@ export abstract class HTTPBaseService {
   }
 
   private addRequestOptionsForClientSecrect() {
-    return axios.get(`${this.baseURL}/Utility/GetSecrets`);
+    return axios.get(`${this.baseURL}access-token`);
   }
 }

@@ -321,8 +321,10 @@
   }
 
   .customerSlider .slick-center {
-    border: solid 2px #300056;
     transform: scale(0);
+  }
+  .customerSlider .slick-center .contentInner {
+    border: solid 2px #300056;
   }
   .customerSlider .slick-slide {
     margin: 0 15px;

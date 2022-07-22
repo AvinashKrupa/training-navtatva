@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import Header from "./components/Header";
 import MenuCategorySlider from "./components/MenuCategorySlider";
@@ -30,77 +30,107 @@ import ForTheLookYouDesireFabric from "./components/ForTheLookYouDesireFabric";
 import VideoBlock from "./components/VideoBlock";
 import Footer from "../../components/common/Footer";
 import FooterFixedButton from "./components/FooterFixedButton";
+import { CatalogService } from "../../network/gateway/Catalog";
 
-const ThemeOne: NextPage = () => { 
-  
+const ThemeOne: NextPage = () => {
+  const [category, setCategory] = useState([]);
+  const [brand, setBrand] = useState([]);
+  const [material, setMaterial] = useState([]);
+  const [occasion, setOccasion] = useState([]);
+  const [categoryByOccasion, setCategoryByOccasion] = useState([]);
+  useEffect(() => {
+    getCatalog();
+    return () => {};
+  }, []);
+
+  function getCatalog() {
+    CatalogService.getInstance()
+      .getAllCategory()
+      .then((response: any) => {
+        if (response.data) {
+          setCategory(response.data.data["Category By Occasion"].children);
+          setBrand(response.data.data["Brands"].children);
+          setMaterial(response.data.data["Material"].children);
+          setOccasion(response.data.data["Occasion"].children);
+          setCategoryByOccasion(
+            response.data.data["Category By Occasion"].children
+          );
+          console.log("category", response.data.data);
+        } else {
+          console.log("ERROR:", response.data);
+        }
+      })
+      .catch((error) => {});
+  }
+
   return (
     <div className="home">
       <div className="wrapper">
-        <Header/>
+        <Header />
         {/* category start */}
-        <MenuCategorySlider/>
+        <MenuCategorySlider category={category} />
         {/* banner start */}
-        <FestiveSaleBanner/>
+        <FestiveSaleBanner />
         {/*  Shopping Bag start */}
-        <ShoppingBagBlock/>
+        <ShoppingBagBlock />
       </div>
       {/* Select your companion to try on your Outfit */}
-      <CompaignOnOutFit/>
+      <CompaignOnOutFit />
       {/* Kurtis For Every Occassion */}
-      <KurtisForOccassion/>
+      <KurtisForOccassion />
       {/* Must haves In Your Wardrobe section */}
-      <MustInWardrobe/>      
+      <MustInWardrobe />
       <div className="wrapper">
         {/* Shop By Price */}
-        <ShopByPrice/>
+        <ShopByPrice />
         {/* Shop virtually  with a Product Expert. */}
-        <ShopVirtuallyWithExpert/>
+        <ShopVirtuallyWithExpert />
         {/* Bring in the Essence of  Holi to your wardrobe*/}
-        <BringInEssence/>
+        <BringInEssence />
         {/* Top Collections */}
-        <TopCollections/>
+        <TopCollections />
         {/* Shop By Preference */}
-        <ShopByPreference/>
+        <ShopByPreference />
         {/* What’s New This Month */}
-        <WhatsNewThisMonth/>
+        <WhatsNewThisMonth />
         {/* NavTatva’s Top Picks */}
-        <NavTatvaTopPicks/>
+        <NavTatvaTopPicks />
         {/* Compliment your Outfits */}
-        <ComplimentYourOutfits/>
+        <ComplimentYourOutfits />
       </div>
       {/* Designer’s Pick */}
-      <DesignersPick/>
+      <DesignersPick />
       {/* Why NavTatva? */}
-      <WhyNavTatva/>
+      <WhyNavTatva />
       {/* Most Searched Styles*/}
-      <MostSearchedStyles/>
+      <MostSearchedStyles />
       {/* Wedding Season Is Almost Here*/}
-      <WeddingSeasonIsHere/>
+      <WeddingSeasonIsHere />
       {/* For the look you desire*/}
-      <ForTheLookYouDesire/>
+      <ForTheLookYouDesire />
       {/* Our Valued Customers*/}
-      <OurValuedCustomers/>
+      <OurValuedCustomers />
       {/* Our Valued Customer Slider*/}
-      <OurValuedCustomerSlider/>
+      <OurValuedCustomerSlider />
       {/* Spend More, Win More*/}
-      <SpendMoreWinMore/>
+      <SpendMoreWinMore />
       {/* New Collections*/}
-      <NewCollections/>
+      <NewCollections />
       {/* More Brands To Explore*/}
-      <MoreBrandsToExplore/>
+      <MoreBrandsToExplore brand={brand} />
       {/* Make your outfits special */}
-      <MakeYourOutfitSpecial/>
+      <MakeYourOutfitSpecial />
       {/* For the look you desire */}
-      <ForTheLookYouDesireFabric/>
+      <ForTheLookYouDesireFabric />
       {/* Video Block */}
-      <VideoBlock/>
+      <VideoBlock />
       {/* End Video Block */}
       {/* Footer */}
       <Footer />
-      {/* End Footer */}      
+      {/* End Footer */}
       {/* Fixed Button */}
-      <FooterFixedButton/>
-      {/* End Fixed Button */}      
+      <FooterFixedButton />
+      {/* End Fixed Button */}
     </div>
   );
 };
