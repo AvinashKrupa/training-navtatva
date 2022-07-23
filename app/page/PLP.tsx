@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductSmallBlock from "../../app/components/product/ProductSmallBlock";
 import { products } from "../../app/constants/sampleData";
 import GroupProductBlock from "../../app/components/product/GroupProductBlock";
@@ -12,18 +12,44 @@ import SearchBlock from "../../app/components/common/SearchBlock";
 import SortingBlock from "../../app/components/common/SortingBlock";
 import SortByBlock from "../../app/components/common/SortByBlock";
 import Paging from "../../app/components/common/Paging";
+import { useRouter } from "next/router";
+import { CatalogService } from "../network/gateway/Catalog";
 
 const PLP = () => {
+  const router = useRouter();
 
-   const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);
-   const [openProductQuickView, setOpenProductQuickView] = useState<boolean>(false);
-   const [openCartPopup, setOpenCartPopup] = useState<boolean>(false);
+  const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);
+  const [openProductQuickView, setOpenProductQuickView] =
+    useState<boolean>(false);
 
-   return (
+  const [openCartPopup, setOpenCartPopup] = useState<boolean>(false);
+  const [productListing, setProductListing] = useState<Array<any>>([]);
+
+  useEffect(() => {
+    console.log("router.query", router.query);
+    getProductList();
+    return () => {};
+  }, []);
+
+  function getProductList() {
+    CatalogService.getInstance()
+      .getProductListing()
+      .then((response: any) => {
+        if (response.data) {
+          setProductListing(response.data.data);
+          console.log("getProductList", response.data.data);
+        } else {
+          console.log("ERROR:", response.data);
+        }
+      })
+      .catch((error) => {});
+  }
+
+  return (
     <>
       <div className="wrapper">
         {/* Header */}
-        <Header/>
+        <Header />
         {/* End Header */}
         {/* Category */}
         <section className="category-section">
@@ -32,68 +58,58 @@ const PLP = () => {
               <CategoryFilter />
               <div className="col-lg-9 col-xl-10">
                 <div className="rightside-bar">
-                  <SearchBlock 
-                    setOpenSearchBox = {setOpenSearchBox} 
-                  />
+                  <SearchBlock setOpenSearchBox={setOpenSearchBox} />
                   <SortByBlock />
                   <div className="row">
-                    {
-                       products?.slice(0,2)?.map( (item: any, index: number) => {
-                        return (
-                          <ProductSmallBlock 
-                            key={index} 
-                            {...item}
-                            setOpenProductQuickView = {setOpenProductQuickView}
-                            setOpenCartPopup = { setOpenCartPopup }
-                          />
-                        )
-                      })
-                    }  
-                    <GroupProductBlock 
-                      setOpenProductQuickView = { setOpenProductQuickView }
-                      setOpenCartPopup = { setOpenCartPopup }
+                    {productListing.map((item: any, index: number) => {
+                      return (
+                        <ProductSmallBlock
+                          key={index}
+                          {...item.attributes}
+                          setOpenProductQuickView={setOpenProductQuickView}
+                          setOpenCartPopup={setOpenCartPopup}
+                        />
+                      );
+                    })}
+                    <GroupProductBlock
+                      setOpenProductQuickView={setOpenProductQuickView}
+                      setOpenCartPopup={setOpenCartPopup}
                     />
-                    {
-                       products?.slice(2,4)?.map( (item: any, index: number) => {
-                        return (
-                          <ProductSmallBlock 
-                            key={index} 
-                            {...item}
-                            setOpenProductQuickView = {setOpenProductQuickView}
-                            setOpenCartPopup = { setOpenCartPopup }
-                          />
-                        )
-                      })
-                    } 
+                    {products?.slice(2, 4)?.map((item: any, index: number) => {
+                      return (
+                        <ProductSmallBlock
+                          key={index}
+                          {...item}
+                          setOpenProductQuickView={setOpenProductQuickView}
+                          setOpenCartPopup={setOpenCartPopup}
+                        />
+                      );
+                    })}
                   </div>
                 </div>
                 <SortingBlock />
-                <div className="rightside-bar">                  
+                <div className="rightside-bar">
                   <div className="row">
-                    {
-                       products?.slice(4,5)?.map( (item: any, index: number) => {
-                        return (
-                          <ProductSmallBlock 
-                            key={index} 
-                            {...item}
-                            setOpenProductQuickView = {setOpenProductQuickView}
-                            setOpenCartPopup = { setOpenCartPopup }
-                          />
-                        )
-                      })
-                    } 
-                    {
-                       products?.slice(5,6)?.map( (item: any, index: number) => {
-                        return (
-                          <ProductSmallBlock 
-                            key={index} 
-                            {...item}
-                            setOpenProductQuickView = {setOpenProductQuickView}
-                            setOpenCartPopup = { setOpenCartPopup }
-                          />
-                        )
-                      })
-                    }                   
+                    {products?.slice(4, 5)?.map((item: any, index: number) => {
+                      return (
+                        <ProductSmallBlock
+                          key={index}
+                          {...item}
+                          setOpenProductQuickView={setOpenProductQuickView}
+                          setOpenCartPopup={setOpenCartPopup}
+                        />
+                      );
+                    })}
+                    {products?.slice(5, 6)?.map((item: any, index: number) => {
+                      return (
+                        <ProductSmallBlock
+                          key={index}
+                          {...item}
+                          setOpenProductQuickView={setOpenProductQuickView}
+                          setOpenCartPopup={setOpenCartPopup}
+                        />
+                      );
+                    })}
                   </div>
                 </div>
                 <Paging />
@@ -107,18 +123,18 @@ const PLP = () => {
         {/* End Footer */}
       </div>
       {/* Cart Popup */}
-      <CartPopup 
-        openCartPopup = { openCartPopup }
-        setOpenCartPopup = { setOpenCartPopup }
+      <CartPopup
+        openCartPopup={openCartPopup}
+        setOpenCartPopup={setOpenCartPopup}
       />
       {/* Search Popup */}
-      <SearchPopup 
-        openSearchBox = { openSearchBox } 
-        setOpenSearchBox= { setOpenSearchBox } 
+      <SearchPopup
+        openSearchBox={openSearchBox}
+        setOpenSearchBox={setOpenSearchBox}
       />
-      <ProductQuickView 
-        openProductQuickView={ openProductQuickView }
-        setOpenProductQuickView={ setOpenProductQuickView }
+      <ProductQuickView
+        openProductQuickView={openProductQuickView}
+        setOpenProductQuickView={setOpenProductQuickView}
       />
     </>
   );

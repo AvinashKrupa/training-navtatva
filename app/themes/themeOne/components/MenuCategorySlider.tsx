@@ -23,7 +23,7 @@ const MenuCategorySlider = (props: IProps) => {
                   <NavMenuCategory
                     key={index}
                     title={info.name}
-                    image={info.category_image || "images/cate-1.jpg"}
+                    image={info.image || "images/cate-1.jpg"}
                     onClick={() => {
                       if (selectedSubCat.length == 0) {
                         setSelectedSubCat(info.children || []);
@@ -54,7 +54,9 @@ const MenuCategorySlider = (props: IProps) => {
                       {info?.children?.map((info: any) => {
                         return (
                           <li>
-                            <a href={`/shop/${info.slug}`}>{info.name}</a>
+                            <a href={`/shop/${info.slug}?category=${info.id}`}>
+                              {info.name}
+                            </a>
                           </li>
                         );
                       })}

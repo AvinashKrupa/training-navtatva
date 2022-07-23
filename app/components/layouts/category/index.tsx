@@ -19,7 +19,12 @@ function NavMenuCategory(props: iProps) {
         onMouseEnter={props.onClick}
         // onMouseLeave={props.onClick}
       >
-        <img className="img-fluid" src={props.image} alt={props.title} />
+        <img
+          style={{ maxHeight: 204, height: 210 }}
+          className="img-fluid"
+          src={props.image}
+          alt={props.title}
+        />
         <p className="fs-20">{props.title}</p>
         <div className="overlay" />
       </a>

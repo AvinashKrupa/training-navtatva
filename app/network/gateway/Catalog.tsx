@@ -103,4 +103,26 @@ export class CatalogService extends HTTPBaseService {
         });
     });
   };
+
+  public getProductListing = () => {
+    return new Promise((resolve: any, reject: any) => {
+      this.instance
+        .get(API.GET_PRODUCT_LIST)
+        .then((response) => {
+          if (response.status == 200) {
+            let message = response.data;
+            Toast.showSuccess(message);
+            resolve(response);
+          } else {
+            let message = response.data.message;
+            Toast.showError(message);
+            reject(response);
+          }
+        })
+        .catch((error) => {
+          Toast.showError(error.message);
+          reject(error);
+        });
+    });
+  };
 }

@@ -17,13 +17,17 @@ const MoreBrandsToExplore = (props: IProps) => {
             <ul className="d-block text-center">
               {props.brand.map((info) => {
                 return (
-                  <li className="align-items-center justify-content-center d-inline-flex">
-                    <div className="row">
-                      <a href="#">
-                        <img src="images/brand-1.png" alt="brand" />
-                      </a>
-                      <p>{info.name}</p>
-                    </div>
+                  <li
+                    style={{ backgroundColor: "white" }}
+                    className="align-items-center justify-content-center d-inline-flex"
+                  >
+                    <a href="#">
+                      <img
+                        style={{ maxWidth: 180, maxHeight: 180 }}
+                        src={info.image || "images/brand-1.png"}
+                        alt="brand"
+                      />
+                    </a>
                   </li>
                 );
               })}
@@ -92,3 +96,7 @@ const MoreBrandsToExplore = (props: IProps) => {
 };
 
 export default MoreBrandsToExplore;
+
+const params = {
+  id: "bridal",
+};

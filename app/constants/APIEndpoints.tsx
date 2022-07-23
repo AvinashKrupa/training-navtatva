@@ -4,5 +4,6 @@ const API = {
   GET_CATEGORY_TREE: "categories/tree",
   GET_BRANDS: "pcm_brands",
   GET_OCCASION: "pcm_occasion",
+  GET_PRODUCT_LIST: "pcm_products",
 };
 export default API;
