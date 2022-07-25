@@ -11,7 +11,7 @@ const ProductSmallBlock = (props: any) => {
         <div className="row g-0">
           <div className="col-sm-7">
             <div className="product-image position-relative">
-              <img src={props.image} className="img-fluid" />
+              <img src={props.main_image} className="img-fluid" />
               <button type="button" className="btn-voice">
                 <i className="fas fa-volume-high fa-fw" />
               </button>
@@ -20,10 +20,10 @@ const ProductSmallBlock = (props: any) => {
               </button>
               <span className="img-name">Cotton + Khaadi</span>
             </div>
-            <div className="discountBar text-white">
+            {/* <div className="discountBar text-white">
               <h4 className="fs-16 font-sb">20% Discount</h4>
               <p className="fs-13 font-r">22 : 38 : 18</p>
-            </div>
+            </div> */}
           </div>
           <div className="col-sm-5">
             <div className="product-content-area">
@@ -68,7 +68,7 @@ const ProductSmallBlock = (props: any) => {
                 <a
                   href="#"
                   className="btn-outline btn-sm w-100 mb-2"
-                  onClick={() => props.setOpenProductQuickView(true)}
+                  onClick={() => props.onClickQuickView(props.id)}
                 >
                   Quick View
                 </a>

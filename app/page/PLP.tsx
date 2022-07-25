@@ -24,9 +24,11 @@ const PLP = () => {
 
   const [openCartPopup, setOpenCartPopup] = useState<boolean>(false);
   const [productListing, setProductListing] = useState<Array<any>>([]);
+  const [selectedProductData, setSelectedProductData] = useState<Array<any>>(
+    []
+  );
 
   useEffect(() => {
-    console.log("router.query", router.query);
     getProductList();
     return () => {};
   }, []);
@@ -37,7 +39,20 @@ const PLP = () => {
       .then((response: any) => {
         if (response.data) {
           setProductListing(response.data.data);
-          console.log("getProductList", response.data.data);
+        } else {
+          console.log("ERROR:", response.data);
+        }
+      })
+      .catch((error) => {});
+  }
+
+  function getProductDetail(id: any) {
+    CatalogService.getInstance()
+      .getProducDetail(id)
+      .then((response: any) => {
+        if (response.data) {
+          setSelectedProductData(response.data.data);
+          setOpenProductQuickView(true);
         } else {
           console.log("ERROR:", response.data);
         }
@@ -62,20 +77,31 @@ const PLP = () => {
                   <SortByBlock />
                   <div className="row">
                     {productListing.map((item: any, index: number) => {
-                      return (
-                        <ProductSmallBlock
-                          key={index}
-                          {...item.attributes}
-                          setOpenProductQuickView={setOpenProductQuickView}
-                          setOpenCartPopup={setOpenCartPopup}
-                        />
-                      );
+                      if (
+                        item.attributes.children &&
+                        item.attributes.children.length > 0
+                      ) {
+                        console.log("itemitemaaa", item.attributes.children);
+                        return (
+                          <ProductSmallBlock
+                            key={index}
+                            {...item}
+                            {...item.attributes.children[0].attributes}
+                            onClickQuickView={(id: any) => {
+                              getProductDetail(id);
+                            }}
+                            setOpenCartPopup={setOpenCartPopup}
+                          />
+                        );
+                      } else {
+                        return;
+                      }
                     })}
-                    <GroupProductBlock
+                    {/* <GroupProductBlock
                       setOpenProductQuickView={setOpenProductQuickView}
                       setOpenCartPopup={setOpenCartPopup}
-                    />
-                    {products?.slice(2, 4)?.map((item: any, index: number) => {
+                    /> */}
+                    {/* {products?.slice(2, 4)?.map((item: any, index: number) => {
                       return (
                         <ProductSmallBlock
                           key={index}
@@ -84,10 +110,10 @@ const PLP = () => {
                           setOpenCartPopup={setOpenCartPopup}
                         />
                       );
-                    })}
+                    })} */}
                   </div>
                 </div>
-                <SortingBlock />
+                {/* <SortingBlock />
                 <div className="rightside-bar">
                   <div className="row">
                     {products?.slice(4, 5)?.map((item: any, index: number) => {
@@ -111,7 +137,7 @@ const PLP = () => {
                       );
                     })}
                   </div>
-                </div>
+                </div>*/}
                 <Paging />
               </div>
             </div>
@@ -132,10 +158,13 @@ const PLP = () => {
         openSearchBox={openSearchBox}
         setOpenSearchBox={setOpenSearchBox}
       />
-      <ProductQuickView
-        openProductQuickView={openProductQuickView}
-        setOpenProductQuickView={setOpenProductQuickView}
-      />
+      {openProductQuickView && (
+        <ProductQuickView
+          openProductQuickView={openProductQuickView}
+          setOpenProductQuickView={() => setOpenProductQuickView(false)}
+          data={selectedProductData}
+        />
+      )}
     </>
   );
 };

@@ -48,7 +48,7 @@ const ThemeOne: NextPage = () => {
       .getAllCategory()
       .then((response: any) => {
         if (response.data) {
-          setCategory(response.data.data["Category By Occasion"].children);
+          setCategory(response.data.data["Category By Style"].children);
           setBrand(response.data.data["Brands"].children);
           setMaterial(response.data.data["Material"].children);
           setOccasion(response.data.data["Occasion"].children);
