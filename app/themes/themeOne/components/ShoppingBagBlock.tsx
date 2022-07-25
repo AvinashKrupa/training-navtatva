@@ -48,7 +48,7 @@ const ShoppingBagBlock = () => {
                                 <p className="fs-20">
                                     Total Cart Value <span className="fs-24">₹12,860.55</span>
                                 </p>
-                                <a href="button" className="btn ms-auto mt-4 mt-md-0">
+                                <a href="/checkout" className="btn ms-auto mt-4 mt-md-0">
                                     Checkout
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"

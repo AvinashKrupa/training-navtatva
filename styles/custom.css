@@ -4,3 +4,13 @@
 .price-range-filter > div {
     width: auto!important;
 }
+.wardrobe .slick-slide {
+    margin: 0 0px!important;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.sliderView .slick-slide {
+    margin: 0 -15px!important;
+    padding-right: 25px;
+    padding-left: 25px;
+}
