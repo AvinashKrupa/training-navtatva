@@ -10,6 +10,7 @@ interface IProps {
 
 const MenuCategorySlider = (props: IProps) => {
   const [selectedSubCat, setSelectedSubCat] = useState<any>([]);
+  const [sideImageOnHover, setSideImageOnHover] = useState<any>([]);
   useDebouncedEffect(() => console.log(selectedSubCat), [selectedSubCat], 1000);
 
   return (
@@ -53,7 +54,12 @@ const MenuCategorySlider = (props: IProps) => {
                       </li>
                       {info?.children?.map((info: any) => {
                         return (
-                          <li>
+                          <li
+                            onClick={() => {}}
+                            onMouseEnter={() => {
+                              setSideImageOnHover(info);
+                            }}
+                          >
                             <a href={`/shop/${info.slug}?category=${info.id}`}>
                               {info.name}
                             </a>
@@ -65,7 +71,12 @@ const MenuCategorySlider = (props: IProps) => {
                 })}
               </div>
               <div className="col-md-12 col-lg-4 mt-4 mt-lg-0">
-                <img className="w-100" src="images/sub-category.png" alt="" />
+                <img
+                  style={{ maxHeight: 400, maxWidth: 200 }}
+                  className="h-100"
+                  src={sideImageOnHover.image}
+                  alt=""
+                />
               </div>
             </div>
           </div>
