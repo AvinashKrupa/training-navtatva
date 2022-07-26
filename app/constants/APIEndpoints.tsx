@@ -6,5 +6,6 @@ const API = {
   GET_OCCASION: "pcm_occasion",
   GET_PRODUCT_LIST: "pcm_products",
   GET_PRODUCT_DETAIL: "pcm_product/",
+  GET_SELLERS: "get-all-customers",
 };
 export default API;
