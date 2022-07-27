@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import { OrderTakingAppService } from "../../app/network/gateway/OrderTakingAppService";
 import Toast from "../../app/utils/Toast";
+import { RupifiService } from "../../app/network/gateway/RupifiService";
+import constants from "../../app/constants/constant";
 
 const OrderTakingAppScreen: NextPage = () => {
 
@@ -25,31 +27,61 @@ const OrderTakingAppScreen: NextPage = () => {
     const [userName, setUserName] = useState<string>("admin");
     const [password, setPassword] = useState<string>("admin");
     const [haveAccess, setHaveAccess] = useState<boolean>(false);
-    const [isEligibleForTxn, setIsEligibleForTxn] = useState<boolean>(true);
+    const [isEligibleForTxn, setIsEligibleForTxn] = useState<boolean>(false);
     const [sellerList, setSellerList] = useState<any>([]);
     const [orderTotal, setOrderTotal] = useState<number>(0);
     const [gstTotal, setGstTotal] = useState<number>(0);
     const [displayPlaceOrder, setDisplayPlaceOrder] = useState<boolean>(false);
     const [sellerId, setSellerId] = useState<string>("");
-    const [seller, setSeller] = useState<any>(null);    
+    const [eligibilityData, setEligibilityData] = useState<any>(null);
 
     useEffect(() => {
         getSellerList();
+        handleRupifiAccessToken();
         return () => { };
     }, []);
 
+    async function handleRupifiAccessToken() {
+        //handle page loader - todo
+        let rpf_token: any = localStorage.getItem("rpf_token");
+        if (rpf_token) {
+            rpf_token = JSON.parse(rpf_token);
+        }
+        if (rpf_token && rpf_token.expiryTime > (new Date()).getTime()) {
+            // token is not expired 
+
+        } else {
+            // tokne expired and create new one
+            let requestData: any = {
+                "merchantId": constants.RUPIFI.MERCHANT_ID,
+                "merchantSecret": constants.RUPIFI.MERCHANT_SECRET
+            };
+            RupifiService.getInstance("")
+                .getRupifiAccessToken(requestData)
+                .then((response: any) => {
+                    if (response != "") {
+                        if (response?.data?.accessToken) {
+                            response.data.expiryTime = parseInt(response.data.expiryTime) + (new Date()).getTime();
+                            localStorage.setItem("rpf_token", JSON.stringify(response?.data))
+                        } else {
+                            Toast.showError("Something went working with Rupifi, Please try again later");
+                        }
+                    }
+                })
+                .catch((error) => {
+                    Toast.showError("Something went working with Rupifi, Please try again later");
+                });
+        }
+    }
     const getSellerList = () => {
         OrderTakingAppService.getInstance("")
             .getSellerList()
             .then((response: any) => {
                 if (response.data) {
                     let sellerData: any = response?.data?.data;
-                    sellerData?.map( (item: any, index: number) => {
-                        return {
-                            id: item.id,
-                            name: item.name,
-                            mobile: item.whatsapp_number
-                        }
+                    sellerData?.map((item: any, index: number) => {
+                        item.rupifi_details = item.rupifi_details? JSON.parse(item.rupifi_details): {}
+                        return item;
                     })
                     setSellerList(sellerData)
                 } else {
@@ -59,8 +91,32 @@ const OrderTakingAppScreen: NextPage = () => {
             .catch((error) => { });
     }
 
-    const getCreditEligibility = (sellerId: string) => {
-        console.log(sellerId)
+    const getCreditEligibility = (id: string) => {
+        let seller: any = getSellerData(id);
+        if (seller && seller?.whatsapp_number) {
+            //8660178047
+            let requestJSON = {
+                "merchantCustomerRefId": 8660178047 ?? seller?.id,
+                "phone": 8660178047?? seller?.whatsapp_number,
+                "updateGMV": false
+            };
+            RupifiService.getInstance("")
+                .checkRupifiCreditEligibility(requestJSON)
+                .then((response: any) => {
+                    if (response?.data) {
+                        setIsEligibleForTxn(response?.data?.data?.isEligibleForTxn)
+                        setEligibilityData(response?.data?.data)
+                    } else {
+                        console.log("ERROR:", response?.data);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                });
+        } else {
+            setIsEligibleForTxn(false);
+            setEligibilityData(null);
+        }
     }
 
     const handleChange = (i: number, e: any) => {
@@ -93,10 +149,10 @@ const OrderTakingAppScreen: NextPage = () => {
             item.sellingPrice = getSalePrice(item.price, item.discount);
             item.total = getTotal(item.sellingPrice, item.gst, item.qty);
             grandTotal = item.total;
-            grandGstTotal = Math.round((item.sellingPrice * item.gst / 100)*item.qty);
-            if(
-                item.productId == "" || 
-                item.productName == "" ||  
+            grandGstTotal = Math.round((item.sellingPrice * item.gst / 100) * item.qty);
+            if (
+                item.productId == "" ||
+                item.productName == "" ||
                 item.vendorId == "" ||
                 item.sku == "" ||
                 item.qty <= 0 ||
@@ -104,38 +160,33 @@ const OrderTakingAppScreen: NextPage = () => {
                 item.discount < 0 ||
                 item.gst < 0 ||
                 item.total <= 0
-            ){
+            ) {
                 isEntryValid = false;
             }
             return item;
         })
-        if(isEntryValid){
+        if (isEntryValid) {
             setOrderTotal(grandTotal);
             setGstTotal(grandGstTotal);
             setDisplayPlaceOrder(!displayPlaceOrder)
-        }else{
+        } else {
             Toast.showError("All fields are required");
-        }        
+        }
     }
 
-    async function getSellerData(sellerId: string) {
+    function getSellerData(sellerId: string) {
         let sellerData = {};
-        await sellerList?.map( (item: any, index: number) => {
-            if(item.id == sellerId){
+        sellerList?.map((item: any, index: number) => {
+            if (item.id == sellerId) {
                 sellerData = item;
             }
         })
         return sellerData;
     }
 
-    async function getSeller(sellerId: string, keyName: string){
-        const seller: any = getSellerData(sellerId)
-        return seller[keyName];
-    }
-
-    const handleSubmit = async () => {  
-        if(1){
-            let seller: any = await getSellerData(sellerId);
+    const handleSubmit = async () => {
+        if (orderTotal<=eligibilityData?.account?.balance?.value) {
+            let seller: any = getSellerData(sellerId);
             let requestJSON = {
                 "sellerId": seller.name,
                 "sellerName": seller.id,
@@ -145,7 +196,6 @@ const OrderTakingAppScreen: NextPage = () => {
                 "paymentStatus": "pending",
                 "orderStatus": "pending"
             };
-            console.log("requestJSON ",requestJSON)
             OrderTakingAppService.getInstance("")
                 .placeOrder(requestJSON)
                 .then((response: any) => {
@@ -160,12 +210,12 @@ const OrderTakingAppScreen: NextPage = () => {
                         console.log("ERROR:", response?.data);
                     }
                 })
-                .catch((error) => { 
+                .catch((error) => {
                     console.log(error)
                 });
-        }else{
-            //
-        }        
+        } else {
+            Toast.showError("Seller don't have enough credit balance.");
+        }
     }
 
     const getAccess = () => {
@@ -228,7 +278,7 @@ const OrderTakingAppScreen: NextPage = () => {
                 )
             }
             {
-                haveAccess && isEligibleForTxn && (
+                haveAccess && (
                     <div className="shoppingCart orderTakingApp">
                         <div className="wrapper">
                             <section className="cartItem mt-4 mt-md-5">
@@ -247,14 +297,13 @@ const OrderTakingAppScreen: NextPage = () => {
                                     </div>
                                     <div className="col-lg-3">
                                         <select className="form-control" value={sellerId} onChange={(e) => {
-                                                setSellerId(sellerList[e.target.value]?.id);
-                                                setSeller(sellerList[e.target.value])
-                                                getCreditEligibility(e.target.value);
-                                            }}>
+                                            setSellerId(e.target.value);
+                                            getCreditEligibility(e.target.value)
+                                        }}>
                                             <option value={""}>-- SELECT SELLER --</option>
                                             {
-                                                sellerList?.map( (item: any, index: number) => {
-                                                    return <option key={index} value={index}>{item.name}</option>
+                                                sellerList?.map((item: any, index: number) => {
+                                                    return <option key={index} value={item.id}>{item.name} ({item.whatsapp_number})</option>
                                                 })
                                             }
                                         </select>
@@ -262,99 +311,129 @@ const OrderTakingAppScreen: NextPage = () => {
                                     <div className="col-lg-6">
                                         {
                                             sellerId && (
-                                                <>
-                                                    <label>Mobile Number:</label> <b>{seller.mobile}</b>
-                                                    &nbsp;&nbsp;                              
-                                                    <label>Rupifi(BNPL) Eligibility? :</label> <b>{ isEligibleForTxn ? "Yes": "No" }</b>
-                                                </>
+                                                <div>
+                                                    <label>Rupifi(BNPL) Eligibility? :</label> <b style={{ color: isEligibleForTxn ? "Green" : "Red" }}>{isEligibleForTxn ? "Eligible" : "Not Eligible"}</b>
+                                                    {
+                                                        isEligibleForTxn && (
+                                                            <>
+                                                                <br />
+                                                                <label>Balance/Limit <small>(Credit Amount)</small>: </label><b style={{ color: "Green" }}> {eligibilityData?.account?.balance?.formattedValue}/{eligibilityData?.account?.limit?.formattedValue}</b>
+                                                                <br />
+                                                            </>
+                                                        )
+                                                    }                                                    
+                                                    {
+                                                        !isEligibleForTxn && (
+                                                                <>
+                                                                    <br/>
+                                                                        <label>Rupifi Status: </label><b> {eligibilityData?.status}</b>                                                                        
+                                                                        {
+                                                                            (
+                                                                                eligibilityData?.status == "PRE_APPROVED" || 
+                                                                                eligibilityData?.status == "INCOMPLETE"
+                                                                            ) && (
+                                                                                <p>To complete the Rupifi(BNPL) registration <a target={"_blank"} href={eligibilityData.activationUrl}>click here</a>.</p>
+                                                                            )
+                                                                        }
+                                                                    <br/>
+                                                                </>
+                                                        )
+                                                    }
+                                                </div>
                                             )
                                         }
-                                        
+
                                     </div>
                                 </div>
-                                <br />
-                                <div className="row">
-                                    <div className="col-lg-12">
-                                        <form onSubmit={handleCalc}>
-                                            {formValues.map((element: any, index: number) => (
-                                                <div className="form-inline" key={index}>
-                                                    <div className="row">
-                                                        <div className="col-lg-1">
-                                                            {index == 0 && <label>ProductID</label>}
-                                                            <input type="text" className="form-control" name="productId" value={element.productId || ""} onChange={e => handleChange(index, e)} />
-                                                        </div>
-                                                        <div className="col-lg-2">
-                                                            {index == 0 && <label>ProductName</label>}
-                                                            <input type="text" className="form-control" name="productName" value={element.productName || ""} onChange={e => handleChange(index, e)} />
-                                                        </div>
-                                                        <div className="col-lg-1">
-                                                            {index == 0 && <label>VendorID</label>}
-                                                            <input type="text" className="form-control" name="vendorId" value={element.vendorId || ""} onChange={e => handleChange(index, e)} />
-                                                        </div>
-                                                        <div className="col-lg-1">
-                                                            {index == 0 && <label>#SKU</label>}
-                                                            <input type="text" className="form-control" name="sku" value={element.sku || ""} onChange={e => handleChange(index, e)} />
-                                                        </div>
-                                                        <div className="col-lg-1">
-                                                            {index == 0 && <label>QTY</label>}
-                                                            <input type="number" className="form-control" name="qty" value={element.qty || ""} onChange={e => handleChange(index, e)} />
-                                                        </div>
-                                                        <div className="col-lg-1">
-                                                            {index == 0 && <label>Price</label>}
-                                                            <input type="number" className="form-control" name="price" value={element.price || ""} onChange={e => handleChange(index, e)} />
-                                                        </div>
-                                                        <div className="col-lg-1">
-                                                            {index == 0 && <label>Discount(%)</label>}
-                                                            <input type="number" className="form-control" name="discount" value={element.discount || ""} onChange={e => handleChange(index, e)} />
-                                                        </div>
-                                                        <div className="col-lg-1">
-                                                            {index == 0 && <label>Sale Price</label>}
-                                                            <input readOnly={true} type="number" className="form-control" name="sellingPrice" value={getSalePrice(element.price, element.discount)} />
-                                                        </div>
-                                                        <div className="col-lg-1">
-                                                            {index == 0 && <label>GST(%)</label>}
-                                                            <input type="number" className="form-control" name="gst" value={element.gst || ""} onChange={e => handleChange(index, e)} />
-                                                        </div>
-                                                        <div className="col-lg-1">
-                                                            {index == 0 && <label>Total</label>}
-                                                            <input readOnly={true} type="number" className="form-control" name="total" value={getTotal(getSalePrice(element.price, element.discount), element.gst, element.qty)} />
-                                                        </div>
-                                                        <div className="col-lg-1">
-                                                            {
-                                                                index ?
-                                                                    <button type="button" className="btn btn-sm btn-red" onClick={() => removeFormFields(index)}>-</button>
-                                                                    :
-                                                                    <>
-                                                                        <label>{" "}</label>
-                                                                        <br />
-                                                                        <button className="btn btn-sm btn-green" type="button" onClick={() => addFormFields()}>+</button>
-                                                                    </>
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ))}
+                                {
+                                    isEligibleForTxn && (
+                                        <>
+                                            <br />
                                             <div className="row">
-                                                <div className="col-lg-11 text-end">
-                                                    <label>GST Total</label>: <b>{gstTotal}</b>
-                                                    &nbsp;&nbsp;
-                                                    <label>Ordar Total</label>: <b>{orderTotal}</b>
+                                                <div className="col-lg-12">
+                                                    <form onSubmit={handleCalc}>
+                                                        {formValues.map((element: any, index: number) => (
+                                                            <div className="form-inline" key={index}>
+                                                                <div className="row">
+                                                                    <div className="col-lg-1">
+                                                                        {index == 0 && <label>ProductID</label>}
+                                                                        <input type="text" className="form-control" name="productId" value={element.productId || ""} onChange={e => handleChange(index, e)} />
+                                                                    </div>
+                                                                    <div className="col-lg-2">
+                                                                        {index == 0 && <label>ProductName</label>}
+                                                                        <input type="text" className="form-control" name="productName" value={element.productName || ""} onChange={e => handleChange(index, e)} />
+                                                                    </div>
+                                                                    <div className="col-lg-1">
+                                                                        {index == 0 && <label>VendorID</label>}
+                                                                        <input type="text" className="form-control" name="vendorId" value={element.vendorId || ""} onChange={e => handleChange(index, e)} />
+                                                                    </div>
+                                                                    <div className="col-lg-1">
+                                                                        {index == 0 && <label>#SKU</label>}
+                                                                        <input type="text" className="form-control" name="sku" value={element.sku || ""} onChange={e => handleChange(index, e)} />
+                                                                    </div>
+                                                                    <div className="col-lg-1">
+                                                                        {index == 0 && <label>QTY</label>}
+                                                                        <input type="number" className="form-control" name="qty" value={element.qty || ""} onChange={e => handleChange(index, e)} />
+                                                                    </div>
+                                                                    <div className="col-lg-1">
+                                                                        {index == 0 && <label>Price</label>}
+                                                                        <input type="number" className="form-control" name="price" value={element.price || ""} onChange={e => handleChange(index, e)} />
+                                                                    </div>
+                                                                    <div className="col-lg-1">
+                                                                        {index == 0 && <label>Discount(%)</label>}
+                                                                        <input type="number" className="form-control" name="discount" value={element.discount || ""} onChange={e => handleChange(index, e)} />
+                                                                    </div>
+                                                                    <div className="col-lg-1">
+                                                                        {index == 0 && <label>Sale Price</label>}
+                                                                        <input readOnly={true} type="number" className="form-control" name="sellingPrice" value={getSalePrice(element.price, element.discount)} />
+                                                                    </div>
+                                                                    <div className="col-lg-1">
+                                                                        {index == 0 && <label>GST(%)</label>}
+                                                                        <input type="number" className="form-control" name="gst" value={element.gst || ""} onChange={e => handleChange(index, e)} />
+                                                                    </div>
+                                                                    <div className="col-lg-1">
+                                                                        {index == 0 && <label>Total</label>}
+                                                                        <input readOnly={true} type="number" className="form-control" name="total" value={getTotal(getSalePrice(element.price, element.discount), element.gst, element.qty)} />
+                                                                    </div>
+                                                                    <div className="col-lg-1">
+                                                                        {
+                                                                            index ?
+                                                                                <button type="button" className="btn btn-sm btn-red" onClick={() => removeFormFields(index)}>-</button>
+                                                                                :
+                                                                                <>
+                                                                                    <label>{" "}</label>
+                                                                                    <br />
+                                                                                    <button className="btn btn-sm btn-green" type="button" onClick={() => addFormFields()}>+</button>
+                                                                                </>
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                        <div className="row">
+                                                            <div className="col-lg-11 text-end">
+                                                                <label>GST Total</label>: <b>{gstTotal}</b>
+                                                                &nbsp;&nbsp;
+                                                                <label>Ordar Total</label>: <b>{orderTotal}</b>
+                                                            </div>
+                                                            <div className="col-lg-1"></div>
+                                                        </div>
+                                                        <div className="row">
+                                                            <div className="col-lg-12 text-center">
+                                                                {
+                                                                    !displayPlaceOrder && <button className="btn btn-sm" type="submit">Calculate Total</button>
+                                                                }
+                                                                {
+                                                                    displayPlaceOrder && <button className="btn btn-sm" type="button" onClick={() => handleSubmit()}>Place Order</button>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </form>
                                                 </div>
-                                                <div className="col-lg-1"></div>
                                             </div>
-                                            <div className="row">
-                                                <div className="col-lg-12 text-center">
-                                                    {
-                                                        !displayPlaceOrder && <button className="btn btn-sm" type="submit">Calculate Total</button>
-                                                    } 
-                                                    {
-                                                        displayPlaceOrder && <button className="btn btn-sm" type="button" onClick={() => handleSubmit()}>Place Order</button>
-                                                    }
-                                                </div>                                                
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+                                        </>
+                                    )
+                                }
                             </section>
                         </div>
                     </div>
