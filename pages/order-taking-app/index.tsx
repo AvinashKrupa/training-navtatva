@@ -245,7 +245,7 @@ const OrderTakingAppScreen: NextPage = () => {
                             <section className="cartItem mt-4 mt-md-5">
                                 <div className="row">
                                     <div className="col-lg-12 text-center">
-                                        <h1 className="fs-40 font-b text-color-2 list-inline-item">ORDER TAKING APP</h1>
+                                        <h1 className="fs-40 font-b text-color-2 list-inline-item">NAVTATVA ORDER MANAGEMENT</h1>
                                         <hr />
                                     </div>
                                 </div>
@@ -284,7 +284,7 @@ const OrderTakingAppScreen: NextPage = () => {
                             <section className="cartItem mt-4 mt-md-5">
                                 <div className="row">
                                     <div className="col-lg-12 text-center">
-                                        <h1 className="fs-40 font-b text-color-2 list-inline-item">ORDER TAKING APP</h1>
+                                        <h1 className="fs-40 font-b text-color-2 list-inline-item">NAVTATVA ORDER MANAGEMENT</h1>
                                         <hr />
                                     </div>
                                     <div className="col-lg-12 text-end"><button type="button" className="btn btn-sm" onClick={() => logout()}>Logout</button></div>
