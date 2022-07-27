@@ -85,7 +85,7 @@ const PLP = () => {
                         return (
                           <ProductSmallBlock
                             key={index}
-                            {...item}
+                            {...item.attributes.children[0]}
                             {...item.attributes.children[0].attributes}
                             onClickQuickView={(id: any) => {
                               getProductDetail(id);
@@ -163,6 +163,9 @@ const PLP = () => {
           openProductQuickView={openProductQuickView}
           setOpenProductQuickView={() => setOpenProductQuickView(false)}
           data={selectedProductData}
+          onSelectedProduct={(id: any) => {
+            getProductDetail(id);
+          }}
         />
       )}
     </>

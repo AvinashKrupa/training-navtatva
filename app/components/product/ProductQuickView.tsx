@@ -1,13 +1,76 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 
 const ProductQuickView = (props: any) => {
+  const [selectCombination, setSelectedCombination] = useState({
+    color: "",
+    size: "",
+    id: "",
+  });
   useEffect(() => {
     getSizes();
+    getSelectedVariants();
   }, [props.data]);
 
+  function getSelectedVariants() {
+    let idObj = Object.keys(props.data.meta.variation_matrix);
+
+    for (let i = 0; i < idObj.length; i++) {
+      //size
+      let innerObj = props.data.meta.variation_matrix[idObj[i]];
+      let innerObjKeys = Object.keys(innerObj);
+      for (let j = 0; j < innerObjKeys.length; j++) {
+        //color
+        if (innerObj[innerObjKeys[j]] === props.data.id) {
+          setSelectedCombination({
+            color: innerObjKeys[j],
+            size: idObj[i],
+            id: innerObj[innerObjKeys[j]],
+          });
+        }
+      }
+    }
+  }
+
+  function changeVariantByColor(id: string) {
+    let idObj = Object.keys(props.data.meta.variation_matrix);
+
+    for (let i = 0; i < idObj.length; i++) {
+      //size
+      let innerObj = props.data.meta.variation_matrix[idObj[i]];
+      let innerObjKeys = Object.keys(innerObj);
+      for (let j = 0; j < innerObjKeys.length; j++) {
+        //color
+        if (innerObj[innerObjKeys[j]] === props.data.id) {
+          setSelectedCombination({
+            color: innerObjKeys[j],
+            size: idObj[i],
+            id: innerObj[innerObjKeys[j]],
+          });
+        }
+      }
+    }
+  }
+
+  function changeVariantBySize(id: string) {
+    let idObj = Object.keys(props.data.meta.variation_matrix);
+
+    for (let i = 0; i < idObj.length; i++) {
+      if (idObj[i] == id) {
+        //size
+        let innerObj = props.data.meta.variation_matrix[idObj[i]];
+        let innerObjKeys = Object.keys(innerObj);
+        //color
+        return {
+          color: innerObjKeys[0],
+          size: idObj[i],
+          id: innerObj[innerObjKeys[0]],
+        };
+      }
+    }
+  }
+
   function getSizes() {
-    Object.keys(props.data.meta.variation_matrix);
     let sizes = props.data.meta.variations.filter((info: any) => {
       return info.name == "Size";
     });
@@ -27,12 +90,12 @@ const ProductQuickView = (props: any) => {
 
     Object.keys(props.data.meta.variation_matrix);
 
-    let sizes = props.data.meta.variations.filter((info: any) => {
-      return info.name == "Size";
+    let colors = props.data.meta.variations.filter((info: any) => {
+      return info.name == "Color";
     });
 
-    if (sizes.length > 0) {
-      return sizes[0].options;
+    if (colors.length > 0) {
+      return colors[0].options;
     } else {
       return [];
     }
@@ -75,11 +138,9 @@ const ProductQuickView = (props: any) => {
                       <div className="img-item">
                         <a href="#" data-id="1">
                           <img
+                            style={{ width: 120, height: 120, borderRadius: 8 }}
                             className=""
-                            src={
-                              props.data.attributes.children[0].attributes
-                                .description
-                            }
+                            src={props.data.attributes.main_image}
                             alt="Detail image"
                           />
                         </a>
@@ -115,7 +176,7 @@ const ProductQuickView = (props: any) => {
                     <div className="img-display">
                       <div className="img-showcase">
                         <img
-                          src="/images/detail-pick-1.png"
+                          src={props.data.attributes.main_image}
                           alt="Detail image"
                         />
                         <img
@@ -149,22 +210,45 @@ const ProductQuickView = (props: any) => {
                 <div className="col-md-12 col-xl-4 mt-0 mt-md-5 mt-lg-0">
                   <div className="product-content">
                     <h2 className="product-title fs-24 font-sb">
-                      {props.data.attributes.children[0].attributes.name}
+                      {props.data.attributes.name}
                     </h2>
                     <p className="fs-14 font-r text-color-1 mt-2">
-                      {props.data.attributes.children[0].attributes.description}
+                      {props.data.attributes.description}
                     </p>
                     <p className="fs-12 font-r text-color-1 mt-5 mb-3">
                       size available
                     </p>
                     <ul className="size d-flex">
                       {getSizes().map((info: any) => {
-                        return <li className="available">{info.name}</li>;
-
-                        //       <li>36</li>
-                        //
-                        //   <li className="select">40</li>
-                        //   <li className="available">42</li>
+                        if (selectCombination.size == info.id) {
+                          return (
+                            <li
+                              // onClick={() =>
+                              //   props.onSelectedProduct(selectCombination.id)
+                              // }
+                              className="select"
+                            >
+                              {info.name}
+                            </li>
+                          );
+                        } else {
+                          return (
+                            <li
+                              onClick={() => {
+                                if (
+                                  changeVariantBySize(info.id).id != undefined
+                                ) {
+                                  props.onSelectedProduct(
+                                    changeVariantBySize(info.id)?.id
+                                  );
+                                }
+                              }}
+                              className="available"
+                            >
+                              {info.name}
+                            </li>
+                          );
+                        }
                       })}
 
                       {/* <li className="custom-size">
@@ -197,7 +281,60 @@ const ProductQuickView = (props: any) => {
                       <p className="fs-12 font-r text-color-1 mt-4 mb-3">
                         Color
                       </p>
-                      <div>
+
+                      {getColors().map((info: any) => {
+                        console.log(
+                          "selectCombination.color",
+                          selectCombination.color,
+                          "info.id",
+                          info.id
+                        );
+                        if (selectCombination.color == info.id) {
+                          return (
+                            <div>
+                              <input
+                                type="radio"
+                                id="color-1"
+                                name="color"
+                                value="color-1"
+                                defaultChecked={true}
+                              />
+                              <label htmlFor="color-1">
+                                <span style={{ background: info.description }}>
+                                  <div></div>
+                                </span>
+                              </label>
+                            </div>
+                          );
+                        } else {
+                          return (
+                            <div
+                              onClick={() =>
+                                props.onSelectedProduct(selectCombination.id)
+                              }
+                            >
+                              <input
+                                type="radio"
+                                id="color-1"
+                                name="color"
+                                value="color-1"
+                                defaultChecked={false}
+                              />
+                              <label htmlFor="color-1">
+                                <span style={{ background: info.description }}>
+                                  <div></div>
+                                </span>
+                              </label>
+                            </div>
+                          );
+                        }
+
+                        //       <li>36</li>
+                        //
+                        //   <li className="select">40</li>
+                        //   <li className="available">42</li>
+                      })}
+                      {/* <div>
                         <input
                           type="radio"
                           id="color-1"
@@ -210,8 +347,8 @@ const ProductQuickView = (props: any) => {
                             <div></div>
                           </span>
                         </label>
-                      </div>
-                      <div>
+                      </div> */}
+                      {/* <div>
                         <input
                           type="radio"
                           id="color-2"
@@ -223,8 +360,8 @@ const ProductQuickView = (props: any) => {
                             <div></div>
                           </span>
                         </label>
-                      </div>
-                      <div>
+                      </div> */}
+                      {/* <div>
                         <input
                           type="radio"
                           id="color-3"
@@ -236,8 +373,8 @@ const ProductQuickView = (props: any) => {
                             <div></div>
                           </span>
                         </label>
-                      </div>
-                      <div>
+                      </div> */}
+                      {/* <div>
                         <input
                           type="radio"
                           id="color-4"
@@ -249,7 +386,7 @@ const ProductQuickView = (props: any) => {
                             <div></div>
                           </span>
                         </label>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="list mt-4">
                       <div className="row">
@@ -297,12 +434,30 @@ const ProductQuickView = (props: any) => {
                       <div className="col-sm-6  text-center">
                         <div className="product-price">
                           <p className="last-price mb-0 fs-12 font-r">
-                            <span className="text-color-1">₹ 6,450</span>
+                            <span className="text-color-1">
+                              ₹
+                              {
+                                props?.data.attributes.originalPrice?.currencies
+                                  .INR.amount
+                              }
+                            </span>
                           </p>
                           <p className="new-price mb-0 font-sb">
-                            <span>₹3,450</span>
+                            <span>
+                              ₹
+                              {
+                                props?.data.attributes.discountPrice?.currencies
+                                  .INR.amount
+                              }
+                            </span>
                           </p>
-                          <p className="save fs-10 font-r">You save ₹3,000 </p>
+                          <p className="save fs-10 font-r">
+                            You save ₹
+                            {props?.data.attributes.originalPrice?.currencies
+                              .INR.amount -
+                              (props?.data.attributes.discountPrice?.currencies
+                                .INR.amount || 0)}
+                          </p>
                         </div>
                       </div>
                     </div>
