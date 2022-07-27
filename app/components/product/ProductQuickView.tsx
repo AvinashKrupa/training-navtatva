@@ -236,7 +236,7 @@ const ProductQuickView = (props: any) => {
                             <li
                               onClick={() => {
                                 if (
-                                  changeVariantBySize(info.id).id != undefined
+                                  changeVariantBySize(info.id)?.id != undefined
                                 ) {
                                   props.onSelectedProduct(
                                     changeVariantBySize(info.id)?.id

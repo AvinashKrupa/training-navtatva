@@ -3,7 +3,7 @@ import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 interface RefreshToken {
   status: number;
   data: {
-    hashToken: string;
+    access_token: string;
   };
 }
 
@@ -56,10 +56,15 @@ export abstract class HTTPBaseService {
     //     //  return this.instance(originalRequest);
     //   }
     // }
-    config.headers["Content-Type"] = `application/json`;
-    config.headers["Accept"] = `application/json`;
-    config.headers["Authorization"] = `Bearer ${this.token}`;
-    config.headers["accessToken"] = `${this.token}`;
+
+    const headerJson = {
+      "Content-Type": `application/json`,
+      Accept: `application/json`,
+      Authorization: `Bearer ${this.token}`,
+      accessToken: `${this.token}`,
+    };
+
+    config.headers = headerJson;
 
     return config;
   };
@@ -69,7 +74,7 @@ export abstract class HTTPBaseService {
     if (error.response?.status === 401) {
       const refreshToken = await this.refreshToken();
       if (refreshToken.status === 200) {
-        this.token = refreshToken.data.access_token;
+        this.token = refreshToken.data?.access_token || "";
         localStorage.setItem("hashToken", this.token);
         return this.instance(originalRequest);
       }

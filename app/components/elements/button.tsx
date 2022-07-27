@@ -1,6 +1,6 @@
 import React, { HTMLInputTypeAttribute, useEffect, useState } from "react";
 import { ChangeEventHandler } from "react";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "./loadingSpinner";
 
 interface iProps {
   onClick?: () => void;
