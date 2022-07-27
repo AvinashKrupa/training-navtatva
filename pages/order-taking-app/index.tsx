@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
-import { RupifiService } from "../../app/network/gateway/RupifiService";
+import { OrderTakingAppService } from "../../app/network/gateway/OrderTakingAppService";
 import Toast from "../../app/utils/Toast";
 
 const OrderTakingAppScreen: NextPage = () => {
@@ -29,9 +29,9 @@ const OrderTakingAppScreen: NextPage = () => {
     const [sellerList, setSellerList] = useState<any>([]);
     const [orderTotal, setOrderTotal] = useState<number>(0);
     const [gstTotal, setGstTotal] = useState<number>(0);
-    const [displaPlaceOrder, setDisplaPlaceOrder] = useState<boolean>(false);
+    const [displayPlaceOrder, setDisplayPlaceOrder] = useState<boolean>(false);
     const [sellerId, setSellerId] = useState<string>("");
-    
+    const [seller, setSeller] = useState<any>(null);    
 
     useEffect(() => {
         getSellerList();
@@ -39,7 +39,7 @@ const OrderTakingAppScreen: NextPage = () => {
     }, []);
 
     const getSellerList = () => {
-        RupifiService.getInstance("")
+        OrderTakingAppService.getInstance("")
             .getSellerList()
             .then((response: any) => {
                 if (response.data) {
@@ -47,7 +47,8 @@ const OrderTakingAppScreen: NextPage = () => {
                     sellerData?.map( (item: any, index: number) => {
                         return {
                             id: item.id,
-                            name: item.name
+                            name: item.name,
+                            mobile: item.whatsapp_number
                         }
                     })
                     setSellerList(sellerData)
@@ -66,6 +67,7 @@ const OrderTakingAppScreen: NextPage = () => {
         let newFormValues: any = [...formValues];
         newFormValues[i][e.target.name] = e.target.value;
         setFormValues(newFormValues);
+        setDisplayPlaceOrder(false)
     }
 
     const addFormFields = () => {
@@ -82,24 +84,88 @@ const OrderTakingAppScreen: NextPage = () => {
         event.preventDefault();
         let grandTotal: number = 0;
         let grandGstTotal: number = 0;
+        let isEntryValid = true;
         formValues?.map((item: any, index: number) => {
+            item.price = parseInt(item.price);
+            item.gst = parseInt(item.gst);
+            item.discount = parseInt(item.discount);
+            item.qty = parseInt(item.qty);
             item.sellingPrice = getSalePrice(item.price, item.discount);
             item.total = getTotal(item.sellingPrice, item.gst, item.qty);
             grandTotal = item.total;
             grandGstTotal = Math.round((item.sellingPrice * item.gst / 100)*item.qty);
+            if(
+                item.productId == "" || 
+                item.productName == "" ||  
+                item.vendorId == "" ||
+                item.sku == "" ||
+                item.qty <= 0 ||
+                item.price <= 0 ||
+                item.discount < 0 ||
+                item.gst < 0 ||
+                item.total <= 0
+            ){
+                isEntryValid = false;
+            }
             return item;
         })
-        setOrderTotal(grandTotal);
-        setGstTotal(grandGstTotal);
-        setDisplaPlaceOrder(!displaPlaceOrder)
+        if(isEntryValid){
+            setOrderTotal(grandTotal);
+            setGstTotal(grandGstTotal);
+            setDisplayPlaceOrder(!displayPlaceOrder)
+        }else{
+            Toast.showError("All fields are required");
+        }        
     }
 
-    const handleSubmit = () => {  
-        Toast.showSuccess("Order placed successfully.");
-        setFormValues(initFormValues);
-        setDisplaPlaceOrder(!displaPlaceOrder);
-        setSellerId("");
-        console.log("formValues",formValues);
+    async function getSellerData(sellerId: string) {
+        let sellerData = {};
+        await sellerList?.map( (item: any, index: number) => {
+            if(item.id == sellerId){
+                sellerData = item;
+            }
+        })
+        return sellerData;
+    }
+
+    async function getSeller(sellerId: string, keyName: string){
+        const seller: any = getSellerData(sellerId)
+        return seller[keyName];
+    }
+
+    const handleSubmit = async () => {  
+        if(1){
+            let seller: any = await getSellerData(sellerId);
+            let requestJSON = {
+                "sellerId": seller.name,
+                "sellerName": seller.id,
+                "products": formValues,
+                "orderTotal": orderTotal,
+                "gstTotal": gstTotal,
+                "paymentStatus": "pending",
+                "orderStatus": "pending"
+            };
+            console.log("requestJSON ",requestJSON)
+            OrderTakingAppService.getInstance("")
+                .placeOrder(requestJSON)
+                .then((response: any) => {
+                    if (response?.data) {
+                        setFormValues(initFormValues);
+                        setDisplayPlaceOrder(!displayPlaceOrder);
+                        setOrderTotal(0);
+                        setGstTotal(0);
+                        setSellerId("");
+                        Toast.showSuccess("Order placed successfully.");
+                    } else {
+                        console.log("ERROR:", response?.data);
+                    }
+                })
+                .catch((error) => { 
+                    console.log(error)
+                });
+        }else{
+            //
+        }        
     }
 
     const getAccess = () => {
@@ -181,16 +247,29 @@ const OrderTakingAppScreen: NextPage = () => {
                                     </div>
                                     <div className="col-lg-3">
                                         <select className="form-control" value={sellerId} onChange={(e) => {
-                                                setSellerId(e.target.value);
+                                                setSellerId(sellerList[e.target.value]?.id);
+                                                setSeller(sellerList[e.target.value])
                                                 getCreditEligibility(e.target.value);
                                             }}>
                                             <option value={""}>-- SELECT SELLER --</option>
                                             {
                                                 sellerList?.map( (item: any, index: number) => {
-                                                    return <option key={index} value={item.id}>{item.name}</option>
+                                                    return <option key={index} value={index}>{item.name}</option>
                                                 })
                                             }
                                         </select>
+                                    </div>
+                                    <div className="col-lg-6">
+                                        {
+                                            sellerId && (
+                                                <>
+                                                    <label>Mobile Number:</label> <b>{seller.mobile}</b>
+                                                    &nbsp;&nbsp;                              
+                                                    <label>Rupifi(BNPL) Eligibility? :</label> <b>{ isEligibleForTxn ? "Yes": "No" }</b>
+                                                </>
+                                            )
+                                        }
+                                        
                                     </div>
                                 </div>
                                 <br />
@@ -266,10 +345,10 @@ const OrderTakingAppScreen: NextPage = () => {
                                             <div className="row">
                                                 <div className="col-lg-12 text-center">
                                                     {
-                                                        !displaPlaceOrder && <button className="btn btn-sm" type="submit">Calculate Total</button>
+                                                        !displayPlaceOrder && <button className="btn btn-sm" type="submit">Calculate Total</button>
                                                     } 
                                                     {
-                                                        displaPlaceOrder && <button className="btn btn-sm" type="button" onClick={() => handleSubmit()}>Place Order</button>
+                                                        displayPlaceOrder && <button className="btn btn-sm" type="button" onClick={() => handleSubmit()}>Place Order</button>
                                                     }
                                                 </div>                                                
                                             </div>

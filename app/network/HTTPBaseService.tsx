@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
+import API from "../constants/APIEndpoints";
 
 interface RefreshToken {
   status: number;
@@ -58,7 +59,21 @@ export abstract class HTTPBaseService {
     // }
     config.headers["Content-Type"] = `application/json`;
     config.headers["Accept"] = `application/json`;
-    config.headers["Authorization"] = `Bearer ${this.token}`;
+
+    if(
+      config.url?.startsWith(API.RUPIFI.CHECK_CREDIT_ELIGIBILITY) || 
+      config.url?.startsWith(API.RUPIFI.CREATE_PAYMENT) || 
+      config.url?.startsWith(API.RUPIFI.CAPTURE_AMOUNT) || 
+      config.url?.startsWith(API.RUPIFI.CHECK_PAYMENT_STATUS)
+    ){
+      
+      let rpf_token: any = localStorage.getItem("rpf_token");
+      rpf_token = JSON.parse(rpf_token);
+      config.headers["Authorization"] = `Bearer ${rpf_token.accessToken}`;
+
+    }else{
+      config.headers["Authorization"] = `Bearer ${this.token}`;
+    }
     config.headers["accessToken"] = `${this.token}`;
 
     return config;

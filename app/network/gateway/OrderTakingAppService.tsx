@@ -2,8 +2,8 @@ import API from "../../constants/APIEndpoints";
 import constants from "../../constants/constant";
 import { HTTPBaseService } from "../HTTPBaseService";
 import Toast from "../../utils/Toast";
-export class RupifiService extends HTTPBaseService {
-  private static classInstance?: RupifiService;
+export class OrderTakingAppService extends HTTPBaseService {
+  private static classInstance?: OrderTakingAppService;
 
   constructor(token: string) {
     super(constants.baseURL, token);
@@ -11,21 +11,22 @@ export class RupifiService extends HTTPBaseService {
 
   public static getInstance(token?: string) {
     if (!this.classInstance) {
-      this.classInstance = new RupifiService(token ?? "");
+      this.classInstance = new OrderTakingAppService(token ?? "");
     }
 
     return this.classInstance;
   }
 
-  public getRupifiAccessToken = (data: any) => {
+  public getSellerList = () => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
-        .post(API.RUPIFI.GET_ACCESS_TOKEN, data)
+        .get(API.ORDER_TAKING_APP.GET_SELLERS)
         .then((response) => {
-          //let message = response.data.detail;
-          if (response) {
+          if (response.status == 200) {
             resolve(response);
           } else {
+            let message = response.data.message;
+            Toast.showError(message);
             reject(response);
           }
         })
@@ -36,15 +37,16 @@ export class RupifiService extends HTTPBaseService {
     });
   };
 
-  public checkRupifiCreditEligibility = (data: any) => {
+  public getOrderList = () => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
-        .post(API.RUPIFI.CHECK_CREDIT_ELIGIBILITY, data)
+        .get(API.ORDER_TAKING_APP.GET_ORDERS)
         .then((response) => {
-          //let message = response.data.detail;
-          if (response) {
+          if (response.status == 200) {
             resolve(response);
           } else {
+            let message = response.data.message;
+            Toast.showError(message);
             reject(response);
           }
         })
@@ -55,15 +57,16 @@ export class RupifiService extends HTTPBaseService {
     });
   };
 
-  public createRupifiPayment= (data: any) => {
+  public placeOrder = (data: any) => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
-        .post(API.RUPIFI.CREATE_PAYMENT, data)
+        .post(API.ORDER_TAKING_APP.PLACE_ORDER, data)
         .then((response) => {
-          //let message = response.data.detail;
-          if (response) {
+          if (response.status == 200) {
             resolve(response);
           } else {
+            let message = response.data.message;
+            Toast.showError(message);
             reject(response);
           }
         })
@@ -74,15 +77,16 @@ export class RupifiService extends HTTPBaseService {
     });
   };
 
-  public captureRupifiPayment= (data: any) => {
+  public updateOrder = (data: any) => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
-        .post(API.RUPIFI.CAPTURE_AMOUNT, data)
+        .post(API.ORDER_TAKING_APP.UPDATE_ORDER, data)
         .then((response) => {
-          //let message = response.data.detail;
-          if (response) {
+          if (response.status == 200) {
             resolve(response);
           } else {
+            let message = response.data.message;
+            Toast.showError(message);
             reject(response);
           }
         })
@@ -92,24 +96,4 @@ export class RupifiService extends HTTPBaseService {
         });
     });
   };
-
-  public checkRupifiPaymenStatus= ({merchantPaymentRefId}: any) => {
-    return new Promise((resolve: any, reject: any) => {
-      this.instance
-        .get(API.RUPIFI.CHECK_PAYMENT_STATUS +  merchantPaymentRefId)
-        .then((response) => {
-          //let message = response.data.detail;
-          if (response) {
-            resolve(response);
-          } else {
-            reject(response);
-          }
-        })
-        .catch((error) => {
-          Toast.showError(error.message);
-          reject(error);
-        });
-    });
-  };
-
 }
