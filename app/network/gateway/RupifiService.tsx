@@ -23,7 +23,7 @@ export class RupifiService extends HTTPBaseService {
         .post(API.RUPIFI.GET_ACCESS_TOKEN, data)
         .then((response) => {
           //let message = response.data.detail;
-          if (response) {
+          if (response.status == 200) {
             resolve(response);
           } else {
             reject(response);
@@ -42,7 +42,7 @@ export class RupifiService extends HTTPBaseService {
         .post(API.RUPIFI.CHECK_CREDIT_ELIGIBILITY, data)
         .then((response) => {
           //let message = response.data.detail;
-          if (response) {
+          if (response.status == 200) {
             resolve(response);
           } else {
             reject(response);
@@ -61,7 +61,7 @@ export class RupifiService extends HTTPBaseService {
         .post(API.RUPIFI.CREATE_PAYMENT, data)
         .then((response) => {
           //let message = response.data.detail;
-          if (response) {
+          if (response.status == 200) {
             resolve(response);
           } else {
             reject(response);
@@ -74,13 +74,13 @@ export class RupifiService extends HTTPBaseService {
     });
   };
 
-  public captureRupifiPayment= (data: any) => {
+  public captureRupifiAmount= (data: any) => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
         .post(API.RUPIFI.CAPTURE_AMOUNT, data)
         .then((response) => {
           //let message = response.data.detail;
-          if (response) {
+          if (response.status == 200) {
             resolve(response);
           } else {
             reject(response);
@@ -93,13 +93,13 @@ export class RupifiService extends HTTPBaseService {
     });
   };
 
-  public checkRupifiPaymenStatus= ({merchantPaymentRefId}: any) => {
+  public checkRupifiPaymentStatus= ({merchantPaymentRefId}: any) => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
         .get(API.RUPIFI.CHECK_PAYMENT_STATUS +  merchantPaymentRefId)
         .then((response) => {
           //let message = response.data.detail;
-          if (response) {
+          if (response.status == 200) {
             resolve(response);
           } else {
             reject(response);

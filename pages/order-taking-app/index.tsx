@@ -4,6 +4,7 @@ import { OrderTakingAppService } from "../../app/network/gateway/OrderTakingAppS
 import Toast from "../../app/utils/Toast";
 import { RupifiService } from "../../app/network/gateway/RupifiService";
 import constants from "../../app/constants/constant";
+import OrderTakingAppTitle from "../../app/components/common/OrderTakingAppTitle";
 
 const OrderTakingAppScreen: NextPage = () => {
 
@@ -34,8 +35,10 @@ const OrderTakingAppScreen: NextPage = () => {
     const [displayPlaceOrder, setDisplayPlaceOrder] = useState<boolean>(false);
     const [sellerId, setSellerId] = useState<string>("");
     const [eligibilityData, setEligibilityData] = useState<any>(null);
-
+    const [redirecting, setRedirecting] = useState<boolean>(false);
+    
     useEffect(() => {
+        
         getSellerList();
         handleRupifiAccessToken();
         return () => { };
@@ -94,10 +97,10 @@ const OrderTakingAppScreen: NextPage = () => {
     const getCreditEligibility = (id: string) => {
         let seller: any = getSellerData(id);
         if (seller && seller?.whatsapp_number) {
-            //8660178047
+            
             let requestJSON = {
-                "merchantCustomerRefId": 8660178047 ?? seller?.id,
-                "phone": 8660178047?? seller?.whatsapp_number,
+                "merchantCustomerRefId": constants.RUPIFI.TEST_ACCOUNT ?? seller?.id,
+                "phone": constants.RUPIFI.TEST_ACCOUNT ?? seller?.whatsapp_number,
                 "updateGMV": false
             };
             RupifiService.getInstance("")
@@ -188,8 +191,8 @@ const OrderTakingAppScreen: NextPage = () => {
         if (orderTotal<=eligibilityData?.account?.balance?.value) {
             let seller: any = getSellerData(sellerId);
             let requestJSON = {
-                "sellerId": seller.name,
-                "sellerName": seller.id,
+                "sellerId": seller?.id,
+                "sellerName": seller?.name,
                 "products": formValues,
                 "orderTotal": orderTotal,
                 "gstTotal": gstTotal,
@@ -199,15 +202,19 @@ const OrderTakingAppScreen: NextPage = () => {
             OrderTakingAppService.getInstance("")
                 .placeOrder(requestJSON)
                 .then((response: any) => {
-                    if (response?.data) {
+                    console.log("current",response)
+                    if (response?.status == 200) {
+                        setRedirecting(true)
                         setFormValues(initFormValues);
                         setDisplayPlaceOrder(!displayPlaceOrder);
                         setOrderTotal(0);
                         setGstTotal(0);
-                        setSellerId("");
-                        Toast.showSuccess("Order placed successfully.");
+                        setSellerId(""); 
+                        window.location.href = response?.data?.data?.paymentUrl;                  
+                        
                     } else {
                         console.log("ERROR:", response?.data);
+                        Toast.showError(response?.data?.msg);
                     }
                 })
                 .catch((error) => {
@@ -239,15 +246,12 @@ const OrderTakingAppScreen: NextPage = () => {
     return (
         <>
             {
-                !haveAccess && (
+                !haveAccess && !redirecting && (
                     <div className="shoppingCart orderTakingApp">
                         <div className="wrapper">
                             <section className="cartItem mt-4 mt-md-5">
                                 <div className="row">
-                                    <div className="col-lg-12 text-center">
-                                        <h1 className="fs-40 font-b text-color-2 list-inline-item">NAVTATVA ORDER MANAGEMENT</h1>
-                                        <hr />
-                                    </div>
+                                    <OrderTakingAppTitle/>
                                 </div>
                             </section>
                             <section>
@@ -278,15 +282,12 @@ const OrderTakingAppScreen: NextPage = () => {
                 )
             }
             {
-                haveAccess && (
+                haveAccess && !redirecting && (
                     <div className="shoppingCart orderTakingApp">
                         <div className="wrapper">
                             <section className="cartItem mt-4 mt-md-5">
                                 <div className="row">
-                                    <div className="col-lg-12 text-center">
-                                        <h1 className="fs-40 font-b text-color-2 list-inline-item">NAVTATVA ORDER MANAGEMENT</h1>
-                                        <hr />
-                                    </div>
+                                    <OrderTakingAppTitle/>
                                     <div className="col-lg-12 text-end"><button type="button" className="btn btn-sm" onClick={() => logout()}>Logout</button></div>
                                 </div>
                             </section>
@@ -439,6 +440,31 @@ const OrderTakingAppScreen: NextPage = () => {
                     </div>
                 )
             }
+
+{
+    redirecting && (
+        <div className="shoppingCart orderTakingApp">
+            <div className="wrapper">
+                <section className="cartItem mt-4 mt-md-5">
+                    <div className="row">
+                        <section className = "cartItem mt-4 mt-md-5" >
+                            <div className="row">
+                                <div className="col-lg-12 text-center">
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <h1 className="fs-40 font-b text-color-2 list-inline-item" style={{color: "Green"}}>Redirectiong for payment ... </h1>
+                                </div>
+                            </div>
+                        </section >
+                    </div>
+                </section>
+            </div>
+        </div>
+    )
+
+}
+            
         </>
     )
 };

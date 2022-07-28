@@ -11,7 +11,8 @@ const API = {
     GET_SELLERS: "get-all-customers",
     PLACE_ORDER: "place-custom-order",
     UPDATE_ORDER: "update-custom-order",
-    GET_ORDERS: "get-custom-order"
+    GET_ORDERS: "get-custom-order",
+    CALLBACK_URL: "callback-custom-order",
   },
   RUPIFI: {
     GET_ACCESS_TOKEN: constants.RUPIFI.BASE_URL_V1+"merchants/auth/token",
