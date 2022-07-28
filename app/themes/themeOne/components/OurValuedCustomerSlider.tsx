@@ -11,7 +11,7 @@ const OurValuedCustomerSlider = () => {
                         <div className="Preference-slider">
                             <Slider {...customerSliderSetting}>
                                 <div className="mx-0 ">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/modelslide-1.png"
@@ -20,7 +20,7 @@ const OurValuedCustomerSlider = () => {
                                     </a>
                                 </div>
                                 <div className="mx-0">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/modelslide-2.png"
@@ -29,7 +29,7 @@ const OurValuedCustomerSlider = () => {
                                     </a>
                                 </div>
                                 <div className="mx-0">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/modelslide-3.png"
@@ -38,7 +38,7 @@ const OurValuedCustomerSlider = () => {
                                     </a>
                                 </div>
                                 <div className="mx-0">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/modelslide-3.png"
@@ -47,7 +47,7 @@ const OurValuedCustomerSlider = () => {
                                     </a>
                                 </div>
                                 <div className=" mx-0">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/modelslide-3.png"

@@ -20,7 +20,7 @@ const BringInEssence = () => {
                         <div className="explore-slider">
                             <Slider {...exploreSliderSetting}>
                                 <div className="thumb position-relative text-center bg1">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/explore-thumb-1.png"
@@ -36,10 +36,10 @@ const BringInEssence = () => {
                                             <p className="fs-19 font-sb text-color-3 py-2">
                                                 ₹3,450
                                             </p>
-                                            <a href="#" className="btn-border fs-13 text-color-3">
+                                            <a href="/shop" className="btn-border fs-13 text-color-3">
                                                 More Info
                                             </a>
-                                            <a href="#" className="btn fs-13 ">
+                                            <a href="/cart" className="btn fs-13 ">
                                                 Add to Cart
                                             </a>
                                         </div>
@@ -57,7 +57,7 @@ const BringInEssence = () => {
                                     </div>
                                 </div>
                                 <div className="thumb position-relative text-center bg2">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/explore-thumb-2.png"
@@ -73,10 +73,10 @@ const BringInEssence = () => {
                                             <p className="fs-19 font-sb text-color-3 py-2">
                                                 ₹3,450
                                             </p>
-                                            <a href="#" className="btn-border fs-13 text-color-3">
+                                            <a href="/shop" className="btn-border fs-13 text-color-3">
                                                 More Info
                                             </a>
-                                            <a href="#" className="btn fs-13 ">
+                                            <a href="/cart" className="btn fs-13 ">
                                                 Add to Cart
                                             </a>
                                         </div>
@@ -94,7 +94,7 @@ const BringInEssence = () => {
                                     </div>
                                 </div>
                                 <div className="thumb position-relative text-center bg3">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/explore-thumb-3.png"
@@ -110,10 +110,10 @@ const BringInEssence = () => {
                                             <p className="fs-19 font-sb text-color-3 py-2">
                                                 ₹3,450
                                             </p>
-                                            <a href="#" className="btn-border fs-13 text-color-3">
+                                            <a href="/shop" className="btn-border fs-13 text-color-3">
                                                 More Info
                                             </a>
-                                            <a href="#" className="btn fs-13 ">
+                                            <a href="/cart" className="btn fs-13 ">
                                                 Add to Cart
                                             </a>
                                         </div>
@@ -131,7 +131,7 @@ const BringInEssence = () => {
                                     </div>
                                 </div>
                                 <div className="thumb position-relative text-center bg1">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/explore-thumb-1.png"
@@ -147,10 +147,10 @@ const BringInEssence = () => {
                                             <p className="fs-19 font-sb text-color-3 py-2">
                                                 ₹3,450
                                             </p>
-                                            <a href="#" className="btn-border fs-13 text-color-3">
+                                            <a href="/shop" className="btn-border fs-13 text-color-3">
                                                 More Info
                                             </a>
-                                            <a href="#" className="btn fs-13 ">
+                                            <a href="/cart" className="btn fs-13 ">
                                                 Add to Cart
                                             </a>
                                         </div>
@@ -168,7 +168,7 @@ const BringInEssence = () => {
                                     </div>
                                 </div>
                                 <div className="thumb position-relative text-center bg2">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/explore-thumb-2.png"
@@ -184,10 +184,10 @@ const BringInEssence = () => {
                                             <p className="fs-19 font-sb text-color-3 py-2">
                                                 ₹3,450
                                             </p>
-                                            <a href="#" className="btn-border fs-13 text-color-3">
+                                            <a href="/shop" className="btn-border fs-13 text-color-3">
                                                 More Info
                                             </a>
-                                            <a href="#" className="btn fs-13 ">
+                                            <a href="/cart" className="btn fs-13 ">
                                                 Add to Cart
                                             </a>
                                         </div>
@@ -205,7 +205,7 @@ const BringInEssence = () => {
                                     </div>
                                 </div>
                                 <div className="thumb position-relative text-center bg3">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/explore-thumb-3.png"
@@ -221,10 +221,10 @@ const BringInEssence = () => {
                                             <p className="fs-19 font-sb text-color-3 py-2">
                                                 ₹3,450
                                             </p>
-                                            <a href="#" className="btn-border fs-13 text-color-3">
+                                            <a href="/shop" className="btn-border fs-13 text-color-3">
                                                 More Info
                                             </a>
-                                            <a href="#" className="btn fs-13 ">
+                                            <a href="/cart" className="btn fs-13 ">
                                                 Add to Cart
                                             </a>
                                         </div>
@@ -243,7 +243,7 @@ const BringInEssence = () => {
                                 </div>
                             </Slider>
                         </div>
-                        <a href="button" className="btn fs-26 ms-0 ms-lg-4 mt-4">
+                        <a href="/shop" className="btn fs-26 ms-0 ms-lg-4 mt-4">
                             Explore the Holi Store
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

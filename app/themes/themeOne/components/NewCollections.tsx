@@ -16,7 +16,7 @@ const NewCollections = () => {
                         <div className="Preference-slider mt-4 mt-lg-5">
                             <Slider {...preferenceSliderSetting}>
                                 <div className="collection mx-3 position-relative">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/collection.png"
@@ -30,7 +30,7 @@ const NewCollections = () => {
                                     </a>
                                 </div>
                                 <div className="collection mx-3 position-relative">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/collection.png"
@@ -44,7 +44,7 @@ const NewCollections = () => {
                                     </a>
                                 </div>
                                 <div className="collection mx-3 position-relative">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/collection.png"
@@ -58,7 +58,7 @@ const NewCollections = () => {
                                     </a>
                                 </div>
                                 <div className="collection mx-3 position-relative">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/collection.png"

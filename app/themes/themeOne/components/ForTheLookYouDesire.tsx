@@ -14,7 +14,7 @@ const ForTheLookYouDesire = () => {
                         <div className="row">
                             <div className="col-width-5 mb-4 position-relative  text-center">
                                 <div className="stylebg position-relative">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/anarkali-kutis.jpg"
@@ -30,33 +30,33 @@ const ForTheLookYouDesire = () => {
                                 <div className="overlayhover p-3">
                                     <ul className="text-start">
                                         <li>
-                                            <a href="#">
+                                            <a href="/shop">
                                                 <i className="fa-solid fa-caret-right" /> Studs
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a href="shop">
                                                 <i className="fa-solid fa-caret-right" /> Drops
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a href="shop">
                                                 <i className="fa-solid fa-caret-right" /> Hoops &amp;
                                                 Huggies
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a href="shop">
                                                 <i className="fa-solid fa-caret-right" /> Jhumkas
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a href="shop">
                                                 <i className="fa-solid fa-caret-right" /> Chand Bali
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a href="shop">
                                                 <i className="fa-solid fa-caret-right" /> Chandelier
                                             </a>
                                         </li>
@@ -65,7 +65,7 @@ const ForTheLookYouDesire = () => {
                             </div>
                             <div className="col-width-5 mb-4 text-center position-relative">
                                 <div className="stylebg position-relative">
-                                    <a href="#">
+                                    <a href="shop">
                                         <img
                                             className="w-100"
                                             src="images/anarkali-kutis.jpg"
@@ -81,7 +81,7 @@ const ForTheLookYouDesire = () => {
                                 <div className="overlayhover p-3">
                                     <ul className="text-start">
                                         <li>
-                                            <a href="#">
+                                            <a href="shop">
                                                 <i className="fa-solid fa-caret-right" /> Studs
                                             </a>
                                         </li>

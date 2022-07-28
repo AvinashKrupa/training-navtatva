@@ -10,7 +10,7 @@ const ShopVirtuallyWithExpert = () => {
                         <p className="fs-29 my-4 my-md-5">
                             Enjoy the live store shopping experience over a video call.
                         </p>
-                        <a href="button" className="btn ms-auto fs-29">
+                        <a href="/shop" className="btn ms-auto fs-29">
                             Book Appointment
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

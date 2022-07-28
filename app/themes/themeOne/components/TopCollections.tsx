@@ -17,7 +17,7 @@ const TopCollections = () => {
                             <Slider {...occasionSetting}>
                                 <div className="thumb position-relative text-center">
                                     <div className="bg1">
-                                        <a href="#">
+                                        <a href="/shop">
                                             <img
                                                 className="w-100"
                                                 src="images/Occassion1.png"
@@ -34,13 +34,13 @@ const TopCollections = () => {
                                                     ₹3,450
                                                 </p>
                                                 <a
-                                                    href="#"
+                                                    href="/shop"
                                                     className="btn-border fs-13 text-color-3"
                                                     tabIndex={0}
                                                 >
                                                     More Info
                                                 </a>
-                                                <a href="#" className="btn fs-13 " tabIndex={0}>
+                                                <a href="/cart" className="btn fs-13 " tabIndex={0}>
                                                     Add to Cart
                                                 </a>
                                             </div>
@@ -60,7 +60,7 @@ const TopCollections = () => {
                                 </div>
                                 <div className="thumb position-relative text-center">
                                     <div className="bg2">
-                                        <a href="#">
+                                        <a href="/shop">
                                             <img
                                                 className="w-100"
                                                 src="images/Occassion2.png"
@@ -77,13 +77,13 @@ const TopCollections = () => {
                                                     ₹3,450
                                                 </p>
                                                 <a
-                                                    href="#"
+                                                    href="/shop"
                                                     className="btn-border fs-13 text-color-3"
                                                     tabIndex={0}
                                                 >
                                                     More Info
                                                 </a>
-                                                <a href="#" className="btn fs-13 " tabIndex={0}>
+                                                <a href="/cart" className="btn fs-13 " tabIndex={0}>
                                                     Add to Cart
                                                 </a>
                                             </div>
@@ -103,7 +103,7 @@ const TopCollections = () => {
                                 </div>
                                 <div className="thumb position-relative text-center">
                                     <div className="bg3">
-                                        <a href="#">
+                                        <a href="/shop">
                                             <img
                                                 className="w-100"
                                                 src="images/Occassion3.png"
@@ -120,13 +120,13 @@ const TopCollections = () => {
                                                     ₹3,450
                                                 </p>
                                                 <a
-                                                    href="#"
+                                                    href="/shop"
                                                     className="btn-border fs-13 text-color-3"
                                                     tabIndex={0}
                                                 >
                                                     More Info
                                                 </a>
-                                                <a href="#" className="btn fs-13 " tabIndex={0}>
+                                                <a href="/cart" className="btn fs-13 " tabIndex={0}>
                                                     Add to Cart
                                                 </a>
                                             </div>
@@ -146,7 +146,7 @@ const TopCollections = () => {
                                 </div>
                                 <div className="thumb position-relative text-center">
                                     <div className="bg4">
-                                        <a href="#">
+                                        <a href="/shop">
                                             <img
                                                 className="w-100"
                                                 src="images/Occassion4.png"
@@ -163,13 +163,13 @@ const TopCollections = () => {
                                                     ₹3,450
                                                 </p>
                                                 <a
-                                                    href="#"
+                                                    href="/shop"
                                                     className="btn-border fs-13 text-color-3"
                                                     tabIndex={0}
                                                 >
                                                     More Info
                                                 </a>
-                                                <a href="#" className="btn fs-13 " tabIndex={0}>
+                                                <a href="/cart" className="btn fs-13 " tabIndex={0}>
                                                     Add to Cart
                                                 </a>
                                             </div>
@@ -189,7 +189,7 @@ const TopCollections = () => {
                                 </div>
                                 <div className="thumb position-relative text-center">
                                     <div className="bg4">
-                                        <a href="#">
+                                        <a href="/shop">
                                             <img
                                                 className="w-100"
                                                 src="images/Occassion4.png"
@@ -206,13 +206,13 @@ const TopCollections = () => {
                                                     ₹3,450
                                                 </p>
                                                 <a
-                                                    href="#"
+                                                    href="/shop"
                                                     className="btn-border fs-13 text-color-3"
                                                     tabIndex={0}
                                                 >
                                                     More Info
                                                 </a>
-                                                <a href="#" className="btn fs-13 " tabIndex={0}>
+                                                <a href="/cart" className="btn fs-13 " tabIndex={0}>
                                                     Add to Cart
                                                 </a>
                                             </div>

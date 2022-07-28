@@ -18,7 +18,7 @@ const WeddingSeasonIsHere = () => {
                                 <div className="row">
                                     <div className="col-sm-6 mb-4  text-center">
                                         <div className="stylebg position-relative">
-                                            <a href="#">
+                                            <a href="/shop">
                                                 <img
                                                     className="w-100"
                                                     src="images/bridal.jpg"
@@ -34,7 +34,7 @@ const WeddingSeasonIsHere = () => {
                                     </div>
                                     <div className="col-sm-6 mb-4 text-center">
                                         <div className="stylebg position-relative">
-                                            <a href="#">
+                                            <a href="/shop">
                                                 <img
                                                     className="w-100"
                                                     src="images/bridal.jpg"
@@ -50,7 +50,7 @@ const WeddingSeasonIsHere = () => {
                                     </div>
                                     <div className="col-sm-6 mb-4 text-center">
                                         <div className="stylebg position-relative">
-                                            <a href="#">
+                                            <a href="/shop">
                                                 <img
                                                     className="w-100"
                                                     src="images/bridal.jpg"
@@ -66,7 +66,7 @@ const WeddingSeasonIsHere = () => {
                                     </div>
                                     <div className="col-sm-6 mb-4 text-center">
                                         <div className="stylebg position-relative">
-                                            <a href="#">
+                                            <a href="/shop">
                                                 <img
                                                     className="w-100"
                                                     src="images/bridal.jpg"
@@ -84,7 +84,7 @@ const WeddingSeasonIsHere = () => {
                             </div>
                             <div className="col-md-12 col-lg-6  text-center">
                                 <div className="stylebg1 stylebg position-relative">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img className="w-100" src="images/bridal.jpg" alt="" />
                                         <div className="overlay text-start">
                                             <p className="fs-56 pb-4 font-Bsoul text-white d-flex align-items-center justify-content-center h-100 w-50 ps-5">
