@@ -114,7 +114,7 @@ const ProductQuickView = (props: any) => {
       }
       c = "0x" + c.join("");
       return (
-        "rgba(" + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(",") + ",0.4)"
+        "rgba(" + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(",") + ",0.1)"
       );
     }
     throw new Error("Bad Hex");
