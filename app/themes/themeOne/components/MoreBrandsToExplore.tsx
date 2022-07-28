@@ -21,7 +21,7 @@ const MoreBrandsToExplore = (props: IProps) => {
                     style={{ backgroundColor: "white" }}
                     className="align-items-center justify-content-center d-inline-flex"
                   >
-                    <a href="#">
+                    <a href="/shop">
                       <img
                         style={{ maxWidth: 180, maxHeight: 180 }}
                         src={info.image || "images/brand-1.png"}

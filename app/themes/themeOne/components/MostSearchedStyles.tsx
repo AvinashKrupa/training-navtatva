@@ -14,7 +14,7 @@ const MostSearchedStyles = () => {
                         <div className="row">
                             <div className="col-width-5 mb-4  text-center">
                                 <div className="stylebg position-relative">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/anarkali-kutis.jpg"
@@ -30,7 +30,7 @@ const MostSearchedStyles = () => {
                             </div>
                             <div className="col-width-5 mb-4 text-center">
                                 <div className="stylebg position-relative">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/anarkali-kutis.jpg"
@@ -46,7 +46,7 @@ const MostSearchedStyles = () => {
                             </div>
                             <div className="col-width-2 mb-4  text-center">
                                 <div className="stylebg position-relative">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img className="w-100" src="images/bridal.jpg" alt="" />
                                         <div className="overlay text-start">
                                             <p className="fs-32 pb-4 font-Bsoul text-white d-flex align-items-end justify-content-center h-100">
@@ -58,7 +58,7 @@ const MostSearchedStyles = () => {
                             </div>
                             <div className="col-width-2 mb-4 text-center">
                                 <div className="stylebg position-relative">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img className="w-100" src="images/bridal.jpg" alt="" />
                                         <div className="overlay text-start">
                                             <p className="fs-32 pb-4 font-Bsoul text-white d-flex align-items-end justify-content-center h-100">
@@ -70,7 +70,7 @@ const MostSearchedStyles = () => {
                             </div>
                             <div className="col-width-5 mb-4  text-center">
                                 <div className="stylebg position-relative">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/anarkali-kutis.jpg"
@@ -86,7 +86,7 @@ const MostSearchedStyles = () => {
                             </div>
                             <div className="col-width-5 mb-4 text-center">
                                 <div className="stylebg position-relative">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/anarkali-kutis.jpg"
@@ -102,7 +102,7 @@ const MostSearchedStyles = () => {
                             </div>
                             <div className="col-width-5 mb-4  text-center">
                                 <div className="stylebg position-relative">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/anarkali-kutis.jpg"
@@ -118,7 +118,7 @@ const MostSearchedStyles = () => {
                             </div>
                             <div className="col-width-5 mb-4 text-center">
                                 <div className="stylebg position-relative">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img
                                             className="w-100"
                                             src="images/anarkali-kutis.jpg"
@@ -134,7 +134,7 @@ const MostSearchedStyles = () => {
                             </div>
                             <div className="col-width-2  text-center">
                                 <div className="stylebg position-relative">
-                                    <a href="#">
+                                    <a href="/shop">
                                         <img className="w-100" src="images/bridal.jpg" alt="" />
                                         <div className="overlay text-start">
                                             <p className="fs-32 pb-4 font-Bsoul text-white d-flex align-items-end justify-content-center h-100">

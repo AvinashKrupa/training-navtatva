@@ -1,4 +1,6 @@
 import React from "react";
+import Link from 'next/link';
+
 
 const DesignersPick = () => {
     return (
@@ -18,7 +20,7 @@ const DesignersPick = () => {
                                     <div className="product-imgs">
                                         <div className="img-select">
                                             <div className="img-item">
-                                                <a href="#" data-id={1}>
+                                                <a href="/shop" data-id={1}>
                                                     <img
                                                         src="images/detail-thumb1.png"
                                                         alt="Detail image"
@@ -26,7 +28,7 @@ const DesignersPick = () => {
                                                 </a>
                                             </div>
                                             <div className="img-item">
-                                                <a href="#" data-id={2}>
+                                                <a href="/shop" data-id={2}>
                                                     <img
                                                         src="images/detail-thumb2.png"
                                                         alt="Detail image"
@@ -34,7 +36,7 @@ const DesignersPick = () => {
                                                 </a>
                                             </div>
                                             <div className="img-item">
-                                                <a href="#" data-id={3}>
+                                                <a href="/shop" data-id={3}>
                                                     <img
                                                         src="images/detail-thumb3.png"
                                                         alt="Detail image"
@@ -42,7 +44,7 @@ const DesignersPick = () => {
                                                 </a>
                                             </div>
                                             <div className="img-item">
-                                                <a href="#" data-id={4}>
+                                                <a href="/shop" data-id={4}>
                                                     <img
                                                         src="images/detail-thumb4.png"
                                                         alt="Detail image"
@@ -268,17 +270,21 @@ const DesignersPick = () => {
                                             </div>
                                         </div>
                                         <div className="resquest">
-                                            <a href="#" className="font-m" title={""}>
+                                            <a href="/shop" className="font-m" title={""}>
                                                 Request Sample
                                             </a>
                                         </div>
                                         <div className="purchase-info d-flex">
+                                        <Link href="/cart">
                                             <button type="button" className="btn w-50">
                                                 Quick View
                                             </button>
-                                            <button type="button" className="btn w-50">
+                                            </Link>
+                                            <Link href="/cart">
+                                            <button type="button" className="btn w-50" >
                                                 Add to Cart
                                             </button>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

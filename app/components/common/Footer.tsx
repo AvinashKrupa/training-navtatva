@@ -13,7 +13,7 @@ const Footer = () => {
                 Get every product update and new offers as soon as they are
                 available.
               </p>
-              <form className="form-inline position-relative mt-5">
+              <form className="form-inline position-relative mt-5" action="/shop">
                 <div className="form-group mb-2">
                   <label htmlFor="staticEmail2" className="sr-only">
                     Email

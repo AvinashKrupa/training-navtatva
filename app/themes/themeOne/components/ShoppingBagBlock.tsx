@@ -17,7 +17,7 @@ const ShoppingBagBlock = () => {
                                     </p>
                                     <div className="row mt-5">
                                         <div className="col-sm-8 mb-4 mb-sm-0">
-                                            <a href="#">
+                                            <a href="/shop">
                                                 <img
                                                     className="w-100"
                                                     src="images/kurtis-1.png"
@@ -26,14 +26,14 @@ const ShoppingBagBlock = () => {
                                             </a>
                                         </div>
                                         <div className="col-sm-4 align-self-end">
-                                            <a href="#">
+                                            <a href="/shop">
                                                 <img
                                                     className="w-100 mb-4 pb-2"
                                                     src="images/kurtis-2.png"
                                                     alt=""
                                                 />
                                             </a>
-                                            <a href="#">
+                                            <a href="/shop">
                                                 <img
                                                     className="w-100"
                                                     src="images/kurtis-3.png"
