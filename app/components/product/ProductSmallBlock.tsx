@@ -3,10 +3,18 @@ import ExploreBlock from "../common/ExploreBlock";
 import SpinBlock from "../common/SpinBlock";
 
 const ProductSmallBlock = (props: any) => {
+  function randomIntFromInterval(min: number, max: number) {
+    // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
   return (
     <div className="col-xl-6">
       {props.exploreBlock && <ExploreBlock />}
-      <div className={"product-block bg-" + props.bg_type}>
+      <div
+        className={"product-block bg-" + randomIntFromInterval(1, 6)}
+        // style={{ background: "antiquewhite" }}
+      >
         {props.spinBlock && <SpinBlock />}
         <div className="row g-0">
           <div className="col-sm-7">
