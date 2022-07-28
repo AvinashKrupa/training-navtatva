@@ -28,7 +28,15 @@ const ProductSmallBlock = (props: any) => {
           <div className="col-sm-5">
             <div className="product-content-area">
               <h6>{props.name}</h6>
-              <p>{props.description}</p>
+              <p
+                style={{
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                  overflow: "hidden",
+                }}
+              >
+                {props.description}
+              </p>
               <div className="product-rating text-center">
                 <span>4.6</span>
                 <ul className="list-inline">

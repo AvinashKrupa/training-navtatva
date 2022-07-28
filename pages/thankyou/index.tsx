@@ -38,7 +38,7 @@ function ThankYou(props: iProps) {
                 <img width={150} src="images/thank-you.gif" alt="" />
               </li>
               <li className="list-inline-item">
-                <a href="#" className="btn fs-18 w-100" tabIndex={0}>
+                <a href="/" className="btn fs-18 w-100" tabIndex={0}>
                   Track Order
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

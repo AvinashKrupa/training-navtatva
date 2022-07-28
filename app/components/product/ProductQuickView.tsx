@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 
@@ -7,6 +8,9 @@ const ProductQuickView = (props: any) => {
     size: "",
     id: "",
   });
+
+  const [colorCode, setColorCode] = useState("#ffffff");
+  const router = useRouter();
   useEffect(() => {
     getSizes();
     getSelectedVariants();
@@ -37,16 +41,22 @@ const ProductQuickView = (props: any) => {
 
     for (let i = 0; i < idObj.length; i++) {
       //size
-      let innerObj = props.data.meta.variation_matrix[idObj[i]];
-      let innerObjKeys = Object.keys(innerObj);
-      for (let j = 0; j < innerObjKeys.length; j++) {
-        //color
-        if (innerObj[innerObjKeys[j]] === props.data.id) {
-          setSelectedCombination({
-            color: innerObjKeys[j],
-            size: idObj[i],
-            id: innerObj[innerObjKeys[j]],
-          });
+      if (idObj[i] == selectCombination.size) {
+        let innerObj = props.data.meta.variation_matrix[idObj[i]];
+        let innerObjKeys = Object.keys(innerObj);
+
+        console.log("YATISHinnerObjKeys", innerObjKeys);
+        for (let j = 0; j < innerObjKeys.length; j++) {
+          //color
+
+          if (innerObjKeys[j] === id) {
+            //color
+            return {
+              color: innerObjKeys[j],
+              size: idObj[i],
+              id: innerObj[innerObjKeys[j]],
+            };
+          }
         }
       }
     }
@@ -83,13 +93,7 @@ const ProductQuickView = (props: any) => {
   }
 
   function getColors() {
-    console.log(
-      "props.data.meta.variation_matrix",
-      props.data.meta.variation_matrix
-    );
-
     Object.keys(props.data.meta.variation_matrix);
-
     let colors = props.data.meta.variations.filter((info: any) => {
       return info.name == "Color";
     });
@@ -99,6 +103,21 @@ const ProductQuickView = (props: any) => {
     } else {
       return [];
     }
+  }
+
+  function hexToRgbA(hex: string) {
+    var c: number;
+    if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+      c = hex.substring(1).split("");
+      if (c.length == 3) {
+        c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+      }
+      c = "0x" + c.join("");
+      return (
+        "rgba(" + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(",") + ",0.4)"
+      );
+    }
+    throw new Error("Bad Hex");
   }
   return (
     <Modal
@@ -130,7 +149,10 @@ const ProductQuickView = (props: any) => {
         </button>
         <div className="modal-body">
           <div className="detail-slider">
-            <div className="product-block bg-1">
+            <div
+              className="product-block bg-1"
+              style={{ backgroundColor: hexToRgbA(colorCode) }}
+            >
               <div className="row">
                 <div className="col-md-12 col-xl-8">
                   <div className="product-imgs">
@@ -235,12 +257,9 @@ const ProductQuickView = (props: any) => {
                           return (
                             <li
                               onClick={() => {
-                                if (
-                                  changeVariantBySize(info.id)?.id != undefined
-                                ) {
-                                  props.onSelectedProduct(
-                                    changeVariantBySize(info.id)?.id
-                                  );
+                                let data = changeVariantBySize(info.id);
+                                if (data?.id != undefined) {
+                                  props.onSelectedProduct(data?.id);
                                 }
                               }}
                               className="available"
@@ -283,21 +302,14 @@ const ProductQuickView = (props: any) => {
                       </p>
 
                       {getColors().map((info: any) => {
-                        console.log(
-                          "selectCombination.color",
-                          selectCombination.color,
-                          "info.id",
-                          info.id
-                        );
                         if (selectCombination.color == info.id) {
                           return (
-                            <div>
+                            <div className="custom-radios" onClick={() => {}}>
                               <input
                                 type="radio"
                                 id="color-1"
                                 name="color"
                                 value="color-1"
-                                defaultChecked={true}
                               />
                               <label htmlFor="color-1">
                                 <span style={{ background: info.description }}>
@@ -309,21 +321,26 @@ const ProductQuickView = (props: any) => {
                         } else {
                           return (
                             <div
-                              onClick={() =>
-                                props.onSelectedProduct(selectCombination.id)
-                              }
+                              onClick={() => {
+                                if (info.description != colorCode) {
+                                  setColorCode(info.description);
+                                }
+                                let data = changeVariantByColor(info.id);
+                                if (data?.id != undefined) {
+                                  props.onSelectedProduct(data?.id);
+                                }
+                              }}
                             >
                               <input
                                 type="radio"
                                 id="color-1"
                                 name="color"
                                 value="color-1"
-                                defaultChecked={false}
                               />
                               <label htmlFor="color-1">
-                                <span style={{ background: info.description }}>
-                                  <div></div>
-                                </span>
+                                <span
+                                  style={{ background: info.description }}
+                                ></span>
                               </label>
                             </div>
                           );
@@ -470,7 +487,13 @@ const ProductQuickView = (props: any) => {
                       <button type="button" className="btn w-50">
                         More Info
                       </button>
-                      <button type="button" className="btn w-50">
+                      <button
+                        onClick={() => {
+                          router.push("/cart");
+                        }}
+                        type="button"
+                        className="btn w-50"
+                      >
                         Add to Cart
                       </button>
                     </div>
