@@ -7,8 +7,8 @@ const constants = {
     TEST_ACCOUNT: 7976545492, //8660178047 // 7976545492
     MERCHANT_ID: "TESTCLIENT",
     MERCHANT_SECRET: "OGFlN2Q2MGItMmJiYy00OTU0LWE1MWItMTU1OGJmYTU4YThm",
-    REDIRECT_CANCEL_URL: "http://localhost:3000/order-taking-app/cancel",
-    REDIRECT_CONFIRM_URL: "http://localhost:3000/order-taking-app/success",
+    REDIRECT_CANCEL_URL: "http://www.navtatva.fashion/order-taking-app/cancel",
+    REDIRECT_CONFIRM_URL: "http://www.navtatva.fashion/order-taking-app/success",
   },
 };
 export default constants;
