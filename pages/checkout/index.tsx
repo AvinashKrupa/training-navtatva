@@ -54,16 +54,16 @@ const CheckoutScreen: NextPage = () => {
                               Mobile Number
                             </label>
                             <div className="col-sm-8 position-relative">
-                              <input type="text" className="form-control" />{" "}
+                              <input type="text" className="form-control" />
                               <a
                                 href="#"
                                 className=" fs-16 btn font-sb text-color-3 text-end otp"
                               >
                                 Send OTP
-                              </a>{" "}
+                              </a>
                             </div>
                             <p className="d-block font-sb text-color-1 mt-4">
-                              Don’t Have an account yet?{" "}
+                              Don’t Have an account yet?
                               <a
                                 href="#"
                                 className="text-color-3 position-relative signup"
