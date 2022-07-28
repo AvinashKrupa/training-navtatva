@@ -397,9 +397,9 @@ ul.iconBar li a.user {
   height: 103px;
 }
 .category .slick-next {
-  background: url(../public/images/right.png) no-repeat;
   width: 51px;
   height: 103px;
+  background: url(../public/images/right.png) no-repeat;
 }
 .category .slick-next,
 .slick-prev {
