@@ -399,7 +399,7 @@ ul.iconBar li a.user {
 .category .slick-next {
   width: 51px;
   height: 103px;
-  background: url(../public/images/right.png) no-repeat;
+  background: url(../public/images/Right.png) no-repeat;
 }
 .category .slick-next,
 .slick-prev {
