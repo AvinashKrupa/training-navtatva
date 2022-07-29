@@ -1318,7 +1318,7 @@ body.product-search-detail .purchase-info button {
 .custom-radios input[type="radio"] + label span:after {
   content: "";
   position: absolute;
-  left: -2px;
+  left: -3px;
   width: 40px;
   top: -3px;
   border: solid 2px #ccc;
