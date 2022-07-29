@@ -10,7 +10,7 @@ const API = {
   ORDER_TAKING_APP: {    
     GET_SELLERS: "get-all-customers",
     PLACE_ORDER: "place-custom-order",
-    UPDATE_ORDER: "update-custom-order",
+    UPDATE_ORDER: "update-custom-order/",
     GET_ORDERS: "get-custom-order",
     CALLBACK_URL: "callback-custom-order",
   },

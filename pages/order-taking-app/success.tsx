@@ -1,31 +1,35 @@
 import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import OrderTakingAppTitle from "../../app/components/common/OrderTakingAppTitle";
-import { withRouter } from "next/router";
+import { useRouter, withRouter } from "next/router";
 import { OrderTakingAppService } from "../../app/network/gateway/OrderTakingAppService";
 
 const OrderTakingAppSuccessScreen: NextPage = (props: any) => {
 
+    const router = useRouter()
     const [authStatus, setAuthStatus] = useState<string>("");
+    const [rupifiResponse, setRupifiResponse] = useState<any>({});
+
+    useEffect(() => {
+        if(!router.isReady) return;
+        const query: any = router.query;
+        setAuthStatus(query?.status) 
+        setRupifiResponse(query);
+    }, [router.isReady, router.query]);
 
     useEffect( () => {
-        setAuthStatus(props.router.query?.status) 
-        return () => {};
-    },[])
-
-    useEffect( () => {
-        //if(authStatus == "AUTH_APPROVED"){
-            //updateOrder();
-        //}             
+        if(authStatus == "AUTH_APPROVED"){
+            updateOrder();
+        }             
         return () => {};
     },[authStatus])
 
     const updateOrder = async () => {
 
         const requestJSON = {
-            "orderStatus": authStatus == "AUTH_APPROVED" ? "placed": "canceled",
+            "orderStatus": authStatus == "AUTH_APPROVED" ? "pending": "cancelled",
             "paymentStatus": authStatus == "AUTH_APPROVED" ? authStatus: "pending",
-            "rupifiResponse": props.router.query
+            "rupifiResponse": rupifiResponse
         }
         
         OrderTakingAppService.getInstance("")
@@ -56,7 +60,7 @@ const OrderTakingAppSuccessScreen: NextPage = (props: any) => {
                             <div className="col-lg-12 text-center">
                                 <br/>
                                 <br/>
-                                <h2 className="fs-32 font-b text-color-2 list-inline-item" style={{color: "Green"}}>Order placed</h2>
+                                <h2 className="fs-32 font-b text-color-2 list-inline-item" style={{color: (authStatus == "AUTH_APPROVED" ? "Green": "Red")}}>Order {authStatus == "AUTH_APPROVED" ? "placed": "cancelled"}</h2>
                                 <br/>
                                 <br/>
                                 <p>

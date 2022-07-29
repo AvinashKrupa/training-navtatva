@@ -1,31 +1,35 @@
 import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
-import { withRouter } from "next/router";
+import { useRouter, withRouter } from "next/router";
 import OrderTakingAppTitle from "../../app/components/common/OrderTakingAppTitle";
 import { OrderTakingAppService } from "../../app/network/gateway/OrderTakingAppService";
 
 const OrderTakingAppCancelScreen: NextPage = (props: any) => {
 
+    const router = useRouter();
     const [authStatus, setAuthStatus] = useState<string>("");
+    const [rupifiResponse, setRupifiResponse] = useState<any>({});
+
+    useEffect(() => {
+        if(!router.isReady) return;
+        const query: any = router.query;
+        setAuthStatus(query?.status) 
+        setRupifiResponse(query);
+    }, [router.isReady, router.query]);
 
     useEffect( () => {
-        setAuthStatus(props.router.query?.status) 
-        return () => {};
-    },[])
-
-    useEffect( () => {
-        //if(authStatus == "AUTH_PENDING"){
-            //updateOrder();
-        //}             
+        if(authStatus == "AUTH_APPROVED"){
+            updateOrder();
+        }             
         return () => {};
     },[authStatus])
 
     const updateOrder = async () => {
 
         const requestJSON = {
-            "orderStatus": "canceled",
+            "orderStatus": "cancelled",
             "paymentStatus": authStatus == "AUTH_PENDING" ? authStatus: "pending",
-            "rupifiResponse": props.router.query
+            "rupifiResponse": rupifiResponse
         }//
 
         OrderTakingAppService.getInstance("")
