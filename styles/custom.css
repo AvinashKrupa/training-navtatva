@@ -1,33 +1,38 @@
 #checkOut .modal-content {
-    border: none;
+  border: none;
 }
 .price-range-filter > div {
-    width: auto!important;
+  width: auto !important;
 }
 .wardrobe .slick-slide {
-    margin: 0 0px!important;
-    padding-right: 10px;
-    padding-left: 10px;
+  margin: 0 0px !important;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 .sliderView .slick-slide {
-    margin: 0 -15px!important;
-    padding-right: 25px;
-    padding-left: 25px;
+  margin: 0 -15px !important;
+  padding-right: 25px;
+  padding-left: 25px;
 }
 .orderTakingApp {
-    min-height: 599px;
+  min-height: 599px;
 }
 .form-inline {
-    border-bottom: 1px solid rgb(180, 178, 178);
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+  border-bottom: 1px solid rgb(180, 178, 178);
+  padding-bottom: 10px;
+  margin-bottom: 10px;
 }
-.btn-red, .btn-green {
-    color: white!important;
+.btn-red,
+.btn-green {
+  color: white !important;
 }
 .btn-red {
-    background-color: #dc3545;
+  background-color: #dc3545;
 }
 .btn-green {
-    background-color: #198754;
+  background-color: #198754;
+}
+
+.slick-slide img.w-100 {
+  display: unset !important;
 }

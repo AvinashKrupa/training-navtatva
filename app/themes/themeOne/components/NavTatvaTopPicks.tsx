@@ -34,7 +34,7 @@ const NavTatvaTopPicks = () => {
                           ₹3,450
                         </p>
                         <a
-                          href="#"
+                          href="/productDetail"
                           className="btn-border fs-13 text-color-3"
                           tabIndex={0}
                         >
@@ -77,7 +77,7 @@ const NavTatvaTopPicks = () => {
                           ₹3,450
                         </p>
                         <a
-                          href="#"
+                          href="/productDetail"
                           className="btn-border fs-13 text-color-3"
                           tabIndex={0}
                         >
@@ -120,7 +120,7 @@ const NavTatvaTopPicks = () => {
                           ₹3,450
                         </p>
                         <a
-                          href="#"
+                          href="/productDetail"
                           className="btn-border fs-13 text-color-3"
                           tabIndex={0}
                         >
@@ -163,7 +163,7 @@ const NavTatvaTopPicks = () => {
                           ₹3,450
                         </p>
                         <a
-                          href="#"
+                          href="/productDetail"
                           className="btn-border fs-13 text-color-3"
                           tabIndex={0}
                         >
@@ -206,7 +206,7 @@ const NavTatvaTopPicks = () => {
                           ₹3,450
                         </p>
                         <a
-                          href="#"
+                          href="/productDetail"
                           className="btn-border fs-13 text-color-3"
                           tabIndex={0}
                         >
