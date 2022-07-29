@@ -339,6 +339,7 @@ a {
   border-radius: 13px;
   padding: 10px 20px;
   transition: all 0.35s;
+  margin-right: 8px;
 }
 .main-header .input-group {
   width: 45%;
