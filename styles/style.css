@@ -339,6 +339,7 @@ a {
   border-radius: 13px;
   padding: 10px 20px;
   transition: all 0.35s;
+  margin-right: 8px;
 }
 .main-header .input-group {
   width: 45%;
@@ -356,6 +357,10 @@ a {
 .subcategory * {
   position: relative;
   z-index: 99999999;
+}
+
+.subcategory a:hover {
+  color: #f9bc60 !important;
 }
 .main-header .input-group svg {
   position: absolute;
@@ -1313,7 +1318,7 @@ body.product-search-detail .purchase-info button {
 .custom-radios input[type="radio"] + label span:after {
   content: "";
   position: absolute;
-  left: -2px;
+  left: -3px;
   width: 40px;
   top: -3px;
   border: solid 2px #ccc;
