@@ -357,6 +357,10 @@ a {
   position: relative;
   z-index: 99999999;
 }
+
+.subcategory a:hover {
+  color: #f9bc60 !important;
+}
 .main-header .input-group svg {
   position: absolute;
   left: 30px;
