@@ -9,9 +9,10 @@ interface IProps {
 }
 
 const MenuCategorySlider = (props: IProps) => {
+  const [tempselectedSubCat, setTempSelectedSubCat] = useState<any>([]);
   const [selectedSubCat, setSelectedSubCat] = useState<any>([]);
   const [sideImageOnHover, setSideImageOnHover] = useState<any>([]);
-  useDebouncedEffect(() => console.log(selectedSubCat), [selectedSubCat], 1000);
+  // useDebouncedEffect(() => console.log(selectedSubCat), [selectedSubCat], 1000);
 
   return (
     <section className="category mt-4 mt-md-5 position-relative side-category">
@@ -27,10 +28,15 @@ const MenuCategorySlider = (props: IProps) => {
                     image={info.image || "images/cate-1.jpg"}
                     onClick={() => {
                       if (selectedSubCat.length == 0) {
+                        setTempSelectedSubCat(info.children);
                         setSelectedSubCat(info.children || []);
                       } else {
+                        setTempSelectedSubCat(selectedSubCat);
                         setSelectedSubCat([]);
                       }
+                    }}
+                    onMouseLeave={() => {
+                      setSelectedSubCat([]);
                     }}
                   />
                 );
@@ -39,6 +45,12 @@ const MenuCategorySlider = (props: IProps) => {
           </div>
 
           <div
+            onMouseEnter={() => {
+              setSelectedSubCat(tempselectedSubCat);
+            }}
+            onMouseLeave={() => {
+              setSelectedSubCat([]);
+            }}
             className="bg-white subcategory p-4"
             style={{
               display: selectedSubCat.length == 0 ? "none" : "block",
