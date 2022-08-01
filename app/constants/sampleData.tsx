@@ -331,3 +331,36 @@ export const myCollectionMenu:any=[
     created_data:'created on 9th July 2022'
   }
 ]
+
+export const apparelData:any=[
+  {
+    image:'images/apparel.jpg',
+    name:'Sarees'
+  },
+  {
+    image:'images/apparel.jpg',
+    name:'Sarees'
+  },
+  {
+    image:'images/apparel.jpg',
+    name:'Sarees'
+  },
+  {
+    image:'images/apparel.jpg',
+    name:'Sarees'
+  },
+  {
+    image:'images/apparel.jpg',
+    name:'Sarees'
+  },
+  {
+    image:'images/apparel.jpg',
+    name:'Sarees'
+  }, {
+    image:'images/apparel.jpg',
+    name:'Sarees'
+  }, {
+    image:'images/apparel.jpg',
+    name:'Sarees'
+  }
+]

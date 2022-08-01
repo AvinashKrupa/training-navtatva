@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import type { NextPage } from "next";
+
 import Header from "../../app/themes/themeOne/components/Header";
 import { ocassionSliderSetting } from "../../app/utils/sliderConfig";
 import Slider from "react-slick";
@@ -8,8 +8,14 @@ import ProuctWishlist from "../../app/components/product/ProductWishlist";
 
 const CustomisedShoppingExperienceScreen = () => {
     const [wishlistItems, setWishlistItems] = useState<any>([1, 2, 3,4, 5, 6, 7, 8, 9, 10]);
+    const [isSSR, setIsSSR] = useState(true);
 
-    return (
+useEffect(() => {
+	setIsSSR(false);
+}, []);
+
+   if(!isSSR){ return (
+
         <div className="mycollection">
             <div className="wrapper">
                 {/* Header */}
@@ -37,7 +43,7 @@ const CustomisedShoppingExperienceScreen = () => {
             </section>
             <section className="productBar m-5 m-lg-5">
                 <h2 className="fs-40 font-b text-color-2">Other Wishlisted Products</h2>
-                <div className="mt-4 mt-lg-5">
+                <div className="mt-5 mt-lg-5">
                     <div className="row">
                         {wishlistItems?.length &&
                             wishlistItems?.map((item: any, index: number) => {
@@ -48,7 +54,7 @@ const CustomisedShoppingExperienceScreen = () => {
             </section>
         </div>
 
-    );
+                        )}
 
 
 };
