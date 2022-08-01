@@ -1,7 +1,10 @@
 import type { NextPage } from "next";
+import { useState } from "react";
+import ProuctWishlist from "../../app/components/product/ProductWishlist";
 import Header from "../../app/themes/themeOne/components/Header";
 
 const mycollectionKurtis: NextPage = () => {
+    const [wishlistItems, setWishlistItems] = useState<any>([1, 2, 3.4, 5, 6, 7, 8, 9,]);
 
     return (
         <div className="mycollection">
@@ -22,244 +25,14 @@ const mycollectionKurtis: NextPage = () => {
 
                 <div className="mt-4 mt-lg-5">
                     <div className="row">
-                        <div className="col-md-6 col-lg-3 mb-4">
-                            <div className="collection position-relative">
-                                <a href="#">
-                                    <div className="imgsec">
-                                        <img className="w-100" src="images/img1.png" alt="" />
-                                    </div>
-                                    <div className="hoverBlock">
-                                        <div className="overlay   text-start">
-                                            <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                            <p className="fs-14 font-r text-color-1 py-2">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti </p>
+                        {wishlistItems?.length &&
+                            wishlistItems?.map((item: any, index: number) => {
+                                return <ProuctWishlist key={index} {...item} />;
+                            })}
 
-                                            <div className="product-rating mb-3 mt-0">
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star-half-alt"></i>
-                                            </div>
-                                            <p className="fs-20 font-sb text-color-5">₹3,450</p>
-                                            <a href="#" className="btn btnbg fs-13 " tabIndex={0}>Add to Cart</a>
-                                            <div className="btnbarcart">
-                                                <a href="#" className="btn fs-13 quick " tabIndex={0}>Quick View</a>
-                                                <a href="#" className="btn fs-13 " tabIndex={0}>Add to Cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div className="col-md-6 col-lg-3 mb-4">
-                            <div className="collection position-relative">
-                                <a href="#">
-                                    <div className="imgsec">
-                                        <img className="w-100" src="images/img1.png" alt="" />
-                                    </div>
-                                    <div className="hoverBlock">
-                                        <div className="overlay   text-start">
-                                            <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                            <p className="fs-14 font-r text-color-1 py-2">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti </p>
-
-                                            <div className="product-rating mb-3 mt-0">
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star-half-alt"></i>
-                                            </div>
-                                            <p className="fs-20 font-sb text-color-5">₹3,450</p>
-                                            <a href="#" className="btn btnbg fs-13 " tabIndex={0}>Add to Cart</a>
-                                            <div className="btnbarcart">
-                                                <a href="#" className="btn fs-13 quick " tabIndex={0}>Quick View</a>
-                                                <a href="#" className="btn fs-13 " tabIndex={0}>Add to Cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div className="col-md-6 col-lg-3 mb-4">
-                            <div className="collection position-relative">
-                                <a href="#">
-                                    <div className="imgsec">
-                                        <img className="w-100" src="images/img1.png" alt="" />
-                                    </div>
-                                    <div className="hoverBlock">
-                                        <div className="overlay   text-start">
-                                            <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                            <p className="fs-14 font-r text-color-1 py-2">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti </p>
-
-                                            <div className="product-rating mb-3 mt-0">
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star-half-alt"></i>
-                                            </div>
-                                            <p className="fs-20 font-sb text-color-5">₹3,450</p>
-                                            <a href="#" className="btn btnbg fs-13 " tabIndex={0}>Add to Cart</a>
-                                            <div className="btnbarcart">
-                                                <a href="#" className="btn fs-13 quick " tabIndex={0}>Quick View</a>
-                                                <a href="#" className="btn fs-13 " tabIndex={0}>Add to Cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div className="col-md-6 col-lg-3 mb-4">
-                            <div className="collection position-relative">
-                                <a href="#">
-                                    <div className="imgsec">
-                                        <img className="w-100" src="images/img1.png" alt="" />
-                                    </div>
-                                    <div className="hoverBlock">
-                                        <div className="overlay   text-start">
-                                            <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                            <p className="fs-14 font-r text-color-1 py-2">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti </p>
-
-                                            <div className="product-rating mb-3 mt-0">
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star-half-alt"></i>
-                                            </div>
-                                            <p className="fs-20 font-sb text-color-5">₹3,450</p>
-                                            <a href="#" className="btn btnbg fs-13 " tabIndex={0}>Add to Cart</a>
-                                            <div className="btnbarcart">
-                                                <a href="#" className="btn fs-13 quick " tabIndex={0}>Quick View</a>
-                                                <a href="#" className="btn fs-13 " tabIndex={0}>Add to Cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div className="col-md-6 col-lg-3 mb-4">
-                            <div className="collection position-relative">
-                                <a href="#">
-                                    <div className="imgsec">
-                                        <img className="w-100" src="images/img1.png" alt="" />
-                                    </div>
-                                    <div className="hoverBlock">
-                                        <div className="overlay   text-start">
-                                            <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                            <p className="fs-14 font-r text-color-1 py-2">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti </p>
-
-                                            <div className="product-rating mb-3 mt-0">
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star-half-alt"></i>
-                                            </div>
-                                            <p className="fs-20 font-sb text-color-5">₹3,450</p>
-                                            <a href="#" className="btn btnbg fs-13 " tabIndex={0}>Add to Cart</a>
-                                            <div className="btnbarcart">
-                                                <a href="#" className="btn fs-13 quick " tabIndex={0}>Quick View</a>
-                                                <a href="#" className="btn fs-13 " tabIndex={0}>Add to Cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div className="col-md-6 col-lg-3 mb-4">
-                            <div className="collection position-relative">
-                                <a href="#">
-                                    <div className="imgsec">
-                                        <img className="w-100" src="images/img1.png" alt="" />
-                                    </div>
-                                    <div className="hoverBlock">
-                                        <div className="overlay   text-start">
-                                            <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                            <p className="fs-14 font-r text-color-1 py-2">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti </p>
-
-                                            <div className="product-rating mb-3 mt-0">
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star-half-alt"></i>
-                                            </div>
-                                            <p className="fs-20 font-sb text-color-5">₹3,450</p>
-                                            <a href="#" className="btn btnbg fs-13 " tabIndex={0}>Add to Cart</a>
-                                            <div className="btnbarcart">
-                                                <a href="#" className="btn fs-13 quick " tabIndex={0}>Quick View</a>
-                                                <a href="#" className="btn fs-13 " tabIndex={0}>Add to Cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div className="col-md-6 col-lg-3 mb-4">
-                            <div className="collection position-relative">
-                                <a href="#">
-                                    <div className="imgsec">
-                                        <img className="w-100" src="images/img1.png" alt="" />
-                                    </div>
-                                    <div className="hoverBlock">
-                                        <div className="overlay   text-start">
-                                            <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                            <p className="fs-14 font-r text-color-1 py-2">Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti </p>
-
-                                            <div className="product-rating mb-3 mt-0">
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star-half-alt"></i>
-                                            </div>
-                                            <p className="fs-20 font-sb text-color-5">₹3,450</p>
-                                            <a href="#" className="btn btnbg fs-13 " tabIndex={0}>Add to Cart</a>
-                                            <div className="btnbarcart">
-                                                <a href="#" className="btn fs-13 quick " tabIndex={0}>Quick View</a>
-                                                <a href="#" className="btn fs-13 " tabIndex={0}>Add to Cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div className="col-md-6 col-lg-3 mb-4">
-                            <div className="collection position-relative">
-                                <a href="#">
-                                    <div className="imgsec">
-                                        <img className="w-100" src="images/img1.png" alt="" />
-                                    </div>
-                                    <div className="hoverBlock">
-                                        <div className="overlay   text-start">
-                                            <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                            <p className="fs-14 font-r text-color-1 py-2">
-                                                Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti</p>
-
-                                            <div className="product-rating mb-3 mt-0">
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star"></i>
-                                                <i className="fas fa-star-half-alt"></i>
-                                            </div>
-                                            <p className="fs-20 font-sb text-color-5">₹3,450</p>
-                                            <a href="#" className="btn btnbg fs-13 " tabIndex={0}>Add to Cart</a>
-                                            <div className="btnbarcart">
-                                                <a href="#" className="btn fs-13 quick " tabIndex={0}>Quick View</a>
-                                                <a href="#" className="btn fs-13 " tabIndex={0}>Add to Cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </section>
-
-
         </div>
     );
 };

@@ -3867,3 +3867,7 @@ ul.iconBar .dropdown-menu li {
 .dropdown-item:hover {
   background-color: none !important;
 }
+.tt{
+  background: url(../public/images/white-bg-banner.jpg) no-repeat;
+  background-size:cover ;
+}

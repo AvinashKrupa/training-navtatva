@@ -1,44 +1,44 @@
 export const products: any = [
-    { 
-      model_name: "Anubhutee",   
-      name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",   
-      image: "/images/img1.png",   
-      fabric: "Cotton + Khaadi",   
+    {
+      model_name: "Anubhutee",
+      name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",
+      image: "/images/img1.png",
+      fabric: "Cotton + Khaadi",
       bg_type: 1,
     },
-    { 
-        model_name: "Anubhutee",   
-        name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",   
-        image: "/images/img2.png",   
-        fabric: "Nylon + Cotton",   
+    {
+        model_name: "Anubhutee",
+        name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",
+        image: "/images/img2.png",
+        fabric: "Nylon + Cotton",
         bg_type: 2,
     },
-    { 
-      model_name: "Anubhutee",   
-      name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",   
-      image: "/images/img3.png",   
-      fabric: "Silk",   
+    {
+      model_name: "Anubhutee",
+      name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",
+      image: "/images/img3.png",
+      fabric: "Silk",
       bg_type: 3,
     },
-    { 
-        model_name: "Anubhutee",   
-        name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",   
-        image: "/images/img4.png",   
-        fabric: "Pure Cotton",   
+    {
+        model_name: "Anubhutee",
+        name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",
+        image: "/images/img4.png",
+        fabric: "Pure Cotton",
         bg_type: 4,
     },
-    { 
-      model_name: "Anubhutee",   
-      name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",   
-      image: "/images/img5.png",   
-      fabric: "Cotton + Khaadi",   
+    {
+      model_name: "Anubhutee",
+      name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",
+      image: "/images/img5.png",
+      fabric: "Cotton + Khaadi",
       bg_type: 5,
     },
-    { 
-        model_name: "Anubhutee",   
-        name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",   
-        image: "/images/img6.png",   
-        fabric: "Pure Cotton",   
+    {
+        model_name: "Anubhutee",
+        name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",
+        image: "/images/img6.png",
+        fabric: "Pure Cotton",
         bg_type: 6,
     },
 ];
@@ -292,3 +292,42 @@ export const categroyMenu = [
     description: "fancy",
   },
 ];
+
+export const myCollectionMenu:any=[
+  {
+    id:'825a7dd02-5c3a-4ff4-abef-da0c66ca978e',
+    collection_name:'Kurtis',
+    collection_image:'images/img1.png',
+    created_data:'created on 9th July 2022'
+  },
+  {
+    id:'825a7dd02-5c3a-4ff4-abef-da0c66ca978e',
+    collection_name:'Kurtis',
+    collection_image:'images/img1.png',
+    created_data:'created on 9th July 2022'
+  },
+  {
+    id:'825a7dd02-5c3a-4ff4-abef-da0c66ca978e',
+    collection_name:'Kurtis',
+    collection_image:'images/img1.png',
+    created_data:'created on 9th July 2022'
+  },
+  {
+    id:'825a7dd02-5c3a-4ff4-abef-da0c66ca978e',
+    collection_name:'Kurtis',
+    collection_image:'images/img1.png',
+    created_data:'created on 9th July 2022'
+  }
+  ,{
+    id:'825a7dd02-5c3a-4ff4-abef-da0c66ca978e',
+    collection_name:'Kurtis',
+    collection_image:'images/img1.png',
+    created_data:'created on 9th July 2022'
+  },
+  {
+    id:'825a7dd02-5c3a-4ff4-abef-da0c66ca978e',
+    collection_name:'Kurtis',
+    collection_image:'images/img1.png',
+    created_data:'created on 9th July 2022'
+  }
+]
