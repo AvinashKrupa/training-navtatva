@@ -3,8 +3,9 @@ import { useState } from "react";
 import ProuctWishlist from "../../app/components/product/ProductWishlist";
 import Header from "../../app/themes/themeOne/components/Header";
 
-const mycollectionKurtis: NextPage = () => {
-    const [wishlistItems, setWishlistItems] = useState<any>([1, 2, 3.4, 5, 6, 7, 8, 9,]);
+
+const mycollectionKurtis = () => {
+    const [wishlistItems, setWishlistItems] = useState<any>([1, 2, 3,4, 5, 6, 7, 8, 9,]);
 
     return (
         <div className="mycollection">
