@@ -173,7 +173,10 @@ const CartScreen: NextPage = () => {
                           <p className="fs-19 font-sb text-color-3 py-3">
                             ₹3,450
                           </p>
-                          <a href="#" className="btn-border fs-13 text-color-3">
+                          <a
+                            href="/productDetail"
+                            className="btn-border fs-13 text-color-3"
+                          >
                             More Info
                           </a>
                           <a href="#" className="btn fs-13">
@@ -212,7 +215,10 @@ const CartScreen: NextPage = () => {
                           <p className="fs-19 font-sb text-color-3 py-3">
                             ₹3,450
                           </p>
-                          <a href="#" className="btn-border fs-13 text-color-3">
+                          <a
+                            href="/productDetail"
+                            className="btn-border fs-13 text-color-3"
+                          >
                             More Info
                           </a>
                           <a href="#" className="btn fs-13">
@@ -251,7 +257,10 @@ const CartScreen: NextPage = () => {
                           <p className="fs-19 font-sb text-color-3 py-3">
                             ₹3,450
                           </p>
-                          <a href="#" className="btn-border fs-13 text-color-3">
+                          <a
+                            href="/productDetail"
+                            className="btn-border fs-13 text-color-3"
+                          >
                             More Info
                           </a>
                           <a href="#" className="btn fs-13">
@@ -290,7 +299,10 @@ const CartScreen: NextPage = () => {
                           <p className="fs-19 font-sb text-color-3 py-3">
                             ₹3,450
                           </p>
-                          <a href="#" className="btn-border fs-13 text-color-3">
+                          <a
+                            href="/productDetail"
+                            className="btn-border fs-13 text-color-3"
+                          >
                             More Info
                           </a>
                           <a href="#" className="btn fs-13">
@@ -329,7 +341,10 @@ const CartScreen: NextPage = () => {
                           <p className="fs-19 font-sb text-color-3 py-3">
                             ₹3,450
                           </p>
-                          <a href="#" className="btn-border fs-13 text-color-3">
+                          <a
+                            href="/productDetail"
+                            className="btn-border fs-13 text-color-3"
+                          >
                             More Info
                           </a>
                           <a href="#" className="btn fs-13">

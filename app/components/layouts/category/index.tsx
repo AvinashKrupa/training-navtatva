@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 
 interface iProps {
   onClick?: () => void;
+  onMouseLeave?: () => void;
   title: string;
   image: string;
   isLoading?: boolean;
@@ -17,7 +18,7 @@ function NavMenuCategory(props: iProps) {
       <a
         onClick={props.onClick}
         onMouseEnter={props.onClick}
-        // onMouseLeave={props.onClick}
+        onMouseLeave={props.onMouseLeave}
       >
         <img
           style={{ maxHeight: 204, height: 210 }}

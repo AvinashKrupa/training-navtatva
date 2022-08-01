@@ -413,9 +413,9 @@ const OrderTakingAppScreen: NextPage = () => {
                                                         ))}
                                                         <div className="row">
                                                             <div className="col-lg-11 text-end">
-                                                                <label>GST Total</label>: <b>{gstTotal}</b>
-                                                                &nbsp;&nbsp;
-                                                                <label>Ordar Total</label>: <b>{orderTotal}</b>
+                                                                <label>GST Total</label>: <b  className="text-success">₹ {gstTotal.toLocaleString('en-IN')}</b>
+                                                                <br/>
+                                                                <label>Ordar Total</label>: <b  className="text-success">₹ {orderTotal.toLocaleString('en-IN')}</b>
                                                             </div>
                                                             <div className="col-lg-1"></div>
                                                         </div>
