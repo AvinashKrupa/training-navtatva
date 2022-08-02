@@ -3,7 +3,7 @@ import MultiRangeSlider from "../elements/MultiRangeSlider";
 
 const CategoryBox = (props: any) => {
 
-  const [active, setActive] = useState<boolean>(false);
+  const [active, setActive] = useState<boolean>(true);
 
   return (
     <div className="category-box">
@@ -22,7 +22,7 @@ const CategoryBox = (props: any) => {
                     <b className="color-radio" style={{ background: item.color_code }}></b>
                   )
                 }
-                <input type="radio" name={props.name} />
+                <input type="checkbox" name={props.name} value={props.name} />
                 <span className="radio-checkmark"></span>
               </label>
             )
@@ -38,11 +38,11 @@ const CategoryBox = (props: any) => {
                   onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}
                 />
               </div>
-              
+
               <button type="button" className="btn btn-sm w-100">
                 Set Price
               </button>
-             
+
             </>
           )
         }
