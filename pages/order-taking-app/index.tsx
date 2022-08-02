@@ -4,7 +4,8 @@ import { OrderTakingAppService } from "../../app/network/gateway/OrderTakingAppS
 import Toast from "../../app/utils/Toast";
 import { RupifiService } from "../../app/network/gateway/RupifiService";
 import constants from "../../app/constants/constant";
-import OrderTakingAppTitle from "../../app/components/common/OrderTakingAppTitle";
+import OrderTakingAppTitle from "../../app/components/order-taking-app/OrderTakingAppTitle";
+import OrdersList from "../../app/components/order-taking-app/OrdersList";
 
 const OrderTakingAppScreen: NextPage = () => {
 
@@ -36,9 +37,10 @@ const OrderTakingAppScreen: NextPage = () => {
     const [sellerId, setSellerId] = useState<string>("");
     const [eligibilityData, setEligibilityData] = useState<any>(null);
     const [redirecting, setRedirecting] = useState<boolean>(false);
-    
+    const [displayOrders, setDisplayOrders] = useState<boolean>(false);
+
     useEffect(() => {
-        
+
         getSellerList();
         handleRupifiAccessToken();
         return () => { };
@@ -83,7 +85,7 @@ const OrderTakingAppScreen: NextPage = () => {
                 if (response.data) {
                     let sellerData: any = response?.data?.data;
                     sellerData?.map((item: any, index: number) => {
-                        item.rupifi_details = item.rupifi_details? JSON.parse(item.rupifi_details): {}
+                        item.rupifi_details = item.rupifi_details ? JSON.parse(item.rupifi_details) : {}
                         return item;
                     })
                     setSellerList(sellerData)
@@ -97,7 +99,7 @@ const OrderTakingAppScreen: NextPage = () => {
     const getCreditEligibility = (id: string) => {
         let seller: any = getSellerData(id);
         if (seller && seller?.whatsapp_number) {
-            
+
             let requestJSON = {
                 "merchantCustomerRefId": constants.RUPIFI.TEST_ACCOUNT ?? seller?.id,
                 "phone": constants.RUPIFI.TEST_ACCOUNT ?? seller?.whatsapp_number,
@@ -151,8 +153,8 @@ const OrderTakingAppScreen: NextPage = () => {
             item.qty = parseInt(item.qty);
             item.sellingPrice = getSalePrice(item.price, item.discount);
             item.total = getTotal(item.sellingPrice, item.gst, item.qty);
-            grandTotal = item.total;
-            grandGstTotal = Math.round((item.sellingPrice * item.gst / 100) * item.qty);
+            grandTotal += item.total;
+            grandGstTotal += Math.round((item.sellingPrice * item.gst / 100) * item.qty);
             if (
                 item.productId == "" ||
                 item.productName == "" ||
@@ -188,7 +190,7 @@ const OrderTakingAppScreen: NextPage = () => {
     }
 
     const handleSubmit = async () => {
-        if (orderTotal<=eligibilityData?.account?.balance?.value) {
+        if (orderTotal <= eligibilityData?.account?.balance?.value) {
             let seller: any = getSellerData(sellerId);
             let requestJSON = {
                 "sellerId": seller?.id,
@@ -202,16 +204,16 @@ const OrderTakingAppScreen: NextPage = () => {
             OrderTakingAppService.getInstance("")
                 .placeOrder(requestJSON)
                 .then((response: any) => {
-                    console.log("current",response)
+                    console.log("current", response)
                     if (response?.status == 200) {
                         setRedirecting(true)
                         setFormValues(initFormValues);
                         setDisplayPlaceOrder(!displayPlaceOrder);
                         setOrderTotal(0);
                         setGstTotal(0);
-                        setSellerId(""); 
-                        window.location.href = response?.data?.data?.paymentUrl;                  
-                        
+                        setSellerId("");
+                        window.location.href = response?.data?.data?.paymentUrl;
+
                     } else {
                         console.log("ERROR:", response?.data);
                         Toast.showError(response?.data?.msg);
@@ -243,6 +245,10 @@ const OrderTakingAppScreen: NextPage = () => {
         return Math.round((salePrice + salePrice * gst / 100) * qty);
     }
 
+    const checkOrders = () => {
+        setDisplayOrders(!displayOrders)
+    }
+
     return (
         <>
             {
@@ -251,7 +257,7 @@ const OrderTakingAppScreen: NextPage = () => {
                         <div className="wrapper">
                             <section className="cartItem mt-4 mt-md-5">
                                 <div className="row">
-                                    <OrderTakingAppTitle/>
+                                    <OrderTakingAppTitle />
                                 </div>
                             </section>
                             <section>
@@ -282,13 +288,17 @@ const OrderTakingAppScreen: NextPage = () => {
                 )
             }
             {
-                haveAccess && !redirecting && (
+                haveAccess && !displayOrders && !redirecting && (
                     <div className="shoppingCart orderTakingApp">
                         <div className="wrapper">
                             <section className="cartItem mt-4 mt-md-5">
                                 <div className="row">
-                                    <OrderTakingAppTitle/>
-                                    <div className="col-lg-12 text-end"><button type="button" className="btn btn-sm" onClick={() => logout()}>Logout</button></div>
+                                    <OrderTakingAppTitle />
+                                    <div className="col-lg-12 text-end">
+                                        <button type="button" className="btn btn-sm" onClick={() => checkOrders()}>Manage Orders</button>
+                                        {" "}
+                                        <button type="button" className="btn btn-sm" onClick={() => logout()}>Logout</button>
+                                    </div>
                                 </div>
                             </section>
                             <section>
@@ -322,22 +332,22 @@ const OrderTakingAppScreen: NextPage = () => {
                                                                 <br />
                                                             </>
                                                         )
-                                                    }                                                    
+                                                    }
                                                     {
                                                         !isEligibleForTxn && (
-                                                                <>
-                                                                    <br/>
-                                                                        <label>Rupifi Status: </label><b> {eligibilityData?.status}</b>                                                                        
-                                                                        {
-                                                                            (
-                                                                                eligibilityData?.status == "PRE_APPROVED" || 
-                                                                                eligibilityData?.status == "INCOMPLETE"
-                                                                            ) && (
-                                                                                <p>To complete the Rupifi(BNPL) registration <a target={"_blank"} href={eligibilityData.activationUrl}>click here</a>.</p>
-                                                                            )
-                                                                        }
-                                                                    <br/>
-                                                                </>
+                                                            <>
+                                                                <br />
+                                                                <label>Rupifi Status: </label><b> {eligibilityData?.status}</b>
+                                                                {
+                                                                    (
+                                                                        eligibilityData?.status == "PRE_APPROVED" ||
+                                                                        eligibilityData?.status == "INCOMPLETE"
+                                                                    ) && (
+                                                                        <p>To complete the Rupifi(BNPL) registration <a target={"_blank"} href={eligibilityData.activationUrl}>click here</a>.</p>
+                                                                    )
+                                                                }
+                                                                <br />
+                                                            </>
                                                         )
                                                     }
                                                 </div>
@@ -413,9 +423,9 @@ const OrderTakingAppScreen: NextPage = () => {
                                                         ))}
                                                         <div className="row">
                                                             <div className="col-lg-11 text-end">
-                                                                <label>GST Total</label>: <b  className="text-success">₹ {gstTotal.toLocaleString('en-IN')}</b>
-                                                                <br/>
-                                                                <label>Ordar Total</label>: <b  className="text-success">₹ {orderTotal.toLocaleString('en-IN')}</b>
+                                                                <label>GST Total</label>: <b className="text-success">₹ {gstTotal.toLocaleString('en-IN')}</b>
+                                                                <br />
+                                                                <label>Ordar Total</label>: <b className="text-success">₹ {orderTotal.toLocaleString('en-IN')}</b>
                                                             </div>
                                                             <div className="col-lg-1"></div>
                                                         </div>
@@ -441,30 +451,35 @@ const OrderTakingAppScreen: NextPage = () => {
                 )
             }
 
-{
-    redirecting && (
-        <div className="shoppingCart orderTakingApp">
-            <div className="wrapper">
-                <section className="cartItem mt-4 mt-md-5">
-                    <div className="row">
-                        <section className = "cartItem mt-4 mt-md-5" >
-                            <div className="row">
-                                <div className="col-lg-12 text-center">
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <h1 className="fs-40 font-b text-color-2 list-inline-item" style={{color: "Green"}}>Redirectiong for payment ... </h1>
-                                </div>
-                            </div>
-                        </section >
-                    </div>
-                </section>
-            </div>
-        </div>
-    )
+            {
+                haveAccess && displayOrders && !redirecting && (
+                    <OrdersList checkOrders={checkOrders} logout={logout} />
+                )
+            }
 
-}
-            
+            {
+                redirecting && (
+                    <div className="shoppingCart orderTakingApp">
+                        <div className="wrapper">
+                            <section className="cartItem mt-4 mt-md-5">
+                                <div className="row">
+                                    <section className="cartItem mt-4 mt-md-5" >
+                                        <div className="row">
+                                            <div className="col-lg-12 text-center">
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <h1 className="fs-40 font-b text-color-2 list-inline-item" style={{ color: "Green" }}>Redirectiong for payment ... </h1>
+                                            </div>
+                                        </div>
+                                    </section >
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                )
+
+            }
         </>
     )
 };

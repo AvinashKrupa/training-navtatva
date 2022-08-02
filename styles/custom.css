@@ -36,3 +36,7 @@
 .slick-slide img.w-100 {
   display: unset !important;
 }
+.btn-xs {
+  padding: 4px 10px;
+  font-size: 12px;
+}

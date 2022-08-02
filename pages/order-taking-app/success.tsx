@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
-import OrderTakingAppTitle from "../../app/components/common/OrderTakingAppTitle";
+import OrderTakingAppTitle from "../../app/components/order-taking-app/OrderTakingAppTitle";
 import { useRouter, withRouter } from "next/router";
 import { OrderTakingAppService } from "../../app/network/gateway/OrderTakingAppService";
 
