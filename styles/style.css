@@ -3875,4 +3875,25 @@ ul.iconBar .dropdown-menu li {
 .tt{
   background: url(../public/images/white-bg-banner.jpg) no-repeat;
   background-size:cover ;
+  height: 100%;
+}
+.image-background{
+  background: url(../public/images/apparel.jpg);
+  width: 200px;
+
+  height: 140px;
+  border-radius: 20px;
+  margin: 10px;
+
+}
+
+.saree-info{
+
+
+  font-size: 20px;
+  font-weight: 900;
+
+ color: white;
+ align-self: flex-end;
+ margin-top: 80px;
 }

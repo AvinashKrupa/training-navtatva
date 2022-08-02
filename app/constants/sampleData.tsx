@@ -363,4 +363,29 @@ export const apparelData:any=[
     image:'images/apparel.jpg',
     name:'Sarees'
   }
+  ,
+  {
+    image:'images/apparel.jpg',
+    name:'Sarees'
+  }, {
+    image:'images/apparel.jpg',
+    name:'Sarees'
+  }, {
+    image:'images/apparel.jpg',
+    name:'Sarees'
+  }
+  ,
+  {
+    image:'images/apparel.jpg',
+    name:'Sarees'
+  }, {
+    image:'images/apparel.jpg',
+    name:'Sarees'
+  }, {
+    image:'images/apparel.jpg',
+    name:'Sarees'
+  }, {
+    image:'images/apparel.jpg',
+    name:'Sarees'
+  }
 ]

@@ -8,7 +8,7 @@ const APPARELSCREEN: NextPage = () => {
 
 
   return (
-    <div className="" >
+    <div className=""  style={{backgroundColor:'#ffffff'}}>
       <div className="wrapper  ">
         {/* Header */}
         <Header />
@@ -19,16 +19,16 @@ const APPARELSCREEN: NextPage = () => {
       </div>
       <section className="tt text-center bannerChoose position-absolute">
             <div className="bannerContent bg-white border  w-75 m-auto" style={{borderRadius:25}}>
-               <h2 className="fs-32 font-Bsoul m-4">Choose Your Apparel</h2>
+               <h2 className="fs-32 font-Bsoul m-4 ">Choose Your Apparel</h2>
                <ul>
 
                {apparelData.map((info:any) => {
                 return (
-                  <li className="list-inline-item">
-                    <a href="#" tabIndex={0}>
-                    <img className="w-100" src={info.image} alt=""  style={{borderRadius:25}}/>
+                  <li className="list-inline-item image-background" style={{backgroundColor:'#d95c4e'}}>
+                    <a href="/shop" tabIndex={0}>
+                    {/* <img className="w-100" src={info.image} alt=""  style={{borderRadius:25}}/> */}
 
-                           <p className="fs-20 ">{info.name}</p>
+                           <p className="saree-info">{info.name}</p>
                            <div className="overlay"></div>
                      </a>
                 </li>
