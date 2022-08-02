@@ -14,6 +14,7 @@ import SortByBlock from "../../app/components/common/SortByBlock";
 import Paging from "../../app/components/common/Paging";
 import { useRouter } from "next/router";
 import { CatalogService } from "../network/gateway/Catalog";
+import Login from "../../pages/login";
 
 const PLP = () => {
   const router = useRouter();
@@ -22,6 +23,7 @@ const PLP = () => {
   const [openProductQuickView, setOpenProductQuickView] =
     useState<boolean>(false);
 
+  const [login, setLogin] = useState<boolean>(false);
   const [openCartPopup, setOpenCartPopup] = useState<boolean>(false);
   const [productListing, setProductListing] = useState<Array<any>>([]);
   const [selectedProductData, setSelectedProductData] = useState<Array<any>>(
@@ -67,6 +69,7 @@ const PLP = () => {
         <Header />
         {/* End Header */}
         {/* Category */}
+        <Login visible={login} onClose={() => setLogin(false)} />
         <section className="category-section">
           <div className="container-fluid">
             <div className="row">
@@ -91,6 +94,9 @@ const PLP = () => {
                               getProductDetail(id);
                             }}
                             setOpenCartPopup={setOpenCartPopup}
+                            addToCart={() => {
+                              setLogin(true);
+                            }}
                           />
                         );
                       } else {

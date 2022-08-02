@@ -94,7 +94,7 @@ const ProductSmallBlock = (props: any) => {
                   data-bs-toggle="modal"
                   data-bs-target="#exampleModal"
                   onClick={() => {
-                    props.setOpenCartPopup(true);
+                    props.addToCart(props.id);
                   }}
                 >
                   Add to Cart

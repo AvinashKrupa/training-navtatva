@@ -10,6 +10,7 @@ import Header from "../../app/components/common/Header";
 import Footer from "../../app/components/common/Footer";
 import ProductLightBlock from "../../app/components/product/ProductLightBlock";
 import { products } from "../../app/constants/sampleData";
+import Login from "../login";
 
 const ProductBySlugScreen: NextPage = () => {
   const router = useRouter();
