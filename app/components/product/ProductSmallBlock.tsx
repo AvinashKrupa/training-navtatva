@@ -21,7 +21,11 @@ const ProductSmallBlock = (props: any) => {
         <div className="row g-0">
           <div className="col-sm-7">
             <div className="product-image position-relative">
-              <a href={Permalink.ofProduct(props)}><img src={props.main_image} className="img-fluid" /></a>
+              {props.images && props.images.length > 0 ? (
+                <a href={Permalink.ofProduct(props)}>
+                  <img src={props.images[0]} className="img-fluid" />
+                </a>
+              ) : null}
               <button type="button" className="btn-voice">
                 <i className="fas fa-volume-high fa-fw" />
               </button>
