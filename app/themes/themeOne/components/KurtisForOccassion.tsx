@@ -34,7 +34,7 @@ const KurtisForOccassion = () => {
                           ₹3,450
                         </p>
                         <a
-                          href="/productDetail"
+                          href="/product/dummy"
                           className="btn-border fs-13 text-color-3"
                         >
                           More Info
@@ -76,7 +76,7 @@ const KurtisForOccassion = () => {
                           ₹3,450
                         </p>
                         <a
-                          href="/productDetail"
+                          href="/product/dummy"
                           className="btn-border fs-13 text-color-3"
                         >
                           More Info
@@ -118,7 +118,7 @@ const KurtisForOccassion = () => {
                           ₹3,450
                         </p>
                         <a
-                          href="/productDetail"
+                          href="/product/dummy"
                           className="btn-border fs-13 text-color-3"
                         >
                           More Info
@@ -160,7 +160,7 @@ const KurtisForOccassion = () => {
                           ₹3,450
                         </p>
                         <a
-                          href="/productDetail"
+                          href="/product/dummy"
                           className="btn-border fs-13 text-color-3"
                         >
                           More Info
@@ -202,7 +202,7 @@ const KurtisForOccassion = () => {
                           ₹3,450
                         </p>
                         <a
-                          href="/productDetail"
+                          href="/product/dummy"
                           className="btn-border fs-13 text-color-3"
                         >
                           More Info
