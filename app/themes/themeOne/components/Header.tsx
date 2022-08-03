@@ -12,7 +12,7 @@ const Header = () => {
           <div className="col-3 col-lg-1 align-self-center">
             <a href="/">
               <img
-                src="images/logo.png"
+                src="/images/logo.png"
                 alt="logo"
                 className="img-fluid desk-logo"
               />
@@ -75,17 +75,17 @@ const Header = () => {
             <ul className="iconBar text-center">
               <li className="list-inline-item">
                 <a className="reverse rounded-circle d-block" href="#" title={""}>
-                  <img src="images/refresh.png" alt="" />
+                  <img src="/images/refresh.png" alt="" />
                 </a>
               </li>
               <li className="list-inline-item">
                 <a className="wishlist rounded-circle d-block" href="#" title={""}>
-                  <img src="images/wishlist.png" alt="" />
+                  <img src="/images/wishlist.png" alt="" />
                 </a>
               </li>
               <li className="list-inline-item">
                 <a className="cart rounded-circle d-block" href="/cart" title={""}>
-                  <img src="images/cart.png" alt="" />
+                  <img src="/images/cart.png" alt="" />
                 </a>
               </li>
               <li className="list-inline-item">
@@ -94,7 +94,7 @@ const Header = () => {
                   href="#"
                   title={""}
                 >
-                  <img width={32} height={32} src="images/user.png" alt="" />
+                  <img width={32} height={32} src="/images/user.png" alt="" />
                 </a>
               </li>
             </ul>

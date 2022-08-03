@@ -1,8 +1,10 @@
-import React0 from "react";
+import React from "react";
+import Permalink from "../../utils/Permalink";
 import ExploreBlock from "../common/ExploreBlock";
 import SpinBlock from "../common/SpinBlock";
 
 const ProductSmallBlock = (props: any) => {
+
   function randomIntFromInterval(min: number, max: number) {
     // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -19,7 +21,7 @@ const ProductSmallBlock = (props: any) => {
         <div className="row g-0">
           <div className="col-sm-7">
             <div className="product-image position-relative">
-              <img src={props.main_image} className="img-fluid" />
+              <a href={Permalink.ofProduct(props)}><img src={props.main_image} className="img-fluid" /></a>
               <button type="button" className="btn-voice">
                 <i className="fas fa-volume-high fa-fw" />
               </button>
@@ -35,7 +37,7 @@ const ProductSmallBlock = (props: any) => {
           </div>
           <div className="col-sm-5">
             <div className="product-content-area">
-              <h6>{props.name}</h6>
+              <h6><a href={Permalink.ofProduct(props)}>{props.name}</a></h6>
               <p
                 style={{
                   whiteSpace: "nowrap",
@@ -109,3 +111,7 @@ const ProductSmallBlock = (props: any) => {
 };
 
 export default ProductSmallBlock;
+function getProductLink(): string | undefined {
+  throw new Error("Function not implemented.");
+}
+

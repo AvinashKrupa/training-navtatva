@@ -3,6 +3,7 @@ import { menuSliderSettings } from "../../../utils/sliderConfig";
 import { useDebouncedEffect } from "../../../utils/useDebouncedEffect";
 import NavMenuCategory from "../../../components/layouts/category";
 import Slider from "react-slick";
+import Permalink from "../../../utils/Permalink";
 
 interface IProps {
   category: Array<any>;
@@ -72,7 +73,7 @@ const MenuCategorySlider = (props: IProps) => {
                               setSideImageOnHover(info);
                             }}
                           >
-                            <a href={`/shop/${info.slug}?category=${info.id}`}>
+                            <a href={Permalink.ofCategory(info)}>
                               {info.name}
                             </a>
                           </li>

@@ -17,7 +17,9 @@ import { CatalogService } from "../network/gateway/Catalog";
 import Login from "../../pages/login";
 
 const PLP = () => {
-  const router = useRouter();
+
+  //const router = useRouter();
+  //const { slug, id } = router.query;
 
   const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);
   const [openProductQuickView, setOpenProductQuickView] =

@@ -1,82 +1,91 @@
+import { NextPage } from "next";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Slider from "react-slick";
-import Header from "../../app/themes/themeOne/components/Header";
+import Header from "../../../app/themes/themeOne/components/Header";
 import {
   customerSliderSetting,
   occasionSetting,
   productDetailSliderSetting,
-} from "../../app/utils/sliderConfig";
-function productDetail() {
+} from "../../../app/utils/sliderConfig";
+
+const ProductDetailScreen: NextPage = () => {
+  
+  const router = useRouter();
+  const { slug, id } = router.query;
+
   const [selectedSection, setSelectedSection] = useState(1);
+
   return (
     <div className="product-detail-page">
       <div className="wrapper">
         {/* Header */}
         <Header />
         {/* End Header */}
+        <pre>{slug}/{id}</pre>
         <section className="mt-0 mt-lg-5 pdp-detail">
           <div className="main d-lg-none d-block">
             <Slider {...customerSliderSetting}>
               <div className="slider slider-for">
                 <div>
-                  <img className="w-100" src="images/detail-img.png" alt="" />
+                  <img className="w-100" src="/images/detail-img.png" alt="" />
                 </div>
                 <div>
-                  <img className="w-100" src="images/detail-img.png" alt="" />
+                  <img className="w-100" src="/images/detail-img.png" alt="" />
                 </div>
                 <div>
-                  <img className="w-100" src="images/detail-img.png" alt="" />
+                  <img className="w-100" src="/images/detail-img.png" alt="" />
                 </div>
                 <div>
-                  <img className="w-100" src="images/detail-img.png" alt="" />
+                  <img className="w-100" src="/images/detail-img.png" alt="" />
                 </div>
                 <div>
-                  <img className="w-100" src="images/detail-img.png" alt="" />
+                  <img className="w-100" src="/images/detail-img.png" alt="" />
                 </div>
                 <div>
-                  <img className="w-100" src="images/detail-img.png" alt="" />
+                  <img className="w-100" src="/images/detail-img.png" alt="" />
                 </div>
               </div>
               <div className="slider slider-nav">
                 <div className="mx-2">
                   <img
                     className="w-100"
-                    src="images/detail-thumb3.png"
+                    src="/images/detail-thumb3.png"
                     alt=""
                   />
                 </div>
                 <div className="mx-2">
                   <img
                     className="w-100"
-                    src="images/detail-thumb3.png"
+                    src="/images/detail-thumb3.png"
                     alt=""
                   />
                 </div>
                 <div className="mx-2">
                   <img
                     className="w-100"
-                    src="images/detail-thumb3.png"
+                    src="/images/detail-thumb3.png"
                     alt=""
                   />
                 </div>
                 <div className="mx-2">
                   <img
                     className="w-100"
-                    src="images/detail-thumb3.png"
+                    src="/images/detail-thumb3.png"
                     alt=""
                   />
                 </div>
                 <div className="mx-2">
                   <img
                     className="w-100"
-                    src="images/detail-thumb3.png"
+                    src="/images/detail-thumb3.png"
                     alt=""
                   />
                 </div>
                 <div className="mx-2">
                   <img
                     className="w-100"
-                    src="images/detail-thumb3.png"
+                    src="/images/detail-thumb3.png"
                     alt=""
                   />
                 </div>
@@ -96,7 +105,7 @@ function productDetail() {
                       <a href="#">
                         <img
                           className="me-2 d-inline-block"
-                          src="images/Offer.png"
+                          src="/images/Offer.png"
                           alt=""
                         />
                         Offers
@@ -107,7 +116,7 @@ function productDetail() {
                         Get{" "}
                         <img
                           className="mx-2 d-inline-block"
-                          src="images/coins.png"
+                          src="/images/coins.png"
                           alt=""
                         />{" "}
                         1000
@@ -158,7 +167,7 @@ function productDetail() {
                     </ul>
                   </div>
                   <div className="col-md-4">
-                    <img className="w-100" src="images/detail-img.png" alt="" />
+                    <img className="w-100" src="/images/detail-img.png" alt="" />
                   </div>
                   <div className="col-md-4">
                     <div className="">
@@ -402,7 +411,7 @@ function productDetail() {
                       <a href="#">
                         <img
                           className="me-2 d-inline-block"
-                          src="images/Offer.png"
+                          src="/images/Offer.png"
                           alt=""
                         />
                         Offers
@@ -413,7 +422,7 @@ function productDetail() {
                         Get{" "}
                         <img
                           className="mx-2 d-inline-block"
-                          src="images/coins.png"
+                          src="/images/coins.png"
                           alt=""
                         />{" "}
                         1000
@@ -466,7 +475,7 @@ function productDetail() {
                   <div className="col-md-4">
                     <img
                       className="w-100"
-                      src="images/detail-img1.png"
+                      src="/images/detail-img1.png"
                       alt=""
                     />
                   </div>
@@ -977,7 +986,7 @@ function productDetail() {
               >
                 <div className="row">
                   <div className="col-md-4">
-                    <img src="images/ref-1.png" alt="" className="img-fluid" />
+                    <img src="/images/ref-1.png" alt="" className="img-fluid" />
                   </div>
                   <div className="col-md-8">
                     <div className="row">
@@ -1019,14 +1028,14 @@ function productDetail() {
                         <a href="#">
                           <img
                             className="w-100"
-                            src="images/ref-2.png"
+                            src="/images/ref-2.png"
                             alt=""
                           />
                         </a>
                         <a href="#">
                           <img
                             className="w-100"
-                            src="images/ref-3.png"
+                            src="/images/ref-3.png"
                             alt=""
                           />
                         </a>
@@ -1339,7 +1348,7 @@ function productDetail() {
                               <a href="#">
                                 <img
                                   className="img-fluid"
-                                  src="images/cr-1.png"
+                                  src="/images/cr-1.png"
                                   alt=""
                                 />
                               </a>
@@ -1348,7 +1357,7 @@ function productDetail() {
                               <a href="#">
                                 <img
                                   className="img-fluid"
-                                  src="images/cr-1.png"
+                                  src="/images/cr-1.png"
                                   alt=""
                                 />
                               </a>
@@ -1357,7 +1366,7 @@ function productDetail() {
                               <a href="#">
                                 <img
                                   className="img-fluid"
-                                  src="images/cr-1.png"
+                                  src="/images/cr-1.png"
                                   alt=""
                                 />
                               </a>
@@ -1366,7 +1375,7 @@ function productDetail() {
                               <a href="#">
                                 <img
                                   className="img-fluid"
-                                  src="images/cr-1.png"
+                                  src="/images/cr-1.png"
                                   alt=""
                                 />
                               </a>
@@ -1515,19 +1524,19 @@ function productDetail() {
             <div className="row deliveryOption-row">
               <div className="col-md-4">
                 <div className="deliveryOption position-relative text-center">
-                  <img className="" src="images/truck.png" alt="" />
+                  <img className="" src="/images/truck.png" alt="" />
                   <h4 className="mt-4">Get it by Wed, June 27</h4>
                 </div>
               </div>
               <div className="col-md-4">
                 <div className="deliveryOption position-relative text-center">
-                  <img className="" src="images/cod.png" alt="" />
+                  <img className="" src="/images/cod.png" alt="" />
                   <h4 className="mt-4">Pay on Delivery Available</h4>
                 </div>
               </div>
               <div className="col-md-4">
                 <div className="deliveryOption position-relative text-center">
-                  <img className="" src="images/return.png" alt="" />
+                  <img className="" src="/images/return.png" alt="" />
                   <h4 className="mt-4">Easy 30 day return &amp; exchange</h4>
                 </div>
               </div>
@@ -1550,7 +1559,7 @@ function productDetail() {
                         <a href="#">
                           <img
                             className="w-100"
-                            src="images/Occassion1.png"
+                            src="/images/Occassion1.png"
                             alt=""
                           />
                         </a>
@@ -1575,13 +1584,13 @@ function productDetail() {
                           </div>
                           <div className="speaker">
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/wishlist-detail.png" />
+                              <img src="/images/wishlist-detail.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>
@@ -1592,7 +1601,7 @@ function productDetail() {
                         <a href="#">
                           <img
                             className="w-100"
-                            src="images/Occassion2.png"
+                            src="/images/Occassion2.png"
                             alt=""
                           />
                         </a>
@@ -1617,13 +1626,13 @@ function productDetail() {
                           </div>
                           <div className="speaker">
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/wishlist-detail.png" />
+                              <img src="/images/wishlist-detail.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>
@@ -1634,7 +1643,7 @@ function productDetail() {
                         <a href="#">
                           <img
                             className="w-100"
-                            src="images/Occassion3.png"
+                            src="/images/Occassion3.png"
                             alt=""
                           />
                         </a>
@@ -1659,13 +1668,13 @@ function productDetail() {
                           </div>
                           <div className="speaker">
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/wishlist-detail.png" />
+                              <img src="/images/wishlist-detail.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>
@@ -1676,7 +1685,7 @@ function productDetail() {
                         <a href="#">
                           <img
                             className="w-100"
-                            src="images/Occassion4.png"
+                            src="/images/Occassion4.png"
                             alt=""
                           />
                         </a>
@@ -1701,13 +1710,13 @@ function productDetail() {
                           </div>
                           <div className="speaker">
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/wishlist-detail.png" />
+                              <img src="/images/wishlist-detail.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>
@@ -1718,7 +1727,7 @@ function productDetail() {
                         <a href="#">
                           <img
                             className="w-100"
-                            src="images/Occassion4.png"
+                            src="/images/Occassion4.png"
                             alt=""
                           />
                         </a>
@@ -1743,13 +1752,13 @@ function productDetail() {
                           </div>
                           <div className="speaker">
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/wishlist-detail.png" />
+                              <img src="/images/wishlist-detail.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>
@@ -1845,7 +1854,7 @@ function productDetail() {
                         <a href="#">
                           <img
                             className="w-100"
-                            src="images/Occassion1.png"
+                            src="/images/Occassion1.png"
                             alt=""
                           />
                         </a>
@@ -1870,13 +1879,13 @@ function productDetail() {
                           </div>
                           <div className="speaker">
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/wishlist-detail.png" />
+                              <img src="/images/wishlist-detail.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>
@@ -1887,7 +1896,7 @@ function productDetail() {
                         <a href="#">
                           <img
                             className="w-100"
-                            src="images/Occassion2.png"
+                            src="/images/Occassion2.png"
                             alt=""
                           />
                         </a>
@@ -1912,13 +1921,13 @@ function productDetail() {
                           </div>
                           <div className="speaker">
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/wishlist-detail.png" />
+                              <img src="/images/wishlist-detail.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>
@@ -1929,7 +1938,7 @@ function productDetail() {
                         <a href="#">
                           <img
                             className="w-100"
-                            src="images/Occassion3.png"
+                            src="/images/Occassion3.png"
                             alt=""
                           />
                         </a>
@@ -1954,13 +1963,13 @@ function productDetail() {
                           </div>
                           <div className="speaker">
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/wishlist-detail.png" />
+                              <img src="/images/wishlist-detail.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>
@@ -1971,7 +1980,7 @@ function productDetail() {
                         <a href="#">
                           <img
                             className="w-100"
-                            src="images/Occassion4.png"
+                            src="/images/Occassion4.png"
                             alt=""
                           />
                         </a>
@@ -1996,13 +2005,13 @@ function productDetail() {
                           </div>
                           <div className="speaker">
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/wishlist-detail.png" />
+                              <img src="/images/wishlist-detail.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>
@@ -2013,7 +2022,7 @@ function productDetail() {
                         <a href="#">
                           <img
                             className="w-100"
-                            src="images/Occassion4.png"
+                            src="/images/Occassion4.png"
                             alt=""
                           />
                         </a>
@@ -2038,13 +2047,13 @@ function productDetail() {
                           </div>
                           <div className="speaker">
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/wishlist-detail.png" />
+                              <img src="/images/wishlist-detail.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>
@@ -2072,7 +2081,7 @@ function productDetail() {
                         <a href="#">
                           <img
                             className="w-100"
-                            src="images/Occassion1.png"
+                            src="/images/Occassion1.png"
                             alt=""
                           />
                         </a>
@@ -2097,13 +2106,13 @@ function productDetail() {
                           </div>
                           <div className="speaker">
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/wishlist-detail.png" />
+                              <img src="/images/wishlist-detail.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>
@@ -2114,7 +2123,7 @@ function productDetail() {
                         <a href="#">
                           <img
                             className="w-100"
-                            src="images/Occassion2.png"
+                            src="/images/Occassion2.png"
                             alt=""
                           />
                         </a>
@@ -2139,13 +2148,13 @@ function productDetail() {
                           </div>
                           <div className="speaker">
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/wishlist-detail.png" />
+                              <img src="/images/wishlist-detail.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>
@@ -2156,7 +2165,7 @@ function productDetail() {
                         <a href="#">
                           <img
                             className="w-100"
-                            src="images/Occassion3.png"
+                            src="/images/Occassion3.png"
                             alt=""
                           />
                         </a>
@@ -2181,13 +2190,13 @@ function productDetail() {
                           </div>
                           <div className="speaker">
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/wishlist-detail.png" />
+                              <img src="/images/wishlist-detail.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>
@@ -2198,7 +2207,7 @@ function productDetail() {
                         <a href="#">
                           <img
                             className="w-100"
-                            src="images/Occassion4.png"
+                            src="/images/Occassion4.png"
                             alt=""
                           />
                         </a>
@@ -2223,13 +2232,13 @@ function productDetail() {
                           </div>
                           <div className="speaker">
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/wishlist-detail.png" />
+                              <img src="/images/wishlist-detail.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>
@@ -2240,7 +2249,7 @@ function productDetail() {
                         <a href="#">
                           <img
                             className="w-100"
-                            src="images/Occassion4.png"
+                            src="/images/Occassion4.png"
                             alt=""
                           />
                         </a>
@@ -2265,13 +2274,13 @@ function productDetail() {
                           </div>
                           <div className="speaker">
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/wishlist-detail.png" />
+                              <img src="/images/wishlist-detail.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>
@@ -2660,7 +2669,7 @@ function productDetail() {
                 <span className="fs-13 text-color-6">₹1,999 off (22%)</span>
                 <span className="mx-3">or</span>
                 <span className="fs-13">
-                  ₹3,399 +<img src="images/coins.png" alt="" /> 51
+                  ₹3,399 +<img src="/images/coins.png" alt="" /> 51
                 </span>
               </div>
               <h5 className="fs-10 text-color-7 mt-2">
@@ -2669,7 +2678,7 @@ function productDetail() {
             </li>
             <li className="list-inline-item offset-lg-2 mt-3 mt-lg-0 text-center text-lg-start">
               <a href="#" className="wishlist">
-                <img className="me-2" src="images/wishlist-detail.png" alt="" />
+                <img className="me-2" src="/images/wishlist-detail.png" alt="" />
               </a>
               <a
                 href="#"
@@ -2901,4 +2910,4 @@ function productDetail() {
   );
 }
 
-export default productDetail;
+export default ProductDetailScreen;
