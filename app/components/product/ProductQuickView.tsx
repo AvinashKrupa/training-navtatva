@@ -9,6 +9,7 @@ const ProductQuickView = (props: any) => {
     id: "",
   });
 
+  const [selectedImage, setSelectedImage] = useState(0);
   const [colorCode, setColorCode] = useState("#ffffff");
   const router = useRouter();
   useEffect(() => {
@@ -106,7 +107,7 @@ const ProductQuickView = (props: any) => {
   }
 
   function hexToRgbA(hex: string) {
-    var c: number;
+    let c: any;
     if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
       c = hex.substring(1).split("");
       if (c.length == 3) {
@@ -157,17 +158,33 @@ const ProductQuickView = (props: any) => {
                 <div className="col-md-12 col-xl-8">
                   <div className="product-imgs">
                     <div className="img-select">
-                      <div className="img-item">
-                        <a href="#" data-id="1">
-                          <img
-                            style={{ width: 120, height: 120, borderRadius: 8 }}
-                            className=""
-                            src={props.data.attributes.main_image}
-                            alt="Detail image"
-                          />
-                        </a>
-                      </div>
-                      <div className="img-item">
+                      {props.data.attributes.images.map(
+                        (info: any, index: number) => {
+                          return (
+                            <div
+                              onClick={() => {
+                                setSelectedImage(index);
+                              }}
+                              className="img-item"
+                            >
+                              <a href="#" data-id={`${index}`}>
+                                <img
+                                  style={{
+                                    width: 120,
+                                    height: 120,
+                                    borderRadius: 8,
+                                  }}
+                                  className=""
+                                  src={info}
+                                  alt="Detail image"
+                                />
+                              </a>
+                            </div>
+                          );
+                        }
+                      )}
+
+                      {/* <div className="img-item">
                         <a href="#" data-id="2">
                           <img
                             className=""
@@ -193,26 +210,27 @@ const ProductQuickView = (props: any) => {
                             alt="Detail image"
                           />
                         </a>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="img-display">
                       <div className="img-showcase">
+                        {/* {props.data.attributes.images.map((info: any) => {
+                          return ( */}
                         <img
-                          src={props.data.attributes.main_image}
+                          src={props.data.attributes.images[selectedImage]}
                           alt="Detail image"
                         />
-                        <img
+                        {/* );
+                        })} */}
+
+                        {/* <img
                           src="/images/detail-pick-1.png"
                           alt="Detail image"
                         />
                         <img
                           src="/images/detail-pick-1.png"
                           alt="Detail image"
-                        />
-                        <img
-                          src="/images/detail-pick-1.png"
-                          alt="Detail image"
-                        />
+                        /> */}
                       </div>
                     </div>
 

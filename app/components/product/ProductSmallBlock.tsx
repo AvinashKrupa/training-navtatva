@@ -19,7 +19,9 @@ const ProductSmallBlock = (props: any) => {
         <div className="row g-0">
           <div className="col-sm-7">
             <div className="product-image position-relative">
-              <img src={props.main_image} className="img-fluid" />
+              {props.images && props.images.length > 0 ? (
+                <img src={props.images[0]} className="img-fluid" />
+              ) : null}
               <button type="button" className="btn-voice">
                 <i className="fas fa-volume-high fa-fw" />
               </button>
