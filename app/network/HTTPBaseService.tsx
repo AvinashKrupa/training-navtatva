@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 import API from "../constants/APIEndpoints";
-
+import LocalStorageService from "../../utils/storage/LocalStorageService";
 interface RefreshToken {
   status: number;
   data: {
@@ -62,22 +62,20 @@ export abstract class HTTPBaseService {
       "Content-Type": `application/json`,
       Accept: `application/json`,
       Authorization: `Bearer ${this.token}`,
-      accessToken: `${this.token}`,
+      accessToken: `${LocalStorageService.getAccessToken()}`,
     };
 
     config.headers = headerJson;
 
-    if(
-      config.url?.startsWith(API.RUPIFI.CHECK_CREDIT_ELIGIBILITY) || 
-      config.url?.startsWith(API.RUPIFI.CREATE_PAYMENT) || 
-      config.url?.startsWith(API.RUPIFI.CAPTURE_AMOUNT) || 
+    if (
+      config.url?.startsWith(API.RUPIFI.CHECK_CREDIT_ELIGIBILITY) ||
+      config.url?.startsWith(API.RUPIFI.CREATE_PAYMENT) ||
+      config.url?.startsWith(API.RUPIFI.CAPTURE_AMOUNT) ||
       config.url?.startsWith(API.RUPIFI.CHECK_PAYMENT_STATUS)
-    ){
-      
+    ) {
       let rpf_token: any = localStorage.getItem("rpf_token");
       rpf_token = JSON.parse(rpf_token);
       config.headers["Authorization"] = `Bearer ${rpf_token.accessToken}`;
-
     }
 
     return config;

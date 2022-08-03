@@ -15,9 +15,9 @@ import Paging from "../../app/components/common/Paging";
 import { useRouter } from "next/router";
 import { CatalogService } from "../network/gateway/Catalog";
 import Login from "../../pages/login";
+import { Cart } from "../network/gateway/Cart";
 
 const PLP = () => {
-
   //const router = useRouter();
   //const { slug, id } = router.query;
 
@@ -64,6 +64,21 @@ const PLP = () => {
       .catch((error) => {});
   }
 
+  function addToCart(id: string) {
+    const params = {
+      data: {
+        id: id,
+        type: "cart_item",
+        quantity: 1,
+      },
+    };
+    Cart.getInstance()
+      .addToCart(params)
+      .then((info) => {
+        alert("Product added");
+      });
+  }
+
   return (
     <>
       <div className="wrapper">
@@ -96,8 +111,9 @@ const PLP = () => {
                               getProductDetail(id);
                             }}
                             setOpenCartPopup={setOpenCartPopup}
-                            addToCart={() => {
+                            addToCart={(id: string) => {
                               setLogin(true);
+                              addToCart(`${id}`);
                             }}
                           />
                         );

@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
+import "ag-grid-community/styles/ag-theme-alpine.css";
 import "../styles/spinner.css";
 
 import "../styles/jquery-ui.css";
@@ -15,8 +16,7 @@ import "../styles/custom.css";
 import "../styles/multiRangeSlider.css";
 
 import "../styles/responsive.css";
-import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
-import 'ag-grid-community/styles/ag-theme-alpine.css';
+
 // import $ from "jquery";
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";

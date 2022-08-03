@@ -2,6 +2,9 @@ import API from "../../constants/APIEndpoints";
 import constants from "../../constants/constant";
 import { HTTPBaseService } from "../HTTPBaseService";
 import Toast from "../../utils/Toast";
+import { Cart } from "./Cart";
+import LocalStorageService from "../../utils/storage/LocalStorageService";
+
 export class Auth extends HTTPBaseService {
   private static classInstance?: Auth;
 
@@ -21,9 +24,26 @@ export class Auth extends HTTPBaseService {
     return new Promise((resolve: any, reject: any) => {
       this.instance
         .post(API.LOGIN, data)
-        .then((response) => {
+        .then(async (response) => {
           if (response.status == 200) {
+            console.log("login data", response);
             let message = response.data.msg ?? "Login success";
+            const { customer_id, token } = response.data.data;
+
+            let params = {
+              data: [
+                {
+                  type: "customer",
+                  id: customer_id,
+                },
+              ],
+            };
+            console.log("login data", params);
+            LocalStorageService.setToken(token);
+            let obj = Cart.getInstance();
+
+            await obj.cartAssociationWithCustomer(params);
+
             Toast.showSuccess(message);
             resolve(response);
           } else {
@@ -34,9 +54,9 @@ export class Auth extends HTTPBaseService {
         })
         .catch((error) => {
           console.log("Error", error);
-          Toast.showError(
-            JSON.parse(error.response.request.response).msg.detail
-          );
+          // Toast.showError(
+          //   JSON.parse(error.response.request.response).msg.detail
+          // );
           reject(error);
         });
     });

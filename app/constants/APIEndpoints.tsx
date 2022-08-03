@@ -8,6 +8,7 @@ const API = {
   GET_OCCASION: "pcm_occasion",
   GET_PRODUCT_LIST: "pcm_products",
   ADD_TO_CART: "add-to-cart",
+  CART_ASSOCIATION: "create_customer_cart_association",
   GET_CART: "get_customer_cart",
   GET_PRODUCT_DETAIL: "pcm_product/",
   ORDER_TAKING_APP: {
