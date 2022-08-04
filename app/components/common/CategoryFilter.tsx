@@ -3,13 +3,25 @@ import CategoryBox from "./CategoryBox";
 import { filters } from "../../constants/sampleData";
 
 const CategoryFilter = (props: any) => {
-  
+
   const [priceRangeValue, setPriceRangeValue] = useState<any>([0, 100000]);
   const onPriceValueChange = (values: any) => {
     setPriceRangeValue(values);
   };
 
-  const { 
+  const [reset, setReset] = useState(false);
+  const handlereset = () => {
+    setReset(true)
+    Object.entries(filters)?.map((item:any) => {
+   item[1]?.data?.map((a:any)=>{
+     a.isSelected=false
+     })
+    })
+
+  }
+  console.log("this is reset all",filters)
+
+  const {
     categories,
     colors,
     brands,
@@ -19,37 +31,57 @@ const CategoryFilter = (props: any) => {
     prints,
     prices,
   } = filters;
-  
+
   return (
     <div className="col-lg-3 col-xl-2 mb-5 mb-lg-0">
       <div className="leftside-bar">
-        <h6 className="main-title d-flex justify-content-between">Filters <div className="btn-reset"><i className="fas fa-arrows-rotate fa-fw"></i> Reset All</div></h6>
-        <CategoryBox 
+        <h6 className="main-title d-flex justify-content-between">Filters <div className="btn-reset" onClick={handlereset}><i className="fas fa-arrows-rotate fa-fw"></i> Reset All</div> </h6>
+        <CategoryBox
           {...categories}
-        />
-        <CategoryBox 
-          {...colors}
+          reset={reset}
+          setReset={setReset}
+
         />
         <CategoryBox
-          priceRangeValue = { priceRangeValue }
-          onPriceValueChange = { onPriceValueChange }
+          {...colors}
+          reset={reset}
+          setReset={setReset}
+        />
+        <CategoryBox
+          priceRangeValue={priceRangeValue}
+          onPriceValueChange={onPriceValueChange}
           {...prices}
+          reset={reset}
+          setReset={setReset}
         />
-        <CategoryBox 
+        <CategoryBox
           {...brands}
+          reset={reset}
+          setReset={setReset}
+
         />
-        <CategoryBox 
+        <CategoryBox
           {...discount_ranges}
+          reset={reset}
+          setReset={setReset}
+
         />
-        <CategoryBox 
+        <CategoryBox
           {...materials}
+          reset={reset}
+          setReset={setReset}
         />
-        <CategoryBox 
+        <CategoryBox
           {...occasions}
+          reset={reset}
+          setReset={setReset}
+
         />
-        <CategoryBox 
+        <CategoryBox
           {...prints}
-        />        
+          reset={reset}
+          setReset={setReset}
+        />
       </div>
     </div>
   );

@@ -1,68 +1,73 @@
 export const products: any = [
-    {
-      model_name: "Anubhutee",
-      name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",
-      image: "/images/img1.png",
-      fabric: "Cotton + Khaadi",
-      bg_type: 1,
-    },
-    {
-        model_name: "Anubhutee",
-        name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",
-        image: "/images/img2.png",
-        fabric: "Nylon + Cotton",
-        bg_type: 2,
-    },
-    {
-      model_name: "Anubhutee",
-      name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",
-      image: "/images/img3.png",
-      fabric: "Silk",
-      bg_type: 3,
-    },
-    {
-        model_name: "Anubhutee",
-        name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",
-        image: "/images/img4.png",
-        fabric: "Pure Cotton",
-        bg_type: 4,
-    },
-    {
-      model_name: "Anubhutee",
-      name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",
-      image: "/images/img5.png",
-      fabric: "Cotton + Khaadi",
-      bg_type: 5,
-    },
-    {
-        model_name: "Anubhutee",
-        name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",
-        image: "/images/img6.png",
-        fabric: "Pure Cotton",
-        bg_type: 6,
-    },
+  {
+    model_name: "Anubhutee",
+    name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",
+    image: "/images/img1.png",
+    fabric: "Cotton + Khaadi",
+    bg_type: 1,
+  },
+  {
+    model_name: "Anubhutee",
+    name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",
+    image: "/images/img2.png",
+    fabric: "Nylon + Cotton",
+    bg_type: 2,
+  },
+  {
+    model_name: "Anubhutee",
+    name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",
+    image: "/images/img3.png",
+    fabric: "Silk",
+    bg_type: 3,
+  },
+  {
+    model_name: "Anubhutee",
+    name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",
+    image: "/images/img4.png",
+    fabric: "Pure Cotton",
+    bg_type: 4,
+  },
+  {
+    model_name: "Anubhutee",
+    name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",
+    image: "/images/img5.png",
+    fabric: "Cotton + Khaadi",
+    bg_type: 5,
+  },
+  {
+    model_name: "Anubhutee",
+    name: "Women Teal Blue & Beige Ethnic Motifs Printed Straight Kurti",
+    image: "/images/img6.png",
+    fabric: "Pure Cotton",
+    bg_type: 6,
+  },
 ];
 
 export const filters: any = {
-  "categories" : {
+  "categories": {
     "title": "Category",
     "name": "category",
     "data": [
       {
         "id": 1,
-        "name": "Men's"
+        "name": "Men's",
+        'isSelected': true,
       },
       {
         "id": 2,
         "name": "Women's"
+        ,
+        'isSelected': true,
       },
       {
         "id": 3,
         "name": "Clildren's"
+        ,
+        'isSelected': false,
       },
     ]
   },
-  "colors" : {
+  "colors": {
     "title": "Color",
     "name": "color",
     "data": [
@@ -70,122 +75,162 @@ export const filters: any = {
         "id": 1,
         "name": "Green",
         "color_code": "#159400"
+        ,
+        'isSelected': false,
       },
       {
         "id": 2,
         "name": "Mustard",
         "color_code": "#F9BC60"
+        ,
+        'isSelected': false,
       },
       {
         "id": 3,
         "name": "Teal",
         "color_code": "#105263"
+        ,
+        'isSelected': false,
       },
       ,
       {
         "id": 4,
         "name": "Beige",
         "color_code": "#FCF1F1"
+        ,
+        'isSelected': false,
       },
       ,
       {
         "id": 5,
         "name": "Black",
         "color_code": "#000"
+        ,
+        'isSelected': false,
       },
     ]
   },
-  "brands" : {
+  "brands": {
     "title": "Brand",
     "name": "brand",
     "data": [
       {
         "id": 1,
         "name": "Malhaar"
+        ,
+        'isSelected': false,
       },
       {
         "id": 2,
         "name": "Prakriti"
+        ,
+        'isSelected': false,
       },
       {
         "id": 3,
         "name": "Anubhutee"
+        ,
+        'isSelected': false,
       },
     ]
   },
-  "discount_ranges" : {
+  "discount_ranges": {
     "title": "Discount Range",
     "name": "discount_range",
     "data": [
       {
         "id": 1,
         "name": "Upto 20% off"
+        ,
+        'isSelected': false,
       },
       {
         "id": 2,
         "name": "Upto 30% off"
+        ,
+        'isSelected': false,
       },
       {
         "id": 3,
         "name": "Upto 40% off"
+        ,
+        'isSelected': false,
       },
     ]
   },
-  "materials" : {
+  "materials": {
     "title": "Material",
     "name": "material",
     "data": [
       {
         "id": 1,
         "name": "Cotton"
+        ,
+        'isSelected': false,
       },
       {
         "id": 2,
         "name": "Nylon"
+        ,
+        'isSelected': false,
       },
       {
         "id": 3,
         "name": "Silk"
+        ,
+        'isSelected': false,
       },
     ]
   },
-  "occasions" : {
+  "occasions": {
     "title": "Occasion",
     "name": "occasion",
     "data": [
       {
         "id": 1,
         "name": "Bridal"
+        ,
+        'isSelected': false,
       },
       {
         "id": 2,
         "name": "Party Wear"
+        ,
+        'isSelected': false,
       },
       {
         "id": 3,
         "name": "Official friendly"
+        ,
+        'isSelected': false,
       },
     ]
   },
-  "prints" : {
+  "prints": {
     "title": "Print",
     "name": "print",
     "data": [
       {
         "id": 1,
         "name": "Cudhidar"
+        ,
+        'isSelected': false,
       },
       {
         "id": 2,
         "name": "Embroidary"
+        ,
+        'isSelected': false,
       },
       {
         "id": 3,
         "name": "Cross lines"
+        ,
+        'isSelected': false,
       },
     ]
   },
-  "prices" : {
+  "prices": {
     "title": "Price",
     "name": "price"
   }
@@ -293,99 +338,99 @@ export const categroyMenu = [
   },
 ];
 
-export const myCollectionMenu:any=[
+export const myCollectionMenu: any = [
   {
-    id:'825a7dd02-5c3a-4ff4-abef-da0c66ca978e',
-    collection_name:'Kurtis',
-    collection_image:'images/img1.png',
-    created_data:'created on 9th July 2022'
+    id: '825a7dd02-5c3a-4ff4-abef-da0c66ca978e',
+    collection_name: 'Kurtis',
+    collection_image: 'images/img1.png',
+    created_data: 'created on 9th July 2022'
   },
   {
-    id:'825a7dd02-5c3a-4ff4-abef-da0c66ca978e',
-    collection_name:'Kurtis',
-    collection_image:'images/img1.png',
-    created_data:'created on 9th July 2022'
+    id: '825a7dd02-5c3a-4ff4-abef-da0c66ca978e',
+    collection_name: 'Kurtis',
+    collection_image: 'images/img1.png',
+    created_data: 'created on 9th July 2022'
   },
   {
-    id:'825a7dd02-5c3a-4ff4-abef-da0c66ca978e',
-    collection_name:'Kurtis',
-    collection_image:'images/img1.png',
-    created_data:'created on 9th July 2022'
+    id: '825a7dd02-5c3a-4ff4-abef-da0c66ca978e',
+    collection_name: 'Kurtis',
+    collection_image: 'images/img1.png',
+    created_data: 'created on 9th July 2022'
   },
   {
-    id:'825a7dd02-5c3a-4ff4-abef-da0c66ca978e',
-    collection_name:'Kurtis',
-    collection_image:'images/img1.png',
-    created_data:'created on 9th July 2022'
+    id: '825a7dd02-5c3a-4ff4-abef-da0c66ca978e',
+    collection_name: 'Kurtis',
+    collection_image: 'images/img1.png',
+    created_data: 'created on 9th July 2022'
   }
-  ,{
-    id:'825a7dd02-5c3a-4ff4-abef-da0c66ca978e',
-    collection_name:'Kurtis',
-    collection_image:'images/img1.png',
-    created_data:'created on 9th July 2022'
+  , {
+    id: '825a7dd02-5c3a-4ff4-abef-da0c66ca978e',
+    collection_name: 'Kurtis',
+    collection_image: 'images/img1.png',
+    created_data: 'created on 9th July 2022'
   },
   {
-    id:'825a7dd02-5c3a-4ff4-abef-da0c66ca978e',
-    collection_name:'Kurtis',
-    collection_image:'images/img1.png',
-    created_data:'created on 9th July 2022'
+    id: '825a7dd02-5c3a-4ff4-abef-da0c66ca978e',
+    collection_name: 'Kurtis',
+    collection_image: 'images/img1.png',
+    created_data: 'created on 9th July 2022'
   }
 ]
 
-export const apparelData:any=[
+export const apparelData: any = [
   {
-    image:'images/apparel.jpg',
-    name:'Sarees'
+    image: 'images/apparel.jpg',
+    name: 'Sarees'
   },
   {
-    image:'images/apparel.jpg',
-    name:'Sarees'
+    image: 'images/apparel.jpg',
+    name: 'Sarees'
   },
   {
-    image:'images/apparel.jpg',
-    name:'Sarees'
+    image: 'images/apparel.jpg',
+    name: 'Sarees'
   },
   {
-    image:'images/apparel.jpg',
-    name:'Sarees'
+    image: 'images/apparel.jpg',
+    name: 'Sarees'
   },
   {
-    image:'images/apparel.jpg',
-    name:'Sarees'
+    image: 'images/apparel.jpg',
+    name: 'Sarees'
   },
   {
-    image:'images/apparel.jpg',
-    name:'Sarees'
+    image: 'images/apparel.jpg',
+    name: 'Sarees'
   }, {
-    image:'images/apparel.jpg',
-    name:'Sarees'
+    image: 'images/apparel.jpg',
+    name: 'Sarees'
   }, {
-    image:'images/apparel.jpg',
-    name:'Sarees'
+    image: 'images/apparel.jpg',
+    name: 'Sarees'
   }
   ,
   {
-    image:'images/apparel.jpg',
-    name:'Sarees'
+    image: 'images/apparel.jpg',
+    name: 'Sarees'
   }, {
-    image:'images/apparel.jpg',
-    name:'Sarees'
+    image: 'images/apparel.jpg',
+    name: 'Sarees'
   }, {
-    image:'images/apparel.jpg',
-    name:'Sarees'
+    image: 'images/apparel.jpg',
+    name: 'Sarees'
   }
   ,
   {
-    image:'images/apparel.jpg',
-    name:'Sarees'
+    image: 'images/apparel.jpg',
+    name: 'Sarees'
   }, {
-    image:'images/apparel.jpg',
-    name:'Sarees'
+    image: 'images/apparel.jpg',
+    name: 'Sarees'
   }, {
-    image:'images/apparel.jpg',
-    name:'Sarees'
+    image: 'images/apparel.jpg',
+    name: 'Sarees'
   }, {
-    image:'images/apparel.jpg',
-    name:'Sarees'
+    image: 'images/apparel.jpg',
+    name: 'Sarees'
   }
 ]
