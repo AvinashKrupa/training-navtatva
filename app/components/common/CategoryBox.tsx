@@ -15,7 +15,7 @@ const {
 
 const CategoryBox = (props: any,) => {
   const [active, setActive] = useState<boolean>(true);
-  const [a,seta]=useState<any>([])
+  const [propsData, setPropsData] = useState<any>([])
 
 
   useEffect(() => {
@@ -31,22 +31,15 @@ const CategoryBox = (props: any,) => {
 
     if (props.data[index].isSelected) {
       props.data[index].isSelected = false;
-      seta([...a,props])
+      setPropsData([...propsData, props])
 
     }
     else {
       props.data[index].isSelected = true;
-      seta([...a,props])
+      setPropsData([...propsData, props])
     }
-
-
-filters.categories=props
-
-
-
   }
-
-console.log("this is checkbox selection",filters)
+console.log("this is filters",filters)
 
   return (
     <div className="category-box">

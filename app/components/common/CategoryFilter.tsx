@@ -12,14 +12,13 @@ const CategoryFilter = (props: any) => {
   const [reset, setReset] = useState(false);
   const handlereset = () => {
     setReset(true)
-    Object.entries(filters)?.map((item:any) => {
-   item[1]?.data?.map((a:any)=>{
-     a.isSelected=false
-     })
+    Object.entries(filters)?.map((item: any) => {
+      item[1]?.data?.map((a: any) => {
+        a.isSelected = false
+      })
     })
 
   }
-  console.log("this is reset all",filters)
 
   const {
     categories,
