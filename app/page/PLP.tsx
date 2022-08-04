@@ -31,10 +31,11 @@ const PLP = () => {
   const [selectedProductData, setSelectedProductData] = useState<Array<any>>(
     []
   );
+  console.log("this is product details daata", productListing)
 
   useEffect(() => {
     getProductList();
-    return () => {};
+    return () => { };
   }, []);
 
   function getProductList() {
@@ -47,21 +48,23 @@ const PLP = () => {
           console.log("ERROR:", response.data);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   }
 
   function getProductDetail(id: any) {
     CatalogService.getInstance()
-      .getProducDetail(id)
+      .getProductByNode(id)
       .then((response: any) => {
         if (response.data) {
+
           setSelectedProductData(response.data.data);
           setOpenProductQuickView(true);
+
         } else {
           console.log("ERROR:", response.data);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   }
 
   function addToCart(id: string) {
