@@ -16,6 +16,8 @@ import { useRouter } from "next/router";
 import { CatalogService } from "../network/gateway/Catalog";
 import Login from "../../pages/login";
 import { Cart } from "../network/gateway/Cart";
+import LocalStorageService from "../../utils/storage/LocalStorageService";
+import Toast from "../../utils/Toast";
 
 const PLP = () => {
   //const router = useRouter();
@@ -26,6 +28,7 @@ const PLP = () => {
     useState<boolean>(false);
 
   const [login, setLogin] = useState<boolean>(false);
+  const [productId, setProductId] = useState<string>("");
   const [openCartPopup, setOpenCartPopup] = useState<boolean>(false);
   const [productListing, setProductListing] = useState<Array<any>>([]);
   const [selectedProductData, setSelectedProductData] = useState<Array<any>>(
@@ -75,7 +78,10 @@ const PLP = () => {
     Cart.getInstance()
       .addToCart(params)
       .then((info) => {
-        alert("Product added");
+        console.log("info", info);
+      })
+      .catch((error) => {
+        console.log("error", error);
       });
   }
 
@@ -86,7 +92,13 @@ const PLP = () => {
         <Header />
         {/* End Header */}
         {/* Category */}
-        <Login visible={login} onClose={() => setLogin(false)} />
+        <Login
+          onSuccess={() => {
+            addToCart(`${productId}`);
+          }}
+          visible={login}
+          onClose={() => setLogin(false)}
+        />
         <section className="category-section">
           <div className="container-fluid">
             <div className="row">
@@ -112,8 +124,12 @@ const PLP = () => {
                             }}
                             setOpenCartPopup={setOpenCartPopup}
                             addToCart={(id: string) => {
-                              setLogin(true);
-                              addToCart(`${id}`);
+                              if (LocalStorageService.getAccessToken()) {
+                                addToCart(`${id}`);
+                              } else {
+                                setProductId(`${id}`);
+                                setLogin(true);
+                              }
                             }}
                           />
                         );

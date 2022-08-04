@@ -20,6 +20,7 @@ function Login(props: any) {
         })
         .then((response: any) => {
           if (response != "") {
+            props.onSuccess(response);
           }
         })
         .catch((error) => {});

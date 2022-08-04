@@ -4,6 +4,7 @@ import { HTTPBaseService } from "../HTTPBaseService";
 import Toast from "../../utils/Toast";
 
 import { v4 as uuidv4 } from "uuid";
+import LocalStorageService from "../../utils/storage/LocalStorageService";
 export class Cart extends HTTPBaseService {
   private static classInstance?: Cart;
 
@@ -35,11 +36,11 @@ export class Cart extends HTTPBaseService {
         .post(API.CART_ASSOCIATION + "/" + Cart.getCartId(), data)
         .then((response) => {
           if (response.status == 200) {
-            let message = response.data.msg ?? "Login success";
+            let message = response.data.msg ?? "";
             Toast.showSuccess(message);
             resolve(response);
           } else {
-            let message = response.data.msg ?? "Login failed";
+            let message = response.data.msg ?? "";
             Toast.showError(message);
             reject(response);
           }
@@ -60,11 +61,11 @@ export class Cart extends HTTPBaseService {
         .post(API.ADD_TO_CART + "/" + Cart.getCartId(), data)
         .then((response) => {
           if (response.status == 200) {
-            let message = response.data.msg ?? "Login success";
+            let message = response.data.msg ?? "";
             Toast.showSuccess(message);
             resolve(response);
           } else {
-            let message = response.data.msg ?? "Login failed";
+            let message = response.data.msg ?? "";
             Toast.showError(message);
             reject(response);
           }
@@ -82,14 +83,14 @@ export class Cart extends HTTPBaseService {
   public getCustomerCart = () => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
-        .get(API.GET_CART + "/" + Cart.getCartId())
+        .get(API.GET_CART + "/" + `${LocalStorageService.getAccessToken()}`)
         .then((response) => {
           if (response.status == 200) {
-            let message = response.data.msg ?? "Login success";
+            let message = response.data.msg ?? "";
             Toast.showSuccess(message);
             resolve(response);
           } else {
-            let message = response.data.msg ?? "Login failed";
+            let message = response.data.msg ?? "";
             Toast.showError(message);
             reject(response);
           }

@@ -5,10 +5,22 @@ import { occasionSetting } from "../../app/utils/sliderConfig";
 import Slider from "react-slick";
 import CartItem from "../../app/components/cart/CartItem";
 import VisitNunchiBanner from "../../app/components/common/VisitNunchiBanner";
+import { Cart } from "../../app/network/gateway/Cart";
 
 const CartScreen: NextPage = () => {
   const [cartItems, setCartItems] = useState<any>([1, 2, 3]);
   const [youMayLikeList, setYouMayLikeList] = useState<any>([1, 2, 3]);
+  useEffect(() => {
+    getCustomerCart();
+  }, []);
+
+  function getCustomerCart() {
+    Cart.getInstance()
+      .getCustomerCart()
+      .then((info: any) => {
+        setCartItems(info.data.data);
+      });
+  }
 
   return (
     <div className="shoppingCart">

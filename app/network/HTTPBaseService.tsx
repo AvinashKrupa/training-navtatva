@@ -68,9 +68,9 @@ export abstract class HTTPBaseService {
 
     config.headers = headerJson;
 
-    if (config.url?.startsWith(API.GET_CART)) {
-      headerJson.accessToken = `${LocalStorageService.getAccessToken()}`;
-    }
+    // if (config.url?.startsWith(API.GET_CART)) {
+    //   headerJson.accessToken = `${LocalStorageService.getAccessToken()}`;
+    // }
 
     return config;
   };
