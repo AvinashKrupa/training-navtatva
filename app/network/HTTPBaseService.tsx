@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 import API from "../constants/APIEndpoints";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
+import constants from "../constants/constant";
 interface RefreshToken {
   status: number;
   data: {
@@ -58,24 +59,17 @@ export abstract class HTTPBaseService {
     //   }
     // }
 
-    const headerJson = {
+    let headerJson = {
       "Content-Type": `application/json`,
       Accept: `application/json`,
       Authorization: `Bearer ${this.token}`,
-      accessToken: `${LocalStorageService.getAccessToken()}`,
+      accessToken: this.token,
     };
 
     config.headers = headerJson;
 
-    if (
-      config.url?.startsWith(API.RUPIFI.CHECK_CREDIT_ELIGIBILITY) ||
-      config.url?.startsWith(API.RUPIFI.CREATE_PAYMENT) ||
-      config.url?.startsWith(API.RUPIFI.CAPTURE_AMOUNT) ||
-      config.url?.startsWith(API.RUPIFI.CHECK_PAYMENT_STATUS)
-    ) {
-      let rpf_token: any = localStorage.getItem("rpf_token");
-      rpf_token = JSON.parse(rpf_token);
-      config.headers["Authorization"] = `Bearer ${rpf_token.accessToken}`;
+    if (config.url?.startsWith(API.GET_CART)) {
+      headerJson.accessToken = `${LocalStorageService.getAccessToken()}`;
     }
 
     return config;
