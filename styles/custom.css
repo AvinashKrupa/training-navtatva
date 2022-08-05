@@ -89,3 +89,19 @@
   to {transform: translateX(45px)}
 }
 /** Page Loader END**/
+.product-block .product-content-area h6 a{
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.015em;
+  color: #000000;
+  font-family: "OpenSauceSans-SemiBold";
+  text-align: center;
+  margin-bottom: 19px;
+}
+.product-block .product-content-area h6 a:hover {
+  color: #f9bc60;
+  transition: all 0.65s;
+}
+.product-detail-page .discount-offer {
+  width: 132px!important;
+}

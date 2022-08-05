@@ -30,14 +30,14 @@ const LocalStorageService = (function () {
   }
   function _getCartRef() {
     let cartRef = localStorage.getItem("cartRef");
-    if(cartRef == undefined){
+    if (cartRef == undefined) {
       const uid = () => {
         return Date.now().toString(36) + Math.random().toString(36).substr(2);
       };
       cartRef = uid();
       localStorage.setItem("cartRef", cartRef);
     }
-    return cartRef;   
+    return cartRef;
   }
   return {
     getService: _getService,
@@ -47,7 +47,7 @@ const LocalStorageService = (function () {
     getRefreshToken: _getRefreshToken,
     getUserToken: _getUserToken,
     clearToken: _clearToken,
-    getCartRef: _getCartRef
+    getCartRef: _getCartRef,
   };
 })();
 export default LocalStorageService;

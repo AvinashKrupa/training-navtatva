@@ -1,18 +1,23 @@
 import React, { useEffect } from "react";
 import { Cart } from "../../network/gateway/Cart";
 
-const CartItem = () => {
-  useEffect(() => {
-    getCustomerCart();
-  }, []);
-
-  function getCustomerCart() {
-    Cart.getInstance()
-      .getCustomerCart()
-      .then((info: any) => {
-        console.log("customer", info);
-      });
+const CartItem = (props: any) => {
+  function getColor() {
+    console.log("props.meta", props.meta);
+    let data = props.meta?.variant.filter((info: any) => {
+      return info.name == "Color";
+    });
+    if (data && data.length > 0) return data[0].options?.name;
   }
+
+  function getSize() {
+    let data = props.meta?.variant.filter((info: any) => {
+      return info.name == "Size";
+    });
+
+    if (data && data.length > 0) return data[0].options?.name;
+  }
+
   return (
     <div className="bgbar position-relative mt-4">
       <div className="row">
@@ -26,20 +31,20 @@ const CartItem = () => {
         </div>
         <div className="col-md-3 col-lg-3">
           <div className="imgbar ">
-            <img className="w-100" src="images/img1.png" alt="" />
+            <img className="w-100" src={props.image?.href} alt="" />
           </div>
         </div>
         <div className="col-md-9 position-relative">
-          <h3 className="fs-16 font-sb text-color-2">Anubhutee</h3>
+          <h3 className="fs-16 font-sb text-color-2">{props.name}</h3>
           <p className="fs-14 font-r text-color-1 pt-1 prodes">
-            Women Teal Blue &amp; Beige Ethnic Motifs Printed Straight Kurti
+            {props.description}
           </p>
           <div className="d-flex py-3">
             <p className="fs-14 font-sb text-color-1">
-              Size: <span className="text-color-2">XL</span>
+              Size: <span className="text-color-2">{getSize()}</span>
             </p>
             <p className="fs-14 font-sb text-color-1 ms-4">
-              Colour: <span className="text-color-2">Blue</span>
+              Colour: <span className="text-color-2">{getColor()}</span>
             </p>
           </div>
           <div className="d-flex mt-4">
@@ -53,7 +58,8 @@ const CartItem = () => {
           </div>
           <div className="d-flex topBarAlign">
             <p className="fs-16 font-sb text-color-2 align-self-center me-3">
-              ₹3,499
+              {/* ₹3,499 */}{" "}
+              {props.meta?.display_price?.with_tax.unit.formatted}
             </p>
             <div className="quantity d-flex px-2">
               <label className="fs-14 font-r text-color-1 pt-1">Qty</label>
@@ -61,9 +67,9 @@ const CartItem = () => {
                 className="form-select fs-14 font-r"
                 aria-label="Default select example"
               >
-                <option value={1}>1</option>
-                <option value={2}>2</option>
-                <option value={3}>3</option>
+                <option value={1}>{props.quantity}</option>
+                {/* <option value={2}>2</option>
+                <option value={3}>3</option> */}
               </select>
             </div>
           </div>
