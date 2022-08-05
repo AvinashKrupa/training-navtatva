@@ -69,6 +69,7 @@ const PLP = () => {
   }
 
   function getProductDetail(id: any) {
+
     CatalogService.getInstance()
       .getProducDetail(id)
       .then((response: any) => {
