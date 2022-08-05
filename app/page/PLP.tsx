@@ -17,7 +17,7 @@ import { CatalogService } from "../network/gateway/Catalog";
 import Login from "../../pages/login";
 import { Cart } from "../network/gateway/Cart";
 
-const PLP = (props:any) => {
+const PLP = () => {
   const router = useRouter();
   const { slug, id } = router.query;
 
@@ -31,7 +31,7 @@ const PLP = (props:any) => {
   const [selectedProductData, setSelectedProductData] = useState<Array<any>>(
     []
   );
-console.log("this is product id",id)
+
 
   useEffect(() => {
     //getProductList();
@@ -57,7 +57,7 @@ console.log("this is product id",id)
       .then((response: any) => {
         if (response.data) {
           setProductListing(response.data.data);
-          console.log("thisi is product details list",response.data.data)
+
         } else {
           console.log("ERROR:", response.data);
         }
