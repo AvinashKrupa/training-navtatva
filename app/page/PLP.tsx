@@ -20,8 +20,8 @@ import LocalStorageService from "../../utils/storage/LocalStorageService";
 import Toast from "../../utils/Toast";
 
 const PLP = () => {
-  //const router = useRouter();
-  //const { slug, id } = router.query;
+  const router = useRouter();
+  const { slug, id } = router.query;
 
   const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);
   const [openProductQuickView, setOpenProductQuickView] =
@@ -35,10 +35,12 @@ const PLP = () => {
     []
   );
 
+
   useEffect(() => {
-    getProductList();
-    return () => {};
-  }, []);
+    //getProductList();
+    getProductLists("1661b1f9-64c5-44c4-aeeb-d7e8e9385fc4")
+    return () => { };
+  }, [id]);
 
   function getProductList() {
     CatalogService.getInstance()
@@ -50,21 +52,37 @@ const PLP = () => {
           console.log("ERROR:", response.data);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   }
-
-  function getProductDetail(id: any) {
+  function getProductLists(id:any) {
     CatalogService.getInstance()
-      .getProducDetail(id)
+      .getProductByNode(id)
       .then((response: any) => {
         if (response.data) {
-          setSelectedProductData(response.data.data);
-          setOpenProductQuickView(true);
+          setProductListing(response.data.data);
+
         } else {
           console.log("ERROR:", response.data);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
+  }
+
+  function getProductDetail(id: any) {
+
+    CatalogService.getInstance()
+      .getProducDetail(id)
+      .then((response: any) => {
+        if (response.data) {
+
+          setSelectedProductData(response.data.data);
+          setOpenProductQuickView(true);
+
+        } else {
+          console.log("ERROR:", response.data);
+        }
+      })
+      .catch((error) => { });
   }
 
   function addToCart(id: string) {

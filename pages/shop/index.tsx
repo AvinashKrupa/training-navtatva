@@ -4,6 +4,7 @@ import PLP from "../../app/page/PLP";
 import { useRouter } from "next/router";
 
 const ProductListingScreen: NextPage = () => {
+
   return <PLP />;
 };
 
