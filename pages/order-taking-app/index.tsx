@@ -26,8 +26,8 @@ const OrderTakingAppScreen: NextPage = () => {
 
     const [formValues, setFormValues] = useState<any>(initFormValues)
 
-    const [userName, setUserName] = useState<string>("admin");
-    const [password, setPassword] = useState<string>("admin");
+    const [userName, setUserName] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
     const [haveAccess, setHaveAccess] = useState<boolean>(false);
     const [isEligibleForTxn, setIsEligibleForTxn] = useState<boolean>(false);
     const [sellerList, setSellerList] = useState<any>([]);
@@ -228,7 +228,7 @@ const OrderTakingAppScreen: NextPage = () => {
     }
 
     const getAccess = () => {
-        if (userName == "admin" && password == "admin") {
+        if (userName == "adminnf" && password == "magicpw@nf") {
             setHaveAccess(true)
         }
     }
