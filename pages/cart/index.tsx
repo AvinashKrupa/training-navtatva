@@ -19,8 +19,28 @@ const CartScreen: NextPage = () => {
       .getCustomerCart()
       .then((info: any) => {
         setCartItems(info.data.data);
+        console.log("this is cart items", info.data.data)
       });
   }
+
+  function deletCartItem(cart_item_id: any) {
+    Cart.getInstance().deleteCartItem(cart_item_id).then((response: any) => {
+      if (response.statusText === 'OK') {
+        getCustomerCart();
+        console.log("this is called after remove", response.statusText === 'OK')
+      }
+    });
+
+  }
+
+  function removeCart(id: any, index: any) {
+    // let newCartItem = cartItems
+    // setCartItems([...newCartItem.slice(0, index), ...newCartItem.slice(index +
+    //   1)]);
+    deletCartItem(id);
+  }
+
+
 
   return (
     <div className="shoppingCart">
@@ -36,7 +56,7 @@ const CartScreen: NextPage = () => {
             <div className="col-md-12 col-lg-8">
               {cartItems?.length &&
                 cartItems?.map((item: any, index: number) => {
-                  return <CartItem key={index} {...item} />;
+                  return <CartItem key={index} {...item} removeCart={removeCart} />;
                 })}
               {youMayLikeList?.length && (
                 <>

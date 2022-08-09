@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
   const router = useRouter();
+  const { slug, id } = router.query;
+  console.log("this is checkout id",id)
   return (
     <div className="shoppingCart checkoutPage">
       <div className="wrapper">

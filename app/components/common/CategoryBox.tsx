@@ -39,7 +39,7 @@ const CategoryBox = (props: any,) => {
       setPropsData([...propsData, props])
     }
   }
-console.log("this is filters",filters)
+//console.log("this is filters",filters)
 
   return (
     <div className="category-box">
