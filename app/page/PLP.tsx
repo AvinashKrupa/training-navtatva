@@ -103,6 +103,10 @@ const PLP = () => {
       });
   }
 
+  const aaa=(a:any)=>{
+    console.log("this is customer id",a)
+  }
+
   return (
     <>
       <div className="wrapper">
@@ -111,8 +115,11 @@ const PLP = () => {
         {/* End Header */}
         {/* Category */}
         <Login
-          onSuccess={() => {
+          onSuccess={(a:any) => {
             addToCart(`${productId}`);
+            aaa(a)
+
+
           }}
           visible={login}
           onClose={() => setLogin(false)}

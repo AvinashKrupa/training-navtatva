@@ -4,6 +4,8 @@ import Header from "../../app/themes/themeOne/components/Header";
 
 import { useRouter } from "next/router";
 import { Cart } from "../../app/network/gateway/Cart";
+import LocalStorageService from "../../app/utils/storage/LocalStorageService";
+
 
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
@@ -18,8 +20,16 @@ const CheckoutScreen: NextPage = () => {
   const [city, setCity] = useState<string>('')
 
   const [postcode, setPostcode] = useState('')
+  //const [customerId, setCustomerId] = useState('')
 
+  // if(LocalStorageService.getCutomerId()){
 
+  //   let a=LocalStorageService.getCutomerId()
+  //   setCustomerId(customerId)
+
+  // }
+
+  let customerId = LocalStorageService.getCutomerId()
 
 
 
@@ -45,55 +55,52 @@ const CheckoutScreen: NextPage = () => {
 
   }
 
-  function checkout() {
-    // const params = {
-    //   // data: {
-    //   //   id: id,
-    //   //   type: "cart_item",
-    //   //   quantity: 1,
-    //   // },
-    // };
 
+  function checkout() {
     const param = {
       "data": {
         "customer": {
-          "id": "dc01a225-89db-4fb6-bbd1-3f5ab98d9815"
+          id: customerId
         },
         "billing_address": {
           "first_name": firstName,
           "last_name": lastName,
-          "company_name": "Ron Swanson Enterprises",
+          "line_1": address_1,
+          "line_2": address_2,
+          "company_name": "",
+          "city": city,
+          "county": "Sunnyville",
+          "postcode": postcode,
+          "country": "INIDA"
+        },
+        "shipping_address": {
+          "first_name": firstName,
+          "last_name": lastName,
+          "company_name": "",
           "line_1": address_1,
           "line_2": address_2,
           "city": city,
           "county": "Sunnyville",
           "postcode": postcode,
-          "country": "GB"
-        },
-        "shipping_address": {
-          "first_name": "Ron",
-          "last_name": "Swanson",
-          "company_name": "Ron Swanson Enterprises",
-          "line_1": "1 Sunny Street",
-          "line_2": "",
-          "city": "Sunny Town",
-          "county": "Sunnyville",
-          "postcode": "SU33 1YY",
-          "country": "GB"
+          "country": "INIDA"
         }
       }
     }
 
-    // Cart.getInstance()
-    //   .checkout(param)
-    //   .then((info) => {
-    //     console.log("info", info);
-    //   })
-    //   .catch((error) => {
-    //     console.log("error", error);
-    //   });
+    Cart.getInstance()
+      .checkout(param)
+      .then((data:any) => {
+        console.log("checkout info", data);
+        if(data.status){
+          router.push("/thankyou");
 
-    // console.log("this is param",param)
+        }
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+
+
   }
 
 
@@ -104,6 +111,7 @@ const CheckoutScreen: NextPage = () => {
       <div className="wrapper">
         {/* Header */}
         <Header />
+
         {/* End Header */}
         <section className="cartItem  mt-4 mt-md-5">
           <h1 className="fs-40 font-b text-color-2 list-inline-item">
