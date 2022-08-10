@@ -3,12 +3,102 @@ import type { NextPage } from "next";
 import Header from "../../app/themes/themeOne/components/Header";
 
 import { useRouter } from "next/router";
+import { Cart } from "../../app/network/gateway/Cart";
 
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
   const router = useRouter();
-  const { slug, id } = router.query;
-  console.log("this is checkout id",id)
+  // const { slug, id } = router.query;
+  // console.log("this is checkout id",id,slug)
+
+  const [firstName, setfirstName] = useState<string>('')
+  const [lastName, setlastName] = useState<string>('')
+  const [address_1, setAddress_1] = useState<string>('')
+  const [address_2, setAddress_2] = useState<string>('')
+  const [city, setCity] = useState<string>('')
+
+  const [postcode, setPostcode] = useState('')
+
+
+
+
+
+  const onChangeFirstName = (event: any) => {
+    setfirstName(event.target.value)
+  }
+  const onChangeLastName = (event: any) => {
+    setlastName(event.target.value)
+  }
+
+  const onChangeCity = (event: any) => {
+    setCity(event.target.value)
+  }
+  const onChangeAddress_1 = (event: any) => {
+    setAddress_1(event.target.value)
+  }
+  const onChangeAddress_2 = (event: any) => {
+    setAddress_2(event.target.value)
+
+  }
+  const onChangePostcode = (event: any) => {
+    setPostcode(event.target.value)
+
+  }
+
+  function checkout() {
+    // const params = {
+    //   // data: {
+    //   //   id: id,
+    //   //   type: "cart_item",
+    //   //   quantity: 1,
+    //   // },
+    // };
+
+    const param = {
+      "data": {
+        "customer": {
+          "id": "dc01a225-89db-4fb6-bbd1-3f5ab98d9815"
+        },
+        "billing_address": {
+          "first_name": firstName,
+          "last_name": lastName,
+          "company_name": "Ron Swanson Enterprises",
+          "line_1": address_1,
+          "line_2": address_2,
+          "city": city,
+          "county": "Sunnyville",
+          "postcode": postcode,
+          "country": "GB"
+        },
+        "shipping_address": {
+          "first_name": "Ron",
+          "last_name": "Swanson",
+          "company_name": "Ron Swanson Enterprises",
+          "line_1": "1 Sunny Street",
+          "line_2": "",
+          "city": "Sunny Town",
+          "county": "Sunnyville",
+          "postcode": "SU33 1YY",
+          "country": "GB"
+        }
+      }
+    }
+
+    // Cart.getInstance()
+    //   .checkout(param)
+    //   .then((info) => {
+    //     console.log("info", info);
+    //   })
+    //   .catch((error) => {
+    //     console.log("error", error);
+    //   });
+
+    // console.log("this is param",param)
+  }
+
+
+
+
   return (
     <div className="shoppingCart checkoutPage">
       <div className="wrapper">
@@ -151,6 +241,8 @@ const CheckoutScreen: NextPage = () => {
                               placeholder=""
                               defaultValue={""}
                               required
+                              value={firstName}
+                              onChange={onChangeFirstName}
                             />
                             <div className="invalid-feedback">
                               {" "}
@@ -168,6 +260,8 @@ const CheckoutScreen: NextPage = () => {
                               placeholder=""
                               defaultValue={""}
                               required
+                              onChange={onChangeLastName}
+                              value={lastName}
                             />{" "}
                           </div>
                           <div className="col-12  mb-4">
@@ -180,6 +274,9 @@ const CheckoutScreen: NextPage = () => {
                               id="address"
                               placeholder="#45, Avenue Towers, Scalpel Road"
                               required
+
+                              onChange={onChangeAddress_1}
+
                             />{" "}
                           </div>
                           <div className="col-12  mb-4">
@@ -192,6 +289,22 @@ const CheckoutScreen: NextPage = () => {
                               className="form-control"
                               id="address2"
                               placeholder="80 Feet Road, Behind Hindu Temple"
+                              onChange={onChangeAddress_2}
+                            />{" "}
+                          </div>
+                          <div className="col-sm-6  mb-4">
+                            <label htmlFor="lastName" className="form-label">
+                              City
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="city"
+                              placeholder=""
+                              defaultValue={""}
+                              required
+                              onChange={onChangeCity}
+                              value={city}
                             />{" "}
                           </div>
                           <div className="col-md-3 ">
@@ -204,6 +317,8 @@ const CheckoutScreen: NextPage = () => {
                               id="Postal Code"
                               placeholder=""
                               required
+                              value={postcode}
+                              onChange={onChangePostcode}
                             />{" "}
                           </div>
                         </div>
@@ -246,7 +361,7 @@ const CheckoutScreen: NextPage = () => {
                           </div>
                         </div>
                         <div className="mt-4">
-                          <button className="btn  btn-lg fs-16" type="submit">
+                          <button className="btn  btn-lg fs-16" onClick={checkout}>
                             Save &amp; Deliver Here
                           </button>{" "}
                           <a

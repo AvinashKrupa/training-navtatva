@@ -127,4 +127,30 @@ export class Cart extends HTTPBaseService {
     });
   };
 
+  // public checkout = (data: any) => {
+  //   return new Promise((resolve: any, reject: any) => {
+  //     this.instance
+  //       .post(API.CHECKOUT + "/" + Cart.getCartId(), data)
+  //       .then((response) => {
+  //         if (response.status == 200) {
+  //           let message = response.data.msg ?? "";
+  //           Toast.showSuccess(message);
+  //           resolve(response);
+  //         } else {
+  //           let message = response.data.msg ?? "";
+  //           Toast.showError(message);
+  //           reject(response);
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.log("Error", error);
+  //         Toast.showError(
+  //           JSON.parse(error.response.request.response).msg.detail
+  //         );
+  //         reject(error);
+  //       });
+  //   });
+  // };
+
+
 }

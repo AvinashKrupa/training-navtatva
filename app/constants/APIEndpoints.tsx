@@ -13,6 +13,7 @@ const API = {
   GET_PRODUCT_DETAIL: "pcm_product/",
   GET_PRODUCT_BY_NODE:'products_by_node/',
   DELETE_CART_ITEM:'carts/',
+  CHECKOUT:'checkout',
   ORDER_TAKING_APP: {
     GET_SELLERS: "get-all-customers",
     PLACE_ORDER: "place-custom-order",
