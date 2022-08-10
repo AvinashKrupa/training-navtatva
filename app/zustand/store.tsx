@@ -1,10 +1,14 @@
 import create from "zustand";
 import { devtools } from "zustand/middleware";
+import LocalStorageService from "../utils/storage/LocalStorageService";
 
-const useStore = create((set) => ({
-  isLogin: false,
+const useUserStore = create((set) => ({
+  isLogin: LocalStorageService.getAccessToken(),
+  loginPopup: false,
+  userInfo: null,
   setUserInfo: (data: any) => {
     set((state) => ({
+      loginPopup: false,
       isLogin: true,
       userInfo: data,
     }));
@@ -14,5 +18,10 @@ const useStore = create((set) => ({
       isLogin: false,
     }));
   },
+  showLogin: (data: boolean) => {
+    set((state) => ({
+      loginPopup: data,
+    }));
+  },
 }));
-export default useStore;
+export default useUserStore;

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import Login from "../../../pages/login";
 import { Cart } from "../../network/gateway/Cart";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
+import useUserStore from "../../zustand/store";
 
 const CartItem = (props: any) => {
-
+  const setLoginPopup = useUserStore((state: any) => state.showLogin);
   const [login, setLogin] = useState<boolean>(false);
   function getColor() {
     //console.log("props.meta", props.meta);
@@ -24,10 +25,10 @@ const CartItem = (props: any) => {
 
   const removeCartitem = () => {
     //props.removeCart(1, 0)
-    props.removeCart(props?.id)
+    props.removeCart(props?.id);
     //console.log("this is onclick working")
-    console.log("this is called")
-  }
+    console.log("this is called");
+  };
 
   //console.log("this is cart data",props?.id)
   return (
@@ -69,13 +70,17 @@ const CartItem = (props: any) => {
             <a className="fs-14 font-sb text-color-3" href="#">
               Move to Wishlist
             </a>{" "}
-            <a className="fs-14 font-sb text-color-3 ms-4"  onClick={() => {
-              if (LocalStorageService.getAccessToken()) {
-                removeCartitem()
-              } else {
-                setLogin(true);
-              }
-            }}>
+            <a
+              className="fs-14 font-sb text-color-3 ms-4"
+              onClick={() => {
+                setLoginPopup(true);
+                if (LocalStorageService.getAccessToken()) {
+                  removeCartitem();
+                } else {
+                  setLoginPopup(true);
+                }
+              }}
+            >
               Remove
             </a>{" "}
           </div>

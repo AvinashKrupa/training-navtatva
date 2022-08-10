@@ -6,31 +6,43 @@ import Slider from "react-slick";
 import CartItem from "../../app/components/cart/CartItem";
 import VisitNunchiBanner from "../../app/components/common/VisitNunchiBanner";
 import { Cart } from "../../app/network/gateway/Cart";
+import useUserStore from "../../app/zustand/store";
+import shallow from "zustand/shallow";
 
 const CartScreen: NextPage = () => {
-  const [cartItems, setCartItems] = useState<any>([1, 2, 3]);
-  const [youMayLikeList, setYouMayLikeList] = useState<any>([1, 2, 3]);
+  const [cartItems, setCartItems] = useState<any>([]);
+  const [youMayLikeList, setYouMayLikeList] = useState<any>([]);
+  const isLogin = useUserStore((state: any) => state.isLogin, shallow);
+  const setLoginPopup = useUserStore((state: any) => state.showLogin);
   useEffect(() => {
-    getCustomerCart();
-  }, []);
+    if (isLogin) {
+      getCustomerCart();
+    } else {
+      setLoginPopup(true);
+    }
+  }, [isLogin]);
 
   function getCustomerCart() {
     Cart.getInstance()
       .getCustomerCart()
       .then((info: any) => {
         setCartItems(info.data.data);
-        console.log("this is cart items", info.data.data)
+        console.log("this is cart items", info.data.data);
       });
   }
 
   function deletCartItem(cart_item_id: any) {
-    Cart.getInstance().deleteCartItem(cart_item_id).then((response: any) => {
-      if (response.statusText === 'OK') {
-        getCustomerCart();
-        console.log("this is called after remove", response.statusText === 'OK')
-      }
-    });
-
+    Cart.getInstance()
+      .deleteCartItem(cart_item_id)
+      .then((response: any) => {
+        if (response.statusText === "OK") {
+          getCustomerCart();
+          console.log(
+            "this is called after remove",
+            response.statusText === "OK"
+          );
+        }
+      });
   }
 
   function removeCart(id: any, index: any) {
@@ -39,8 +51,6 @@ const CartScreen: NextPage = () => {
     //   1)]);
     deletCartItem(id);
   }
-
-
 
   return (
     <div className="shoppingCart">
@@ -56,9 +66,11 @@ const CartScreen: NextPage = () => {
             <div className="col-md-12 col-lg-8">
               {cartItems?.length &&
                 cartItems?.map((item: any, index: number) => {
-                  return <CartItem key={index} {...item} removeCart={removeCart} />;
+                  return (
+                    <CartItem key={index} {...item} removeCart={removeCart} />
+                  );
                 })}
-              {youMayLikeList?.length && (
+              {youMayLikeList?.length != 0 && (
                 <>
                   <h3 className="fs-20 font-sb text-color-2 mt-5">
                     You May Also like
