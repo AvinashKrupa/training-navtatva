@@ -1,6 +1,11 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
+import Login from "../../../pages/login";
+import { Cart } from "../../network/gateway/Cart";
+import LocalStorageService from "../../utils/storage/LocalStorageService";
+
+
 
 const ProductQuickView = (props: any) => {
   const [selectCombination, setSelectedCombination] = useState({
@@ -8,6 +13,9 @@ const ProductQuickView = (props: any) => {
     size: "",
     id: "",
   });
+
+  const [productId, setProductId] = useState<string>("");
+   const [login, setLogin] = useState<boolean>(false);
 
   const [selectedImage, setSelectedImage] = useState(0);
   const [colorCode, setColorCode] = useState("#ffffff");
@@ -120,6 +128,27 @@ const ProductQuickView = (props: any) => {
     }
     throw new Error("Bad Hex");
   }
+
+  function addToCart(id: string) {
+    const params = {
+      data: {
+        id: id,
+        type: "cart_item",
+        quantity: 1,
+      },
+    };
+    Cart.getInstance()
+      .addToCart(params)
+      .then((info) => {
+        console.log("info", info);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }
+
+  console.log("this is props from quick view",props.data)
+
   return (
     <Modal
       show={props.openProductQuickView}
@@ -127,6 +156,13 @@ const ProductQuickView = (props: any) => {
       size={"xl"}
       id="checkOut"
     >
+      <Login
+          onSuccess={() => {
+            addToCart(props.id);
+          }}
+          visible={login}
+          onClose={() => setLogin(false)}
+        />
       <div className="modal-content">
         <button
           type="button"
@@ -507,11 +543,19 @@ const ProductQuickView = (props: any) => {
                       </button>
                       <button
                         onClick={() => {
-                          router.push("/cart");
+
+                            if(LocalStorageService.getAccessToken()) {
+                              addToCart(props?.data.id)
+                            } else {
+                             setProductId(props?.data.id)
+                               setLogin(true);
+                            }
+
                         }}
                         type="button"
                         className="btn w-50"
                       >
+
                         Add to Cart
                       </button>
                     </div>

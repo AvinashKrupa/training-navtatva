@@ -1,9 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { addAbortSignal } from "stream";
 import MultiRangeSlider from "../elements/MultiRangeSlider";
+import { filters } from "../../constants/sampleData";
+const {
+  categories,
+  colors,
+  brands,
+  discount_ranges,
+  materials,
+  occasions,
+  prints,
+  prices,
+} = filters;
 
-const CategoryBox = (props: any) => {
+const CategoryBox = (props: any,) => {
+  const [active, setActive] = useState<boolean>(true);
+  const [propsData, setPropsData] = useState<any>([])
 
-  const [active, setActive] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (props?.reset) {
+      setActive(true)
+      props.setReset(false)
+
+    }
+  })
+
+  const handle = (index: any, id: any) => {
+
+
+    if (props.data[index].isSelected) {
+      props.data[index].isSelected = false;
+      setPropsData([...propsData, props])
+
+    }
+    else {
+      props.data[index].isSelected = true;
+      setPropsData([...propsData, props])
+    }
+  }
+//console.log("this is filters",filters)
 
   return (
     <div className="category-box">
@@ -22,7 +58,7 @@ const CategoryBox = (props: any) => {
                     <b className="color-radio" style={{ background: item.color_code }}></b>
                   )
                 }
-                <input type="radio" name={props.name} />
+                <input type="checkbox" name={item.name} value={item.name} checked={item.isSelected} onClick={() => handle(index, item.id)} />
                 <span className="radio-checkmark"></span>
               </label>
             )
@@ -38,11 +74,11 @@ const CategoryBox = (props: any) => {
                   onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}
                 />
               </div>
-              
+
               <button type="button" className="btn btn-sm w-100">
                 Set Price
               </button>
-             
+
             </>
           )
         }

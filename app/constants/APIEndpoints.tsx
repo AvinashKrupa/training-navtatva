@@ -11,6 +11,8 @@ const API = {
   CART_ASSOCIATION: "create_customer_cart_association",
   GET_CART: "get_customer_cart",
   GET_PRODUCT_DETAIL: "pcm_product/",
+  GET_PRODUCT_BY_NODE:'products_by_node/',
+  DELETE_CART_ITEM:'carts/',
   ORDER_TAKING_APP: {
     GET_SELLERS: "get-all-customers",
     PLACE_ORDER: "place-custom-order",

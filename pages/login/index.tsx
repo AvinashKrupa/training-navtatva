@@ -1,11 +1,13 @@
 import React, { Component, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Auth } from "../../app/network/gateway/Auth";
+import useUserStore from "../../app/zustand/store";
 import Validators from "../../utils/Validator";
 import FormValidation from "../../validation/form";
 function Login(props: any) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const setUserInfo = useUserStore((state: any) => state.setUserInfo);
 
   function isValidForm() {
     if (FormValidation.UserNamePassword({ email: email, password: password })) {
@@ -20,6 +22,7 @@ function Login(props: any) {
         })
         .then((response: any) => {
           if (response != "") {
+            setUserInfo(setUserInfo);
             props.onSuccess(response);
           }
         })

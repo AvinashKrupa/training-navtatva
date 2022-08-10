@@ -87,13 +87,17 @@ const ProductSmallBlock = (props: any) => {
                 </span>
               </div>
               <div className="product-btn text-center">
-                <a
-                  href="#"
+              <button
+                  type="button"
+
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+
                   className="btn-outline btn-sm w-100 mb-2"
                   onClick={() => props.onClickQuickView(props.id)}
                 >
                   Quick View
-                </a>
+                  </button>
                 <button
                   type="button"
                   className="btn btn-sm w-100 cart-btn"

@@ -104,4 +104,27 @@ export class Cart extends HTTPBaseService {
         });
     });
   };
+
+  public deleteCartItem = (id: any) => {
+    return new Promise((resolve: any, reject: any) => {
+      this.instance
+        .delete(API.DELETE_CART_ITEM + Cart.getCartId()+'/items/'+ id)
+        .then((response) => {
+          if (response.status == 200) {
+            let message = response.data;
+            Toast.showSuccess(message);
+            resolve(response);
+          } else {
+            let message = response.data.message;
+            Toast.showError(message);
+            reject(response);
+          }
+        })
+        .catch((error) => {
+          Toast.showError(error.message);
+          reject(error);
+        });
+    });
+  };
+
 }

@@ -18,12 +18,15 @@ import Login from "../../pages/login";
 import { Cart } from "../network/gateway/Cart";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
 import Toast from "../../utils/Toast";
+import useUserStore from "../zustand/store";
 
 const PLP = () => {
-  //const router = useRouter();
-  //const { slug, id } = router.query;
+  const router = useRouter();
+  const { slug, id } = router.query;
 
   const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);
+  const userData = useUserStore((state: any) => state.userInfo);
+  const setLoginPopup = useUserStore((state: any) => state.showLogin);
   const [openProductQuickView, setOpenProductQuickView] =
     useState<boolean>(false);
 
@@ -36,13 +39,33 @@ const PLP = () => {
   );
 
   useEffect(() => {
-    getProductList();
+    if (productId != "") {
+      addToCart(`${productId}`);
+      setProductId("");
+    }
     return () => {};
-  }, []);
+  }, [userData]);
+
+  useEffect(() => {
+    getProductLists("1661b1f9-64c5-44c4-aeeb-d7e8e9385fc4");
+    return () => {};
+  }, [id]);
 
   function getProductList() {
     CatalogService.getInstance()
       .getProductListing()
+      .then((response: any) => {
+        if (response.data) {
+          setProductListing(response.data.data);
+        } else {
+          console.log("ERROR:", response.data);
+        }
+      })
+      .catch((error) => {});
+  }
+  function getProductLists(id: any) {
+    CatalogService.getInstance()
+      .getProductByNode(id)
       .then((response: any) => {
         if (response.data) {
           setProductListing(response.data.data);
@@ -92,13 +115,11 @@ const PLP = () => {
         <Header />
         {/* End Header */}
         {/* Category */}
-        <Login
-          onSuccess={() => {
-            addToCart(`${productId}`);
-          }}
+        {/* <Login
+          onSuccess={() => {}}
           visible={login}
           onClose={() => setLogin(false)}
-        />
+        /> */}
         <section className="category-section">
           <div className="container-fluid">
             <div className="row">
@@ -128,7 +149,7 @@ const PLP = () => {
                                 addToCart(`${id}`);
                               } else {
                                 setProductId(`${id}`);
-                                setLogin(true);
+                                setLoginPopup(true);
                               }
                             }}
                           />
