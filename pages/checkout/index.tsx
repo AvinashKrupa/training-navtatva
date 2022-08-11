@@ -3,8 +3,10 @@ import type { NextPage } from "next";
 import Header from "../../app/themes/themeOne/components/Header";
 
 import { useRouter } from "next/router";
-import { Cart } from "../../app/network/gateway/Cart";
-import LocalStorageService from "../../app/utils/storage/LocalStorageService";
+import { Cart } from "../../network/gateway/Cart";
+import LocalStorageService from "../../utils/storage/LocalStorageService";
+
+
 
 
 const CheckoutScreen: NextPage = () => {
@@ -29,7 +31,7 @@ const CheckoutScreen: NextPage = () => {
 
   // }
 
-  let customerId=LocalStorageService.getCutomerId()
+  //let customerId=LocalStorageService.getCutomerId()
   // }
 
   // if (typeof window !== 'undefined') {
@@ -37,7 +39,7 @@ const CheckoutScreen: NextPage = () => {
   // customerId = LocalStorageService.getCutomerId()
   // }
 
-
+  let customerId = LocalStorageService.getCustomerId()
 
   const onChangeFirstName = (event: any) => {
     setfirstName(event.target.value)
