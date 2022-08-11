@@ -87,6 +87,7 @@ export class Cart extends HTTPBaseService {
         .then((response) => {
           if (response.status == 200) {
             let message = response.data.msg ?? "";
+            localStorage.setItem("CART_ID", response.data.refId);
             Toast.showSuccess(message);
             resolve(response);
           } else {

@@ -33,25 +33,16 @@ const CartScreen: NextPage = () => {
       });
   }
 
-  function deletCartItem(cart_item_id: any) {
+  function removeCart(id: any, index: any) {
     Cart.getInstance()
-      .deleteCartItem(cart_item_id)
+      .deleteCartItem(id)
       .then((response: any) => {
         if (response.statusText === "OK") {
-          getCustomerCart();
-          console.log(
-            "this is called after remove",
-            response.statusText === "OK"
-          );
+          let newCartItem = cartItems;
+          newCartItem.splice(index, 1); // 2nd parameter means remove one item only
+          setCartItems([...newCartItem]);
         }
       });
-  }
-
-  function removeCart(id: any, index: any) {
-    // let newCartItem = cartItems
-    // setCartItems([...newCartItem.slice(0, index), ...newCartItem.slice(index +
-    //   1)]);
-    deletCartItem(id);
   }
 
   return (
@@ -66,7 +57,7 @@ const CartScreen: NextPage = () => {
           </h1>
           <div className="row">
             <div className="col-md-12 col-lg-8">
-              {cartItems?.length &&
+              {cartItems?.length != 0 &&
                 cartItems?.map((item: any, index: number) => {
                   return (
                     <CartItem key={index} {...item} removeCart={removeCart} />
