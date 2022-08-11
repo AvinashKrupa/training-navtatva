@@ -22,7 +22,7 @@ const CheckoutScreen: NextPage = () => {
   const [city, setCity] = useState<string>('')
 
   const [postcode, setPostcode] = useState('')
-  //const [customerId, setCustomerId] = useState('')
+  const [customerId, setCustomerId] = useState('')
 
   // if(LocalStorageService.getCutomerId()){
 
@@ -38,8 +38,19 @@ const CheckoutScreen: NextPage = () => {
   //   // Perform localStorage action
   // customerId = LocalStorageService.getCutomerId()
   // }
+  // const ISSERVER = typeof window === "undefined";
+  // useEffect(() => {
+  //   if(ISSERVER){
+  //     let customerId = LocalStorageService.getCustomerId()
+  //     setCustomerId(customerId)
+  //   }
 
-  let customerId = LocalStorageService.getCustomerId()
+
+  //   return () => {};
+  // }, []);
+
+
+  console.log("this is customer id", customerId)
 
   const onChangeFirstName = (event: any) => {
     setfirstName(event.target.value)
@@ -63,12 +74,13 @@ const CheckoutScreen: NextPage = () => {
 
   }
 
+//console.log("this issss",localStorage)
 
   function checkout() {
     const param = {
       "data": {
         "customer": {
-          id: customerId
+          id: "df8d3675-6b40-4aa8-b630-b7e9e32d57e1"
         },
         "billing_address": {
           "first_name": firstName,
@@ -79,7 +91,7 @@ const CheckoutScreen: NextPage = () => {
           "city": city,
           "county": "Sunnyville",
           "postcode": postcode,
-          "country": "INIDA"
+          "country": "INDIA"
         },
         "shipping_address": {
           "first_name": firstName,
@@ -90,16 +102,16 @@ const CheckoutScreen: NextPage = () => {
           "city": city,
           "county": "Sunnyville",
           "postcode": postcode,
-          "country": "INIDA"
+          "country": "INDIA"
         }
       }
     }
 
     Cart.getInstance()
       .checkout(param)
-      .then((data:any) => {
+      .then((data: any) => {
         console.log("checkout info", data);
-        if(data.status){
+        if (data.status) {
           router.push("/thankyou");
 
         }
