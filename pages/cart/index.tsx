@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import Header from "../../app/themes/themeOne/components/Header";
-import { occasionSetting } from "../../app/utils/sliderConfig";
+
 import Slider from "react-slick";
 import CartItem from "../../app/components/cart/CartItem";
 import VisitNunchiBanner from "../../app/components/common/VisitNunchiBanner";
-import { Cart } from "../../app/network/gateway/Cart";
-import useUserStore from "../../app/zustand/store";
+import { Cart } from "../../network/gateway/Cart";
+
 import shallow from "zustand/shallow";
+import useUserStore from "../../zustand/store";
+import { occasionSetting } from "../../../utils/sliderConfig";
 
 const CartScreen: NextPage = () => {
   const [cartItems, setCartItems] = useState<any>([]);

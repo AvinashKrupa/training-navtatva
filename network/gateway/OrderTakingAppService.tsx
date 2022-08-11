@@ -1,5 +1,5 @@
-import API from "../../constants/APIEndpoints";
-import constants from "../../constants/constant";
+import API from "../../app/constants/APIEndpoints";
+import constants from "../../app/constants/constant";
 import { HTTPBaseService } from "../HTTPBaseService";
 import Toast from "../../utils/Toast";
 import { RupifiService } from "./RupifiService";
@@ -64,33 +64,34 @@ export class OrderTakingAppService extends HTTPBaseService {
         .post(API.ORDER_TAKING_APP.PLACE_ORDER, data)
         .then((response) => {
           if (response.status == 200) {
-            const {_id, sellerId, orderTotal} = response?.data?.data ? response?.data?.data: response?.data?.products;
+            const { _id, sellerId, orderTotal } = response?.data?.data
+              ? response?.data?.data
+              : response?.data?.products;
             const requestJSON = {
-              "amount": {
-                  "value": orderTotal
+              amount: {
+                value: orderTotal,
               },
-              "autoCapture": false,
-              "callbackUrl": constants.baseURL + API.ORDER_TAKING_APP.CALLBACK_URL,
-              "merchantCustomerRefId": constants.RUPIFI.TEST_ACCOUNT ?? sellerId,
-              "merchantPaymentRefId": _id,
-              "redirectCancelUrl": constants.RUPIFI.REDIRECT_CANCEL_URL,
-              "redirectConfirmUrl": constants.RUPIFI.REDIRECT_CONFIRM_URL
-            }
+              autoCapture: false,
+              callbackUrl:
+                constants.baseURL + API.ORDER_TAKING_APP.CALLBACK_URL,
+              merchantCustomerRefId: constants.RUPIFI.TEST_ACCOUNT ?? sellerId,
+              merchantPaymentRefId: _id,
+              redirectCancelUrl: constants.RUPIFI.REDIRECT_CANCEL_URL,
+              redirectConfirmUrl: constants.RUPIFI.REDIRECT_CONFIRM_URL,
+            };
             RupifiService.getInstance("")
-                .createRupifiPayment(requestJSON)
-                .then((response: any) => {
-                  
-                    if (response.status == 200) {
-                       resolve(response);
-                    } else {
-                      reject(response);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error)
-                    reject(error);
-                });
-            
+              .createRupifiPayment(requestJSON)
+              .then((response: any) => {
+                if (response.status == 200) {
+                  resolve(response);
+                } else {
+                  reject(response);
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+                reject(error);
+              });
           } else {
             let message = response.data.message;
             Toast.showError(message);

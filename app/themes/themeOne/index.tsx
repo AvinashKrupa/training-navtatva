@@ -30,7 +30,7 @@ import ForTheLookYouDesireFabric from "./components/ForTheLookYouDesireFabric";
 import VideoBlock from "./components/VideoBlock";
 import Footer from "../../components/common/Footer";
 import FooterFixedButton from "./components/FooterFixedButton";
-import { CatalogService } from "../../network/gateway/Catalog";
+import { CatalogService } from "../../../network/gateway/Catalog";
 
 const ThemeOne: NextPage = () => {
   const [category, setCategory] = useState([]);

@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
-import { exploreSliderSetting } from "../../../utils/sliderConfig";
+import { exploreSliderSetting } from "../../../../utils/sliderConfig";
 
 const BringInEssence = () => {
   return (

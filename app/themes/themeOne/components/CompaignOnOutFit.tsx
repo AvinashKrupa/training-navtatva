@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
-import { kurtiSettings } from "../../../utils/sliderConfig";
+import { kurtiSettings } from "../../../../utils/sliderConfig";
 
 const CompaignOnOutFit = () => {
   return (

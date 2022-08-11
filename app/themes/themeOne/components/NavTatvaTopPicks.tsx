@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
-import { occasionSetting } from "../../../utils/sliderConfig";
+import { occasionSetting } from "../../../../utils/sliderConfig";
 
 const NavTatvaTopPicks = () => {
   return (

@@ -1,10 +1,10 @@
 import React from "react";
-import Permalink from "../../utils/Permalink";
+import Permalink from "../../../utils/Permalink";
+
 import ExploreBlock from "../common/ExploreBlock";
 import SpinBlock from "../common/SpinBlock";
 
 const ProductSmallBlock = (props: any) => {
-
   function randomIntFromInterval(min: number, max: number) {
     // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -41,7 +41,9 @@ const ProductSmallBlock = (props: any) => {
           </div>
           <div className="col-sm-5">
             <div className="product-content-area">
-              <h6><a href={Permalink.ofProduct(props)}>{props.name}</a></h6>
+              <h6>
+                <a href={Permalink.ofProduct(props)}>{props.name}</a>
+              </h6>
               <p
                 style={{
                   whiteSpace: "nowrap",
@@ -87,17 +89,15 @@ const ProductSmallBlock = (props: any) => {
                 </span>
               </div>
               <div className="product-btn text-center">
-              <button
+                <button
                   type="button"
-
                   data-bs-toggle="modal"
                   data-bs-target="#exampleModal"
-
                   className="btn-outline btn-sm w-100 mb-2"
                   onClick={() => props.onClickQuickView(props.id)}
                 >
                   Quick View
-                  </button>
+                </button>
                 <button
                   type="button"
                   className="btn btn-sm w-100 cart-btn"
@@ -122,4 +122,3 @@ export default ProductSmallBlock;
 function getProductLink(): string | undefined {
   throw new Error("Function not implemented.");
 }
-

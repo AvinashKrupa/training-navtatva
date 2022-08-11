@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { menuSliderSettings } from "../../../utils/sliderConfig";
-import { useDebouncedEffect } from "../../../utils/useDebouncedEffect";
+import { menuSliderSettings } from "../../../../utils/sliderConfig";
+import { useDebouncedEffect } from "../../../../utils/useDebouncedEffect";
 import NavMenuCategory from "../../../components/layouts/category";
 import Slider from "react-slick";
-import Permalink from "../../../utils/Permalink";
-import { CatalogService } from "../../../network/gateway/Catalog";
+import Permalink from "../../../../utils/Permalink";
 
 interface IProps {
   category: Array<any>;
@@ -15,9 +14,6 @@ const MenuCategorySlider = (props: IProps) => {
   const [selectedSubCat, setSelectedSubCat] = useState<any>([]);
   const [sideImageOnHover, setSideImageOnHover] = useState<any>([]);
   // useDebouncedEffect(() => console.log(selectedSubCat), [selectedSubCat], 1000);
-
-
-
 
   return (
     <section className="category mt-4 mt-md-5 position-relative side-category">
@@ -77,9 +73,7 @@ const MenuCategorySlider = (props: IProps) => {
                               setSideImageOnHover(info);
                             }}
                           >
-                            <a href={Permalink.ofCategory(info)}>
-                              {info.name}
-                            </a>
+                            <a href={Permalink.ofCategory(info)}>{info.name}</a>
                           </li>
                         );
                       })}

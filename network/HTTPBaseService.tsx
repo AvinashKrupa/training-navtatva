@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
-import API from "../constants/APIEndpoints";
-import LocalStorageService from "../../utils/storage/LocalStorageService";
-import constants from "../constants/constant";
+import API from "../app/constants/APIEndpoints";
+import LocalStorageService from "../utils/storage/LocalStorageService";
+import constants from "../app/constants/constant";
 interface RefreshToken {
   status: number;
   data: {

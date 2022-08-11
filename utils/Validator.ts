@@ -64,15 +64,14 @@ export default class Validators {
   }
 
   static isEmpty(text: string): boolean {
-    if (text == null || text == undefined) {
-      return true;
-    }
-
     text = `${text}`;
     if (text) {
       if (typeof text === "string") {
         return text.trim().length <= 0;
       }
+      return true;
+    }
+    if (text == null) {
       return true;
     }
     return `${text}`.length == 0;
@@ -117,9 +116,5 @@ export default class Validators {
 
   static countAlphaDigitInString(text: string) {
     return text.replace(/[^a-zA-Z]/g, "").length;
-  }
-
-  static isFalse(text: boolean) {
-    return text == false;
   }
 }
