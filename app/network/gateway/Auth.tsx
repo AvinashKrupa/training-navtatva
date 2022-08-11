@@ -38,7 +38,7 @@ export class Auth extends HTTPBaseService {
                 },
               ],
             };
-            console.log("login data", params);
+            //console.log("login data", params);
             LocalStorageService.setToken(token);
             LocalStorageService.setCustomerId(customer_id);
 

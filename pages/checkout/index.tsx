@@ -29,7 +29,13 @@ const CheckoutScreen: NextPage = () => {
 
   // }
 
-  let customerId = LocalStorageService.getCutomerId()
+  let customerId=LocalStorageService.getCutomerId()
+  // }
+
+  // if (typeof window !== 'undefined') {
+  //   // Perform localStorage action
+  // customerId = LocalStorageService.getCutomerId()
+  // }
 
 
 
