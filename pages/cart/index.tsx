@@ -9,7 +9,7 @@ import { Cart } from "../../network/gateway/Cart";
 
 import shallow from "zustand/shallow";
 import useUserStore from "../../zustand/store";
-import { occasionSetting } from "../../../utils/sliderConfig";
+import { occasionSetting } from "../../utils/sliderConfig";
 
 const CartScreen: NextPage = () => {
   const [cartItems, setCartItems] = useState<any>([]);
