@@ -3,17 +3,123 @@ import type { NextPage } from "next";
 import Header from "../../app/themes/themeOne/components/Header";
 
 import { useRouter } from "next/router";
+import { Cart } from "../../network/gateway/Cart";
+import LocalStorageService from "../../utils/storage/LocalStorageService";
+
+
+
 
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
   const router = useRouter();
-  const { slug, id } = router.query;
-  console.log("this is checkout id",id)
+  // const { slug, id } = router.query;
+  // console.log("this is checkout id",id,slug)
+
+  const [firstName, setfirstName] = useState<string>('')
+  const [lastName, setlastName] = useState<string>('')
+  const [address_1, setAddress_1] = useState<string>('')
+  const [address_2, setAddress_2] = useState<string>('')
+  const [city, setCity] = useState<string>('')
+
+  const [postcode, setPostcode] = useState('')
+  //const [customerId, setCustomerId] = useState('')
+
+  // if(LocalStorageService.getCutomerId()){
+
+  //   let a=LocalStorageService.getCutomerId()
+  //   setCustomerId(customerId)
+
+  // }
+
+  //let customerId=LocalStorageService.getCutomerId()
+  // }
+
+  // if (typeof window !== 'undefined') {
+  //   // Perform localStorage action
+  // customerId = LocalStorageService.getCutomerId()
+  // }
+
+  let customerId = LocalStorageService.getCustomerId()
+
+  const onChangeFirstName = (event: any) => {
+    setfirstName(event.target.value)
+  }
+  const onChangeLastName = (event: any) => {
+    setlastName(event.target.value)
+  }
+
+  const onChangeCity = (event: any) => {
+    setCity(event.target.value)
+  }
+  const onChangeAddress_1 = (event: any) => {
+    setAddress_1(event.target.value)
+  }
+  const onChangeAddress_2 = (event: any) => {
+    setAddress_2(event.target.value)
+
+  }
+  const onChangePostcode = (event: any) => {
+    setPostcode(event.target.value)
+
+  }
+
+
+  function checkout() {
+    const param = {
+      "data": {
+        "customer": {
+          id: customerId
+        },
+        "billing_address": {
+          "first_name": firstName,
+          "last_name": lastName,
+          "line_1": address_1,
+          "line_2": address_2,
+          "company_name": "",
+          "city": city,
+          "county": "Sunnyville",
+          "postcode": postcode,
+          "country": "INIDA"
+        },
+        "shipping_address": {
+          "first_name": firstName,
+          "last_name": lastName,
+          "company_name": "",
+          "line_1": address_1,
+          "line_2": address_2,
+          "city": city,
+          "county": "Sunnyville",
+          "postcode": postcode,
+          "country": "INIDA"
+        }
+      }
+    }
+
+    Cart.getInstance()
+      .checkout(param)
+      .then((data:any) => {
+        console.log("checkout info", data);
+        if(data.status){
+          router.push("/thankyou");
+
+        }
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+
+
+  }
+
+
+
+
   return (
     <div className="shoppingCart checkoutPage">
       <div className="wrapper">
         {/* Header */}
         <Header />
+
         {/* End Header */}
         <section className="cartItem  mt-4 mt-md-5">
           <h1 className="fs-40 font-b text-color-2 list-inline-item">
@@ -151,6 +257,8 @@ const CheckoutScreen: NextPage = () => {
                               placeholder=""
                               defaultValue={""}
                               required
+                              value={firstName}
+                              onChange={onChangeFirstName}
                             />
                             <div className="invalid-feedback">
                               {" "}
@@ -168,6 +276,8 @@ const CheckoutScreen: NextPage = () => {
                               placeholder=""
                               defaultValue={""}
                               required
+                              onChange={onChangeLastName}
+                              value={lastName}
                             />{" "}
                           </div>
                           <div className="col-12  mb-4">
@@ -180,6 +290,9 @@ const CheckoutScreen: NextPage = () => {
                               id="address"
                               placeholder="#45, Avenue Towers, Scalpel Road"
                               required
+
+                              onChange={onChangeAddress_1}
+
                             />{" "}
                           </div>
                           <div className="col-12  mb-4">
@@ -192,6 +305,22 @@ const CheckoutScreen: NextPage = () => {
                               className="form-control"
                               id="address2"
                               placeholder="80 Feet Road, Behind Hindu Temple"
+                              onChange={onChangeAddress_2}
+                            />{" "}
+                          </div>
+                          <div className="col-sm-6  mb-4">
+                            <label htmlFor="lastName" className="form-label">
+                              City
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="city"
+                              placeholder=""
+                              defaultValue={""}
+                              required
+                              onChange={onChangeCity}
+                              value={city}
                             />{" "}
                           </div>
                           <div className="col-md-3 ">
@@ -204,6 +333,8 @@ const CheckoutScreen: NextPage = () => {
                               id="Postal Code"
                               placeholder=""
                               required
+                              value={postcode}
+                              onChange={onChangePostcode}
                             />{" "}
                           </div>
                         </div>
@@ -246,7 +377,7 @@ const CheckoutScreen: NextPage = () => {
                           </div>
                         </div>
                         <div className="mt-4">
-                          <button className="btn  btn-lg fs-16" type="submit">
+                          <button className="btn  btn-lg fs-16" onClick={checkout}>
                             Save &amp; Deliver Here
                           </button>{" "}
                           <a
