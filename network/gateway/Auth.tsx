@@ -1,5 +1,5 @@
-import API from "../../constants/APIEndpoints";
-import constants from "../../constants/constant";
+import API from "../../app/constants/APIEndpoints";
+import constants from "../../app/constants/constant";
 import { HTTPBaseService } from "../HTTPBaseService";
 import Toast from "../../utils/Toast";
 import { Cart } from "./Cart";

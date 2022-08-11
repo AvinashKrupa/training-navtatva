@@ -1,4 +1,4 @@
-const LocalStorageService = (() => {
+const LocalStorageService = (function () {
   var _service;
   function _getService() {
     if (!_service) {
@@ -18,7 +18,13 @@ const LocalStorageService = (() => {
     return localStorage.getItem("user_token");
   }
   function _getAccessToken() {
-    return localStorage.getItem("access_token");
+    const ISSERVER = typeof window === "undefined";
+
+    if (!ISSERVER) {
+      return localStorage.getItem("access_token");
+    } else {
+      return "";
+    }
   }
   function _getRefreshToken() {
     return localStorage.getItem("refresh_token");
@@ -28,6 +34,17 @@ const LocalStorageService = (() => {
     localStorage.removeItem("refresh_token");
     localStorage.removeItem("user_token");
   }
+  function _getCartRef() {
+    let cartRef = localStorage.getItem("cartRef");
+    if (cartRef == undefined) {
+      const uid = () => {
+        return Date.now().toString(36) + Math.random().toString(36).substr(2);
+      };
+      cartRef = uid();
+      localStorage.setItem("cartRef", cartRef);
+    }
+    return cartRef;
+  }
   return {
     getService: _getService,
     setToken: _setToken,
@@ -36,6 +53,7 @@ const LocalStorageService = (() => {
     getRefreshToken: _getRefreshToken,
     getUserToken: _getUserToken,
     clearToken: _clearToken,
+    getCartRef: _getCartRef,
   };
 })();
 export default LocalStorageService;

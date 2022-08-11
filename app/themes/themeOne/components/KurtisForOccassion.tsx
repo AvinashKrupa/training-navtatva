@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
-import { exploreMoreSetting } from "../../../utils/sliderConfig";
+import { exploreMoreSetting } from "../../../../utils/sliderConfig";
 
 const KurtisForOccassion = () => {
   return (

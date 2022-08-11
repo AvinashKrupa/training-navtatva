@@ -1,6 +1,6 @@
 import React from "react";
 import ValidationMessage from "../app/constants/validationMessage";
-import Toast from "../app/utils/Toast";
+import Toast from "../utils/Toast";
 
 import Validators from "../utils/Validator";
 

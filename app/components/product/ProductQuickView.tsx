@@ -2,10 +2,8 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import Login from "../../../pages/login";
-import { Cart } from "../../network/gateway/Cart";
-import LocalStorageService from "../../utils/storage/LocalStorageService";
-
-
+import { Cart } from "../../../network/gateway/Cart";
+import LocalStorageService from "../../../utils/storage/LocalStorageService";
 
 const ProductQuickView = (props: any) => {
   const [selectCombination, setSelectedCombination] = useState({
@@ -15,7 +13,7 @@ const ProductQuickView = (props: any) => {
   });
 
   const [productId, setProductId] = useState<string>("");
-   const [login, setLogin] = useState<boolean>(false);
+  const [login, setLogin] = useState<boolean>(false);
 
   const [selectedImage, setSelectedImage] = useState(0);
   const [colorCode, setColorCode] = useState("#ffffff");
@@ -147,7 +145,7 @@ const ProductQuickView = (props: any) => {
       });
   }
 
-  console.log("this is props from quick view",props.data)
+  console.log("this is props from quick view", props.data);
 
   return (
     <Modal
@@ -157,12 +155,12 @@ const ProductQuickView = (props: any) => {
       id="checkOut"
     >
       <Login
-          onSuccess={() => {
-            addToCart(props.id);
-          }}
-          visible={login}
-          onClose={() => setLogin(false)}
-        />
+        onSuccess={() => {
+          addToCart(props.id);
+        }}
+        visible={login}
+        onClose={() => setLogin(false)}
+      />
       <div className="modal-content">
         <button
           type="button"
@@ -543,19 +541,16 @@ const ProductQuickView = (props: any) => {
                       </button>
                       <button
                         onClick={() => {
-
-                            if(LocalStorageService.getAccessToken()) {
-                              addToCart(props?.data.id)
-                            } else {
-                             setProductId(props?.data.id)
-                               setLogin(true);
-                            }
-
+                          if (LocalStorageService.getAccessToken()) {
+                            addToCart(props?.data.id);
+                          } else {
+                            setProductId(props?.data.id);
+                            setLogin(true);
+                          }
                         }}
                         type="button"
                         className="btn w-50"
                       >
-
                         Add to Cart
                       </button>
                     </div>

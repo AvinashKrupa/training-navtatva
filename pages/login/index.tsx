@@ -1,7 +1,7 @@
 import React, { Component, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { Auth } from "../../app/network/gateway/Auth";
-import useUserStore from "../../app/zustand/store";
+import { Auth } from "../../network/gateway/Auth";
+import useUserStore from "../../zustand/store";
 import Validators from "../../utils/Validator";
 import FormValidation from "../../validation/form";
 function Login(props: any) {

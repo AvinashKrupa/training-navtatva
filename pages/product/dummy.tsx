@@ -6,10 +6,9 @@ import {
   customerSliderSetting,
   occasionSetting,
   productDetailSliderSetting,
-} from "../../app/utils/sliderConfig";
+} from "../../utils/sliderConfig";
 
 const ProductDetailScreen: NextPage = () => {
-  
   const [selectedSection, setSelectedSection] = useState(1);
 
   return (
@@ -162,7 +161,11 @@ const ProductDetailScreen: NextPage = () => {
                     </ul>
                   </div>
                   <div className="col-md-4">
-                    <img className="w-100" src="/images/detail-img.png" alt="" />
+                    <img
+                      className="w-100"
+                      src="/images/detail-img.png"
+                      alt=""
+                    />
                   </div>
                   <div className="col-md-4">
                     <div className="">
@@ -2673,7 +2676,11 @@ const ProductDetailScreen: NextPage = () => {
             </li>
             <li className="list-inline-item offset-lg-2 mt-3 mt-lg-0 text-center text-lg-start">
               <a href="#" className="wishlist">
-                <img className="me-2" src="/images/wishlist-detail.png" alt="" />
+                <img
+                  className="me-2"
+                  src="/images/wishlist-detail.png"
+                  alt=""
+                />
               </a>
               <a
                 href="#"
@@ -2903,6 +2910,6 @@ const ProductDetailScreen: NextPage = () => {
       </div>
     </div>
   );
-}
+};
 
 export default ProductDetailScreen;

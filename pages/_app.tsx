@@ -17,7 +17,7 @@ import "../styles/multiRangeSlider.css";
 import shallow from "zustand/shallow";
 import "../styles/responsive.css";
 import Login from "./login";
-import useUserStore from "../app/zustand/store";
+import useUserStore from "../zustand/store";
 import { useEffect } from "react";
 
 // import $ from "jquery";

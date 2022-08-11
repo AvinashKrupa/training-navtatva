@@ -1,5 +1,5 @@
-import API from "../../constants/APIEndpoints";
-import constants from "../../constants/constant";
+import API from "../../app/constants/APIEndpoints";
+import constants from "../../app/constants/constant";
 import { HTTPBaseService } from "../HTTPBaseService";
 import Toast from "../../utils/Toast";
 
@@ -108,7 +108,7 @@ export class Cart extends HTTPBaseService {
   public deleteCartItem = (id: any) => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
-        .delete(API.DELETE_CART_ITEM + Cart.getCartId()+'/items/'+ id)
+        .delete(API.DELETE_CART_ITEM + Cart.getCartId() + "/items/" + id)
         .then((response) => {
           if (response.status == 200) {
             let message = response.data;
@@ -126,5 +126,4 @@ export class Cart extends HTTPBaseService {
         });
     });
   };
-
 }

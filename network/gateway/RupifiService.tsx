@@ -1,5 +1,5 @@
-import API from "../../constants/APIEndpoints";
-import constants from "../../constants/constant";
+import API from "../../app/constants/APIEndpoints";
+import constants from "../../app/constants/constant";
 import { HTTPBaseService } from "../HTTPBaseService";
 import Toast from "../../utils/Toast";
 export class RupifiService extends HTTPBaseService {
@@ -55,7 +55,7 @@ export class RupifiService extends HTTPBaseService {
     });
   };
 
-  public createRupifiPayment= (data: any) => {
+  public createRupifiPayment = (data: any) => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
         .post(API.RUPIFI.CREATE_PAYMENT, data)
@@ -74,7 +74,7 @@ export class RupifiService extends HTTPBaseService {
     });
   };
 
-  public captureRupifiAmount= (data: any) => {
+  public captureRupifiAmount = (data: any) => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
         .post(API.RUPIFI.CAPTURE_AMOUNT, data)
@@ -93,10 +93,10 @@ export class RupifiService extends HTTPBaseService {
     });
   };
 
-  public checkRupifiPaymentStatus= ({merchantPaymentRefId}: any) => {
+  public checkRupifiPaymentStatus = ({ merchantPaymentRefId }: any) => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
-        .get(API.RUPIFI.CHECK_PAYMENT_STATUS +  merchantPaymentRefId)
+        .get(API.RUPIFI.CHECK_PAYMENT_STATUS + merchantPaymentRefId)
         .then((response) => {
           //let message = response.data.detail;
           if (response.status == 200) {
@@ -111,5 +111,4 @@ export class RupifiService extends HTTPBaseService {
         });
     });
   };
-
 }
