@@ -73,12 +73,7 @@ const CartItem = (props: any) => {
             <a
               className="fs-14 font-sb text-color-3 ms-4"
               onClick={() => {
-                setLoginPopup(true);
-                if (LocalStorageService.getAccessToken()) {
-                  removeCartitem();
-                } else {
-                  setLoginPopup(true);
-                }
+                removeCartitem();
               }}
             >
               Remove

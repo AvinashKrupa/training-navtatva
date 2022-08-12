@@ -3,7 +3,7 @@ import { devtools } from "zustand/middleware";
 import LocalStorageService from "../utils/storage/LocalStorageService";
 
 const useUserStore = create((set) => ({
-  isLogin: LocalStorageService.getAccessToken(),
+  isLogin: LocalStorageService.getAccessToken() ? true : false,
   loginPopup: false,
   userInfo: null,
   setUserInfo: (data: any) => {
