@@ -80,7 +80,7 @@ const SearchPopup = (props: any) => {
                                             <div
                                                 className="meterial-box"
                                                 style={{
-                                                    backgroundImage: "url(images/month-bg2.jpg)",
+                                                    backgroundImage: "url(/images/month-bg2.jpg)",
                                                 }}
                                             >
                                                 <span>Cotton</span>
@@ -92,7 +92,7 @@ const SearchPopup = (props: any) => {
                                             <div
                                                 className="meterial-box"
                                                 style={{
-                                                    backgroundImage: "url(images/month-bg3.jpg)",
+                                                    backgroundImage: "url(/images/month-bg3.jpg)",
                                                 }}
                                             >
                                                 <span>Silk</span>
@@ -104,7 +104,7 @@ const SearchPopup = (props: any) => {
                                             <div
                                                 className="meterial-box"
                                                 style={{
-                                                    backgroundImage: "url(images/month-bg4.jpg)",
+                                                    backgroundImage: "url(/images/month-bg4.jpg)",
                                                 }}
                                             >
                                                 <span>Khaadi</span>
@@ -116,7 +116,7 @@ const SearchPopup = (props: any) => {
                                             <div
                                                 className="meterial-box"
                                                 style={{
-                                                    backgroundImage: "url(images/month-bg2.jpg)",
+                                                    backgroundImage: "url(/images/month-bg2.jpg)",
                                                 }}
                                             >
                                                 <span>Nylon</span>
@@ -131,7 +131,7 @@ const SearchPopup = (props: any) => {
                                             <div
                                                 className="meterial-box"
                                                 style={{
-                                                    backgroundImage: "url(images/month-bg2.jpg)",
+                                                    backgroundImage: "url(/images/month-bg2.jpg)",
                                                 }}
                                             >
                                                 <span>Printed</span>
@@ -143,7 +143,7 @@ const SearchPopup = (props: any) => {
                                             <div
                                                 className="meterial-box"
                                                 style={{
-                                                    backgroundImage: "url(images/month-bg3.jpg)",
+                                                    backgroundImage: "url(/images/month-bg3.jpg)",
                                                 }}
                                             >
                                                 <span>Embroidery</span>
@@ -155,7 +155,7 @@ const SearchPopup = (props: any) => {
                                             <div
                                                 className="meterial-box"
                                                 style={{
-                                                    backgroundImage: "url(images/month-bg4.jpg)",
+                                                    backgroundImage: "url(/images/month-bg4.jpg)",
                                                 }}
                                             >
                                                 <span>Plain</span>
@@ -170,7 +170,7 @@ const SearchPopup = (props: any) => {
                                             <div
                                                 className="meterial-box"
                                                 style={{
-                                                    backgroundImage: "url(images/month-bg2.jpg)",
+                                                    backgroundImage: "url(/images/month-bg2.jpg)",
                                                 }}
                                             >
                                                 <span>Bridal</span>
@@ -182,7 +182,7 @@ const SearchPopup = (props: any) => {
                                             <div
                                                 className="meterial-box"
                                                 style={{
-                                                    backgroundImage: "url(images/month-bg3.jpg)",
+                                                    backgroundImage: "url(/images/month-bg3.jpg)",
                                                 }}
                                             >
                                                 <span>Office Wear</span>
@@ -194,7 +194,7 @@ const SearchPopup = (props: any) => {
                                             <div
                                                 className="meterial-box"
                                                 style={{
-                                                    backgroundImage: "url(images/month-bg4.jpg)",
+                                                    backgroundImage: "url(/images/month-bg4.jpg)",
                                                 }}
                                             >
                                                 <span>Party Wear</span>
@@ -206,7 +206,7 @@ const SearchPopup = (props: any) => {
                                             <div
                                                 className="meterial-box"
                                                 style={{
-                                                    backgroundImage: "url(images/month-bg4.jpg)",
+                                                    backgroundImage: "url(/images/month-bg4.jpg)",
                                                 }}
                                             >
                                                 <span>Traditional</span>
