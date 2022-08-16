@@ -5,6 +5,7 @@ import Header from "../../app/themes/themeOne/components/Header";
 import { useRouter } from "next/router";
 import { Cart } from "../../network/gateway/Cart";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
@@ -19,26 +20,14 @@ const CheckoutScreen: NextPage = () => {
   const [city, setCity] = useState<string>("");
 
   const [postcode, setPostcode] = useState("");
-  const [customerId, setCustomerId] = useState("");
+  let [customerId, setCustomerId] = useState<string>("");
+  let [loading, setLoading] = useState(true);
 
-  // if(LocalStorageService.getCutomerId()){
-
-  //   let a=LocalStorageService.getCutomerId()
-  //   setCustomerId(customerId)
-
-  // }
-
-  //let customerId=LocalStorageService.getCutomerId()
-  // }
-
-  // if (typeof window !== 'undefined') {
-  //   // Perform localStorage action
-  // customerId = LocalStorageService.getCutomerId()
-  // }
-
+  const ISSERVER = typeof window === "undefined";
   useEffect(() => {
-    let customerId = LocalStorageService.getCustomerId() || "";
-    setCustomerId(customerId);
+    let customer_id: any = LocalStorageService.getCustomerId();
+    setCustomerId(customer_id);
+
     return () => {};
   }, []);
 
@@ -77,7 +66,7 @@ const CheckoutScreen: NextPage = () => {
           city: city,
           county: "Sunnyville",
           postcode: postcode,
-          country: "INIDA",
+          country: "INDIA",
         },
         shipping_address: {
           first_name: firstName,
@@ -88,16 +77,19 @@ const CheckoutScreen: NextPage = () => {
           city: city,
           county: "Sunnyville",
           postcode: postcode,
-          country: "INIDA",
+          country: "INDIA",
         },
       },
     };
+    setLoading(false);
 
     Cart.getInstance()
       .checkout(param)
       .then((data: any) => {
         console.log("checkout info", data);
         if (data.status) {
+          //setLoading(false)
+          LocalStorageService.setOrderId(data?.data.id);
           router.push("/thankyou");
         }
       })
@@ -373,6 +365,7 @@ const CheckoutScreen: NextPage = () => {
                           >
                             Save &amp; Deliver Here
                           </button>{" "}
+                          {/* <ClipLoader  loading={!loading} size={30} /> */}
                           <a
                             href="#"
                             className="text-color-3 fs-16 font-sb ms-4"

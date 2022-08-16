@@ -152,6 +152,4 @@ export class Cart extends HTTPBaseService {
         });
     });
   };
-
-
 }

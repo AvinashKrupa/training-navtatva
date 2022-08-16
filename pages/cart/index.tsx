@@ -21,9 +21,7 @@ const CartScreen: NextPage = () => {
     if (isLogin) {
       getCustomerCart();
     } else {
-      setTimeout(() => {
-        setLoginPopup(true);
-      }, 100);
+      setLoginPopup(true);
     }
   }, [isLogin]);
 

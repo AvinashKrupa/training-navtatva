@@ -44,6 +44,7 @@ export class Auth extends HTTPBaseService {
 
 
             let obj = Cart.getInstance();
+            LocalStorageService.setCustomerId(customer_id);
 
             await obj.cartAssociationWithCustomer(params);
 

@@ -15,7 +15,7 @@ class LocalStorageService {
   static getCustomerId() {
     return localStorage.getItem("customer_id");
   }
-  static _setToken(tokenObj) {
+  static setToken(tokenObj) {
     localStorage.setItem("access_token", tokenObj);
     localStorage.setItem("refresh_token", tokenObj);
   }

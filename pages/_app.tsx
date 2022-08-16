@@ -18,17 +18,21 @@ import shallow from "zustand/shallow";
 import "../styles/responsive.css";
 import Login from "./login";
 import useUserStore from "../zustand/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // import $ from "jquery";
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
 function MyApp({ Component, pageProps }: AppProps) {
   const loginPopup = useUserStore((state: any) => state.loginPopup);
+  const [authenticating, setAuthenticate] = useState(true);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
   const synchronized = useUserStore((state: any) => state.synchronized);
   useEffect(() => {
     synchronized();
+    setTimeout(() => {
+      setAuthenticate(false);
+    }, 300);
     return () => {};
   }, []);
 
@@ -51,7 +55,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           setLoginPopup(false);
         }}
       />
-      <Component {...pageProps} />
+      {!authenticating && <Component {...pageProps} />}
     </>
   );
 }
