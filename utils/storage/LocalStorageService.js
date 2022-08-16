@@ -10,6 +10,20 @@ const LocalStorageService = (function () {
   function _setUserToken(tokenObj) {
     localStorage.setItem("user_token", tokenObj);
   }
+  function _setCustomerId(customer_id){
+    localStorage.setItem("customer_id",customer_id)
+  }
+function _getCustomerId(){
+  const ISSERVER = typeof window === "undefined";
+
+
+  if (!ISSERVER) {
+    return localStorage.getItem("customer_id");
+  } else {
+    return "";
+  }
+}
+
   function _setToken(tokenObj) {
     localStorage.setItem("access_token", tokenObj);
     localStorage.setItem("refresh_token", tokenObj);
@@ -54,6 +68,8 @@ const LocalStorageService = (function () {
     getUserToken: _getUserToken,
     clearToken: _clearToken,
     getCartRef: _getCartRef,
+    setCustomerId:_setCustomerId,
+    getCustomerId:_getCustomerId
   };
 })();
 export default LocalStorageService;

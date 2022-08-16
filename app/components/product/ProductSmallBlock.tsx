@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Permalink from "../../../utils/Permalink";
 
 import ExploreBlock from "../common/ExploreBlock";
 import SpinBlock from "../common/SpinBlock";
+import { useRouter } from "next/router";
 
 const ProductSmallBlock = (props: any) => {
+  const [cartView,setCartView]=useState(false)
+  const router = useRouter();
   function randomIntFromInterval(min: number, max: number) {
     // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -98,17 +101,32 @@ const ProductSmallBlock = (props: any) => {
                 >
                   Quick View
                 </button>
-                <button
+               {!cartView && <button
                   type="button"
                   className="btn btn-sm w-100 cart-btn"
                   data-bs-toggle="modal"
                   data-bs-target="#exampleModal"
                   onClick={() => {
                     props.addToCart(props.id);
+                    setCartView(true)
                   }}
                 >
+
                   Add to Cart
-                </button>
+                </button>}
+                {cartView && <button
+                  type="button"
+                  className="btn btn-sm w-100 cart-btn"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  onClick={() => {
+                    router.push("/cart");
+                    setCartView(false)
+                  }}
+                >
+
+                  show in cart
+                </button>}
               </div>
             </div>
           </div>

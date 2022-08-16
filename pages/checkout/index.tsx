@@ -22,32 +22,16 @@ const CheckoutScreen: NextPage = () => {
   const [city, setCity] = useState<string>('')
 
   const [postcode, setPostcode] = useState('')
-  const [customerId, setCustomerId] = useState('')
+  let [customerId, setCustomerId] = useState<string>('')
 
-  // if(LocalStorageService.getCutomerId()){
+  const ISSERVER = typeof window === "undefined";
+  useEffect(() => {
 
-  //   let a=LocalStorageService.getCutomerId()
-  //   setCustomerId(customerId)
+    let customer_id: any = LocalStorageService.getCustomerId()
+    setCustomerId(customer_id)
 
-  // }
-
-  //let customerId=LocalStorageService.getCutomerId()
-  // }
-
-  // if (typeof window !== 'undefined') {
-  //   // Perform localStorage action
-  // customerId = LocalStorageService.getCutomerId()
-  // }
-  // const ISSERVER = typeof window === "undefined";
-  // useEffect(() => {
-  //   if(ISSERVER){
-  //     let customerId = LocalStorageService.getCustomerId()
-  //     setCustomerId(customerId)
-  //   }
-
-
-  //   return () => {};
-  // }, []);
+    return () => { };
+  }, []);
 
 
   console.log("this is customer id", customerId)
@@ -74,13 +58,13 @@ const CheckoutScreen: NextPage = () => {
 
   }
 
-//console.log("this issss",localStorage)
+  console.log("this issss", customerId)
 
   function checkout() {
     const param = {
       "data": {
         "customer": {
-          id: "df8d3675-6b40-4aa8-b630-b7e9e32d57e1"
+          id: customerId
         },
         "billing_address": {
           "first_name": firstName,
