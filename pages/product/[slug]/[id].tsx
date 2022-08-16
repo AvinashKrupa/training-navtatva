@@ -39,16 +39,18 @@ const ProductDetailScreen: NextPage = () => {
   }, [id]);
 
   function getProductDetail(itemId: any) {
-    CatalogService.getInstance()
-      .getProducDetail(itemId)
-      .then((response: any) => {
-        if (response.data) {
-          setProduct(new ProductObj(response?.data?.data));
-        } else {
-          console.log("ERROR:", response.data);
-        }
-      })
-      .catch((error) => { });
+    if (itemId) {
+      CatalogService.getInstance()
+        .getProducDetail(itemId)
+        .then((response: any) => {
+          if (response.data) {
+            setProduct(new ProductObj(response?.data?.data));
+          } else {
+            console.log("ERROR:", response.data);
+          }
+        })
+        .catch((error) => { });
+    }
   }
 
 
@@ -56,6 +58,9 @@ const ProductDetailScreen: NextPage = () => {
     let newSizeValues: any = [...sizeValues];
     newSizeValues[i][e.target.name] = e.target.value;
     setSizeValues(newSizeValues);
+    let selectCombination = product?.selectCombination;
+    selectCombination.size = e.target.value;
+    product?.setSelectCombination(selectCombination);
   };
 
   const addSizeFields = () => {
@@ -181,7 +186,12 @@ const ProductDetailScreen: NextPage = () => {
                               ?.getColors()
                               .map((item: any, index: number) => {
                                 return (
-                                  <div key={index}>
+                                  <div key={index}
+                                    onClick={(e) => {
+                                      product?.changeVariantByColor(item.id)
+                                      getProductDetail(product?.selectCombination.id)
+                                    }}
+                                  >
                                     <input
                                       type="radio"
                                       id={"color-" + index}
@@ -218,8 +228,8 @@ const ProductDetailScreen: NextPage = () => {
                                               return (
                                                 <option
                                                   key={index}
-                                                  value={item.name}
-                                                  selected={item == element.size}
+                                                  value={item.id}
+                                                  selected={item == element.id}
                                                 >
                                                   {item.name}
                                                 </option>
@@ -256,7 +266,7 @@ const ProductDetailScreen: NextPage = () => {
                                             <input
                                               type="radio"
                                               id="color-3"
-                                              name={"color-"+element.color}
+                                              name={"color-" + element.color}
                                               defaultValue="color-3"
                                               defaultChecked
                                               tabIndex={0}
