@@ -5,6 +5,8 @@ import Header from "../../app/themes/themeOne/components/Header";
 import { useRouter } from "next/router";
 import { Cart } from "../../network/gateway/Cart";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
+import ClipLoader from "react-spinners/ClipLoader";
+
 
 
 
@@ -23,10 +25,10 @@ const CheckoutScreen: NextPage = () => {
 
   const [postcode, setPostcode] = useState('')
   let [customerId, setCustomerId] = useState<string>('')
+  let [loading, setLoading] = useState(true);
 
   const ISSERVER = typeof window === "undefined";
   useEffect(() => {
-
     let customer_id: any = LocalStorageService.getCustomerId()
     setCustomerId(customer_id)
 
@@ -34,7 +36,7 @@ const CheckoutScreen: NextPage = () => {
   }, []);
 
 
-  console.log("this is customer id", customerId)
+
 
   const onChangeFirstName = (event: any) => {
     setfirstName(event.target.value)
@@ -58,7 +60,7 @@ const CheckoutScreen: NextPage = () => {
 
   }
 
-  console.log("this issss", customerId)
+
 
   function checkout() {
     const param = {
@@ -90,12 +92,15 @@ const CheckoutScreen: NextPage = () => {
         }
       }
     }
+    setLoading(false)
 
     Cart.getInstance()
       .checkout(param)
       .then((data: any) => {
         console.log("checkout info", data);
         if (data.status) {
+          //setLoading(false)
+          LocalStorageService.setOrderId(data?.data.id);
           router.push("/thankyou");
 
         }
@@ -376,6 +381,7 @@ const CheckoutScreen: NextPage = () => {
                           <button className="btn  btn-lg fs-16" onClick={checkout}>
                             Save &amp; Deliver Here
                           </button>{" "}
+                          {/* <ClipLoader  loading={!loading} size={30} /> */}
                           <a
                             href="#"
                             className="text-color-3 fs-16 font-sb ms-4"

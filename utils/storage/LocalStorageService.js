@@ -23,6 +23,20 @@ function _getCustomerId(){
     return "";
   }
 }
+function _setOrderId(id){
+  localStorage.setItem("orderId", id);
+
+}
+function _getOrderId(){
+  const ISSERVER = typeof window === "undefined";
+
+
+  if (!ISSERVER) {
+    return localStorage.getItem("orderId");
+  } else {
+    return "";
+  }
+}
 
   function _setToken(tokenObj) {
     localStorage.setItem("access_token", tokenObj);
@@ -69,7 +83,9 @@ function _getCustomerId(){
     clearToken: _clearToken,
     getCartRef: _getCartRef,
     setCustomerId:_setCustomerId,
-    getCustomerId:_getCustomerId
+    getCustomerId:_getCustomerId,
+    setOrderId:_setOrderId,
+    getOrderId:_getOrderId
   };
 })();
 export default LocalStorageService;
