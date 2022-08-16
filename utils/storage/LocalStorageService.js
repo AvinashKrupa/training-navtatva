@@ -1,47 +1,45 @@
-const LocalStorageService = (function () {
-  var localStorage
-  var _service;
-  function _getService() {
+class LocalStorageService {
+  static getService() {
     if (!_service) {
       _service = this;
       return _service;
     }
     return _service;
   }
-  function _setUserToken(tokenObj) {
+  static setUserToken(tokenObj) {
     localStorage.setItem("user_token", tokenObj);
   }
-  function _setCustomerId(customer_id) {
+  static setCustomerId(customer_id) {
     localStorage.setItem("customer_id", customer_id);
   }
-  function _getCustomerId() {
+  static getCustomerId() {
     return localStorage.getItem("customer_id");
   }
-  function _setToken(tokenObj) {
+  static _setToken(tokenObj) {
     localStorage.setItem("access_token", tokenObj);
     localStorage.setItem("refresh_token", tokenObj);
   }
-  function _getUserToken() {
+  static getUserToken() {
     return localStorage.getItem("user_token");
   }
-  function _getAccessToken() {
+  static getAccessToken() {
     const ISSERVER = typeof window === "undefined";
 
     if (!ISSERVER) {
       return localStorage.getItem("access_token");
     } else {
-      return "";
+      return null;
     }
   }
-  function _getRefreshToken() {
+  static getRefreshToken() {
     return localStorage.getItem("refresh_token");
   }
-  function _clearToken() {
+  static clearToken() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     localStorage.removeItem("user_token");
   }
-  function _getCartRef() {
+  static getCartRef() {
     let cartRef = localStorage.getItem("cartRef");
     if (cartRef == undefined) {
       const uid = () => {
@@ -52,17 +50,5 @@ const LocalStorageService = (function () {
     }
     return cartRef;
   }
-  return {
-    getService: _getService,
-    setToken: _setToken,
-    setUserToken: _setUserToken,
-    getAccessToken: _getAccessToken,
-    getRefreshToken: _getRefreshToken,
-    getUserToken: _getUserToken,
-    clearToken: _clearToken,
-    getCartRef: _getCartRef,
-    setCustomerId:_setCustomerId,
-    getCustomerId:_getCustomerId
-  };
-})();
+}
 export default LocalStorageService;

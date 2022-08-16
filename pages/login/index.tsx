@@ -8,6 +8,7 @@ function Login(props: any) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const setUserInfo = useUserStore((state: any) => state.setUserInfo);
+  const setLoginPopup = useUserStore((state: any) => state.showLogin);
 
   function isValidForm() {
     if (FormValidation.UserNamePassword({ email: email, password: password })) {
@@ -24,9 +25,12 @@ function Login(props: any) {
           if (response != "") {
             setUserInfo(setUserInfo);
             props.onSuccess(response);
+            setLoginPopup(false);
           }
         })
-        .catch((error) => {});
+        .catch((error) => {
+          setLoginPopup(false);
+        });
     }
   }
 

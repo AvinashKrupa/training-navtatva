@@ -6,23 +6,20 @@ import { useRouter } from "next/router";
 import { Cart } from "../../network/gateway/Cart";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
 
-
-
-
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
   const router = useRouter();
   // const { slug, id } = router.query;
   // console.log("this is checkout id",id,slug)
 
-  const [firstName, setfirstName] = useState<string>('')
-  const [lastName, setlastName] = useState<string>('')
-  const [address_1, setAddress_1] = useState<string>('')
-  const [address_2, setAddress_2] = useState<string>('')
-  const [city, setCity] = useState<string>('')
+  const [firstName, setfirstName] = useState<string>("");
+  const [lastName, setlastName] = useState<string>("");
+  const [address_1, setAddress_1] = useState<string>("");
+  const [address_2, setAddress_2] = useState<string>("");
+  const [city, setCity] = useState<string>("");
 
-  const [postcode, setPostcode] = useState('')
-  //const [customerId, setCustomerId] = useState('')
+  const [postcode, setPostcode] = useState("");
+  const [customerId, setCustomerId] = useState("");
 
   // if(LocalStorageService.getCutomerId()){
 
@@ -39,80 +36,75 @@ const CheckoutScreen: NextPage = () => {
   // customerId = LocalStorageService.getCutomerId()
   // }
 
-  let customerId = LocalStorageService.getCustomerId()
+  useEffect(() => {
+    let customerId = LocalStorageService.getCustomerId() || "";
+    setCustomerId(customerId);
+    return () => {};
+  }, []);
 
   const onChangeFirstName = (event: any) => {
-    setfirstName(event.target.value)
-  }
+    setfirstName(event.target.value);
+  };
   const onChangeLastName = (event: any) => {
-    setlastName(event.target.value)
-  }
+    setlastName(event.target.value);
+  };
 
   const onChangeCity = (event: any) => {
-    setCity(event.target.value)
-  }
+    setCity(event.target.value);
+  };
   const onChangeAddress_1 = (event: any) => {
-    setAddress_1(event.target.value)
-  }
+    setAddress_1(event.target.value);
+  };
   const onChangeAddress_2 = (event: any) => {
-    setAddress_2(event.target.value)
-
-  }
+    setAddress_2(event.target.value);
+  };
   const onChangePostcode = (event: any) => {
-    setPostcode(event.target.value)
-
-  }
-
+    setPostcode(event.target.value);
+  };
 
   function checkout() {
     const param = {
-      "data": {
-        "customer": {
-          id: customerId
+      data: {
+        customer: {
+          id: customerId,
         },
-        "billing_address": {
-          "first_name": firstName,
-          "last_name": lastName,
-          "line_1": address_1,
-          "line_2": address_2,
-          "company_name": "",
-          "city": city,
-          "county": "Sunnyville",
-          "postcode": postcode,
-          "country": "INIDA"
+        billing_address: {
+          first_name: firstName,
+          last_name: lastName,
+          line_1: address_1,
+          line_2: address_2,
+          company_name: "",
+          city: city,
+          county: "Sunnyville",
+          postcode: postcode,
+          country: "INIDA",
         },
-        "shipping_address": {
-          "first_name": firstName,
-          "last_name": lastName,
-          "company_name": "",
-          "line_1": address_1,
-          "line_2": address_2,
-          "city": city,
-          "county": "Sunnyville",
-          "postcode": postcode,
-          "country": "INIDA"
-        }
-      }
-    }
+        shipping_address: {
+          first_name: firstName,
+          last_name: lastName,
+          company_name: "",
+          line_1: address_1,
+          line_2: address_2,
+          city: city,
+          county: "Sunnyville",
+          postcode: postcode,
+          country: "INIDA",
+        },
+      },
+    };
 
     Cart.getInstance()
       .checkout(param)
-      .then((data:any) => {
+      .then((data: any) => {
         console.log("checkout info", data);
-        if(data.status){
+        if (data.status) {
           router.push("/thankyou");
-
         }
       })
       .catch((error) => {
         console.log("error", error);
       });
-
-
   }
-
-
-
 
   return (
     <div className="shoppingCart checkoutPage">
@@ -290,9 +282,7 @@ const CheckoutScreen: NextPage = () => {
                               id="address"
                               placeholder="#45, Avenue Towers, Scalpel Road"
                               required
-
                               onChange={onChangeAddress_1}
-
                             />{" "}
                           </div>
                           <div className="col-12  mb-4">
@@ -377,7 +367,10 @@ const CheckoutScreen: NextPage = () => {
                           </div>
                         </div>
                         <div className="mt-4">
-                          <button className="btn  btn-lg fs-16" onClick={checkout}>
+                          <button
+                            className="btn  btn-lg fs-16"
+                            onClick={checkout}
+                          >
                             Save &amp; Deliver Here
                           </button>{" "}
                           <a

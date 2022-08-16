@@ -26,6 +26,11 @@ import { useEffect } from "react";
 function MyApp({ Component, pageProps }: AppProps) {
   const loginPopup = useUserStore((state: any) => state.loginPopup);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
+  const synchronized = useUserStore((state: any) => state.synchronized);
+  useEffect(() => {
+    synchronized();
+    return () => {};
+  }, []);
 
   useEffect(() => {
     console.log("HACKER", loginPopup);

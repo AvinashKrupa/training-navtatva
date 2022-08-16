@@ -38,7 +38,6 @@ const PLP = () => {
     []
   );
 
-
   useEffect(() => {
     if (productId != "") {
       addToCart(`${productId}`);
@@ -62,7 +61,7 @@ const PLP = () => {
           console.log("ERROR:", response.data);
         }
       })
-      .catch((error) => { });
+      .catch((error) => {});
   }
   function getProductLists(id: any) {
     CatalogService.getInstance()
@@ -83,12 +82,11 @@ const PLP = () => {
       .then((response: any) => {
         if (response.data) {
           setProductListing(response.data.data);
-
         } else {
           console.log("ERROR:", response.data);
         }
       })
-      .catch((error) => { });
+      .catch((error) => {});
   }
 
   // function getProductDetail(id: any) {
@@ -126,9 +124,9 @@ const PLP = () => {
       });
   }
 
-  const aaa=(a:any)=>{
-    console.log("this is customer id",a)
-  }
+  const aaa = (a: any) => {
+    console.log("this is customer id", a);
+  };
 
   return (
     <>

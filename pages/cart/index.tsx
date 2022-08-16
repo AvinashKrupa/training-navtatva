@@ -17,10 +17,13 @@ const CartScreen: NextPage = () => {
   const isLogin = useUserStore((state: any) => state.isLogin, shallow);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
   useEffect(() => {
+    console.log("CartScreen", isLogin);
     if (isLogin) {
       getCustomerCart();
     } else {
-      setLoginPopup(true);
+      setTimeout(() => {
+        setLoginPopup(true);
+      }, 100);
     }
   }, [isLogin]);
 
