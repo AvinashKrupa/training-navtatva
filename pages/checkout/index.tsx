@@ -9,19 +9,13 @@ import ClipLoader from "react-spinners/ClipLoader";
 import CheckoutItem from "../../app/components/checkout";
 import useUserStore from "../../zustand/store";
 import shallow from "zustand/shallow";
-import { useForm } from "react-hook-form";
-import Link from "next/link";
-
-
-
-
-
-
+import { TbCurrencyRupee} from "react-icons/tb";
 
 const CheckoutScreen: NextPage = () => {
 
 
   const [openTab, setOpenTab] = useState<number>(1);
+  const [paymentTab, setpaymentTab] = useState<number>(3)
   const router = useRouter();
   // const { slug, id } = router.query;
   // console.log("this is checkout id",id,slug)
@@ -40,6 +34,7 @@ const CheckoutScreen: NextPage = () => {
   const [errorMsg, setErrorMsg] = useState('')
   let [fields, setField] = useState<any>({ "company_name": "", "county": "Sunnyville", "country": "INDIA" })
   const [errors, setErrors] = useState<any>({})
+  const [grandTotal,setGrandTotal]=useState("")
 
 
   const ISSERVER = typeof window === "undefined";
@@ -58,14 +53,15 @@ const CheckoutScreen: NextPage = () => {
     } else {
       setLoginPopup(true);
     }
-  }, []);
+  }, [cartItems.length]);
 
   function getCustomerCart() {
     Cart.getInstance()
       .getCustomerCart()
       .then((info: any) => {
         setCartItems(info.data.data);
-        //console.log("this is cart items", info);
+        setGrandTotal(info?.data.grandTotal);
+        console.log("this is")
       });
   }
   // const onChangeFirstName = (event: any) => {
@@ -523,14 +519,19 @@ const CheckoutScreen: NextPage = () => {
                     >
                       <div className="accordion-body">
                         <div className="my-3">
-                          <div>
+                          <div data-toggle="collapse" >
                             <input
                               id="credit"
                               name="paymentMethod"
                               type="radio"
                               className="form-check-input"
+                              data-toggle="collapse"
+                               data-target="#multiCollapseExample1"
+                              aria-expanded="false"
+                              aria-controls="multiCollapseExample1"
 
                               required
+                              onClick={() => setpaymentTab(paymentTab == 1 ? 0 : 1)}
                             />
                             <label
                               className="form-check-label fs-16 font-sb"
@@ -539,90 +540,94 @@ const CheckoutScreen: NextPage = () => {
                               Credit card
                             </label>
                           </div>
-                          <label className="form-label mt-4">Saved Cards</label>
-                          <ul>
-                            <li className="list-inline-item">
-                              {" "}
-                              <a href="#">
-                                <img
-                                  src="images/credit-1.png"
-                                  alt="logo"
-                                  className="img-fluid desk-logo"
-                                />
-                              </a>
-                            </li>
-                            <li className="list-inline-item">
-                              {" "}
-                              <a href="#">
-                                <img
-                                  src="images/credit-2.png"
-                                  alt="logo"
-                                  className="img-fluid desk-logo"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                          <hr />
-                          <div className="col-8">
-                            <label className="form-label">Card Number</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="5665 2344 1223 9801"
-                              required
-                            />
-                          </div>
-                          <ul>
-                            <li className="list-inline-item">
-                              <div className="mt-4">
-                                <label className="form-label">Valid Date</label>
-                                <div className="quantity d-flex px-2">
-                                  <select
-                                    className="form-select fs-14 font-r text-color-2"
-                                    aria-label="Default select example"
-                                  >
-                                    <option value={1} selected>
-                                      01
-                                    </option>
-                                    <option value={2}>02</option>
-                                    <option value={3}>03</option>
-                                  </select>
-                                  <select
-                                    className="form-select fs-14 font-r text-color-2"
-                                    aria-label="Default select example"
-                                  >
-                                    <option value={1} selected>
-                                      28
-                                    </option>
-                                    <option value={2}>29</option>
-                                    <option value={3}>30</option>
-                                  </select>
+                          <div className={"collapse multi-collaps "+(paymentTab == 1 ? "show" : "")} id="multiCollapseExample1">
+
+
+                            <label className="form-label mt-4">Saved Cards</label>
+                            <ul>
+                              <li className="list-inline-item">
+                                {" "}
+                                <a href="#">
+                                  <img
+                                    src="images/credit-1.png"
+                                    alt="logo"
+                                    className="img-fluid desk-logo"
+                                  />
+                                </a>
+                              </li>
+                              <li className="list-inline-item">
+                                {" "}
+                                <a href="#">
+                                  <img
+                                    src="images/credit-2.png"
+                                    alt="logo"
+                                    className="img-fluid desk-logo"
+                                  />
+                                </a>
+                              </li>
+                            </ul>
+                            <hr />
+                            <div className="col-8">
+                              <label className="form-label">Card Number</label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                placeholder="5665 2344 1223 9801"
+                                required
+                              />
+                            </div>
+                            <ul>
+                              <li className="list-inline-item">
+                                <div className="mt-4">
+                                  <label className="form-label">Valid Date</label>
+                                  <div className="quantity d-flex px-2">
+                                    <select
+                                      className="form-select fs-14 font-r text-color-2"
+                                      aria-label="Default select example"
+                                    >
+                                      <option value={1} selected>
+                                        01
+                                      </option>
+                                      <option value={2}>02</option>
+                                      <option value={3}>03</option>
+                                    </select>
+                                    <select
+                                      className="form-select fs-14 font-r text-color-2"
+                                      aria-label="Default select example"
+                                    >
+                                      <option value={1} selected>
+                                        28
+                                      </option>
+                                      <option value={2}>29</option>
+                                      <option value={3}>30</option>
+                                    </select>
+                                  </div>
                                 </div>
-                              </div>
-                            </li>
-                            <li className="list-inline-item">
-                              <div className=" mt-4 ms-0 ms-md-4">
-                                <label htmlFor="zip" className="form-label">
-                                  CVV
-                                </label>
-                                <input
-                                  type="text"
-                                  className="form-control cvv"
-                                  placeholder=""
-                                  required
-                                />
-                              </div>
-                            </li>
-                            <li className="list-inline-item">
-                              <button
-                                onClick={checkout}
-                                className="btn btn-lg fs-16"
-                                type="submit"
-                              >
-                                {/* Pay ₹16,994{" "} */} Pay
-                              </button>
-                            </li>
-                          </ul>
+                              </li>
+                              <li className="list-inline-item">
+                                <div className=" mt-4 ms-0 ms-md-4">
+                                  <label htmlFor="zip" className="form-label">
+                                    CVV
+                                  </label>
+                                  <input
+                                    type="text"
+                                    className="form-control cvv"
+                                    placeholder=""
+                                    required
+                                  />
+                                </div>
+                              </li>
+                              <li className="list-inline-item">
+                                <button
+                                  onClick={checkout}
+                                  className="btn btn-lg fs-16"
+                                  type="submit"
+                                >
+                                  {/* Pay ₹16,994{" "} */} Pay {grandTotal}
+                                </button>
+                              </li>
+                            </ul>
+                          </div>
                         </div>
                         <div className="mt-4 d-block d-md-flex">
                           <div>
@@ -632,6 +637,11 @@ const CheckoutScreen: NextPage = () => {
                               type="radio"
                               className="form-check-input"
                               required
+                              data-toggle="collapse"
+                               data-target="#multiCollapseExample2"
+                              aria-expanded="false"
+                              aria-controls="multiCollapseExample2"
+                              onClick={() => setpaymentTab(paymentTab == 2 ? 0 : 2)}
                             />
                             <label
                               className="form-check-label fs-16 font-sb ml-4"
@@ -657,6 +667,9 @@ const CheckoutScreen: NextPage = () => {
                             </p>
                           </div>
                         </div>
+                        <div className={"collapse multi-collaps "+(paymentTab == 2 ? "show" : "")} id="multiCollapseExample2">
+
+
                         <div className="mt-4">
                           <ul>
                             <li className="list-inline-item col-md-8">
@@ -666,6 +679,11 @@ const CheckoutScreen: NextPage = () => {
                                 className="form-control "
                                 placeholder="5665 2344 1223 9801"
                                 required
+                                ata-toggle="collapse"
+                               data-target="#multiCollapseExample3"
+                              aria-expanded="false"
+                              aria-controls="multiCollapseExample3"
+                              onClick={() => setpaymentTab(paymentTab == 3 ? 0 : 3)}
                               />
                             </li>
                             <li className="list-inline-item">
@@ -674,10 +692,11 @@ const CheckoutScreen: NextPage = () => {
                                 className="btn btn-lg fs-16 mt-3 mt-md-0"
                                 type="submit"
                               >
-                                Pay ₹16,994{" "}
+                                {/* Pay ₹16,994{" "} */}Pay {grandTotal}
                               </button>
                             </li>
                           </ul>
+                          </div>
                         </div>
                         <div className="mt-4 d-block d-md-flex">
                           <div>
@@ -687,6 +706,7 @@ const CheckoutScreen: NextPage = () => {
                               type="radio"
                               className="form-check-input"
                               required
+                              onClick={() => setpaymentTab(paymentTab == 3 ? 0 : 3)}
                             />
                             <label
                               className="form-check-label fs-16 font-sb"
@@ -1072,7 +1092,7 @@ const CheckoutScreen: NextPage = () => {
                     <hr />
                     <ul>
                       <li className="fs-19 font-sb text-color-2 d-flex mb-3">
-                        Grand Total
+                        Grand Total: <span className="ms-2"><TbCurrencyRupee />{grandTotal}</span>
                         <small className="text-color-2  text-end ms-auto">
                           {/* ₹16,994{" "} */}
 
@@ -1106,9 +1126,9 @@ const CheckoutScreen: NextPage = () => {
               Shop Now!
             </a> */}
             <div className="subtotal-btn">
-             <button className="btn mt-5 mb-5" onClick={()=>{
-              router.push("/shop")
-             }}> Shop Now!
+              <button className="btn mt-5 mb-5" onClick={() => {
+                router.push("/shop")
+              }}> Shop Now!
 
               </button>
 
