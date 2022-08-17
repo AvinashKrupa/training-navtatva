@@ -13,6 +13,7 @@ import { occasionSetting } from "../../utils/sliderConfig";
 
 const CartScreen: NextPage = () => {
   const [cartItems, setCartItems] = useState<any>([]);
+  const [subTotal, setSubTotal] = useState<any>();
   const [youMayLikeList, setYouMayLikeList] = useState<any>([]);
   const isLogin = useUserStore((state: any) => state.isLogin, shallow);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
@@ -30,6 +31,7 @@ const CartScreen: NextPage = () => {
       .getCustomerCart()
       .then((info: any) => {
         setCartItems(info.data.data);
+        setSubTotal(info.data.grandTotal);
         console.log("this is cart items", info.data);
       });
   }
@@ -78,7 +80,6 @@ const CartScreen: NextPage = () => {
             <div className="col-md-12 col-lg-4">
               <div className="w-100 mt-4">
                 <a href="#">
-                  {" "}
                   <img className="w-100" src="images/discountAd.png" alt="" />
                 </a>
                 <a
@@ -112,18 +113,18 @@ const CartScreen: NextPage = () => {
                   <div className="col-md-12">
                     <div className="gray">
                       <p className="fs-14 font-r text-color-2">
-                        Add items worth{" "}
-                        <span className="font-sb"> ₹1,800 </span> more to avail{" "}
+                        Add items worth
+                        <span className="font-sb"> ₹1,800 </span> more to avail
                         <span className="font-sb text-color-9">
                           Free Shipping
                         </span>
                       </p>
-                    </div>{" "}
+                    </div>
                   </div>
                   <div className="col-md-12 d-flex mt-5">
                     <h3 className="fs-19 font-sb text-color-2">Sub Total</h3>
                     <h3 className="fs-24 font-sb text-color-3 ms-auto">
-                      ₹16,994
+                      ₹{subTotal}
                     </h3>
                   </div>
                   <div className="col-md-12 mt-4">
@@ -159,11 +160,9 @@ const CartScreen: NextPage = () => {
                     Have a Promo Code?
                   </label>
                   <a href="#">
-                    {" "}
                     <img className="w-100" src="images/card-1.png" alt="" />
                   </a>
                   <a href="#" className="mt-4 d-block">
-                    {" "}
                     <img className="w-100" src="images/card-2.png" alt="" />
                   </a>
                 </div>
@@ -172,7 +171,6 @@ const CartScreen: NextPage = () => {
                     Redeem Coins
                   </label>
                   <a href="#">
-                    {" "}
                     <img className="w-100" src="images/card-3.png" alt="" />
                   </a>
                 </div>

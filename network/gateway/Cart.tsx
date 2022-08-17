@@ -7,7 +7,6 @@ import { v4 as uuidv4 } from "uuid";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
 export class Cart extends HTTPBaseService {
   private static classInstance?: Cart;
-
   constructor(token: string) {
     super(constants.baseURL, token);
   }
