@@ -124,9 +124,6 @@ const PLP = () => {
       });
   }
 
-  const aaa = (a: any) => {
-    console.log("this is customer id", a);
-  };
 
   return (
     <>

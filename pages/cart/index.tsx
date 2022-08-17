@@ -30,7 +30,7 @@ const CartScreen: NextPage = () => {
       .getCustomerCart()
       .then((info: any) => {
         setCartItems(info.data.data);
-        console.log("this is cart items", info.data.data);
+        console.log("this is cart items", info.data);
       });
   }
 

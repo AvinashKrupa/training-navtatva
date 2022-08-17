@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
+import { useRouter } from "next/router";
 
 interface iProps {}
 
-function ThankYou(props: iProps) {
+function ThankYou(props:any) {
+  const router = useRouter();
+  const { id } =router.query
+
+
   let [orderId, setOrderId] = useState<string>('')
   const [startDate, setStartDate] = useState(new Date());
   const [deliveryDate,setDeliveyDate]=useState(new Date())
   const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-  //console.log("this is today date",startDate.getDate(),)
+  console.log("this is today date",router.query)
+  console.log("this is thank you props",props)
+
   function addDays(days:any) {
     var result = new Date();
     result.setDate(result.getDate() + days);
@@ -19,12 +26,12 @@ function ThankYou(props: iProps) {
     addDays(3)
     return () => {};
   }, []);
-  useEffect(() => {
-    let customer_id: any = LocalStorageService.getCustomerId()
-    setOrderId(customer_id)
+  // useEffect(() => {
+  //   let customer_id: any = LocalStorageService.getCustomerId()
+  //   setOrderId(customer_id)
 
-    return () => { };
-  }, []);
+  //   return () => { };
+  // }, []);
 
 
   return (
@@ -38,7 +45,7 @@ function ThankYou(props: iProps) {
             <p className="fs-20 font-m text-color-1 mt-3">
               Your Order has been Confirmed
             </p>
-            <p className="fs-20 font-m text-color-1">Order ID: {orderId}</p>
+            <p className="fs-20 font-m text-color-1">Order ID: {id}</p>
             <ul className="mt-3">
               <li className="list-inline-item fs-20 font-m text-color-1">
                 Order Date: <span className="text-color-2">{startDate.getDate()+` `+months[startDate.getMonth()]+` `+startDate.getFullYear()}</span>
