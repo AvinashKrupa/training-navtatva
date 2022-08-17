@@ -689,6 +689,7 @@ const CheckoutScreen: NextPage = () => {
                             <li className="list-inline-item">
                               {" "}
                               <button
+                               onClick={checkout}
                                 className="btn btn-lg fs-16 mt-3 mt-md-0"
                                 type="submit"
                               >
