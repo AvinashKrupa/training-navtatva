@@ -78,33 +78,17 @@ const PLP = () => {
 
   function getProductDetail(id: any) {
     CatalogService.getInstance()
-      .getProductByNode(id)
+      .getProducDetail(id)
       .then((response: any) => {
         if (response.data) {
-          setProductListing(response.data.data);
+          setSelectedProductData(response.data.data);
+          setOpenProductQuickView(true);
         } else {
           console.log("ERROR:", response.data);
         }
       })
       .catch((error) => {});
   }
-
-  // function getProductDetail(id: any) {
-
-  //   CatalogService.getInstance()
-  //     .getProducDetail(id)
-  //     .then((response: any) => {
-  //       if (response.data) {
-
-  //         setSelectedProductData(response.data.data);
-  //         setOpenProductQuickView(true);
-
-  //       } else {
-  //         console.log("ERROR:", response.data);
-  //       }
-  //     })
-  //     .catch((error) => { });
-  // }
 
   function addToCart(id: string) {
     const params = {
@@ -123,7 +107,6 @@ const PLP = () => {
         console.log("error", error);
       });
   }
-
 
   return (
     <>

@@ -1,12 +1,17 @@
 import React from "react";
 import HtmlParser from "html-react-parser";
+import { CatalogService } from "../network/gateway/Catalog";
 
 export default class ProductObj {
 
     data: any;
     currency: string;
-
-    constructor(item?: any, currency: string = 'INR'){
+    selectCombination = {
+        color: "",
+        size: "",
+        id: "",
+    };
+    constructor(item?: any, currency: string = 'INR') {
         this.data = item;
         this.currency = currency;
     }
@@ -14,7 +19,7 @@ export default class ProductObj {
         return this.data?.attributes?.name;
     }
     getFeaturedImage(): string {
-        return this.data?.attributes?.images?.length ? this.data?.attributes?.images[0]: "/images/detail-img.png";
+        return this.data?.attributes?.images?.length ? this.data?.attributes?.images[0] : "/images/detail-img.png";
     }
     getPrice(): string {
         return (this.data?.attributes?.originalPrice?.currencies[this.currency]?.amount ?? 0).toLocaleString('en-IN')
@@ -22,36 +27,36 @@ export default class ProductObj {
     getSalePrice(): string {
         return (this.data?.attributes?.discountPrice?.currencies[this.currency]?.amount ?? 0).toLocaleString('en-IN')
     }
-    getOffAmount(): string {    
+    getOffAmount(): string {
         let price = this.data?.attributes?.originalPrice?.currencies[this.currency]?.amount ?? 0
         let salePrice = this.data?.attributes?.discountPrice?.currencies[this.currency]?.amount ?? 0
-        return (price-salePrice).toLocaleString()
+        return (price - salePrice).toLocaleString()
     }
     getOffPercent(): number {
         let price = this.data?.attributes?.originalPrice?.currencies[this.currency]?.amount ?? 0
         let salePrice = this.data?.attributes?.discountPrice?.currencies[this.currency]?.amount ?? 0
-        return Math.round((price-salePrice)/price*100*100)/100
-    } 
+        return Math.round((price - salePrice) / price * 100 * 100) / 100
+    }
     getStockLine(): any {
         return HtmlParser(`Hurry! Only <strong> ${this.data?.attributes?.stock} Items</strong> Left in Stock`)
     }
-    getShortDescription() {
+    getShortDescription(): any {
         return HtmlParser(this.data?.attributes?.description)
     }
-    getDescription() {
+    getDescription(): any {
         return HtmlParser(this.data?.attributes?.description)
     }
-    getSizes() {
+    getSizes(): any {
         let sizes = this.data?.meta.variations.filter((info: any) => {
-          return info.name == "Size";
+            return info.name == "Size";
         });
         if (sizes.length > 0) {
-          return sizes[0].options;
+            return sizes[0].options;
         } else {
-          return [];
+            return [];
         }
-    }    
-    getColors() {
+    }
+    getColors(): any {
         Object.keys(this.data?.meta.variation_matrix);
         let colors = this.data?.meta.variations.filter((info: any) => {
             return info.name == "Color";
@@ -63,7 +68,48 @@ export default class ProductObj {
             return [];
         }
     }
-    getQuantityList() {
-        return [10,20,30,40,50,100]
+    getQuantityList(): any {
+        return [10, 20, 30, 40, 50, 100]
+    }
+    setSelectCombination(combinationData: any) {
+        this.selectCombination = combinationData;
+    }
+    changeVariantByColor(id: string): any {
+        let idObj = Object.keys(this.data?.meta.variation_matrix);
+
+        for (let i = 0; i < idObj.length; i++) {
+            //size
+            if (idObj[i] == this.selectCombination?.size) {
+                let innerObj = this.data?.meta.variation_matrix[idObj[i]];
+                let innerObjKeys = Object.keys(innerObj);
+
+                console.log("TEJPAL-HinnerObjKeys", innerObjKeys);
+                for (let j = 0; j < innerObjKeys.length; j++) {
+                    //color
+
+                    if (innerObjKeys[j] === id) {
+                        //color
+                        this.setSelectCombination({
+                            color: innerObjKeys[j],
+                            size: idObj[i],
+                            id: innerObj[innerObjKeys[j]],
+                        })
+                        this.getProductDetail(innerObj[innerObjKeys[j]])                        
+                    }
+                }
+            }
+        }        
+    }
+    getProductDetail(id: any) {
+        CatalogService.getInstance()
+            .getProducDetail(id)
+            .then((response: any) => {
+                if (response.data) {
+                    this.data = response.data.data;
+                } else {
+                    console.log("ERROR:", response.data);
+                }
+            })
+            .catch((error) => { });
     }
 }

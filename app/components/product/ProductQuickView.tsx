@@ -124,7 +124,7 @@ const ProductQuickView = (props: any) => {
         "rgba(" + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(",") + ",0.1)"
       );
     }
-    throw new Error("Bad Hex");
+    ///  throw new Error("Bad Hex");
   }
 
   function addToCart(id: string) {
@@ -542,6 +542,7 @@ const ProductQuickView = (props: any) => {
                       <button
                         onClick={() => {
                           if (LocalStorageService.getAccessToken()) {
+                            console.log("product detal", props);
                             addToCart(props?.data.id);
                           } else {
                             setProductId(props?.data.id);

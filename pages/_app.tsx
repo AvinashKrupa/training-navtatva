@@ -32,7 +32,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     synchronized();
     setTimeout(() => {
       setAuthenticate(false);
-    }, 300);
+    }, 100);
     return () => {};
   }, []);
 
