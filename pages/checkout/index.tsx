@@ -44,7 +44,7 @@ const CheckoutScreen: NextPage = () => {
     } else {
       setLoginPopup(true);
     }
-  }, [cartItems.length]);
+  }, [isLogin]);
 
   function getCustomerCart() {
     Cart.getInstance()
@@ -52,7 +52,7 @@ const CheckoutScreen: NextPage = () => {
       .then((info: any) => {
         setCartItems(info.data.data);
         setGrandTotal(info?.data.grandTotal);
-        console.log("this is")
+        //console.log("this is")
       });
   }
   // const onChangeFirstName = (event: any) => {
@@ -333,7 +333,7 @@ const CheckoutScreen: NextPage = () => {
                     </div>
                   </div>
                 </div>}
-                <div className="accordion-item bgbar ms-0">
+                 {cartItems?.length != 0 && <div className="accordion-item bgbar ms-0">
                   <h2
                     className="accordion-header"
                     id="headingTwo"
@@ -543,8 +543,8 @@ const CheckoutScreen: NextPage = () => {
                       </form>
                     </div>
                   </div>
-                </div>
-                <div className="accordion-item bgbar ms-0">
+                </div>}
+                {cartItems?.length != 0 &&  <div className="accordion-item bgbar ms-0">
                   <h2
                     className="accordion-header"
                     id="headingThree"
@@ -788,7 +788,8 @@ const CheckoutScreen: NextPage = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div>}
+
               </div>
             </div>
             <div className="col-md-12 col-lg-4">
