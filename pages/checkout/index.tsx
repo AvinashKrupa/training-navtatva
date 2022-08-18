@@ -333,7 +333,7 @@ const CheckoutScreen: NextPage = () => {
                     </div>
                   </div>
                 </div>}
-                 {cartItems?.length != 0 && <div className="accordion-item bgbar ms-0">
+                {cartItems?.length != 0 && <div className="accordion-item bgbar ms-0">
                   <h2
                     className="accordion-header"
                     id="headingTwo"
@@ -544,7 +544,7 @@ const CheckoutScreen: NextPage = () => {
                     </div>
                   </div>
                 </div>}
-                {cartItems?.length != 0 &&  <div className="accordion-item bgbar ms-0">
+                {cartItems?.length != 0 && <div className="accordion-item bgbar ms-0">
                   <h2
                     className="accordion-header"
                     id="headingThree"
@@ -789,10 +789,25 @@ const CheckoutScreen: NextPage = () => {
                     </div>
                   </div>
                 </div>}
+                {cartItems?.length === 0 &&
+                  <div style={{ marginLeft: 400 }}>
+                    <div className="text-center">
+                      <h1 className="fs-30 font-b text-color-2 list-inline-item">
+                        Your cart is empty!
+                      </h1>
+                      <p className="fs-15 mt-2 text-color-2">Add items to it now.</p>
+                      <div style={{ marginBottom: 400, }}>
+                        <a href="/shop" className="btn mt-3">
+                          Shop Now!
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                }
 
               </div>
             </div>
-            <div className="col-md-12 col-lg-4">
+            {cartItems?.length != 0 && <div className="col-md-12 col-lg-4">
               <div className="w-100 mt-4">
                 <a href="#">
                   {" "}
@@ -1134,13 +1149,13 @@ const CheckoutScreen: NextPage = () => {
                     <li className="fs-14 font-r text-color-1 d-flex  mb-3">
                       CGST + SGST ()
                       <small className="text-color-2 text-end ms-auto">
-                        {/* + ₹1255 */}
+
                       </small>
                     </li>
                     <li className="fs-14 font-r text-color-1 d-flex  mb-3">
                       Discount
                       <small className="text-end ms-auto  green">
-                        {/* ₹299 */}
+
                       </small>
                     </li>
                   </ul>
@@ -1149,7 +1164,7 @@ const CheckoutScreen: NextPage = () => {
                     <li className="fs-19 font-sb text-color-2 d-flex mb-3">
                       Grand Total: <span className="ms-2"><TbCurrencyRupee />{grandTotal}</span>
                       <small className="text-color-2  text-end ms-auto">
-                        {/* ₹16,994{" "} */}
+
 
                       </small>
                     </li>
@@ -1174,7 +1189,7 @@ const CheckoutScreen: NextPage = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>}
           </div>
 
         </section>
