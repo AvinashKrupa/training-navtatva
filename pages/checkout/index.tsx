@@ -135,7 +135,7 @@ const CheckoutScreen: NextPage = () => {
 
     if (!fields['first_name']) {
       formIsValid = false;
-      //error["firstName"] = "*Please enter your firstName.";
+      error["firstName"] = "*Please enter your firstName.";
       Toast.showError("*Please enter your First Name.");
 
     }
@@ -152,12 +152,12 @@ const CheckoutScreen: NextPage = () => {
       Toast.showError("*Please Enter Your Address.");
 
     }
-    else if (!fields['line_2']) {
-      formIsValid = false;
-      // error["address"] = "*Please enter your Address.";
-      Toast.showError("*Please Enter Your Apartment, Street, Landmark.");
+    // else if (!fields['line_2']) {
+    //   formIsValid = false;
+    //   // error["address"] = "*Please enter your Address.";
+    //   Toast.showError("*Please Enter Your Apartment, Street, Landmark.");
 
-    }
+    // }
     else if (!fields['city']) {
       formIsValid = false;
       //error["city"] = "*Please enter your city.";
@@ -380,7 +380,7 @@ const CheckoutScreen: NextPage = () => {
                             />
 
                             <div className="invalid-feedback">
-
+                              {error.firstName}
                             </div>
                           </div>
                           <div className="col-sm-6  mb-4">
