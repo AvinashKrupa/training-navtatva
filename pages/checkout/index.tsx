@@ -10,6 +10,8 @@ import CheckoutItem from "../../app/components/checkout";
 import useUserStore from "../../zustand/store";
 import shallow from "zustand/shallow";
 import { TbCurrencyRupee} from "react-icons/tb";
+import Toast from "../../utils/Toast";
+import { futimes } from "fs";
 
 const CheckoutScreen: NextPage = () => {
 
@@ -89,12 +91,54 @@ const CheckoutScreen: NextPage = () => {
 
   const handleChange = (e: any) => {
     let field: any = {}
-    fields[e.target.name] = e.target.value;
-  }
-
-  //console.log("this is fields", fields)
+   fields[e.target.name] = e.target.value;
+ }
+//console.log("this is fields", fields)
 
   let error: any = {};
+
+
+  function checkout(e: any) {
+    e.preventDefault();
+   let validationFunction= validateForm()
+    if(validationFunction){
+      setOpenTab(openTab == 3 ? 0 : 3)
+
+    }
+    //e.target.setCustomValidity("This can't be left blank!");
+
+    //
+    // const param = {
+    //   "data": {
+    //     "customer": {
+    //       id: customerId
+    //     },
+    //     "billing_address": fields,
+    //     "shipping_address": fields
+    //   }
+    // }
+    // Cart.getInstance()
+    //   .checkout(param)
+    //   .then((data: any) => {
+    //     console.log("checkout info", data.data.data.id);
+    //     if (data.status) {
+    //       router.push({ pathname: "/thankyou", query: { id: data?.data?.data.id } });
+
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log("error", error);
+    //   });
+    // if (validateForm()) {
+
+    //   let field: any = {};
+    //   field['"first_name"'] = "";
+
+    //   setField({ fields: fields });
+
+    // }
+  }
+
   function validateForm() {
     let field = fields;
     //let error: any = {};
@@ -102,36 +146,65 @@ const CheckoutScreen: NextPage = () => {
 
     if (!fields['first_name']) {
       formIsValid = false;
-      error["firstName"] = "*Please enter your firstName.";
+      //error["firstName"] = "*Please enter your firstName.";
+      Toast.showError("*Please enter your First Name.");
+
     }
 
-    if (!fields['last_name']) {
+    else if(!fields['last_name']) {
       formIsValid = false;
-      error["lastName"] = "*Please enter your lastName.";
+      //error["lastName"] = "*Please enter your lastName.";
+      Toast.showError("*Please enter your Last Name.");
+
     }
-    if (!fields['lane_1']) {
+    else if (!fields['line_1']) {
       formIsValid = false;
-      error["address"] = "*Please enter your Address.";
+      //error["address"] = "*Please enter your Address.";
+      Toast.showError("*Please enter your Address.");
+
     }
-    if (!fields['city']) {
+    else if (!fields['line_2']) {
+      formIsValid = false;
+     // error["address"] = "*Please enter your Address.";
+      Toast.showError("*Please enter your Apartment, Street, Landmark.");
+
+    }
+    else if (!fields['city']) {
       formIsValid = false;
       error["city"] = "*Please enter your city.";
+      Toast.showError("*Please enter your city.");
+
     }
-    if (!fields['postcode']) {
+    else if (!fields['postcode']) {
       formIsValid = false;
-      error["postcode"] = "*Please enter your Post Code.";
+      //error["postcode"] = "*Please enter your Post Code.";
+      Toast.showError("*Please enter your Postal Code.");
+
     }
     setErrors({ errors: error })
-    console.log("this is validform error", errors)
+    //console.log("this is validform error", errors)
 
     return formIsValid;
 
   }
 
-  function checkout(e: any) {
-    e.preventDefault();
+  function removeCart(id: any, index: any) {
+    Cart.getInstance()
+      .deleteCartItem(id)
+      .then((response: any) => {
+        if (response.statusText === "OK") {
+          let newCartItem = cartItems;
+          newCartItem.splice(index, 1);
+          setCartItems([...newCartItem]);
+        }
+      });
+  }
+console.log("this is fields",fields)
 
-    setOpenTab(openTab == 3 ? 0 : 3)
+
+function checkoutApi(){
+if(validateForm()){
+
     const param = {
       "data": {
         "customer": {
@@ -153,28 +226,17 @@ const CheckoutScreen: NextPage = () => {
       .catch((error) => {
         console.log("error", error);
       });
-    if (validateForm()) {
+    // if (validateForm()) {
 
-      let field: any = {};
-      field['"first_name"'] = "";
+    //   let field: any = {};
+    //   field['"first_name"'] = "";
 
-      setField({ fields: fields });
+    //   setField({ fields: fields });
 
-    }
-  }
+    // }
 
-  function removeCart(id: any, index: any) {
-    Cart.getInstance()
-      .deleteCartItem(id)
-      .then((response: any) => {
-        if (response.statusText === "OK") {
-          let newCartItem = cartItems;
-          newCartItem.splice(index, 1);
-          setCartItems([...newCartItem]);
-        }
-      });
-  }
-
+}
+}
   return (
     <div className="shoppingCart checkoutPage">
       <div className="wrapper">
@@ -183,7 +245,7 @@ const CheckoutScreen: NextPage = () => {
 
         {/* End Header */}
         <section className="cartItem  mt-4 mt-md-5">
-          {cartItems.length >= 1 ? <>
+          {/* {cartItems.length >= 1 ? <> */}
             <h1 className="fs-40 font-b text-color-2 list-inline-item">
               Checkout
             </h1>
@@ -310,7 +372,7 @@ const CheckoutScreen: NextPage = () => {
                       data-bs-parent="#accordionExample"
                     >
                       <div className="accordion-body">
-                        <form onSubmit={checkout}>
+                        <form >
                           <div className="row mt-4 mt-md-0">
                             <div className="col-sm-6 mb-4">
                               <label htmlFor="firstName" className="form-label">
@@ -325,10 +387,11 @@ const CheckoutScreen: NextPage = () => {
                                 required
                                 onChange={handleChange}
 
+
                               />
 
                               <div className="invalid-feedback">
-                                {errors.firstName}
+
                               </div>
                             </div>
                             <div className="col-sm-6  mb-4">
@@ -382,6 +445,7 @@ const CheckoutScreen: NextPage = () => {
                                 //onChange={onChangeAddress_2}
                                 onChange={handleChange}
                                 name='line_2'
+                                required
                               />{" "}
                             </div>
                             <div className="col-sm-6  mb-4">
@@ -455,7 +519,7 @@ const CheckoutScreen: NextPage = () => {
                             </div>
                           </div>
                           <div className="mt-4">
-                            <button className="btn  btn-lg fs-16" type="submit"  >
+                            <button className="btn  btn-lg fs-16" type="button" onClick={checkout}  >
                               {/* Save &amp; Deliver Here */} Next
                             </button>{" "}
                             {/* <ClipLoader  loading={!loading} size={30} /> */}
@@ -534,7 +598,7 @@ const CheckoutScreen: NextPage = () => {
                               onClick={() => setpaymentTab(paymentTab == 1 ? 0 : 1)}
                             />
                             <label
-                              className="form-check-label fs-16 font-sb"
+                              className="form-check-label fs-16 font-sb ms-2"
                               htmlFor="credit"
                             >
                               Credit card
@@ -619,11 +683,11 @@ const CheckoutScreen: NextPage = () => {
                               </li>
                               <li className="list-inline-item">
                                 <button
-                                  onClick={checkout}
+                                  onClick={checkoutApi}
                                   className="btn btn-lg fs-16"
                                   type="submit"
                                 >
-                                  {/* Pay ₹16,994{" "} */} Pay {grandTotal}
+                                  {/* Pay ₹16,994{" "} */} Pay <TbCurrencyRupee />{grandTotal}
                                 </button>
                               </li>
                             </ul>
@@ -644,7 +708,7 @@ const CheckoutScreen: NextPage = () => {
                               onClick={() => setpaymentTab(paymentTab == 2 ? 0 : 2)}
                             />
                             <label
-                              className="form-check-label fs-16 font-sb ml-4"
+                              className="form-check-label fs-16 font-sb ms-2"
                               htmlFor="debit"
                             >
                               UPI
@@ -689,11 +753,11 @@ const CheckoutScreen: NextPage = () => {
                             <li className="list-inline-item">
                               {" "}
                               <button
-                               onClick={checkout}
+                               onClick={checkoutApi}
                                 className="btn btn-lg fs-16 mt-3 mt-md-0"
                                 type="submit"
                               >
-                                {/* Pay ₹16,994{" "} */}Pay {grandTotal}
+                                {/* Pay ₹16,994{" "} */}Pay <TbCurrencyRupee />{grandTotal}
                               </button>
                             </li>
                           </ul>
@@ -710,7 +774,7 @@ const CheckoutScreen: NextPage = () => {
                               onClick={() => setpaymentTab(paymentTab == 3 ? 0 : 3)}
                             />
                             <label
-                              className="form-check-label fs-16 font-sb"
+                              className="form-check-label fs-16 font-sb ms-2"
                               htmlFor="debit"
                             >
                               Cash On Delivery{" "}
@@ -1122,21 +1186,7 @@ const CheckoutScreen: NextPage = () => {
                 </div>
               </div>
             </div>
-          </> : <div> <div className="text-center  "><h1 className="fs-30 font-b text-color-2">Your cart is empty!</h1>
-            {/* <a href="/shop" className="fs-29 mt-5 d-inline-block">
-              Shop Now!
-            </a> */}
-            <div className="subtotal-btn">
-              <button className="btn mt-5 mb-5" onClick={() => {
-                router.push("/shop")
-              }}> Shop Now!
 
-              </button>
-
-
-            </div>
-          </div></ div>
-          }
         </section>
       </div>
     </div>
