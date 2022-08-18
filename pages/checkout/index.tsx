@@ -4,35 +4,33 @@ import Header from "../../app/themes/themeOne/components/Header";
 import { useRouter } from "next/router";
 import { Cart } from "../../network/gateway/Cart";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
-import ClipLoader from "react-spinners/ClipLoader";
 import CheckoutItem from "../../app/components/checkout";
 import useUserStore from "../../zustand/store";
 import shallow from "zustand/shallow";
 import { TbCurrencyRupee } from "react-icons/tb";
+import { AiOutlineCheck } from "react-icons/ai";
 import Toast from "../../utils/Toast";
+import { Address } from "../../network/gateway/Address";
+
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
   const [paymentTab, setpaymentTab] = useState<number>(3)
   const router = useRouter();
   // const { slug, id } = router.query;
-  // console.log("this is checkout id",id,slug)
-  //const [firstName, setfirstName] = useState<string>('')
-  // const [lastName, setlastName] = useState<string>('')
-  // const [address_1, setAddress_1] = useState<string>('')
-  // const [address_2, setAddress_2] = useState<string>('')
-  // const [city, setCity] = useState<string>('')
-
   let [customerId, setCustomerId] = useState<string>('')
   let [loading, setLoading] = useState(true);
   const [cartItems, setCartItems] = useState<any>([]);
   let [fields, setField] = useState<any>({ "company_name": "", "county": "Sunnyville", "country": "INDIA" })
+  let [addressFields, AddressFieldsetField] = useState<any>({ "type": 'address', "county": "Sunnyville", "country": "IN" })
   const [errors, setErrors] = useState<any>({})
   const [grandTotal, setGrandTotal] = useState("")
+  const [afterCartItems, setAfterCartItems] = useState<Number>()
+  const [address, setAddress] = useState<any>()
   const ISSERVER = typeof window === "undefined";
+
   useEffect(() => {
     let customer_id: any = LocalStorageService.getCustomerId()
     setCustomerId(customer_id)
-
     return () => { };
   }, []);
   const isLogin = useUserStore((state: any) => state.isLogin, shallow);
@@ -55,124 +53,49 @@ const CheckoutScreen: NextPage = () => {
         //console.log("this is")
       });
   }
-  // const onChangeFirstName = (event: any) => {
-
-  //   setfirstName(event.target.value)
-  // }
-  // const onChangeLastName = (event: any) => {
-  //   setlastName(event.target.value)
-  // }
-
-  // const onChangeCity = (event: any) => {
-  //   setCity(event.target.value)
-  // }
-  // const onChangeAddress_1 = (event: any) => {
-  //   setAddress_1(event.target.value)
-  // }
-  // const onChangeAddress_2 = (event: any) => {
-  //   setAddress_2(event.target.value)
-
-  // }
-  // const onChangePostcode = (event: any) => {
-  //   setPostcode(event.target.value)
-
-  // }
 
   const handleChange = (e: any) => {
-    let field: any = {}
     fields[e.target.name] = e.target.value;
+    addressFields[e.target.name] = e.target.value;
   }
-  //console.log("this is fields", fields)
 
-  let error: any = {};
+
 
 
   function checkout(e: any) {
     e.preventDefault();
     let validationFunction = validateForm()
     if (validationFunction) {
+      addAddress()
       setOpenTab(openTab == 3 ? 0 : 3)
 
     }
-    //e.target.setCustomValidity("This can't be left blank!");
 
-    //
-    // const param = {
-    //   "data": {
-    //     "customer": {
-    //       id: customerId
-    //     },
-    //     "billing_address": fields,
-    //     "shipping_address": fields
-    //   }
-    // }
-    // Cart.getInstance()
-    //   .checkout(param)
-    //   .then((data: any) => {
-    //     console.log("checkout info", data.data.data.id);
-    //     if (data.status) {
-    //       router.push({ pathname: "/thankyou", query: { id: data?.data?.data.id } });
-
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log("error", error);
-    //   });
-    // if (validateForm()) {
-
-    //   let field: any = {};
-    //   field['"first_name"'] = "";
-
-    //   setField({ fields: fields });
-
-    // }
   }
 
   function validateForm() {
-    let field = fields;
-    //let error: any = {};
     let formIsValid = true;
 
     if (!fields['first_name']) {
       formIsValid = false;
-      error["firstName"] = "*Please enter your firstName.";
       Toast.showError("*Please enter your First Name.");
-
     }
-
     else if (!fields['last_name']) {
       formIsValid = false;
-      //error["lastName"] = "*Please enter your lastName.";
       Toast.showError("*Please Enter Your Last Name.");
-
     }
     else if (!fields['line_1']) {
       formIsValid = false;
-      //error["address"] = "*Please enter your Address.";
       Toast.showError("*Please Enter Your Address.");
-
     }
-    // else if (!fields['line_2']) {
-    //   formIsValid = false;
-    //   // error["address"] = "*Please enter your Address.";
-    //   Toast.showError("*Please Enter Your Apartment, Street, Landmark.");
-
-    // }
     else if (!fields['city']) {
       formIsValid = false;
-      //error["city"] = "*Please enter your city.";
       Toast.showError("*Please Enter Your City.");
-
     }
     else if (!fields['postcode']) {
       formIsValid = false;
-      //error["postcode"] = "*Please enter your Post Code.";
       Toast.showError("*Please Enter Your Postal Code.");
-
     }
-    setErrors({ errors: error })
-    //console.log("this is validform error", errors)
-
     return formIsValid;
 
   }
@@ -181,6 +104,7 @@ const CheckoutScreen: NextPage = () => {
     Cart.getInstance()
       .deleteCartItem(id)
       .then((response: any) => {
+        setAfterCartItems(response.data.data.length)
         if (response.statusText === "OK") {
           let newCartItem = cartItems;
           newCartItem.splice(index, 1);
@@ -188,8 +112,6 @@ const CheckoutScreen: NextPage = () => {
         }
       });
   }
-  //console.log("this is fields", fields)
-
 
   function checkoutApi() {
     if (validateForm()) {
@@ -215,17 +137,43 @@ const CheckoutScreen: NextPage = () => {
         .catch((error) => {
           console.log("error", error);
         });
-      // if (validateForm()) {
 
-      //   let field: any = {};
-      //   field['"first_name"'] = "";
-
-      //   setField({ fields: fields });
-
-      // }
 
     }
   }
+  function addAddress() {
+    if (isLogin &&validateForm()) {
+
+      const param = {
+        "data": addressFields
+
+      }
+      Address.getInstance()
+        .addAddress(param)
+        .then((data: any) => {
+          console.log("this is add Addrsss data", data.data);
+          setAddress(data?.data)
+
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+      console.log("this is addaddress fields", param)
+    }
+    else{
+      setLoginPopup(true);
+
+    }
+
+  }
+
+  function updateAddress() {
+
+    setOpenTab(openTab == 2 ? 0 : 2)
+
+  }
+
+
   return (
     <div className="shoppingCart checkoutPage">
       <div className="wrapper">
@@ -241,7 +189,7 @@ const CheckoutScreen: NextPage = () => {
           <div className="row">
             <div className="col-md-12 col-lg-8 mt-4">
               <div className="accordion" id="accordionExample">
-                {!isLogin && <div className="accordion-item bgbar ms-0">
+                {/* {!isLogin && <div className="accordion-item bgbar ms-0">
                   <h2
                     className="accordion-header"
                     id="headingOne"
@@ -332,6 +280,46 @@ const CheckoutScreen: NextPage = () => {
                       </div>
                     </div>
                   </div>
+                </div>} */}
+
+                {cartItems?.length != 0 &&<div className="accordion-item bgbar ms-0" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <h2
+                    className="accordion-header"
+                  // id="headingOne"
+                  // onClick={() => {
+                  //   setLoginPopup(false)
+                  //   setOpenTab(openTab == 1 ? 0 : 1)
+                  // }}
+                  >
+                    <button
+                      className="accordion-button font-sb collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseOne"
+                      aria-expanded="true"
+                      aria-controls="collapseOne"
+                    >
+                      <span className="wordtype">A</span>
+                    </button>
+                  </h2>
+                  <div>
+
+                    <p className="fs-15">LOGIN <span><AiOutlineCheck style={{ fontSize: 20, color: '#1bf56e' }} /></span></p>
+                    <h1 className="fs-22  font-sb">{address?.data.first_name}</h1>
+
+                  </div>
+                  <h1 className="fs-22  font-sb mr-5">{address?.data.phone_number}</h1>
+                  <div>
+                  </div>
+
+
+                  <div style={{ alignItems: 'flex-end' }} >
+                    <button className="btn fs-14" type="button" onClick={updateAddress} >
+                      {/* Save &amp; Deliver Here */} Change
+                    </button>
+                  </div>
+
+
                 </div>}
                 {cartItems?.length != 0 && <div className="accordion-item bgbar ms-0">
                   <h2
@@ -375,12 +363,10 @@ const CheckoutScreen: NextPage = () => {
                               placeholder=""
                               required
                               onChange={handleChange}
-
-
                             />
 
                             <div className="invalid-feedback">
-                              {error.firstName}
+
                             </div>
                           </div>
                           <div className="col-sm-6  mb-4">
@@ -789,8 +775,8 @@ const CheckoutScreen: NextPage = () => {
                     </div>
                   </div>
                 </div>}
-                {cartItems?.length === 0 &&
-                  <div style={{ marginLeft: 400 }}>
+                {cartItems?.length == 0 &&
+                  <div style={{ marginLeft: 430, marginTop: 100 }}>
                     <div className="text-center">
                       <h1 className="fs-30 font-b text-color-2 list-inline-item">
                         Your cart is empty!
