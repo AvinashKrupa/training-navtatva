@@ -27,7 +27,7 @@ const AddressList = (props: iProps) => {
           data-bs-dismiss="modal"
           aria-label="Close"
           onClick={() => {
-            props?.onClose(false);
+            props?.data.onClose(false);
           }}
         />
         <div className="modal-body p-0">
@@ -84,7 +84,7 @@ const AddressList = (props: iProps) => {
                             <button
                               type="button"
                               className="btn btn-sm m-4 mt-md-0"
-                              onClick={() => props?.onSelect(index)}
+                              onClick={() => info?.onSelect(index)}
                             >
                               Select
                             </button>
