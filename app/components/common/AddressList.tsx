@@ -49,7 +49,10 @@ const AddressList = (props: iProps) => {
         </div> */}
 
         <div className="col-md-12">
-          <div className="osahan-account-page-right shadow-sm bg-white p-4 h-100">
+          <div
+            className="osahan-account-page-right shadow-sm bg-white p-4 h-100"
+            style={{ borderRadius: 30 }}
+          >
             <div className="tab-content" id="myTabContent">
               <div
                 className="tab-pane fade  active show"
