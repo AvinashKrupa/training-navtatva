@@ -329,3 +329,35 @@ export const ocassionSliderSetting = {
     },
   ],
 };
+export const bannerSliderSettings = {
+  infinite: true,
+  slidesToShow: 1,
+  slidesToScroll: 2,
+  arrows: true,
+  autoplay: true,
+  dots: false,
+  draggable: true,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 575,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
+};

@@ -168,4 +168,32 @@ export class CatalogService extends HTTPBaseService {
         });
     });
   };
+
+  static getDomainName() {
+    return 'www.navtatva.fashion';
+  }
+
+  public getBanner = () => {
+    return new Promise((resolve: any, reject: any) => {
+      this.instance
+        .get(API.GET_BANNER + CatalogService.getDomainName())
+        .then((response) => {
+          if (response.status == 200) {
+            let message = response.data;
+            //Toast.showSuccess(message);
+            resolve(response);
+          } else {
+            let message = response.data.message;
+            Toast.showError(message);
+            reject(response);
+          }
+        })
+        .catch((error) => {
+          Toast.showError(error.message);
+          reject(error);
+        });
+    });
+  };
+
+
 }
