@@ -11,6 +11,7 @@ import { TbCurrencyRupee } from "react-icons/tb";
 import { AiOutlineCheck } from "react-icons/ai";
 import Toast from "../../utils/Toast";
 import { Address } from "../../network/gateway/Address";
+import { Auth } from "../../network/gateway/Auth";
 
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
@@ -25,7 +26,7 @@ const CheckoutScreen: NextPage = () => {
   const [errors, setErrors] = useState<any>({})
   const [grandTotal, setGrandTotal] = useState("")
   const [afterCartItems, setAfterCartItems] = useState<Number>()
-  const [address, setAddress] = useState<any>()
+  const [customerData, setCustomerData] = useState<any>()
   const ISSERVER = typeof window === "undefined";
 
   useEffect(() => {
@@ -39,6 +40,7 @@ const CheckoutScreen: NextPage = () => {
 
     if (isLogin) {
       getCustomerCart();
+      getCustomerData();
     } else {
       setLoginPopup(true);
     }
@@ -54,12 +56,20 @@ const CheckoutScreen: NextPage = () => {
       });
   }
 
+  function getCustomerData() {
+    Auth.getInstance()
+      .getCustomerData()
+      .then((data: any) => {
+        //console.log("this is  customer data",data)
+        setCustomerData(data?.data)
+
+      });
+  }
+
   const handleChange = (e: any) => {
     fields[e.target.name] = e.target.value;
     addressFields[e.target.name] = e.target.value;
   }
-
-
 
 
   function checkout(e: any) {
@@ -142,7 +152,7 @@ const CheckoutScreen: NextPage = () => {
     }
   }
   function addAddress() {
-    if (isLogin &&validateForm()) {
+    if (isLogin && validateForm()) {
 
       const param = {
         "data": addressFields
@@ -152,7 +162,7 @@ const CheckoutScreen: NextPage = () => {
         .addAddress(param)
         .then((data: any) => {
           console.log("this is add Addrsss data", data.data);
-          setAddress(data?.data)
+
 
         })
         .catch((error) => {
@@ -160,7 +170,7 @@ const CheckoutScreen: NextPage = () => {
         });
       console.log("this is addaddress fields", param)
     }
-    else{
+    else {
       setLoginPopup(true);
 
     }
@@ -169,7 +179,7 @@ const CheckoutScreen: NextPage = () => {
 
   function updateAddress() {
 
-    setOpenTab(openTab == 2 ? 0 : 2)
+    //setOpenTab(openTab == 2 ? 0 : 2)
 
   }
 
@@ -282,7 +292,7 @@ const CheckoutScreen: NextPage = () => {
                   </div>
                 </div>} */}
 
-                {cartItems?.length != 0 &&<div className="accordion-item bgbar ms-0" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                {cartItems?.length != 0 && <div className="accordion-item bgbar ms-0" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                   <h2
                     className="accordion-header"
                   // id="headingOne"
@@ -304,11 +314,11 @@ const CheckoutScreen: NextPage = () => {
                   </h2>
                   <div>
 
-                    <p className="fs-15">LOGIN <span><AiOutlineCheck style={{ fontSize: 20, color: '#1bf56e' }} /></span></p>
-                    <h1 className="fs-22  font-sb">{address?.data.first_name}</h1>
+                    <p className="fs-12 font-sb">LOGIN <span><AiOutlineCheck style={{ fontSize: 20, color: '#1bf56e' }} /></span></p>
+                    <h1 className="fs-22  font-sb">{customerData?.data.userDetails.name}</h1>
 
                   </div>
-                  <h1 className="fs-22  font-sb mr-5">{address?.data.phone_number}</h1>
+                  <h1 className="fs-22  font-sb mr-5">+91{" "+customerData?.data.businessDetails.whatsapp_number}</h1>
                   <div>
                   </div>
 

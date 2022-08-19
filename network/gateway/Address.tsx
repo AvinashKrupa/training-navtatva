@@ -52,7 +52,7 @@ export class Address extends HTTPBaseService {
     public updateAddress = (data: any) => {
         return new Promise((resolve: any, reject: any) => {
             this.instance
-                .post(API.ADD_ADDRESS + "/" + Address.getCustomerId(), data)
+                .put(API.UPDATE_ADDRESS + "/" + Address.getCustomerId(), data)
                 .then((response) => {
                     if (response.status == 200) {
                         console.log("this is address response", response)

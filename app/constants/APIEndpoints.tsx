@@ -16,6 +16,7 @@ const API = {
   CHECKOUT:"checkout",
   ADD_ADDRESS:"createAddress",
   UPDATE_ADDRESS :"updateAddress",
+  GET_CUSTOMER:"get-customer",
   ORDER_TAKING_APP: {
     GET_SELLERS: "get-all-customers",
     PLACE_ORDER: "place-custom-order",
