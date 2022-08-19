@@ -7,6 +7,7 @@ interface iProps {
   onSelect?: (index: number) => void;
   isVisible: boolean;
   data: any;
+  onClose?:()=>void;
 }
 
 const AddressList = (props: iProps) => {
@@ -68,7 +69,7 @@ const AddressList = (props: iProps) => {
                                 <i className="icofont-location-pin icofont-3x"></i>
                               </div>
                               <div className="media-body">
-                                <h6 className="mb-1">{info.country}</h6>
+                                <h6 className="mb-1">{info.first_name}</h6>
                                 <h6 className="mb-1">{info.city}</h6>
                                 <h6 className="mb-1">{info.postcode}</h6>
 

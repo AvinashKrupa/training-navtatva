@@ -159,12 +159,12 @@ const CheckoutScreen: NextPage = () => {
       Address.getInstance()
         .addAddress(param)
         .then((data: any) => {
-          console.log("this is add Addrsss data", data.data);
+          //console.log("this is add Addrsss data", data.data);
         })
         .catch((error) => {
           console.log("error", error);
         });
-      console.log("this is addaddress fields", param);
+    //  console.log("this is addaddress fields", param);
     } else {
       setLoginPopup(true);
     }
@@ -173,6 +173,8 @@ const CheckoutScreen: NextPage = () => {
   function updateAddress() {
     //setOpenTab(openTab == 2 ? 0 : 2)
   }
+
+
 
   function renderAddressList() {
     const address = [
@@ -255,6 +257,7 @@ const CheckoutScreen: NextPage = () => {
             },
           },
         ]
+
     return (
       <AddressList
         isVisible={showAddress}
@@ -1072,7 +1075,7 @@ const CheckoutScreen: NextPage = () => {
                         </p>
                       </div>
                       <div className="d-flex mt-4">
-                        
+
                         <a className="fs-14 font-sb text-color-3" href="#">
                           Move to Wishlist
                         </a>
@@ -1279,7 +1282,7 @@ const CheckoutScreen: NextPage = () => {
                         </p>
                       </div>
                       <div className="d-flex mt-4">
-                        
+
                         <a className="fs-14 font-sb text-color-3" href="#">
                           Move to Wishlist
                         </a>
