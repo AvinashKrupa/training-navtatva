@@ -71,20 +71,20 @@ const ThemeOne: NextPage = () => {
         <MenuCategorySlider category={category} />
         {/* banner start */}
         <FestiveSaleBanner />
-        {/*  Shopping Bag start */}
-        <ShoppingBagBlock />
+        {/*  Shopping Bag start & Review */}
+        {/* <ShoppingBagBlock /> */}
       </div>
       {/* Select your companion to try on your Outfit */}
-      <CompaignOnOutFit />
+      {/* <CompaignOnOutFit /> */}
       {/* Kurtis For Every Occassion */}
-      <KurtisForOccassion />
+      {/* <KurtisForOccassion /> */}
       {/* Must haves In Your Wardrobe section */}
       <MustInWardrobe />
       <div className="wrapper">
         {/* Shop By Price */}
         <ShopByPrice />
         {/* Shop virtually  with a Product Expert. */}
-        <ShopVirtuallyWithExpert />
+        {/* <ShopVirtuallyWithExpert /> */}
         {/* Bring in the Essence of  Holi to your wardrobe*/}
         <BringInEssence />
         {/* Top Collections */}
@@ -96,7 +96,7 @@ const ThemeOne: NextPage = () => {
         {/* NavTatva’s Top Picks */}
         <NavTatvaTopPicks />
         {/* Compliment your Outfits */}
-        <ComplimentYourOutfits />
+        {/* <ComplimentYourOutfits /> */}
       </div>
       {/* Designer’s Pick */}
       <DesignersPick />
@@ -105,23 +105,23 @@ const ThemeOne: NextPage = () => {
       {/* Most Searched Styles*/}
       <MostSearchedStyles />
       {/* Wedding Season Is Almost Here*/}
-      <WeddingSeasonIsHere />
+      {/* <WeddingSeasonIsHere /> */}
       {/* For the look you desire*/}
-      <ForTheLookYouDesire />
+      {/* <ForTheLookYouDesire /> */}
       {/* Our Valued Customers*/}
       <OurValuedCustomers />
       {/* Our Valued Customer Slider*/}
       <OurValuedCustomerSlider />
       {/* Spend More, Win More*/}
-      <SpendMoreWinMore />
+      {/* <SpendMoreWinMore /> */}
       {/* New Collections*/}
-      <NewCollections />
+      {/* <NewCollections /> */}
       {/* More Brands To Explore*/}
       <MoreBrandsToExplore brand={brand} />
       {/* Make your outfits special */}
-      <MakeYourOutfitSpecial />
+      {/* <MakeYourOutfitSpecial /> */}
       {/* For the look you desire */}
-      <ForTheLookYouDesireFabric />
+      {/* <ForTheLookYouDesireFabric /> */}
       {/* Video Block */}
       <VideoBlock />
       {/* End Video Block */}
