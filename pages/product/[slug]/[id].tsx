@@ -35,7 +35,7 @@ const ProductDetailScreen: NextPage = () => {
     if (id) {
       getProductDetail(id);
     }
-    return () => { };
+    return () => {};
   }, [id]);
 
   function getProductDetail(itemId: any) {
@@ -49,10 +49,9 @@ const ProductDetailScreen: NextPage = () => {
             console.log("ERROR:", response.data);
           }
         })
-        .catch((error) => { });
+        .catch((error) => {});
     }
   }
-
 
   const handleSizeChange = (i: number, e: any) => {
     let newSizeValues: any = [...sizeValues];
@@ -186,10 +185,13 @@ const ProductDetailScreen: NextPage = () => {
                               ?.getColors()
                               .map((item: any, index: number) => {
                                 return (
-                                  <div key={index}
+                                  <div
+                                    key={index}
                                     onClick={(e) => {
-                                      product?.changeVariantByColor(item.id)
-                                      getProductDetail(product?.selectCombination.id)
+                                      product?.changeVariantByColor(item.id);
+                                      getProductDetail(
+                                        product?.selectCombination.id
+                                      );
                                     }}
                                   >
                                     <input
@@ -215,79 +217,99 @@ const ProductDetailScreen: NextPage = () => {
                             <div className="table-responsive mt-5">
                               <table className="table cart-table">
                                 <tbody>
-                                  {sizeValues.map((element: any, index: number) => (
-                                    <tr key={index}>
-                                      <td>
-                                        <span>Size</span>
-                                        <select className="form-select"
-                                          onChange={(e) => handleSizeChange(index, e)}
-                                        >
-                                          {product
-                                            ?.getSizes()
-                                            .map((item: any, index: number) => {
-                                              return (
-                                                <option
-                                                  key={index}
-                                                  value={item.id}
-                                                  selected={item == element.id}
-                                                >
-                                                  {item.name}
-                                                </option>
-                                              );
-                                            })}
-                                        </select>
-                                      </td>
-                                      <td>
-                                        <span>Qty</span>
-                                        <select className="form-select"
-                                          onChange={(e) => handleSizeChange(index, e)}
-                                        >
-                                          {product
-                                            ?.getQuantityList()
-                                            .map((item: any, index: number) => {
-                                              return (
-                                                <option
-                                                  key={index}
-                                                  value={item}
-                                                  selected={item == element.qty}
-                                                >
-                                                  {item}
-                                                </option>
-                                              );
-                                            })}
-                                        </select>
-                                      </td>
-                                      <td className="price d-flex">
-                                        <span className="align-self-center">
-                                          Color
-                                        </span>
-                                        <div className="custom-radios">
-                                          <div>
-                                            <input
-                                              type="radio"
-                                              id="color-3"
-                                              name={"color-" + element.color}
-                                              defaultValue="color-3"
-                                              defaultChecked
-                                              tabIndex={0}
-                                              onChange={(e) => handleSizeChange(index, e)}
-                                              value={element.color}
-                                            />
-                                            <label htmlFor="color-3">
-                                              <span>
-                                                <div />
-                                              </span>
-                                            </label>
+                                  {sizeValues.map(
+                                    (element: any, index: number) => (
+                                      <tr key={index}>
+                                        <td>
+                                          <span>Size</span>
+                                          <select
+                                            className="form-select"
+                                            onChange={(e) =>
+                                              handleSizeChange(index, e)
+                                            }
+                                          >
+                                            {product
+                                              ?.getSizes()
+                                              .map(
+                                                (item: any, index: number) => {
+                                                  return (
+                                                    <option
+                                                      key={index}
+                                                      value={item.id}
+                                                      selected={
+                                                        item == element.id
+                                                      }
+                                                    >
+                                                      {item.name}
+                                                    </option>
+                                                  );
+                                                }
+                                              )}
+                                          </select>
+                                        </td>
+                                        <td>
+                                          <span>Qty</span>
+                                          <select
+                                            className="form-select"
+                                            onChange={(e) =>
+                                              handleSizeChange(index, e)
+                                            }
+                                          >
+                                            {product
+                                              ?.getQuantityList()
+                                              .map(
+                                                (item: any, index: number) => {
+                                                  return (
+                                                    <option
+                                                      key={index}
+                                                      value={item}
+                                                      selected={
+                                                        item == element.qty
+                                                      }
+                                                    >
+                                                      {item}
+                                                    </option>
+                                                  );
+                                                }
+                                              )}
+                                          </select>
+                                        </td>
+                                        <td className="price d-flex">
+                                          <span className="align-self-center">
+                                            Color
+                                          </span>
+                                          <div className="custom-radios">
+                                            <div>
+                                              <input
+                                                type="radio"
+                                                id="color-3"
+                                                name={"color-" + element.color}
+                                                defaultValue="color-3"
+                                                defaultChecked
+                                                tabIndex={0}
+                                                onChange={(e) =>
+                                                  handleSizeChange(index, e)
+                                                }
+                                                value={element.color}
+                                              />
+                                              <label htmlFor="color-3">
+                                                <span>
+                                                  <div />
+                                                </span>
+                                              </label>
+                                            </div>
                                           </div>
-                                        </div>
-                                      </td>
-                                    </tr>
-                                  ))}
+                                        </td>
+                                      </tr>
+                                    )
+                                  )}
                                 </tbody>
                               </table>
                             </div>
                             <div className="text-center mb-4">
-                              <button type="button" className="cartrow-btn"
+                              <button
+                                type="button"
+                                className="cartrow-btn"
                                 onClick={() => addSizeFields()}
                               >
                                 <i className="fas fa-plus fa-fw" /> Add Another
@@ -333,8 +355,9 @@ const ProductDetailScreen: NextPage = () => {
                 >
                   <li className="nav-item" role="presentation">
                     <button
-                      className={`nav-link font-sb bg-1 ${selectedSection == 1 ? "active" : ""
-                        }`}
+                      className={`nav-link font-sb bg-1 ${
+                        selectedSection == 1 ? "active" : ""
+                      }`}
                       id="home-tab"
                       data-bs-toggle="tab"
                       data-bs-target="#home"
@@ -364,8 +387,9 @@ const ProductDetailScreen: NextPage = () => {
                   </li>
                   <li className="nav-item" role="presentation">
                     <button
-                      className={`nav-link font-sb bg-2 second ${selectedSection == 2 ? "active" : ""
-                        }`}
+                      className={`nav-link font-sb bg-2 second ${
+                        selectedSection == 2 ? "active" : ""
+                      }`}
                       id="profile-tab"
                       data-bs-toggle="tab"
                       data-bs-target="#profile"
@@ -392,8 +416,9 @@ const ProductDetailScreen: NextPage = () => {
                   </li>
                   <li className="nav-item" role="presentation">
                     <button
-                      className={`nav-link font-sb bg-3 third ${selectedSection == 3 ? "active" : ""
-                        }`}
+                      className={`nav-link font-sb bg-3 third ${
+                        selectedSection == 3 ? "active" : ""
+                      }`}
                       id="contact-tab"
                       data-bs-toggle="tab"
                       data-bs-target="#contact"
@@ -421,8 +446,9 @@ const ProductDetailScreen: NextPage = () => {
                 </ul>
                 <div className="tab-content" id="myTabContent">
                   <div
-                    className={`tab-pane fade show ${selectedSection == 1 ? "active" : ""
-                      }`}
+                    className={`tab-pane fade show ${
+                      selectedSection == 1 ? "active" : ""
+                    }`}
                     id="home"
                     role="tabpanel"
                     aria-labelledby="home-tab"
@@ -430,8 +456,9 @@ const ProductDetailScreen: NextPage = () => {
                     {product?.getDescription()}
                   </div>
                   <div
-                    className={`tab-pane fade show ${selectedSection == 2 ? "active" : ""
-                      }`}
+                    className={`tab-pane fade show ${
+                      selectedSection == 2 ? "active" : ""
+                    }`}
                     id="profile"
                     role="tabpanel"
                     aria-labelledby="profile-tab"
@@ -501,8 +528,9 @@ const ProductDetailScreen: NextPage = () => {
                     </div>
                   </div>
                   <div
-                    className={`tab-pane fade show ${selectedSection == 3 ? "active" : ""
-                      }`}
+                    className={`tab-pane fade show ${
+                      selectedSection == 3 ? "active" : ""
+                    }`}
                     id="contact"
                     role="tabpanel"
                     aria-labelledby="contact-tab"
@@ -1060,12 +1088,12 @@ const ProductDetailScreen: NextPage = () => {
                       alt=""
                     />
                   </a>
-                  <a
+                  {/* <a
                     href="#"
                     className="btn-border fs-20 me-2 d-none d-lg-inline-block"
                   >
                     Request Semple
-                  </a>
+                  </a> */}
                   <a href="#" className="btn-border fs-20 me-2 d-lg-none">
                     Wishlist
                   </a>

@@ -26,11 +26,13 @@ a:hover {
 @font-face {
   font-family: "OpenSauceSans-Black";
   src: url("../public/webfonts/OpenSauceSans-Black.eot");
-  src: url("../public/webfonts/OpenSauceSans-Black.eot?#iefix") format("embedded-opentype"),
+  src: url("../public/webfonts/OpenSauceSans-Black.eot?#iefix")
+      format("embedded-opentype"),
     url("../public/webfonts/OpenSauceSans-Black.woff2") format("woff2"),
     url("../public/webfonts/OpenSauceSans-Black.woff") format("woff"),
     url("../public/webfonts/OpenSauceSans-Black.ttf") format("truetype"),
-    url("../public/webfonts/OpenSauceSans-Black.svg#OpenSauceSans-Black") format("svg");
+    url("../public/webfonts/OpenSauceSans-Black.svg#OpenSauceSans-Black")
+      format("svg");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -39,11 +41,13 @@ a:hover {
 @font-face {
   font-family: "OpenSauceSans-SemiBold";
   src: url("../public/webfonts/OpenSauceSans-SemiBold.eot");
-  src: url("../public/webfonts/OpenSauceSans-SemiBold.eot?#iefix") format("embedded-opentype"),
+  src: url("../public/webfonts/OpenSauceSans-SemiBold.eot?#iefix")
+      format("embedded-opentype"),
     url("../public/webfonts/OpenSauceSans-SemiBold.woff2") format("woff2"),
     url("../public/webfonts/OpenSauceSans-SemiBold.woff") format("woff"),
     url("../public/webfonts/OpenSauceSans-SemiBold.ttf") format("truetype"),
-    url("../public/webfonts/OpenSauceSans-SemiBold.svg#OpenSauceSans-SemiBold") format("svg");
+    url("../public/webfonts/OpenSauceSans-SemiBold.svg#OpenSauceSans-SemiBold")
+      format("svg");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -52,11 +56,13 @@ a:hover {
 @font-face {
   font-family: "OpenSauceSans-ExtraBold";
   src: url("../public/webfonts/OpenSauceSans-ExtraBold.eot");
-  src: url("../public/webfonts/OpenSauceSans-ExtraBold.eot?#iefix") format("embedded-opentype"),
+  src: url("../public/webfonts/OpenSauceSans-ExtraBold.eot?#iefix")
+      format("embedded-opentype"),
     url("../public/webfonts/OpenSauceSans-ExtraBold.woff2") format("woff2"),
     url("../public/webfonts/OpenSauceSans-ExtraBold.woff") format("woff"),
     url("../public/webfonts/OpenSauceSans-ExtraBold.ttf") format("truetype"),
-    url("../public/webfonts/OpenSauceSans-ExtraBold.svg#OpenSauceSans-ExtraBold") format("svg");
+    url("../public/webfonts/OpenSauceSans-ExtraBold.svg#OpenSauceSans-ExtraBold")
+      format("svg");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -65,11 +71,13 @@ a:hover {
 @font-face {
   font-family: "OpenSauceSans-Bold";
   src: url("../public/webfonts/OpenSauceSans-Bold.eot");
-  src: url("../public/webfonts/OpenSauceSans-Bold.eot?#iefix") format("embedded-opentype"),
+  src: url("../public/webfonts/OpenSauceSans-Bold.eot?#iefix")
+      format("embedded-opentype"),
     url("../public/webfonts/OpenSauceSans-Bold.woff2") format("woff2"),
     url("../public/webfonts/OpenSauceSans-Bold.woff") format("woff"),
     url("../public/webfonts/OpenSauceSans-Bold.ttf") format("truetype"),
-    url("../public/webfonts/OpenSauceSans-Bold.svg#OpenSauceSans-Bold") format("svg");
+    url("../public/webfonts/OpenSauceSans-Bold.svg#OpenSauceSans-Bold")
+      format("svg");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -78,11 +86,13 @@ a:hover {
 @font-face {
   font-family: "OpenSauceSans-Medium";
   src: url("../public/webfonts/OpenSauceSans-Medium.eot");
-  src: url("../public/webfonts/OpenSauceSans-Medium.eot?#iefix") format("embedded-opentype"),
+  src: url("../public/webfonts/OpenSauceSans-Medium.eot?#iefix")
+      format("embedded-opentype"),
     url("../public/webfonts/OpenSauceSans-Medium.woff2") format("woff2"),
     url("../public/webfonts/OpenSauceSans-Medium.woff") format("woff"),
     url("../public/webfonts/OpenSauceSans-Medium.ttf") format("truetype"),
-    url("../public/webfonts/OpenSauceSans-Medium.svg#OpenSauceSans-Medium") format("svg");
+    url("../public/webfonts/OpenSauceSans-Medium.svg#OpenSauceSans-Medium")
+      format("svg");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -91,11 +101,13 @@ a:hover {
 @font-face {
   font-family: "OpenSauceSans-Light";
   src: url("../public/webfonts/OpenSauceSans-Light.eot");
-  src: url("../public/webfonts/OpenSauceSans-Light.eot?#iefix") format("embedded-opentype"),
+  src: url("../public/webfonts/OpenSauceSans-Light.eot?#iefix")
+      format("embedded-opentype"),
     url("../public/webfonts/OpenSauceSans-Light.woff2") format("woff2"),
     url("../public/webfonts/OpenSauceSans-Light.woff") format("woff"),
     url("../public/webfonts/OpenSauceSans-Light.ttf") format("truetype"),
-    url("../public/webfonts/OpenSauceSans-Light.svg#OpenSauceSans-Light") format("svg");
+    url("../public/webfonts/OpenSauceSans-Light.svg#OpenSauceSans-Light")
+      format("svg");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -104,11 +116,13 @@ a:hover {
 @font-face {
   font-family: "OpenSauceSans-Regular";
   src: url("../public/webfonts/OpenSauceSans-Regular.eot");
-  src: url("../public/webfonts/OpenSauceSans-Regular.eot?#iefix") format("embedded-opentype"),
+  src: url("../public/webfonts/OpenSauceSans-Regular.eot?#iefix")
+      format("embedded-opentype"),
     url("../public/webfonts/OpenSauceSans-Regular.woff2") format("woff2"),
     url("../public/webfonts/OpenSauceSans-Regular.woff") format("woff"),
     url("../public/webfonts/OpenSauceSans-Regular.ttf") format("truetype"),
-    url("../public/webfonts/OpenSauceSans-Regular.svg#OpenSauceSans-Regular") format("svg");
+    url("../public/webfonts/OpenSauceSans-Regular.svg#OpenSauceSans-Regular")
+      format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -117,13 +131,13 @@ a:hover {
 @font-face {
   font-family: "BohemianSoul";
   src: url("../public/webfonts/BohemianSoul-Regular.eot");
-  src: url("../public/webfonts/BohemianSoul-Regular.eot?#iefix") format("embedded-opentype"),
+  src: url("../public/webfonts/BohemianSoul-Regular.eot?#iefix")
+      format("embedded-opentype"),
     url("../public/webfonts/BohemianSoul-Regular.woff2") format("woff2"),
     url("../public/webfonts/BohemianSoul-Regular.woff") format("woff"),
     url("../public/webfonts/BohemianSoul-Regular.ttf") format("truetype")
-    /*,
-      url('../public/webfonts/BohemianSoul-Regular.svg#BohemianSoul-Regular') format('svg')*/
-  ;
+      /*,
+      url('../public/webfonts/BohemianSoul-Regular.svg#BohemianSoul-Regular') format('svg')*/;
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -419,7 +433,8 @@ a {
   top: 18px;
 }
 
-ul.iconBar li {}
+ul.iconBar li {
+}
 
 ul.iconBar li a {
   width: 36px;
@@ -477,25 +492,37 @@ ul.iconBar li a.user {
 
 .category .overlay {
   background: rgba(95, 0, 173, 0.81);
-  background: -moz-linear-gradient(45deg,
-      rgba(48, 0, 86, 0.81) 0%,
-      rgba(48, 0, 86, 0) 100%);
-  background: -webkit-gradient(left bottom,
-      right top,
-      color-stop(0%, rgba(48, 0, 86, 0.81)),
-      color-stop(100%, rgba(95, 0, 173, 0)));
-  background: -webkit-linear-gradient(45deg,
-      rgba(48, 0, 86, 0.81) 0%,
-      rgba(48, 0, 86, 0) 100%);
-  background: -o-linear-gradient(45deg,
-      rgba(48, 0, 86, 0.81) 0%,
-      rgba(48, 0, 86, 0) 100%);
-  background: -ms-linear-gradient(45deg,
-      rgba(48, 0, 86, 0.81) 0%,
-      rgba(48, 0, 86, 0) 100%);
-  background: linear-gradient(45deg,
-      rgba(48, 0, 86, 0.81) 0%,
-      rgba(48, 0, 86, 0) 100%);
+  background: -moz-linear-gradient(
+    45deg,
+    rgba(48, 0, 86, 0.81) 0%,
+    rgba(48, 0, 86, 0) 100%
+  );
+  background: -webkit-gradient(
+    left bottom,
+    right top,
+    color-stop(0%, rgba(48, 0, 86, 0.81)),
+    color-stop(100%, rgba(95, 0, 173, 0))
+  );
+  background: -webkit-linear-gradient(
+    45deg,
+    rgba(48, 0, 86, 0.81) 0%,
+    rgba(48, 0, 86, 0) 100%
+  );
+  background: -o-linear-gradient(
+    45deg,
+    rgba(48, 0, 86, 0.81) 0%,
+    rgba(48, 0, 86, 0) 100%
+  );
+  background: -ms-linear-gradient(
+    45deg,
+    rgba(48, 0, 86, 0.81) 0%,
+    rgba(48, 0, 86, 0) 100%
+  );
+  background: linear-gradient(
+    45deg,
+    rgba(48, 0, 86, 0.81) 0%,
+    rgba(48, 0, 86, 0) 100%
+  );
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5f00ad', endColorstr='#5f00ad', GradientType=1);
   width: 100%;
   height: 100%;
@@ -525,25 +552,37 @@ ul.iconBar li a.user {
 
 .banner {
   background: rgba(236, 157, 195, 1);
-  background: -moz-linear-gradient(-45deg,
-      rgba(236, 157, 195, 1) 0%,
-      rgba(221, 186, 162, 1) 100%);
-  background: -webkit-gradient(left top,
-      right bottom,
-      color-stop(0%, rgba(236, 157, 195, 1)),
-      color-stop(100%, rgba(221, 186, 162, 1)));
-  background: -webkit-linear-gradient(-45deg,
-      rgba(236, 157, 195, 1) 0%,
-      rgba(221, 186, 162, 1) 100%);
-  background: -o-linear-gradient(-45deg,
-      rgba(236, 157, 195, 1) 0%,
-      rgba(221, 186, 162, 1) 100%);
-  background: -ms-linear-gradient(-45deg,
-      rgba(236, 157, 195, 1) 0%,
-      rgba(221, 186, 162, 1) 100%);
-  background: linear-gradient(135deg,
-      rgba(236, 157, 195, 1) 0%,
-      rgba(221, 186, 162, 1) 100%);
+  background: -moz-linear-gradient(
+    -45deg,
+    rgba(236, 157, 195, 1) 0%,
+    rgba(221, 186, 162, 1) 100%
+  );
+  background: -webkit-gradient(
+    left top,
+    right bottom,
+    color-stop(0%, rgba(236, 157, 195, 1)),
+    color-stop(100%, rgba(221, 186, 162, 1))
+  );
+  background: -webkit-linear-gradient(
+    -45deg,
+    rgba(236, 157, 195, 1) 0%,
+    rgba(221, 186, 162, 1) 100%
+  );
+  background: -o-linear-gradient(
+    -45deg,
+    rgba(236, 157, 195, 1) 0%,
+    rgba(221, 186, 162, 1) 100%
+  );
+  background: -ms-linear-gradient(
+    -45deg,
+    rgba(236, 157, 195, 1) 0%,
+    rgba(221, 186, 162, 1) 100%
+  );
+  background: linear-gradient(
+    135deg,
+    rgba(236, 157, 195, 1) 0%,
+    rgba(221, 186, 162, 1) 100%
+  );
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ec9dc3', endColorstr='#ddbaa2', GradientType=1);
   border-radius: 36px;
 }
@@ -642,9 +681,11 @@ ul.iconBar li a.user {
 
 .discount {
   background: rgb(225, 0, 40);
-  background: linear-gradient(127deg,
-      rgba(225, 0, 40, 1) 0%,
-      rgba(222, 71, 113, 1) 100%);
+  background: linear-gradient(
+    127deg,
+    rgba(225, 0, 40, 1) 0%,
+    rgba(222, 71, 113, 1) 100%
+  );
   border-radius: 30px;
   padding: 60px;
 }
@@ -663,9 +704,11 @@ ul.iconBar li a.user {
   background: rgb(99, 71, 38);
   border-radius: 30px;
   padding: 60px;
-  background: linear-gradient(310deg,
-      rgba(99, 71, 38, 1) 0%,
-      rgba(48, 0, 86, 1) 100%);
+  background: linear-gradient(
+    310deg,
+    rgba(99, 71, 38, 1) 0%,
+    rgba(48, 0, 86, 1) 100%
+  );
 }
 
 .whyBlock img {
@@ -691,9 +734,11 @@ ul.iconBar li a.user {
   font-size: 36px;
   color: #000;
   background: rgb(241, 105, 34);
-  background: linear-gradient(310deg,
-      rgba(241, 105, 34, 1) 0%,
-      rgba(249, 188, 96, 1) 100%);
+  background: linear-gradient(
+    310deg,
+    rgba(241, 105, 34, 1) 0%,
+    rgba(249, 188, 96, 1) 100%
+  );
   padding: 23px 20px;
   text-align: center;
   position: relative;
@@ -755,9 +800,11 @@ ul.iconBar li a.user {
   color: #f9bc60;
   font-family: "bohemian_soulregular";
   background: rgb(241, 105, 34);
-  background: linear-gradient(310deg,
-      rgba(199, 0, 143, 1) 0%,
-      rgba(48, 0, 86, 1) 100%);
+  background: linear-gradient(
+    310deg,
+    rgba(199, 0, 143, 1) 0%,
+    rgba(48, 0, 86, 1) 100%
+  );
   padding: 23px 20px;
   text-align: center;
   position: relative;
@@ -850,9 +897,11 @@ ul.iconBar li a.user {
 
 .bg-outfits {
   background: rgb(204, 176, 226);
-  background: linear-gradient(0deg,
-      rgba(204, 176, 226, 1) 0%,
-      rgba(204, 176, 226, 0) 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(204, 176, 226, 1) 0%,
+    rgba(204, 176, 226, 0) 100%
+  );
 }
 
 .sliderView .thumb {
@@ -941,9 +990,11 @@ ul.iconBar li a.user {
 
 .sliderView.Occasion .thumb {
   background: rgb(48, 0, 86);
-  background: linear-gradient(339deg,
-      rgba(241, 0, 130, 1) 0%,
-      rgba(48, 0, 86, 1) 100%);
+  background: linear-gradient(
+    339deg,
+    rgba(241, 0, 130, 1) 0%,
+    rgba(48, 0, 86, 1) 100%
+  );
   border: none;
   padding: 0;
   border-radius: 30px;
@@ -1009,9 +1060,11 @@ ul.iconBar li a.user {
 
 .expertshop {
   background: rgb(48, 0, 86);
-  background: linear-gradient(153deg,
-      rgba(48, 0, 86, 0.14) 0%,
-      rgba(255, 255, 255, 1) 100%);
+  background: linear-gradient(
+    153deg,
+    rgba(48, 0, 86, 0.14) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
   border-radius: 75px;
 }
 
@@ -1040,9 +1093,11 @@ ul.iconBar li a.user {
 
 .wardrobe {
   background: rgb(249, 188, 96);
-  background: linear-gradient(339deg,
-      rgba(249, 188, 96, 1) 0%,
-      rgba(249, 188, 96, 0) 100%);
+  background: linear-gradient(
+    339deg,
+    rgba(249, 188, 96, 1) 0%,
+    rgba(249, 188, 96, 0) 100%
+  );
   border-radius: 30px;
   padding: 35px 0 35px 35px;
 }
@@ -1076,6 +1131,7 @@ ul.iconBar li a.user {
   background: rgba(255, 255, 255, 0.2);
   border: solid 1px rgba(0, 0, 0, 0.1);
   padding: 15px;
+  border-radius: 30px;
 }
 
 .wardrobe .slick-prev {
@@ -1313,7 +1369,8 @@ ul.size li.sizechart {
 .product-detail ul li {
   margin: 0;
   list-style: none;
-  background: url(https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/checked.png) left center no-repeat;
+  background: url(https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/checked.png)
+    left center no-repeat;
   background-size: 18px;
   padding-left: 1.7rem;
   margin: 0.4rem 0;
@@ -1457,13 +1514,13 @@ body.product-search-detail .purchase-info button {
   display: none;
 }
 
-.custom-radios input[type="radio"]+label {
+.custom-radios input[type="radio"] + label {
   color: #333;
   font-family: Arial, sans-serif;
   font-size: 14px;
 }
 
-.custom-radios input[type="radio"]+label span {
+.custom-radios input[type="radio"] + label span {
   display: inline-block;
   width: 40px;
   height: 40px;
@@ -1479,7 +1536,7 @@ body.product-search-detail .purchase-info button {
   position: relative;
 }
 
-.custom-radios input[type="radio"]+label span:after {
+.custom-radios input[type="radio"] + label span:after {
   content: "";
   position: absolute;
   left: -3px;
@@ -1490,7 +1547,7 @@ body.product-search-detail .purchase-info button {
   border-radius: 35px;
 }
 
-.custom-radios input[type="radio"]+label span div {
+.custom-radios input[type="radio"] + label span div {
   opacity: 0;
   background: #fff;
   transition: all 0.3s ease;
@@ -1504,49 +1561,59 @@ body.product-search-detail .purchase-info button {
   z-index: 5;
 }
 
-.custom-radios input[type="radio"]#color-1+label span {
+.custom-radios input[type="radio"]#color-1 + label span {
   background: hsl(0deg 0% 0%);
   background: linear-gradient(0deg, hsl(0deg 0% 0%) 50%, #fc3244 51%);
-  background: -moz-linear-gradient(0deg,
-      hsla(0, 0%, 100%, 1) 50%,
-      hsla(55, 81%, 49%, 1) 51%);
+  background: -moz-linear-gradient(
+    0deg,
+    hsla(0, 0%, 100%, 1) 50%,
+    hsla(55, 81%, 49%, 1) 51%
+  );
   background: -webkit-linear-gradient(0deg, hsl(0deg 0% 0%) 50%, #fc3244 51%);
   filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#000000", endColorstr="#FC3244", GradientType=1);
 }
 
-.custom-radios input[type="radio"]#color-2+label span {
+.custom-radios input[type="radio"]#color-2 + label span {
   background: hsla(0, 0%, 100%, 1);
   background: linear-gradient(0deg, hsla(0, 0%, 100%, 1) 50%, #89dcff 51%);
-  background: -moz-linear-gradient(0deg,
-      hsla(0, 0%, 100%, 1) 50%,
-      hsla(55, 81%, 49%, 1) 51%);
-  background: -webkit-linear-gradient(0deg,
-      hsla(0, 0%, 100%, 1) 50%,
-      #89dcff 51%);
+  background: -moz-linear-gradient(
+    0deg,
+    hsla(0, 0%, 100%, 1) 50%,
+    hsla(55, 81%, 49%, 1) 51%
+  );
+  background: -webkit-linear-gradient(
+    0deg,
+    hsla(0, 0%, 100%, 1) 50%,
+    #89dcff 51%
+  );
   filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#FFFFFF", endColorstr="#E1D017", GradientType=1);
 }
 
-.custom-radios input[type="radio"]#color-3+label span {
+.custom-radios input[type="radio"]#color-3 + label span {
   background: hsla(0, 0%, 100%, 1);
   background: linear-gradient(0deg, #fff0b4 50%, #1b5369 51%);
-  background: -moz-linear-gradient(0deg,
-      hsla(0, 0%, 100%, 1) 50%,
-      hsla(55, 81%, 49%, 1) 51%);
+  background: -moz-linear-gradient(
+    0deg,
+    hsla(0, 0%, 100%, 1) 50%,
+    hsla(55, 81%, 49%, 1) 51%
+  );
   background: -webkit-linear-gradient(0deg, #fff0b4 50%, #1b5369 51%);
   filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#FFFFFF", endColorstr="#E1D017", GradientType=1);
 }
 
-.custom-radios input[type="radio"]#color-4+label span {
+.custom-radios input[type="radio"]#color-4 + label span {
   background: hsla(0, 0%, 100%, 1);
   background: linear-gradient(0deg, #9156bf 50%, #d2d2d2 51%);
-  background: -moz-linear-gradient(0deg,
-      hsla(0, 0%, 100%, 1) 50%,
-      hsla(55, 81%, 49%, 1) 51%);
+  background: -moz-linear-gradient(
+    0deg,
+    hsla(0, 0%, 100%, 1) 50%,
+    hsla(55, 81%, 49%, 1) 51%
+  );
   background: -webkit-linear-gradient(0deg, #9156bf 50%, #d2d2d2 51%);
   filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#FFFFFF", endColorstr="#E1D017", GradientType=1);
 }
 
-.custom-radios input[type="radio"]:checked+label span div {
+.custom-radios input[type="radio"]:checked + label span div {
   opacity: 1;
 }
 
@@ -1727,16 +1794,16 @@ header.main-header {
   display: none;
 }
 
-.radio-container input:checked~.radio-checkmark:after {
+.radio-container input:checked ~ .radio-checkmark:after {
   display: block;
 }
 
-.radio-container input:checked~.radio-checkmark {
+.radio-container input:checked ~ .radio-checkmark {
   background: #f9bc60;
   border-color: #f9bc60;
 }
 
-.radio-container input:checked~.radio-checkmark:after {
+.radio-container input:checked ~ .radio-checkmark:after {
   left: 6px;
   top: 2px;
   width: 6px;
@@ -2337,9 +2404,11 @@ header.main-header {
 
 .mostSearch .stylebg {
   background: rgb(48, 0, 86);
-  background: linear-gradient(339deg,
-      rgba(249, 188, 96, 1) 0%,
-      rgba(48, 0, 86, 1) 100%);
+  background: linear-gradient(
+    339deg,
+    rgba(249, 188, 96, 1) 0%,
+    rgba(48, 0, 86, 1) 100%
+  );
   border: none;
   border-radius: 24px;
   padding: 3px;
@@ -2356,9 +2425,11 @@ header.main-header {
 
 .mostSearch .overlay {
   background: rgb(48, 0, 86);
-  background: linear-gradient(339deg,
-      rgba(0, 0, 0, 0.7) 0%,
-      rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(
+    339deg,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
   border-radius: 20px;
   position: absolute;
   padding: 0px;
@@ -2481,17 +2552,21 @@ footer.footer .copyright {
 }
 
 body.home {
-  background: linear-gradient(-180deg,
-      #e0d3d5 0%,
-      rgba(249, 188, 96, 0.29) 4%,
-      #fcfcfc 5%);
+  background: linear-gradient(
+    -180deg,
+    #e0d3d5 0%,
+    rgba(249, 188, 96, 0.29) 4%,
+    #fcfcfc 5%
+  );
 }
 
 body {
-  background: linear-gradient(-180deg,
-      #e0d3d5 0%,
-      rgba(249, 188, 96, 0.29) 30%,
-      #fcfcfc 70%);
+  background: linear-gradient(
+    -180deg,
+    #e0d3d5 0%,
+    rgba(249, 188, 96, 0.29) 30%,
+    #fcfcfc 70%
+  );
 }
 
 .modal-lg {
@@ -2754,9 +2829,11 @@ body {
 
 .mostSearch .collection .overlay {
   background: rgb(48, 0, 86);
-  background: linear-gradient(0deg,
-      rgba(239, 167, 23, 0.6) 0%,
-      rgba(0, 0, 0, 0.1) 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(239, 167, 23, 0.6) 0%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
   border-radius: 35px;
   position: absolute;
   padding: 0px;
@@ -3147,7 +3224,7 @@ body {
   border: 0;
 }
 
-.product-detail-page .tab-content>#profile {
+.product-detail-page .tab-content > #profile {
   background: #1d1d1d;
   border-color: #1d1d1d;
 }
@@ -3157,7 +3234,7 @@ body {
   border: 0;
 }
 
-.product-detail-page .tab-content>#contact {
+.product-detail-page .tab-content > #contact {
   border-radius: 30px 0px 30px 30px;
   background: rgba(249, 188, 96, 0.2);
 }
@@ -3213,7 +3290,7 @@ body {
   fill: #fff;
 }
 
-.product-detail-page .tab-content>.active {
+.product-detail-page .tab-content > .active {
   background: rgba(48, 0, 86, 0.1);
   padding: 40px;
   border: solid 2px rgba(0, 0, 0, 0.1);
@@ -3224,9 +3301,11 @@ body {
 
 .product-detail-page .partCollection {
   background: rgb(48, 0, 86);
-  background: linear-gradient(36deg,
-      rgba(48, 0, 86, 1) 0%,
-      rgba(248, 0, 130, 0) 100%);
+  background: linear-gradient(
+    36deg,
+    rgba(48, 0, 86, 1) 0%,
+    rgba(248, 0, 130, 0) 100%
+  );
   padding: 35px;
   margin-top: 40px;
   margin-left: -19px;
@@ -3247,9 +3326,11 @@ body {
 
 .product-detail-page .progress-bar {
   background: rgb(48, 0, 86);
-  background: linear-gradient(36deg,
-      rgba(48, 0, 86, 1) 13%,
-      rgba(248, 0, 130, 1) 100%);
+  background: linear-gradient(
+    36deg,
+    rgba(48, 0, 86, 1) 13%,
+    rgba(248, 0, 130, 1) 100%
+  );
 }
 
 .product-detail-page .progress {
@@ -3360,9 +3441,11 @@ body {
   background: rgb(255, 29, 69);
   position: relative;
   margin-left: 50px;
-  background: linear-gradient(90deg,
-      rgba(196, 141, 176, 1) 13%,
-      rgba(205, 101, 185, 1) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(196, 141, 176, 1) 13%,
+    rgba(205, 101, 185, 1) 100%
+  );
   width: 120px;
   text-align: center;
   padding: 10px 0;
@@ -3611,7 +3694,8 @@ body {
 }
 
 .bannerChoose {
-  background: url(../public/images/white-bg-banner.jpg) no-repeat center 30px no-repeat;
+  background: url(../public/images/white-bg-banner.jpg) no-repeat center 30px
+    no-repeat;
   width: 100%;
   height: 100%;
   background-size: cover;
@@ -3629,25 +3713,37 @@ body {
 
 .chooseyourapparel .overlay {
   background: rgba(95, 0, 173, 0.81);
-  background: -moz-linear-gradient(45deg,
-      rgba(48, 0, 86, 0.81) 0%,
-      rgba(48, 0, 86, 0) 100%);
-  background: -webkit-gradient(left bottom,
-      right top,
-      color-stop(0%, rgba(48, 0, 86, 0.81)),
-      color-stop(100%, rgba(95, 0, 173, 0)));
-  background: -webkit-linear-gradient(45deg,
-      rgba(48, 0, 86, 0.81) 0%,
-      rgba(48, 0, 86, 0) 100%);
-  background: -o-linear-gradient(45deg,
-      rgba(48, 0, 86, 0.81) 0%,
-      rgba(48, 0, 86, 0) 100%);
-  background: -ms-linear-gradient(45deg,
-      rgba(48, 0, 86, 0.81) 0%,
-      rgba(48, 0, 86, 0) 100%);
-  background: linear-gradient(45deg,
-      rgba(48, 0, 86, 0.81) 0%,
-      rgba(48, 0, 86, 0) 100%);
+  background: -moz-linear-gradient(
+    45deg,
+    rgba(48, 0, 86, 0.81) 0%,
+    rgba(48, 0, 86, 0) 100%
+  );
+  background: -webkit-gradient(
+    left bottom,
+    right top,
+    color-stop(0%, rgba(48, 0, 86, 0.81)),
+    color-stop(100%, rgba(95, 0, 173, 0))
+  );
+  background: -webkit-linear-gradient(
+    45deg,
+    rgba(48, 0, 86, 0.81) 0%,
+    rgba(48, 0, 86, 0) 100%
+  );
+  background: -o-linear-gradient(
+    45deg,
+    rgba(48, 0, 86, 0.81) 0%,
+    rgba(48, 0, 86, 0) 100%
+  );
+  background: -ms-linear-gradient(
+    45deg,
+    rgba(48, 0, 86, 0.81) 0%,
+    rgba(48, 0, 86, 0) 100%
+  );
+  background: linear-gradient(
+    45deg,
+    rgba(48, 0, 86, 0.81) 0%,
+    rgba(48, 0, 86, 0) 100%
+  );
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5f00ad', endColorstr='#5f00ad', GradientType=1);
   width: 100%;
   height: 100%;
@@ -3695,10 +3791,12 @@ body {
 }
 
 .addTocart {
-  background: linear-gradient(-180deg,
-      #0a0310 0%,
-      rgba(34, 1, 61, 1) 30%,
-      #22013d 100%);
+  background: linear-gradient(
+    -180deg,
+    #0a0310 0%,
+    rgba(34, 1, 61, 1) 30%,
+    #22013d 100%
+  );
   height: 100vh;
 }
 
@@ -3721,9 +3819,11 @@ body {
 .addTocart .img-display {
   background: rgb(201, 214, 215);
   padding: 50px 0;
-  background: linear-gradient(36deg,
-      rgba(201, 214, 215, 0.4) 0%,
-      rgba(152, 185, 188, 0.4) 100%);
+  background: linear-gradient(
+    36deg,
+    rgba(201, 214, 215, 0.4) 0%,
+    rgba(152, 185, 188, 0.4) 100%
+  );
   border-radius: 24px;
   border: Solid 2px rgba(255, 255, 255, 0.2);
 }
@@ -3821,7 +3921,8 @@ body {
   transform: rotate(8deg);
 }
 
-.mycollection .productBar {}
+.mycollection .productBar {
+}
 
 .mycollection .productBar .imgsec {
   background: rgb(37, 126, 133, 0.2);
@@ -3931,9 +4032,11 @@ body {
   background: rgb(255, 29, 69);
   position: absolute;
   margin-left: 50px;
-  background: linear-gradient(90deg,
-      rgba(255, 135, 156, 1) 13%,
-      rgba(235, 19, 161, 0.5) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 135, 156, 1) 13%,
+    rgba(235, 19, 161, 0.5) 100%
+  );
   width: 150px;
   margin-left: auto;
   text-align: center;
@@ -4361,11 +4464,10 @@ ul.iconBar .dropdown-menu li {
   height: 140px;
   border-radius: 20px;
   margin: 10px;
-
 }
 
 .saree-info {
-font-size: 20px;
+  font-size: 20px;
   font-weight: 900;
   color: white;
   align-self: flex-end;
