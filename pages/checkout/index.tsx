@@ -13,6 +13,7 @@ import Toast from "../../utils/Toast";
 import { Address } from "../../network/gateway/Address";
 import { Auth } from "../../network/gateway/Auth";
 import AddressList from "../../app/components/common/AddressList";
+import { ClipLoader } from "react-spinners";
 
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
@@ -34,16 +35,18 @@ const CheckoutScreen: NextPage = () => {
     county: "Sunnyville",
     country: "IN",
   });
-  const [errors, setErrors] = useState<any>({});
   const [grandTotal, setGrandTotal] = useState("");
   const [afterCartItems, setAfterCartItems] = useState<Number>();
   const [customerData, setCustomerData] = useState<any>();
   const ISSERVER = typeof window === "undefined";
+  const [allAddress, setAllAddress] = useState<any>([]);
+
+
 
   useEffect(() => {
     let customer_id: any = LocalStorageService.getCustomerId();
     setCustomerId(customer_id);
-    return () => {};
+    return () => { };
   }, []);
   const isLogin = useUserStore((state: any) => state.isLogin, shallow);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
@@ -51,6 +54,7 @@ const CheckoutScreen: NextPage = () => {
     if (isLogin) {
       getCustomerCart();
       getCustomerData();
+      getAddress();
     } else {
       setLoginPopup(true);
     }
@@ -60,6 +64,7 @@ const CheckoutScreen: NextPage = () => {
     Cart.getInstance()
       .getCustomerCart()
       .then((info: any) => {
+        setLoading(!loading)
         setCartItems(info.data.data);
         setGrandTotal(info?.data.grandTotal);
         //console.log("this is")
@@ -74,7 +79,16 @@ const CheckoutScreen: NextPage = () => {
         setCustomerData(data?.data);
       });
   }
+  function getAddress() {
+    Address.getInstance()
+      .getAllAddress()
+      .then((data: any) => {
+        setAllAddress(data?.data)
+        console.log("this is all Address", data?.data)
 
+      });
+
+  }
   const handleChange = (e: any) => {
     fields[e.target.name] = e.target.value;
     addressFields[e.target.name] = e.target.value;
@@ -164,7 +178,7 @@ const CheckoutScreen: NextPage = () => {
         .catch((error) => {
           console.log("error", error);
         });
-    //  console.log("this is addaddress fields", param);
+      //  console.log("this is addaddress fields", param);
     } else {
       setLoginPopup(true);
     }
@@ -174,98 +188,98 @@ const CheckoutScreen: NextPage = () => {
     //setOpenTab(openTab == 2 ? 0 : 2)
   }
 
-
+  console.log("this is addddd", allAddress.data)
 
   function renderAddressList() {
     const address = [
-          {
-            id: "2786812a-0bc9-4aaf-a73d-6799d5699876",
-            type: "address",
-            name: "",
-            first_name: "chap",
-            last_name: "Swanson",
-            company_name: "",
-            phone_number: "",
-            line_1: "1 Sunny Street",
-            line_2: "2342342",
-            city: "Sunny Town",
-            postcode: "SU33 1YY",
-            county: "Sunnyville",
-            region: "",
-            country: "GB",
-            instructions: "",
-            links: {
-              self: "https://api.moltin.com/v2/addresses/2786812a-0bc9-4aaf-a73d-6799d5699876",
-            },
-            meta: {
-              timestamps: {
-                created_at: "2022-08-18T07:42:55.966Z",
-                updated_at: "2022-08-18T07:42:55.966Z",
-              },
-            },
+      {
+        id: "2786812a-0bc9-4aaf-a73d-6799d5699876",
+        type: "address",
+        name: "",
+        first_name: "chap",
+        last_name: "Swanson",
+        company_name: "",
+        phone_number: "",
+        line_1: "1 Sunny Street",
+        line_2: "2342342",
+        city: "Sunny Town",
+        postcode: "SU33 1YY",
+        county: "Sunnyville",
+        region: "",
+        country: "GB",
+        instructions: "",
+        links: {
+          self: "https://api.moltin.com/v2/addresses/2786812a-0bc9-4aaf-a73d-6799d5699876",
+        },
+        meta: {
+          timestamps: {
+            created_at: "2022-08-18T07:42:55.966Z",
+            updated_at: "2022-08-18T07:42:55.966Z",
           },
-          {
-            id: "2786812a-0bc9-4aaf-a73d-6799d5699876",
-            type: "address",
-            name: "",
-            first_name: "chap",
-            last_name: "Swanson",
-            company_name: "",
-            phone_number: "",
-            line_1: "1 Sunny Street",
-            line_2: "2342342",
-            city: "Sunny Town",
-            postcode: "SU33 1YY",
-            county: "Sunnyville",
-            region: "",
-            country: "GB",
-            instructions: "",
-            links: {
-              self: "https://api.moltin.com/v2/addresses/2786812a-0bc9-4aaf-a73d-6799d5699876",
-            },
-            meta: {
-              timestamps: {
-                created_at: "2022-08-18T07:42:55.966Z",
-                updated_at: "2022-08-18T07:42:55.966Z",
-              },
-            },
+        },
+      },
+      {
+        id: "2786812a-0bc9-4aaf-a73d-6799d5699876",
+        type: "address",
+        name: "",
+        first_name: "chap",
+        last_name: "Swanson",
+        company_name: "",
+        phone_number: "",
+        line_1: "1 Sunny Street",
+        line_2: "2342342",
+        city: "Sunny Town",
+        postcode: "SU33 1YY",
+        county: "Sunnyville",
+        region: "",
+        country: "GB",
+        instructions: "",
+        links: {
+          self: "https://api.moltin.com/v2/addresses/2786812a-0bc9-4aaf-a73d-6799d5699876",
+        },
+        meta: {
+          timestamps: {
+            created_at: "2022-08-18T07:42:55.966Z",
+            updated_at: "2022-08-18T07:42:55.966Z",
           },
-          {
-            id: "2786812a-0bc9-4aaf-a73d-6799d5699876",
-            type: "address",
-            name: "",
-            first_name: "chap",
-            last_name: "Swanson",
-            company_name: "",
-            phone_number: "",
-            line_1: "1 Sunny Street",
-            line_2: "2342342",
-            city: "Sunny Town",
-            postcode: "SU33 1YY",
-            county: "Sunnyville",
-            region: "",
-            country: "GB",
-            instructions: "",
-            links: {
-              self: "https://api.moltin.com/v2/addresses/2786812a-0bc9-4aaf-a73d-6799d5699876",
-            },
-            meta: {
-              timestamps: {
-                created_at: "2022-08-18T07:42:55.966Z",
-                updated_at: "2022-08-18T07:42:55.966Z",
-              },
-            },
+        },
+      },
+      {
+        id: "2786812a-0bc9-4aaf-a73d-6799d5699876",
+        type: "address",
+        name: "",
+        first_name: "chap",
+        last_name: "Swanson",
+        company_name: "",
+        phone_number: "",
+        line_1: "1 Sunny Street",
+        line_2: "2342342",
+        city: "Sunny Town",
+        postcode: "SU33 1YY",
+        county: "Sunnyville",
+        region: "",
+        country: "GB",
+        instructions: "",
+        links: {
+          self: "https://api.moltin.com/v2/addresses/2786812a-0bc9-4aaf-a73d-6799d5699876",
+        },
+        meta: {
+          timestamps: {
+            created_at: "2022-08-18T07:42:55.966Z",
+            updated_at: "2022-08-18T07:42:55.966Z",
           },
-        ]
+        },
+      },
+    ]
 
     return (
       <AddressList
         isVisible={showAddress}
-        data={address}
+        data={allAddress.data}
         onClose={() => {
           setShowAddress(false);
         }}
-        onSelect={(index) => {
+        onSelect={() => {
           setShowAddress(false);
         }}
       />
@@ -394,11 +408,11 @@ const CheckoutScreen: NextPage = () => {
                   >
                     <h2
                       className="accordion-header"
-                      // id="headingOne"
-                      // onClick={() => {
-                      //   setLoginPopup(false)
-                      //   setOpenTab(openTab == 1 ? 0 : 1)
-                      // }}
+                    // id="headingOne"
+                    // onClick={() => {
+                    //   setLoginPopup(false)
+                    //   setOpenTab(openTab == 1 ? 0 : 1)
+                    // }}
                     >
                       <button
                         className="accordion-button font-sb collapsed"
@@ -525,7 +539,7 @@ const CheckoutScreen: NextPage = () => {
                                 name="last_name"
                               />
                               <div className="invalid-feedback">
-                                {errors.lastName}
+
                               </div>
                             </div>
                             <div className="col-12  mb-4">
@@ -572,7 +586,7 @@ const CheckoutScreen: NextPage = () => {
                                 required
                                 onChange={handleChange}
                                 name="city"
-                                //value={city}
+                              //value={city}
                               />
                             </div>
                             <div className="col-md-3 ">
@@ -656,7 +670,7 @@ const CheckoutScreen: NextPage = () => {
                                 name="delivery"
                                 type="radio"
                                 className="form-check-input"
-                                //required
+                              //required
                               />
                               <label
                                 className="form-check-label ms-2 me-4"
@@ -940,7 +954,7 @@ const CheckoutScreen: NextPage = () => {
                     </div>
                   </div>
                 )}
-                {cartItems?.length == 0 && (
+                {!loading && cartItems?.length == 0 ? (
                   <div style={{ marginLeft: 430, marginTop: 100 }}>
                     <div className="text-center">
                       <h1 className="fs-30 font-b text-color-2 list-inline-item">
@@ -956,7 +970,14 @@ const CheckoutScreen: NextPage = () => {
                       </div>
                     </div>
                   </div>
-                )}
+                ) : <div style={{ marginLeft: 430, marginTop: 100 }}>
+                  <div className="text-center">
+                    <div style={{ marginBottom: 400 }}>
+                      <ClipLoader loading={loading} size={100} />
+
+                    </div>
+                  </div>
+                </div>}
               </div>
             </div>
             {cartItems?.length != 0 && (

@@ -75,7 +75,31 @@ export class Address extends HTTPBaseService {
         });
     };
 
+    public getAllAddress = () => {
+        return new Promise((resolve: any, reject: any) => {
+          this.instance
+            .get(API.GET_ALL_ADDRESS + "/" + Address.getCustomerId())
+            .then((response) => {
+              if (response.status == 200) {
+                let message = response.data.msg ?? "";
 
+                //Toast.showSuccess(message);
+                resolve(response);
+              } else {
+                let message = response.data.msg ?? "";
+                Toast.showError(message);
+                reject(response);
+              }
+            })
+            .catch((error) => {
+              console.log("Error", error);
+              Toast.showError(
+                JSON.parse(error.response.request.response).msg.detail
+              );
+              reject(error);
+            });
+        });
+      };
 
 
 }

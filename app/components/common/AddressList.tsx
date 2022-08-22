@@ -7,6 +7,7 @@ interface iProps {
   onSelect?: (index: number) => void;
   isVisible: boolean;
   data: any;
+  onClose?: () => void;
 }
 
 const AddressList = (props: iProps) => {
@@ -26,7 +27,7 @@ const AddressList = (props: iProps) => {
           data-bs-dismiss="modal"
           aria-label="Close"
           onClick={() => {
-            props?.data.onClose(false);
+            props.onClose(false);
           }}
         />
         <div className="modal-body p-0">
@@ -71,11 +72,15 @@ const AddressList = (props: iProps) => {
                                 <i className="icofont-location-pin icofont-3x"></i>
                               </div>
                               <div className="media-body">
-                                <h6 className="mb-1">{info.country}</h6>
-                                <h6 className="mb-1">{info.city}</h6>
-                                <h6 className="mb-1">{info.postcode}</h6>
+                                <h6 className="mb-1">{info.first_name}</h6>
 
-                                <p>{info.line_1}</p>
+                                <h6 className="mb-1">{info.city}</h6>
+
+
+                                <h6 className="mb-1">{info.postcode}</h6>
+                                <h6 className="mb-1">{info.country}</h6>
+
+
                               </div>
                             </div>
                           </div>
@@ -83,7 +88,7 @@ const AddressList = (props: iProps) => {
                             <button
                               type="button"
                               className="btn btn-sm m-4 mt-md-0"
-                              onClick={() => info?.onSelect(index)}
+                              onClick={() => { props.onSelect(index) }}
                             >
                               Select
                             </button>
