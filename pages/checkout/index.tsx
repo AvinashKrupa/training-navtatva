@@ -29,7 +29,7 @@ const CheckoutScreen: NextPage = () => {
     county: "Sunnyville",
     country: "INDIA",
   });
-  let [addressFields, AddressFieldsetField] = useState<any>({
+  let [addressFields, setAddressFields] = useState<any>({
     type: "address",
     county: "Sunnyville",
     country: "IN",
@@ -72,13 +72,14 @@ const CheckoutScreen: NextPage = () => {
       .getAllAddress()
       .then((data: any) => {
         setAllAddress(data?.data.data)
-        console.log("this is all Address", data)
+        //console.log("this is all Address", data)
       });
 
   }
   const handleChange = (e: any) => {
     fields[e.target.name] = e.target.value;
     addressFields[e.target.name] = e.target.value;
+
   };
 
   function validateForm() {
@@ -111,6 +112,7 @@ const CheckoutScreen: NextPage = () => {
           let newCartItem = cartItems;
           newCartItem.splice(index, 1);
           setCartItems([...newCartItem]);
+
         }
       });
   }
@@ -137,7 +139,8 @@ const CheckoutScreen: NextPage = () => {
       Address.getInstance()
         .addAddress(param)
         .then((data: any) => {
-
+          //console.log("this is address", data.data)
+          setAllAddress([...allAddress, data.data.data])
         })
         .catch((error) => {
           console.log("error", error);
@@ -146,10 +149,9 @@ const CheckoutScreen: NextPage = () => {
     } else {
       setLoginPopup(true);
     }
+
   }
-
-
-  function deleteAddress(id: any, index: any) {
+function deleteAddress(id: any, index: any) {
     Address.getInstance()
       .deleteAddress(id)
       .then((response: any) => {
@@ -157,7 +159,10 @@ const CheckoutScreen: NextPage = () => {
           let newAllAddress = allAddress
           newAllAddress.splice(index, 1);
           setAllAddress([...newAllAddress]);
-          console.log("this is all address after delete", allAddress)
+          //.log("this is all address after delete", allAddress)
+          if (newAllAddress.length === 0) {
+            setShowAddress(false);
+          }
         }
       });
   }
@@ -173,9 +178,10 @@ const CheckoutScreen: NextPage = () => {
         }}
         onSelect={(id) => {
           setShowAddress(false);
-          //console.log("this is index",id)
-          setField(allAddress.data[id])
-          console.log("this is array list ", fields)
+
+          setAddressFields(allAddress[id])
+          setField(allAddress[id])
+
 
         }}
         deleteAddress={deleteAddress}
@@ -183,7 +189,7 @@ const CheckoutScreen: NextPage = () => {
     );
   }
 
-
+  //console.log("this is all address", allAddress)
 
   return (
     <div className="shoppingCart checkoutPage">
@@ -222,7 +228,7 @@ const CheckoutScreen: NextPage = () => {
                               <span className="wordtype">B</span> SHIPPING ADDRESS
                             </button>
                           </div>
-                          {allAddress?.data?.length !== 0 && <div
+                          {allAddress.length !== 0 && <div
                             className="col-md-6"
                             style={{ alignItems: "flex-end" }}
                           >
@@ -251,7 +257,7 @@ const CheckoutScreen: NextPage = () => {
                         data-bs-parent="#accordionExample"
                       >
 
-                        <CheckoutStepB handleChange={handleChange} checkout={checkout} paymentMethod={paymentMethod} fields={fields}
+                        <CheckoutStepB handleChange={handleChange} checkout={checkout} paymentMethod={paymentMethod} addressFields={addressFields}
                           openTab={openTab}
                           setOpenTab={setOpenTab} />
                       </div>
