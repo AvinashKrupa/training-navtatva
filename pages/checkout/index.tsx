@@ -174,6 +174,10 @@ const CheckoutScreen: NextPage = () => {
         .addAddress(param)
         .then((data: any) => {
           //console.log("this is add Addrsss data", data.data);
+          let newAllAddress = allAddress.data;
+
+          setAllAddress([...newAllAddress]);
+
         })
         .catch((error) => {
           console.log("error", error);
@@ -187,7 +191,24 @@ const CheckoutScreen: NextPage = () => {
   function updateAddress() {
     //setOpenTab(openTab == 2 ? 0 : 2)
   }
+  function deleteAddress(id: any, index: any) {
+    //console.log("this is delete address",id,index)
+    Address.getInstance()
+      .deleteAddress(id)
+      .then((response: any) => {
+        if (response.statusText === "OK") {
+          // setStoreFiles([...prevFiles.slice(0, index), ...prevFiles.slice(index +
+          //   1)])
+          let newAllAddress = allAddress.data;
+          newAllAddress.splice(index, 1);
+          setAllAddress([...newAllAddress]);
 
+        }
+      });
+
+
+
+  }
   //console.log("this is addddd", allAddress.data)
 
   function renderAddressList() {
@@ -282,13 +303,16 @@ const CheckoutScreen: NextPage = () => {
         onSelect={(id) => {
           setShowAddress(false);
           //console.log("this is index",id)
-          setField(allAddress.data[id] )
-          console.log("this is array list ",fields)
+          setField(allAddress.data[id])
+          console.log("this is array list ", fields)
 
         }}
+        deleteAddress={deleteAddress}
       />
     );
   }
+
+
 
   return (
     <div className="shoppingCart checkoutPage">
@@ -479,7 +503,7 @@ const CheckoutScreen: NextPage = () => {
                             <span className="wordtype">B</span> SHIPPING ADDRESS
                           </button>
                         </div>
-                        <div
+                       {allAddress?.data?.length !==0 && <div
                           className="col-md-6"
                           style={{ alignItems: "flex-end" }}
                         >
@@ -494,7 +518,7 @@ const CheckoutScreen: NextPage = () => {
                           >
                             Select Address
                           </button>
-                        </div>
+                        </div>}
                       </div>
                     </h2>
 
@@ -594,8 +618,8 @@ const CheckoutScreen: NextPage = () => {
                                 required
                                 onChange={handleChange}
                                 name="city"
-                              //value={city}
-                              value={fields.city}
+                                //value={city}
+                                value={fields.city}
                               />
                             </div>
                             <div className="col-md-3 ">
@@ -674,7 +698,7 @@ const CheckoutScreen: NextPage = () => {
                               type="button"
 
                             >
-                             Next
+                              Next
                             </button>
                           </div>
                           <div className="seprtor">

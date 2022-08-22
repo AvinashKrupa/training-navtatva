@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 import { useRouter } from "next/router";
+import { AiFillDelete } from "react-icons/ai";
 
 interface iProps {
   onClick?: () => void;
@@ -8,9 +9,11 @@ interface iProps {
   isVisible: boolean;
   data: any;
   onClose?: () => void;
+  deleteAddress?:(id:any,index:number)=> void
 }
 
 const AddressList = (props: iProps) => {
+
   const router = useRouter();
   return (
     <Modal
@@ -70,6 +73,9 @@ const AddressList = (props: iProps) => {
                             <div className="media">
                               <div className="mr-3">
                                 <i className="icofont-location-pin icofont-3x"></i>
+                               <div style={{textAlign:'end',fontSize:25,cursor:'pointer'}} onClick={()=>{props?.deleteAddress(info.id,index)
+
+                               }}> <AiFillDelete/>  </div>
                               </div>
                               <div className="media-body">
                                 <h6 className="mb-1">{info.first_name}</h6>
