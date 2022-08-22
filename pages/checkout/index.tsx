@@ -64,7 +64,7 @@ const CheckoutScreen: NextPage = () => {
     Cart.getInstance()
       .getCustomerCart()
       .then((info: any) => {
-        setLoading(!loading)
+        setLoading(true)
         setCartItems(info.data.data);
         setGrandTotal(info?.data.grandTotal);
         //console.log("this is")
@@ -282,8 +282,8 @@ const CheckoutScreen: NextPage = () => {
         onSelect={(id) => {
           setShowAddress(false);
           //console.log("this is index",id)
-          setField({...allAddress.data[id]})
-          console.log("this is array list ",allAddress.data[id])
+          setField(allAddress.data[id] )
+          console.log("this is array list ",fields)
 
         }}
       />
@@ -522,6 +522,7 @@ const CheckoutScreen: NextPage = () => {
                                 placeholder=""
                                 required
                                 onChange={handleChange}
+                                value={fields.first_name}
                               />
 
                               <div className="invalid-feedback"></div>
@@ -541,6 +542,7 @@ const CheckoutScreen: NextPage = () => {
                                 onChange={handleChange}
                                 //value={lastName}
                                 name="last_name"
+                                value={fields.last_name}
                               />
                               <div className="invalid-feedback">
 
@@ -559,6 +561,7 @@ const CheckoutScreen: NextPage = () => {
                                 //onChange={onChangeAddress_1}
                                 onChange={handleChange}
                                 name="line_1"
+                                value={fields.line_1}
                               />
                             </div>
                             <div className="col-12  mb-4">
@@ -575,6 +578,7 @@ const CheckoutScreen: NextPage = () => {
                                 onChange={handleChange}
                                 name="line_2"
                                 required
+                                value={fields.line_2}
                               />
                             </div>
                             <div className="col-sm-6  mb-4">
@@ -591,6 +595,7 @@ const CheckoutScreen: NextPage = () => {
                                 onChange={handleChange}
                                 name="city"
                               //value={city}
+                              value={fields.city}
                               />
                             </div>
                             <div className="col-md-3 ">
@@ -606,6 +611,7 @@ const CheckoutScreen: NextPage = () => {
                                 // value={postcode}
                                 onChange={handleChange}
                                 name="postcode"
+                                value={fields.postcode}
                               />
                             </div>
                           </div>
@@ -653,16 +659,23 @@ const CheckoutScreen: NextPage = () => {
                               type="button"
                               onClick={checkout}
                             >
-                              {/* Save &amp; Deliver Here */} Next
+                              Save &amp; Deliver Here
                             </button>
                             {/* <ClipLoader  loading={!loading} size={30} /> */}
-                            <a
+                            {/* <a
                               href="#"
                               className="text-color-3 fs-16 font-sb ms-4"
                               type="submit"
                             >
                               Cancel
-                            </a>
+                            </a> */}
+                            <button
+                              className="btn  btn-lg fs-16 m-2"
+                              type="button"
+
+                            >
+                             Next
+                            </button>
                           </div>
                           <div className="seprtor">
                             <span>or</span>
@@ -977,7 +990,7 @@ const CheckoutScreen: NextPage = () => {
                 ) : <div style={{ marginLeft: 430, marginTop: 100 }}>
                   <div className="text-center">
                     <div style={{ marginBottom: 400 }}>
-                      <ClipLoader loading={!loading} size={100} />
+                      {!loading && <ClipLoader loading={!loading} size={100} />}
 
                     </div>
                   </div>
