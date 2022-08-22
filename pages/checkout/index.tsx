@@ -23,7 +23,7 @@ const CheckoutScreen: NextPage = () => {
   let [customerId, setCustomerId] = useState<string>("");
   let [showAddress, setShowAddress] = useState<boolean>(false);
 
-  let [loading, setLoading] = useState(true);
+  let [loading, setLoading] = useState(false);
   const [cartItems, setCartItems] = useState<any>([]);
   let [fields, setField] = useState<any>({
     company_name: "",
@@ -188,7 +188,7 @@ const CheckoutScreen: NextPage = () => {
     //setOpenTab(openTab == 2 ? 0 : 2)
   }
 
-  console.log("this is addddd", allAddress.data)
+  //console.log("this is addddd", allAddress.data)
 
   function renderAddressList() {
     const address = [
@@ -279,8 +279,12 @@ const CheckoutScreen: NextPage = () => {
         onClose={() => {
           setShowAddress(false);
         }}
-        onSelect={() => {
+        onSelect={(id) => {
           setShowAddress(false);
+          //console.log("this is index",id)
+          setField({...allAddress.data[id]})
+          console.log("this is array list ",allAddress.data[id])
+
         }}
       />
     );
@@ -954,7 +958,7 @@ const CheckoutScreen: NextPage = () => {
                     </div>
                   </div>
                 )}
-                {!loading && cartItems?.length == 0 ? (
+                {loading && cartItems?.length == 0 ? (
                   <div style={{ marginLeft: 430, marginTop: 100 }}>
                     <div className="text-center">
                       <h1 className="fs-30 font-b text-color-2 list-inline-item">
@@ -973,7 +977,7 @@ const CheckoutScreen: NextPage = () => {
                 ) : <div style={{ marginLeft: 430, marginTop: 100 }}>
                   <div className="text-center">
                     <div style={{ marginBottom: 400 }}>
-                      <ClipLoader loading={loading} size={100} />
+                      <ClipLoader loading={!loading} size={100} />
 
                     </div>
                   </div>
