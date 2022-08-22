@@ -560,6 +560,7 @@ const CheckoutScreen: NextPage = () => {
                       fields = {fields}
                       validateForm={validateForm}
                       addAddress={addAddress}
+                      grandTotal={grandTotal}
                     />
                   </>
                 )}
