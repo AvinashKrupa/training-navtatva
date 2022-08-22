@@ -3,7 +3,7 @@ import { AiOutlineCheck } from "react-icons/ai";
 import { Auth } from "../../../network/gateway/Auth";
 
 const CheckoutStepA = (props: any) => {
-    
+
     const [customerData, setCustomerData] = useState<any>();
 
     useEffect(() => {
@@ -60,12 +60,12 @@ const CheckoutStepA = (props: any) => {
                     </span>
                 </p>
                 <h1 className="fs-22  font-sb">
-                    {customerData?.data.userDetails.name}
+                    {customerData?.data?.userDetails.name}
                 </h1>
             </div>
             <h1 className="fs-22  font-sb mr-5">
                 +91
-                {" " + customerData?.data.businessDetails.whatsapp_number}
+                {" " + customerData?.data?.businessDetails?.whatsapp_number}
             </h1>
             <div></div>
 
