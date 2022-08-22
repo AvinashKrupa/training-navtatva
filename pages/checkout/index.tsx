@@ -94,12 +94,19 @@ const CheckoutScreen: NextPage = () => {
     addressFields[e.target.name] = e.target.value;
   };
 
+  function paymentMethod() {
+    let validationFunction = validateForm();
+    if (validationFunction) {
+      setOpenTab(openTab == 3 ? 0 : 3);
+    }
+  }
+
   function checkout(e: any) {
     e.preventDefault();
     let validationFunction = validateForm();
     if (validationFunction) {
       addAddress();
-      setOpenTab(openTab == 3 ? 0 : 3);
+      //setOpenTab(openTab == 3 ? 0 : 3);
     }
   }
 
@@ -174,9 +181,8 @@ const CheckoutScreen: NextPage = () => {
         .addAddress(param)
         .then((data: any) => {
           //console.log("this is add Addrsss data", data.data);
-          let newAllAddress = allAddress.data;
+          setAllAddress([...allAddress,data])
 
-          setAllAddress([...newAllAddress]);
 
         })
         .catch((error) => {
@@ -503,7 +509,7 @@ const CheckoutScreen: NextPage = () => {
                             <span className="wordtype">B</span> SHIPPING ADDRESS
                           </button>
                         </div>
-                       {allAddress?.data?.length !==0 && <div
+                        {allAddress?.data?.length !== 0 && <div
                           className="col-md-6"
                           style={{ alignItems: "flex-end" }}
                         >
@@ -697,6 +703,7 @@ const CheckoutScreen: NextPage = () => {
                               className="btn  btn-lg fs-16 m-2"
                               type="button"
 
+                              onClick={paymentMethod}
                             >
                               Next
                             </button>
