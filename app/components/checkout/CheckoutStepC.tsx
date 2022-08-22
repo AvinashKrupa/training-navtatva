@@ -1,7 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 import { TbCurrencyRupee } from "react-icons/tb";
+import { Cart } from "../../../network/gateway/Cart";
 
 const CheckoutStepC = (props: any) => {
+    const router = useRouter();
+    const [paymentTab, setpaymentTab] = useState<number>(3);
+    function checkoutApi() {
+        if (props.validateForm()) {
+            const param = {
+                data: {
+                    customer: {
+                        id: props.customerId,
+                    },
+                    billing_address: props.fields,
+                    shipping_address: props.fields,
+                },
+            };
+            Cart.getInstance()
+                .checkout(param)
+                .then((data: any) => {
+                    console.log("checkout info", data.data.data.id);
+                    if (data.status) {
+                        router.push({
+                            pathname: "/thankyou",
+                            query: { id: data?.data?.data.id },
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.log("error", error);
+                });
+        }
+    }
     return (
         <div className="accordion-item bgbar ms-0">
             <h2
@@ -17,7 +48,7 @@ const CheckoutStepC = (props: any) => {
                     aria-expanded="false"
                     aria-controls="collapseThree"
                 >
-                    <span className="wordtype">C</span> PAYMENT METHOD{" "}
+                    <span className="wordtype">C</span> PAYMENT METHOD
                 </button>
             </h2>
             <div
@@ -31,7 +62,7 @@ const CheckoutStepC = (props: any) => {
             >
                 <div className="accordion-body">
                     <div className="my-3">
-                        <div data-toggle="collapse" >
+                        <div data-toggle="collapse">
                             <input
                                 id="credit"
                                 name="paymentMethod"
@@ -41,9 +72,10 @@ const CheckoutStepC = (props: any) => {
                                 data-target="#multiCollapseExample1"
                                 aria-expanded="false"
                                 aria-controls="multiCollapseExample1"
-
                                 required
-                                onClick={() => props.setPaymentTab(props.paymentTab == 1 ? 0 : 1)}
+                                onClick={() =>
+                                    setpaymentTab(paymentTab == 1 ? 0 : 1)
+                                }
                             />
                             <label
                                 className="form-check-label fs-16 font-sb ms-2"
@@ -52,13 +84,18 @@ const CheckoutStepC = (props: any) => {
                                 Credit card
                             </label>
                         </div>
-                        <div className={"collapse multi-collaps " + (props.paymentTab == 1 ? "show" : "")} id="multiCollapseExample1">
-
-
-                            <label className="form-label mt-4">Saved Cards</label>
+                        <div
+                            className={
+                                "collapse multi-collaps " +
+                                (paymentTab == 1 ? "show" : "")
+                            }
+                            id="multiCollapseExample1"
+                        >
+                            <label className="form-label mt-4">
+                                Saved Cards
+                            </label>
                             <ul>
                                 <li className="list-inline-item">
-                                    {" "}
                                     <a href="#">
                                         <img
                                             src="images/credit-1.png"
@@ -68,7 +105,6 @@ const CheckoutStepC = (props: any) => {
                                     </a>
                                 </li>
                                 <li className="list-inline-item">
-                                    {" "}
                                     <a href="#">
                                         <img
                                             src="images/credit-2.png"
@@ -91,7 +127,9 @@ const CheckoutStepC = (props: any) => {
                             <ul>
                                 <li className="list-inline-item">
                                     <div className="mt-4">
-                                        <label className="form-label">Valid Date</label>
+                                        <label className="form-label">
+                                            Valid Date
+                                        </label>
                                         <div className="quantity d-flex px-2">
                                             <select
                                                 className="form-select fs-14 font-r text-color-2"
@@ -131,11 +169,13 @@ const CheckoutStepC = (props: any) => {
                                 </li>
                                 <li className="list-inline-item">
                                     <button
-                                        onClick={props.checkoutApi}
+                                        onClick={checkoutApi}
                                         className="btn btn-lg fs-16"
                                         type="submit"
                                     >
-                                        {/* Pay ₹16,994{" "} */} Pay <TbCurrencyRupee />{props.grandTotal}
+                                        {/* Pay ₹16,994 */} Pay
+                                        <TbCurrencyRupee />
+                                        {props.grandTotal}
                                     </button>
                                 </li>
                             </ul>
@@ -153,7 +193,9 @@ const CheckoutStepC = (props: any) => {
                                 data-target="#multiCollapseExample2"
                                 aria-expanded="false"
                                 aria-controls="multiCollapseExample2"
-                                onClick={() => props.setPaymentTab(props.paymentTab == 2 ? 0 : 2)}
+                                onClick={() =>
+                                    setpaymentTab(paymentTab == 2 ? 0 : 2)
+                                }
                             />
                             <label
                                 className="form-check-label fs-16 font-sb ms-2"
@@ -173,19 +215,25 @@ const CheckoutStepC = (props: any) => {
                                     viewBox="0 0 16 16"
                                 >
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />{" "}
+                                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                                 </svg>
                                 Offers not Valid on Guest Login
                             </p>
                         </div>
                     </div>
-                    <div className={"collapse multi-collaps " + (props.paymentTab == 2 ? "show" : "")} id="multiCollapseExample2">
-
-
+                    <div
+                        className={
+                            "collapse multi-collaps " +
+                            (paymentTab == 2 ? "show" : "")
+                        }
+                        id="multiCollapseExample2"
+                    >
                         <div className="mt-4">
                             <ul>
                                 <li className="list-inline-item col-md-8">
-                                    <label className="form-label">Enter UPI ID</label>
+                                    <label className="form-label">
+                                        Enter UPI ID
+                                    </label>
                                     <input
                                         type="text"
                                         className="form-control "
@@ -195,17 +243,20 @@ const CheckoutStepC = (props: any) => {
                                         data-target="#multiCollapseExample3"
                                         aria-expanded="false"
                                         aria-controls="multiCollapseExample3"
-                                        onClick={() => props.setPaymentTab(props.paymentTab == 3 ? 0 : 3)}
+                                        onClick={() =>
+                                            setpaymentTab(paymentTab == 3 ? 0 : 3)
+                                        }
                                     />
                                 </li>
                                 <li className="list-inline-item">
-                                    {" "}
                                     <button
-                                        onClick={props.checkoutApi}
+                                        onClick={checkoutApi}
                                         className="btn btn-lg fs-16 mt-3 mt-md-0"
                                         type="submit"
                                     >
-                                        {/* Pay ₹16,994{" "} */}Pay <TbCurrencyRupee />{props.grandTotal}
+                                        {/* Pay ₹16,994 */}Pay
+                                        <TbCurrencyRupee />
+                                        {props.grandTotal}
                                     </button>
                                 </li>
                             </ul>
@@ -219,13 +270,15 @@ const CheckoutStepC = (props: any) => {
                                 type="radio"
                                 className="form-check-input"
                                 required
-                                onClick={() => props.setPaymentTab(props.paymentTab == 3 ? 0 : 3)}
+                                onClick={() =>
+                                    setpaymentTab(paymentTab == 3 ? 0 : 3)
+                                }
                             />
                             <label
                                 className="form-check-label fs-16 font-sb ms-2"
                                 htmlFor="debit"
                             >
-                                Cash On Delivery{" "}
+                                Cash On Delivery
                             </label>
                         </div>
                         <div className="upi-amount bgred">
@@ -239,9 +292,9 @@ const CheckoutStepC = (props: any) => {
                                     viewBox="0 0 16 16"
                                 >
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />{" "}
+                                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                                 </svg>
-                                Extra ₹129 Convinience Fee{" "}
+                                Extra ₹129 Convinience Fee
                             </p>
                         </div>
                     </div>
