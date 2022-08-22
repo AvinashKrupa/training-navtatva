@@ -6,6 +6,7 @@ const ValidationMessage = {
   validEmail: "Please enter valid e-mail Id",
   password: "Please enter password",
   validPassword: "Please enter valid password",
+  couponCode: "Please enter coupon code",
 };
 
 export default ValidationMessage;

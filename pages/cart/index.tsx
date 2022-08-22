@@ -10,9 +10,13 @@ import { Cart } from "../../network/gateway/Cart";
 import shallow from "zustand/shallow";
 import useUserStore from "../../zustand/store";
 import { occasionSetting } from "../../utils/sliderConfig";
+import ValidationMessage from "../../app/constants/validationMessage";
+import Validators from "../../utils/Validator";
+import Toast from "../../utils/Toast";
 
 const CartScreen: NextPage = () => {
   const [cartItems, setCartItems] = useState<any>([]);
+  const [couponCode, setCouponCode] = useState<any>("");
   const [subTotal, setSubTotal] = useState<any>();
   const [youMayLikeList, setYouMayLikeList] = useState<any>([]);
   const isLogin = useUserStore((state: any) => state.isLogin, shallow);
@@ -34,6 +38,33 @@ const CartScreen: NextPage = () => {
         setSubTotal(info.data.grandTotal);
         console.log("this is cart items", info.data);
       });
+  }
+
+  function isValidCouponCode() {
+    if (Validators.isEmpty(couponCode)) {
+      Toast.showError(ValidationMessage.couponCode);
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  function applyCouponCode() {
+    if (isValidCouponCode()) {
+      let data = {
+        data: {
+          type: "promotion_item",
+          code: couponCode,
+        },
+      };
+      Cart.getInstance()
+        .applyCouponCode(data)
+        .then((response: any) => {
+          if (response.statusText === "OK") {
+            setCartItems(response.data.data);
+          }
+        });
+    }
   }
 
   function removeCart(id: any, index: any) {
@@ -145,10 +176,21 @@ const CartScreen: NextPage = () => {
                       Have a Promo Code?
                     </label>
                     <div className="col-sm-12 position-relative">
-                      <input type="text" className="form-control" />
+                      <input
+                        value={couponCode}
+                        onChange={(event) => {
+                          setCouponCode(event.target.value);
+                        }}
+                        type="text"
+                        className="form-control"
+                      />
                       <a
                         href="#"
                         className=" fs-16 font-sb text-color-3 text-end apply"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          applyCouponCode();
+                        }}
                       >
                         Apply
                       </a>
