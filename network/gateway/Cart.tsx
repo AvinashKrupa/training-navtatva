@@ -95,6 +95,7 @@ export class Cart extends HTTPBaseService {
         })
         .catch((error) => {
           console.log("Error", error);
+          console.log("Error", error);
           Toast.showError(
             JSON.parse(error.response.request.response).msg.detail
           );
@@ -166,9 +167,8 @@ export class Cart extends HTTPBaseService {
         })
         .catch((error) => {
           console.log("Error", error);
-          Toast.showError(
-            JSON.parse(error.response.request.response).msg.detail
-          );
+          Toast.showError(error.message);
+
           reject(error);
         });
     });
