@@ -4,6 +4,54 @@ const CheckoutStepB = (props: any) => {
 
   return (
     <>
+     <div className="accordion-item bgbar ms-0">
+                      <h2
+                        className="accordion-header"
+                        id="headingTwo"
+                        onClick={() => props.setOpenTab(props.openTab == 2 ? 0 : 2)}
+                      >
+                        <div className="row">
+                          <div className="col-md-6">
+                            <button
+                              className="accordion-button font-sb collapsed"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#collapseTwo"
+                              aria-expanded="false"
+                              aria-controls="collapseTwo"
+                            >
+                              <span className="wordtype">B</span> SHIPPING ADDRESS
+                            </button>
+                          </div>
+                          {props.allAddress.length !== 0 && <div
+                            className="col-md-6"
+                            style={{ alignItems: "flex-end" }}
+                          >
+                            <button
+                              className="btn fs-14 float-end"
+                              type="button"
+                              style={{ marginTop: 8 }}
+                              onClick={(event) => {
+                                event.preventDefault();
+                                props.setShowAddress(true);
+                              }}
+                            >
+                              Select Address
+                            </button>
+                          </div>}
+                        </div>
+                      </h2>
+
+                      <div
+                        id="collapseTwo"
+                        className={
+                          "accordion-collapse collapse " +
+                          (props.openTab == 2 ? "show" : "")
+                        }
+                        aria-labelledby="headingTwo"
+                        data-bs-parent="#accordionExample"
+                      >
+
 
       <div className="accordion-body">
 
@@ -191,6 +239,8 @@ const CheckoutStepB = (props: any) => {
             </div>
           </div>
         </form>
+      </div>
+      </div>
       </div>
     </>
   )

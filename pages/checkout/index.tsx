@@ -18,7 +18,6 @@ import CheckoutStepB from "../../app/components/checkout/CheckoutStepB";
 
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
-
   // const { slug, id } = router.query;
   let [customerId, setCustomerId] = useState<string>("");
   let [showAddress, setShowAddress] = useState<boolean>(false);
@@ -37,8 +36,6 @@ const CheckoutScreen: NextPage = () => {
   const [grandTotal, setGrandTotal] = useState("");
   const [allAddress, setAllAddress] = useState<any>([]);
 
-
-
   useEffect(() => {
     let customer_id: any = LocalStorageService.getCustomerId();
     setCustomerId(customer_id);
@@ -46,6 +43,7 @@ const CheckoutScreen: NextPage = () => {
   }, []);
   const isLogin = useUserStore((state: any) => state.isLogin, shallow);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
+
   useEffect(() => {
     if (isLogin) {
       getCustomerCart();
@@ -65,8 +63,6 @@ const CheckoutScreen: NextPage = () => {
         setGrandTotal(info?.data.grandTotal);
       });
   }
-
-
   function getAddress() {
     Address.getInstance()
       .getAllAddress()
@@ -74,17 +70,14 @@ const CheckoutScreen: NextPage = () => {
         setAllAddress(data?.data.data)
         //console.log("this is all Address", data)
       });
-
   }
   const handleChange = (e: any) => {
     fields[e.target.name] = e.target.value;
     addressFields[e.target.name] = e.target.value;
 
   };
-
   function validateForm() {
     let formIsValid = true;
-
     if (!fields["first_name"]) {
       formIsValid = false;
       Toast.showError("*Please enter your First Name.");
@@ -151,7 +144,7 @@ const CheckoutScreen: NextPage = () => {
     }
 
   }
-function deleteAddress(id: any, index: any) {
+  function deleteAddress(id: any, index: any) {
     Address.getInstance()
       .deleteAddress(id)
       .then((response: any) => {
@@ -167,7 +160,6 @@ function deleteAddress(id: any, index: any) {
       });
   }
 
-
   function renderAddressList() {
     return (
       <AddressList
@@ -178,19 +170,13 @@ function deleteAddress(id: any, index: any) {
         }}
         onSelect={(id) => {
           setShowAddress(false);
-
           setAddressFields(allAddress[id])
           setField(allAddress[id])
-
-
         }}
         deleteAddress={deleteAddress}
       />
     );
   }
-
-  //console.log("this is all address", allAddress)
-
   return (
     <div className="shoppingCart checkoutPage">
       <div className="wrapper">
@@ -199,7 +185,6 @@ function deleteAddress(id: any, index: any) {
         {renderAddressList()}
         {/* End Header */}
         <section className="cartItem  mt-4 mt-md-5">
-          {/* {cartItems.length >= 1 ? <> */}
           <h1 className="fs-40 font-b text-color-2 list-inline-item">
             Checkout
           </h1>
@@ -209,59 +194,15 @@ function deleteAddress(id: any, index: any) {
                 {cartItems?.length != 0 && (
                   <>
                     <CheckoutStepA isLogin={isLogin} />
-                    <div className="accordion-item bgbar ms-0">
-                      <h2
-                        className="accordion-header"
-                        id="headingTwo"
-                        onClick={() => setOpenTab(openTab == 2 ? 0 : 2)}
-                      >
-                        <div className="row">
-                          <div className="col-md-6">
-                            <button
-                              className="accordion-button font-sb collapsed"
-                              type="button"
-                              data-bs-toggle="collapse"
-                              data-bs-target="#collapseTwo"
-                              aria-expanded="false"
-                              aria-controls="collapseTwo"
-                            >
-                              <span className="wordtype">B</span> SHIPPING ADDRESS
-                            </button>
-                          </div>
-                          {allAddress.length !== 0 && <div
-                            className="col-md-6"
-                            style={{ alignItems: "flex-end" }}
-                          >
-                            <button
-                              className="btn fs-14 float-end"
-                              type="button"
-                              style={{ marginTop: 8 }}
-                              onClick={(event) => {
-                                event.preventDefault();
-                                setShowAddress(true);
-                              }}
-                            >
-                              Select Address
-                            </button>
-                          </div>}
-                        </div>
-                      </h2>
-
-                      <div
-                        id="collapseTwo"
-                        className={
-                          "accordion-collapse collapse " +
-                          (openTab == 2 ? "show" : "")
-                        }
-                        aria-labelledby="headingTwo"
-                        data-bs-parent="#accordionExample"
-                      >
-
-                        <CheckoutStepB handleChange={handleChange} checkout={checkout} paymentMethod={paymentMethod} addressFields={addressFields}
-                          openTab={openTab}
-                          setOpenTab={setOpenTab} />
-                      </div>
-                    </div>
+                    <CheckoutStepB handleChange={handleChange}
+                      checkout={checkout}
+                      paymentMethod={paymentMethod}
+                      addressFields={addressFields}
+                      openTab={openTab}
+                      setOpenTab={setOpenTab}
+                      allAddress={allAddress}
+                      setShowAddress={setShowAddress}
+                    />
                     <CheckoutStepC
                       customerId={customerId}
                       openTab={openTab}
