@@ -36,7 +36,6 @@ export class Cart extends HTTPBaseService {
         .then((response) => {
           if (response.status == 200) {
             let message = response.data.msg ?? "";
-            Toast.showSuccess(message);
             resolve(response);
           } else {
             let message = response.data.msg ?? "";
@@ -61,7 +60,6 @@ export class Cart extends HTTPBaseService {
         .then((response) => {
           if (response.status == 200) {
             let message = response.data.msg ?? "";
-            Toast.showSuccess(message);
             resolve(response);
           } else {
             let message = response.data.msg ?? "";
@@ -112,7 +110,6 @@ export class Cart extends HTTPBaseService {
         .then((response) => {
           if (response.status == 200) {
             let message = response.data;
-            Toast.showSuccess(message);
             resolve(response);
           } else {
             let message = response.data.message;
@@ -134,7 +131,6 @@ export class Cart extends HTTPBaseService {
         .then((response) => {
           if (response.status == 200) {
             let message = response.data.msg ?? "";
-            Toast.showSuccess(message);
             resolve(response);
           } else {
             let message = response.data.msg ?? "";
@@ -144,9 +140,33 @@ export class Cart extends HTTPBaseService {
         })
         .catch((error) => {
           console.log("Error", error);
-          Toast.showError(
-            JSON.parse(error.response.request.response).msg.detail
-          );
+          Toast.showError(error.message);
+
+          reject(error);
+        });
+    });
+  };
+
+  public applyCouponCode = (data: any) => {
+    return new Promise((resolve: any, reject: any) => {
+      this.instance
+        .post(API.APPLY_PROMOTION + "/" + `${Cart.getCartId()}`, data)
+        .then((response) => {
+          if (response.status == 200) {
+            let message = response.data.msg ?? "";
+
+            //Toast.showSuccess(message);
+            resolve(response);
+          } else {
+            let message = response.data.msg ?? "";
+            Toast.showError(message);
+            reject(response);
+          }
+        })
+        .catch((error) => {
+          console.log("Error", error);
+          Toast.showError(error.message);
+
           reject(error);
         });
     });

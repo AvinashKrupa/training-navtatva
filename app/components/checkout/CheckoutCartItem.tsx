@@ -1,7 +1,7 @@
 import { TbCurrencyRupee } from "react-icons/tb";
 
 const CheckoutCartItem = (props: any) => {
-  
+
   function getSize() {
     let data = props.meta?.variant.filter((info: any) => {
       return info.name == "Size";
@@ -20,13 +20,15 @@ const CheckoutCartItem = (props: any) => {
 
   //console.log("this is checkout props", props)
 
-  const removeCartitem = () => {
+  const removeCartitem = (id:any) => {
 
-    props.removeCart(props?.id);
+    props.removeCart(id);
+    console.log("this is props",id)
 
   };
 
   function ItemLoop(item: any) {
+
     return (
       <div className="row">
         <div className="col-md-3 col-lg-4">
@@ -72,7 +74,7 @@ const CheckoutCartItem = (props: any) => {
               Move to Wishlist
             </a>{" "}
             <a className="fs-14 font-sb text-color-3 ms-4" onClick={() => {
-              removeCartitem();
+              removeCartitem(item.id);
             }}>
               Remove
             </a>{" "}
