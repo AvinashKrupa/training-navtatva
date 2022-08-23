@@ -160,29 +160,11 @@ const CheckoutScreen: NextPage = () => {
       });
   }
 
-  function renderAddressList() {
-    return (
-      <AddressList
-        isVisible={showAddress}
-        data={allAddress}
-        onClose={() => {
-          setShowAddress(false);
-        }}
-        onSelect={(id) => {
-          setShowAddress(false);
-          setAddressFields(allAddress[id])
-          setField(allAddress[id])
-        }}
-        deleteAddress={deleteAddress}
-      />
-    );
-  }
   return (
     <div className="shoppingCart checkoutPage">
       <div className="wrapper">
         {/* Header */}
         <Header />
-        {renderAddressList()}
         {/* End Header */}
         <section className="cartItem  mt-4 mt-md-5">
           <h1 className="fs-40 font-b text-color-2 list-inline-item">
@@ -211,6 +193,19 @@ const CheckoutScreen: NextPage = () => {
                       validateForm={validateForm}
                       addAddress={addAddress}
                       grandTotal={grandTotal}
+                    />
+                    <AddressList
+                      isVisible={showAddress}
+                      data={allAddress}
+                      onClose={() => {
+                        setShowAddress(false);
+                      }}
+                      onSelect={(id) => {
+                        setShowAddress(false);
+                        setAddressFields(allAddress[id])
+                        setField(allAddress[id])
+                      }}
+                      deleteAddress={deleteAddress}
                     />
                   </>
                 )}
