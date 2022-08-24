@@ -15,6 +15,7 @@ import EmptyCart from "../../app/components/checkout/EmptyCart";
 import CheckoutStepA from "../../app/components/checkout/CheckoutStepA";
 import CheckoutStepC from "../../app/components/checkout/CheckoutStepC";
 import CheckoutStepB from "../../app/components/checkout/CheckoutStepB";
+import Validators from "../../utils/Validator";
 
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
@@ -23,11 +24,7 @@ const CheckoutScreen: NextPage = () => {
   let [showAddress, setShowAddress] = useState<boolean>(false);
   let [loading, setLoading] = useState(false);
   const [cartItems, setCartItems] = useState<any>([]);
-  const [fields, setField] = useState<any>({
-    company_name: "",
-    county: "Sunnyville",
-    country: "INDIA",
-  });
+
   const [addressFields, setAddressFields] = useState<any>({
     type: "address",
     county: "Sunnyville",
@@ -36,11 +33,10 @@ const CheckoutScreen: NextPage = () => {
   const [grandTotal, setGrandTotal] = useState("");
   const [allAddress, setAllAddress] = useState<any>([]);
 
-
   useEffect(() => {
     let customer_id: any = LocalStorageService.getCustomerId();
     setCustomerId(customer_id);
-    return () => { };
+    return () => {};
   }, []);
   const isLogin = useUserStore((state: any) => state.isLogin, shallow);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
@@ -59,7 +55,7 @@ const CheckoutScreen: NextPage = () => {
     Cart.getInstance()
       .getCustomerCart()
       .then((info: any) => {
-        setLoading(true)
+        setLoading(true);
         setCartItems(info.data.data);
         setGrandTotal(info?.data.grandTotal);
       });
@@ -68,33 +64,37 @@ const CheckoutScreen: NextPage = () => {
     Address.getInstance()
       .getAllAddress()
       .then((data: any) => {
-        setAllAddress(data?.data.data)
+        setAllAddress(data?.data.data);
         //console.log("this is all Address", data)
       });
   }
   const handleChange = (e: any) => {
-    fields[e.target.name] = e.target.value;
+    console.log("e", e.target.name);
     addressFields[e.target.name] = e.target.value;
+    setAddressFields(JSON.parse(JSON.stringify(addressFields)));
 
-
+    //  addressFields[e.target.name] = e.target.value;
   };
   function validateForm() {
     let formIsValid = true;
-    if (!fields["first_name"]) {
+    if (!addressFields["first_name"]) {
       formIsValid = false;
-      Toast.showError("*Please enter your First Name.");
-    } else if (!fields["last_name"]) {
+      Toast.showError("Please enter your First Name.");
+    } else if (!addressFields["last_name"]) {
       formIsValid = false;
-      Toast.showError("*Please Enter Your Last Name.");
-    } else if (!fields["line_1"]) {
+      Toast.showError("Please enter your Last Name.");
+    } else if (!addressFields["line_1"]) {
       formIsValid = false;
-      Toast.showError("*Please Enter Your Address.");
-    } else if (!fields["city"]) {
+      Toast.showError("Please enter your Address.");
+    } else if (!addressFields["city"]) {
       formIsValid = false;
-      Toast.showError("*Please Enter Your City.");
-    } else if (!fields["postcode"]) {
+      Toast.showError("Please enter your City.");
+    } else if (!addressFields["postcode"]) {
       formIsValid = false;
-      Toast.showError("*Please Enter Your Postal Code.");
+      Toast.showError("Please enter your Postal Code.");
+    } else if (!Validators.isNumberOnly(addressFields["postcode"])) {
+      formIsValid = false;
+      Toast.showError("Please enter valid Postal Code.");
     }
     return formIsValid;
   }
@@ -118,38 +118,36 @@ const CheckoutScreen: NextPage = () => {
     }
   }
   function test(data: any, all: any) {
-
-    let addressStatus = true
+    let addressStatus = true;
     Object.entries(all).map((item: any) => {
-      if (item[1].first_name === data.first_name && item[1].line_1 == data.line_1) {
-        return addressStatus = false
+      if (
+        item[1].first_name === data.first_name &&
+        item[1].line_1 == data.line_1
+      ) {
+        return (addressStatus = false);
       }
-    })
-    return addressStatus
-
+    });
+    return addressStatus;
   }
   function checkout(e: any) {
-
     e.preventDefault();
 
-    const all = Object.assign({}, allAddress)
+    const all = Object.assign({}, allAddress);
     const data = Object.assign({}, addressFields);
-    let duplicateAddress = test(data, all)
-    if (!duplicateAddress) {
+    let isDuplicateAddress = !test(data, all);
+    if (isDuplicateAddress) {
       Toast.showError("*Address already exists.");
-
+      return;
     }
     let validationFunction = validateForm();
     if (validationFunction) {
-      if (duplicateAddress) {
-        addAddress(e);
+      if (!isDuplicateAddress) {
+        addAddress();
       }
-
     }
   }
 
-
-  function addAddress(e: any) {
+  function addAddress() {
     if (isLogin && validateForm()) {
       const param = {
         data: addressFields,
@@ -157,33 +155,23 @@ const CheckoutScreen: NextPage = () => {
       Address.getInstance()
         .addAddress(param)
         .then((data: any) => {
-          setAllAddress([...allAddress, data.data.data])
-
-          setAddressFields({
-            type: "address",
-            county: "Sunnyville",
-            country: "IN"
-          })
-
+          setAllAddress([...allAddress, data.data.data]);
         })
         .catch((error) => {
           console.log("error", error);
         });
-
     } else {
       setLoginPopup(true);
     }
-
   }
   function deleteAddress(id: any, index: any) {
     Address.getInstance()
       .deleteAddress(id)
       .then((response: any) => {
         if (response.statusText === "OK") {
-          let newAllAddress = allAddress
+          let newAllAddress = allAddress;
           newAllAddress.splice(index, 1);
           setAllAddress([...newAllAddress]);
-          //.log("this is all address after delete", allAddress)
           if (newAllAddress.length === 0) {
             setShowAddress(false);
           }
@@ -206,9 +194,13 @@ const CheckoutScreen: NextPage = () => {
               <div className="accordion" id="accordionExample">
                 {cartItems?.length != 0 && (
                   <>
-                    <CheckoutStepA isLogin={isLogin} setLoginPopup={setLoginPopup} />
-                    <CheckoutStepB handleChange={handleChange}
-                      checkout={checkout}
+                    <CheckoutStepA
+                      isLogin={isLogin}
+                      setLoginPopup={setLoginPopup}
+                    />
+                    <CheckoutStepB
+                      handleChange={handleChange}
+                      onSave={checkout}
                       paymentMethod={paymentMethod}
                       addressFields={addressFields}
                       openTab={openTab}
@@ -220,7 +212,7 @@ const CheckoutScreen: NextPage = () => {
                       customerId={customerId}
                       openTab={openTab}
                       setOpenTab={setOpenTab}
-                      fields={fields}
+                      fields={addressFields}
                       validateForm={validateForm}
                       addAddress={addAddress}
                       grandTotal={grandTotal}
@@ -233,8 +225,12 @@ const CheckoutScreen: NextPage = () => {
                       }}
                       onSelect={(id) => {
                         setShowAddress(false);
-                        setAddressFields(allAddress[id])
-                        setField(allAddress[id])
+                        setAddressFields(
+                          JSON.parse(JSON.stringify(allAddress[id]))
+                        );
+                        setAddressFields(
+                          JSON.parse(JSON.stringify(allAddress[id]))
+                        );
                       }}
                       deleteAddress={deleteAddress}
                     />
@@ -246,7 +242,11 @@ const CheckoutScreen: NextPage = () => {
             {cartItems?.length != 0 && (
               <div className="col-md-12 col-lg-4">
                 <OfferCard />
-                <CheckoutCartItem cartItems={cartItems} removeCart={removeCart} grandTotal={grandTotal} />
+                <CheckoutCartItem
+                  cartItems={cartItems}
+                  removeCart={removeCart}
+                  grandTotal={grandTotal}
+                />
                 <PromoCode />
               </div>
             )}
