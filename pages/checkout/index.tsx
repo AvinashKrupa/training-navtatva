@@ -139,7 +139,7 @@ const CheckoutScreen: NextPage = () => {
       // setAddressFields( {type: "address",
       //       county: "Sunnyville",
       //       country: "IN"})
-      e.target.reset();
+
     }
     let validationFunction = validateForm();
     if (validationFunction) {
