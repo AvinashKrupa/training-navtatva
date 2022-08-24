@@ -20,11 +20,10 @@ import Validators from "../../utils/Validator";
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
   // const { slug, id } = router.query;
-  let [customerId, setCustomerId] = useState<string>("");
-  let [showAddress, setShowAddress] = useState<boolean>(false);
-  let [loading, setLoading] = useState(false);
+  const [customerId, setCustomerId] = useState<string>("");
+  const [showAddress, setShowAddress] = useState<boolean>(false);
+  const [loading, setLoading] = useState(true);
   const [cartItems, setCartItems] = useState<any>([]);
-
   const [addressFields, setAddressFields] = useState<any>({
     type: "address",
     county: "Sunnyville",
@@ -32,32 +31,38 @@ const CheckoutScreen: NextPage = () => {
   });
   const [grandTotal, setGrandTotal] = useState("");
   const [allAddress, setAllAddress] = useState<any>([]);
+  const isLogin = useUserStore((state: any) => state.isLogin, shallow);
+  const setLoginPopup = useUserStore((state: any) => state.showLogin);
 
   useEffect(() => {
     let customer_id: any = LocalStorageService.getCustomerId();
     setCustomerId(customer_id);
     return () => {};
   }, []);
-  const isLogin = useUserStore((state: any) => state.isLogin, shallow);
-  const setLoginPopup = useUserStore((state: any) => state.showLogin);
 
   useEffect(() => {
     if (isLogin) {
       getCustomerCart();
-
-      getAddress();
     } else {
       setLoginPopup(true);
     }
   }, [isLogin]);
 
+  useEffect(() => {
+    console.log("loading", loading);
+  }, [loading]);
+
   function getCustomerCart() {
+    setLoading(true);
     Cart.getInstance()
       .getCustomerCart()
       .then((info: any) => {
-        setLoading(true);
+        getAddress();
         setCartItems(info.data.data);
         setGrandTotal(info?.data.grandTotal);
+      })
+      .catch((error) => {
+        setLoading(false);
       });
   }
   function getAddress() {
@@ -65,7 +70,11 @@ const CheckoutScreen: NextPage = () => {
       .getAllAddress()
       .then((data: any) => {
         setAllAddress(data?.data.data);
+        setLoading(false);
         //console.log("this is all Address", data)
+      })
+      .catch((error) => {
+        setLoading(false);
       });
   }
   const handleChange = (e: any) => {
