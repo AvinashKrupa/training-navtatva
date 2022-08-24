@@ -131,28 +131,25 @@ const CheckoutScreen: NextPage = () => {
   function checkout(e: any) {
 
     e.preventDefault();
+
     const all = Object.assign({}, allAddress)
     const data = Object.assign({}, addressFields);
     let duplicateAddress = test(data, all)
     if (!duplicateAddress) {
       Toast.showError("*Address already exists.");
-      // setAddressFields( {type: "address",
-      //       county: "Sunnyville",
-      //       country: "IN"})
 
     }
     let validationFunction = validateForm();
     if (validationFunction) {
-      if(duplicateAddress){
-
-      addAddress(e);
+      if (duplicateAddress) {
+        addAddress(e);
       }
 
     }
   }
 
 
-  function addAddress(e:any) {
+  function addAddress(e: any) {
     if (isLogin && validateForm()) {
       const param = {
         data: addressFields,
@@ -161,7 +158,7 @@ const CheckoutScreen: NextPage = () => {
         .addAddress(param)
         .then((data: any) => {
           setAllAddress([...allAddress, data.data.data])
-          e.target.reset();
+
           setAddressFields({
             type: "address",
             county: "Sunnyville",
@@ -193,27 +190,6 @@ const CheckoutScreen: NextPage = () => {
         }
       });
   }
-
-
-  function renderAddressList() {
-    return (
-      <AddressList
-        isVisible={showAddress}
-        data={allAddress}
-        onClose={() => {
-          setShowAddress(false);
-        }}
-        onSelect={(id) => {
-          setShowAddress(false);
-          setAddressFields(allAddress[id])
-          setField(allAddress[id])
-        }}
-        deleteAddress={deleteAddress}
-      />
-    );
-  }
-
-
 
   return (
     <div className="shoppingCart checkoutPage">
