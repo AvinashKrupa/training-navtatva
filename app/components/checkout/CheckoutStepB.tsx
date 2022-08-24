@@ -59,7 +59,7 @@ const CheckoutStepB = (props: any) => {
 
       <div className="accordion-body">
 
-        <form onSubmit={props.checkout}>
+        <form >
           <div className="row mt-4 mt-md-0">
             <div className="col-sm-6 mb-4">
               <label htmlFor="firstName" className="form-label">
@@ -208,7 +208,7 @@ const CheckoutStepB = (props: any) => {
             <button
               className="btn  btn-lg fs-16"
              // type="button"
-              // onClick={props.checkout}
+            onClick={props.checkout}
               //disabled={true}
               type='submit'
             >

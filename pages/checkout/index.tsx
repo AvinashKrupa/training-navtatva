@@ -129,6 +129,7 @@ const CheckoutScreen: NextPage = () => {
 
   }
   function checkout(e: any) {
+
     e.preventDefault();
     const all = Object.assign({}, allAddress)
     const data = Object.assign({}, addressFields);
@@ -141,8 +142,11 @@ const CheckoutScreen: NextPage = () => {
       e.target.reset();
     }
     let validationFunction = validateForm();
-    if (validationFunction && duplicateAddress) {
+    if (validationFunction) {
+      if(duplicateAddress){
+
       addAddress(e);
+      }
 
     }
   }
