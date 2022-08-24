@@ -80,7 +80,7 @@ const CheckoutScreen: NextPage = () => {
   };
   function validateForm() {
     let formIsValid = true;
-    if (!addressFields["first_name"]) {
+    if (!fields["first_name"]) {
       formIsValid = false;
       Toast.showError("*Please enter your First Name.");
     } else if (!fields["last_name"]) {
