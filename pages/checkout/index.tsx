@@ -23,18 +23,19 @@ const CheckoutScreen: NextPage = () => {
   let [showAddress, setShowAddress] = useState<boolean>(false);
   let [loading, setLoading] = useState(false);
   const [cartItems, setCartItems] = useState<any>([]);
-  let [fields, setField] = useState<any>({
+  const [fields, setField] = useState<any>({
     company_name: "",
     county: "Sunnyville",
     country: "INDIA",
   });
-  let [addressFields, setAddressFields] = useState<any>({
+  const [addressFields, setAddressFields] = useState<any>({
     type: "address",
     county: "Sunnyville",
     country: "IN",
   });
   const [grandTotal, setGrandTotal] = useState("");
   const [allAddress, setAllAddress] = useState<any>([]);
+
 
   useEffect(() => {
     let customer_id: any = LocalStorageService.getCustomerId();
@@ -75,10 +76,11 @@ const CheckoutScreen: NextPage = () => {
     fields[e.target.name] = e.target.value;
     addressFields[e.target.name] = e.target.value;
 
+
   };
   function validateForm() {
     let formIsValid = true;
-    if (!fields["first_name"]) {
+    if (!addressFields["first_name"]) {
       formIsValid = false;
       Toast.showError("*Please enter your First Name.");
     } else if (!fields["last_name"]) {
@@ -105,7 +107,6 @@ const CheckoutScreen: NextPage = () => {
           let newCartItem = cartItems;
           newCartItem.splice(index, 1);
           setCartItems([...newCartItem]);
-
         }
       });
   }
@@ -116,15 +117,38 @@ const CheckoutScreen: NextPage = () => {
       setOpenTab(openTab == 3 ? 0 : 3);
     }
   }
+  function test(data: any, all: any) {
+
+    let addressStatus = true
+    Object.entries(all).map((item: any) => {
+      if (item[1].first_name === data.first_name && item[1].line_1 == data.line_1) {
+        return addressStatus = false
+      }
+    })
+    return addressStatus
+
+  }
   function checkout(e: any) {
     e.preventDefault();
+    const all = Object.assign({}, allAddress)
+    const data = Object.assign({}, addressFields);
+    let duplicateAddress = test(data, all)
+    if (!duplicateAddress) {
+      Toast.showError("*Address already exists.");
+      // setAddressFields( {type: "address",
+      //       county: "Sunnyville",
+      //       country: "IN"})
+      e.target.reset();
+    }
     let validationFunction = validateForm();
-    if (validationFunction) {
-      addAddress();
+    if (validationFunction && duplicateAddress) {
+      addAddress(e);
 
     }
   }
-  function addAddress() {
+
+
+  function addAddress(e:any) {
     if (isLogin && validateForm()) {
       const param = {
         data: addressFields,
@@ -132,8 +156,14 @@ const CheckoutScreen: NextPage = () => {
       Address.getInstance()
         .addAddress(param)
         .then((data: any) => {
-          //console.log("this is address", data.data)
           setAllAddress([...allAddress, data.data.data])
+          e.target.reset();
+          setAddressFields({
+            type: "address",
+            county: "Sunnyville",
+            country: "IN"
+          })
+
         })
         .catch((error) => {
           console.log("error", error);
@@ -160,6 +190,27 @@ const CheckoutScreen: NextPage = () => {
       });
   }
 
+
+  function renderAddressList() {
+    return (
+      <AddressList
+        isVisible={showAddress}
+        data={allAddress}
+        onClose={() => {
+          setShowAddress(false);
+        }}
+        onSelect={(id) => {
+          setShowAddress(false);
+          setAddressFields(allAddress[id])
+          setField(allAddress[id])
+        }}
+        deleteAddress={deleteAddress}
+      />
+    );
+  }
+
+
+
   return (
     <div className="shoppingCart checkoutPage">
       <div className="wrapper">
@@ -175,7 +226,7 @@ const CheckoutScreen: NextPage = () => {
               <div className="accordion" id="accordionExample">
                 {cartItems?.length != 0 && (
                   <>
-                    <CheckoutStepA isLogin={isLogin} />
+                    <CheckoutStepA isLogin={isLogin} setLoginPopup={setLoginPopup} />
                     <CheckoutStepB handleChange={handleChange}
                       checkout={checkout}
                       paymentMethod={paymentMethod}

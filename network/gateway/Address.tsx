@@ -29,7 +29,7 @@ export class Address extends HTTPBaseService {
         .post(API.ADD_ADDRESS + "/" + Address.getCustomerId(), data)
         .then((response) => {
           if (response.status == 200) {
-            console.log("this is address response", response);
+            //console.log("this is address response", response);
             let message = response.data.msg ?? "";
             Toast.showSuccess(message);
             resolve(response);
@@ -93,9 +93,7 @@ export class Address extends HTTPBaseService {
         })
         .catch((error) => {
           console.log("Error", error);
-          Toast.showError(
-            JSON.parse(error.response.request.response).msg.detail
-          );
+          Toast.showError(error.message);
           reject(error);
         });
     });

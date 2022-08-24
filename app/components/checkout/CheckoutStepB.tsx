@@ -39,7 +39,11 @@ const CheckoutStepB = (props: any) => {
                               Select Address
                             </button>
                           </div>}
+
+
+
                         </div>
+
                       </h2>
 
                       <div
@@ -55,7 +59,7 @@ const CheckoutStepB = (props: any) => {
 
       <div className="accordion-body">
 
-        <form>
+        <form onSubmit={props.checkout}>
           <div className="row mt-4 mt-md-0">
             <div className="col-sm-6 mb-4">
               <label htmlFor="firstName" className="form-label">
@@ -69,7 +73,7 @@ const CheckoutStepB = (props: any) => {
                 placeholder=""
                 required
                 onChange={props.handleChange}
-                defaultValue={props?.addressFields.first_name}
+                defaultValue={props.addressFields.first_name}
               />
 
               <div className="invalid-feedback"></div>
@@ -158,7 +162,7 @@ const CheckoutStepB = (props: any) => {
 
                 onChange={props.handleChange}
                 name="postcode"
-                defaultValue={props.addressFields.postcode}
+                defaultValue={props?.addressFields.postcode}
               />
             </div>
           </div>
@@ -203,8 +207,10 @@ const CheckoutStepB = (props: any) => {
           <div className="mt-4">
             <button
               className="btn  btn-lg fs-16"
-              type="button"
-              onClick={props.checkout}
+             // type="button"
+              // onClick={props.checkout}
+              //disabled={true}
+              type='submit'
             >
               Save &amp; Deliver Here
             </button>

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 import Header from "../../app/themes/themeOne/components/Header";
-import { ocassionSliderSetting } from "../../app/utils/sliderConfig";
+// import { ocassionSliderSetting } from "/../app/utils/sliderConfig";
 import Slider from "react-slick";
 import { myCollectionMenu } from "../../app/constants/sampleData";
 import ProuctWishlist from "../../app/components/product/ProductWishlist";
+import { ocassionSliderSetting } from "../../utils/sliderConfig";
 
 const CustomisedShoppingExperienceScreen = () => {
   const [wishlistItems, setWishlistItems] = useState<any>([

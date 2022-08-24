@@ -79,7 +79,7 @@ const Header = () => {
                 </a>
               </li>
               <li className="list-inline-item">
-                <a className="wishlist rounded-circle d-block" href="#" title={""}>
+                <a className="wishlist rounded-circle d-block" href="/mycollection" title={""}>
                   <img src="/images/wishlist.png" alt="" />
                 </a>
               </li>
