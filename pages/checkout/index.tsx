@@ -16,10 +16,12 @@ import CheckoutStepA from "../../app/components/checkout/CheckoutStepA";
 import CheckoutStepC from "../../app/components/checkout/CheckoutStepC";
 import CheckoutStepB from "../../app/components/checkout/CheckoutStepB";
 import Validators from "../../utils/Validator";
+import { useRouter } from "next/router";
 
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
   // const { slug, id } = router.query;
+  const router = useRouter();
   const [customerId, setCustomerId] = useState<string>("");
   const [showAddress, setShowAddress] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);
@@ -188,6 +190,34 @@ const CheckoutScreen: NextPage = () => {
       });
   }
 
+  function checkoutApi() {
+    if (validateForm()) {
+      const param = {
+        data: {
+          customer: {
+            id: customerId,
+          },
+          billing_address: addressFields,
+          shipping_address: addressFields,
+        },
+      };
+      Cart.getInstance()
+        .checkout(param)
+        .then((data: any) => {
+          console.log("checkout info", data.data.data.id);
+          if (data.status) {
+            router.push({
+              pathname: "/thankyou",
+              query: { id: data?.data?.data.id },
+            });
+          }
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    }
+  }
+
   return (
     <div className="shoppingCart checkoutPage">
       <div className="wrapper">
@@ -221,10 +251,8 @@ const CheckoutScreen: NextPage = () => {
                       customerId={customerId}
                       openTab={openTab}
                       setOpenTab={setOpenTab}
-                      fields={addressFields}
-                      validateForm={validateForm}
-                      addAddress={addAddress}
                       grandTotal={grandTotal}
+                      onCheckout={checkoutApi}
                     />
                     <AddressList
                       isVisible={showAddress}
