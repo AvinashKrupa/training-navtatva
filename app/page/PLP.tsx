@@ -42,6 +42,7 @@ const PLP = () => {
 
   const[quickViewStatus,setQuickViewStatus]=useState(false)
   const[loading,setLoading]=useState(true)
+  const [quickViweLoader,setQuickViweLoader]=useState(true)
 
   useEffect(() => {
     if (productId != "") {
@@ -228,7 +229,7 @@ const PLP = () => {
         openSearchBox={openSearchBox}
         setOpenSearchBox={setOpenSearchBox}
       />
-      {(!quickViewStatus && openProductQuickView) && (
+      {(quickViweLoader && openProductQuickView) && (
         <ProductQuickView
           openProductQuickView={openProductQuickView}
           setOpenProductQuickView={() => setOpenProductQuickView(false)}
@@ -238,7 +239,8 @@ const PLP = () => {
           }}
         />
       )}
-      {quickViewStatus && <ProductQuickViewLoader quickViewStatus={quickViewStatus} setQuickViewStatus={setQuickViewStatus}/>}
+      {quickViewStatus && <ProductQuickViewLoader quickViewStatus={quickViewStatus} setQuickViweLoader={setQuickViweLoader}
+      setQuickViewStatus={setQuickViewStatus}/>}
     </>
   );
 };

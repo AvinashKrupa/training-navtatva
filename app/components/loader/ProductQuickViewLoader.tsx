@@ -17,7 +17,9 @@ const ProductQuickViewLoader = (props:any) => {
           data-bs-dismiss="modal"
           aria-label="Close"
           onClick={() => {
-            props.setQuickViewStatus(false);
+
+            props.setQuickViewStatus(false)
+            props.setQuickViweLoader(false)
           }}
         >
           <svg
