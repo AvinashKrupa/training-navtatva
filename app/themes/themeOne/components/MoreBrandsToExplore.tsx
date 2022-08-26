@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import Skeleton from "react-loading-skeleton";
 interface IProps {
   brand: Array<any>;
+  loading: boolean
 }
 
 const MoreBrandsToExplore = (props: IProps) => {
+  const [brands, setBrands] = useState([1, 2, 3, 4, 5, 6])
+
   return (
     <section className="mt-4 mt-md-5 brand">
       <div className="wrapper">
@@ -15,7 +19,7 @@ const MoreBrandsToExplore = (props: IProps) => {
           </div>
           <div className="col-md-12 mt-4 mt-lg-5">
             <ul className="d-block text-center">
-              {props.brand.map((info) => {
+              {/* {props.brand.map((info) => {
                 return (
                   <li
                     style={{ backgroundColor: "white" }}
@@ -28,6 +32,24 @@ const MoreBrandsToExplore = (props: IProps) => {
                         alt="brand"
                       />
                     </a>
+                  </li>
+                );
+              })} */}
+
+              {!props.loading && brands.map((info) => {
+                return (
+                  <li
+                    style={{ backgroundColor: "white" }}
+                    className="align-items-center justify-content-center d-inline-flex"
+                  >
+                    {/* <a href="/shop">
+                      <img
+                        style={{ maxWidth: 180, maxHeight: 180 }}
+                        src={info.image || "images/brand-1.png"}
+                        alt="brand"
+                      />
+                    </a> */}
+                     <Skeleton    style={{ maxWidth: 180, maxHeight: 180 }} />
                   </li>
                 );
               })}
