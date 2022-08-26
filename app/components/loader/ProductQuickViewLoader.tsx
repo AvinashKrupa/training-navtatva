@@ -1,10 +1,6 @@
 import React from "react";
-import { useState, CSSProperties } from "react";
 import { Modal } from "react-bootstrap";
-import ClipLoader from "react-spinners/ClipLoader";
-import ProductSmallBlock from "../product/ProductSmallBlock";
 import Loader from "./loader";
-
 
 const ProductQuickViewLoader = (props:any) => {
   console.log("this is props",props.quickView)
