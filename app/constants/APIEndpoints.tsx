@@ -37,5 +37,12 @@ const API = {
     CHECK_PAYMENT_STATUS:
       constants.RUPIFI.BASE_URL_V1 + "payments/?merchantPaymentRefId=",
   },
+  RUPIFI_UC: {
+    CHECK_CREDIT_ELIGIBILITY: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "eligibility",
+    CREATE_PAYMENT: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "createPayment",
+    CAPTURE_AMOUNT: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "capturePayment",
+    CHECK_PAYMENT_STATUS: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "checkPyamentStatus?merchantPaymentRefId=",
+    CALLBACK_URL: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "callback",
+  }
 };
 export default API;

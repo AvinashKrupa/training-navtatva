@@ -5,6 +5,7 @@ import Toast from "../../utils/Toast";
 
 import { v4 as uuidv4 } from "uuid";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
+import { RupifiUCService } from "./RupifiUCService";
 export class Cart extends HTTPBaseService {
   private static classInstance?: Cart;
   constructor(token: string) {
@@ -137,14 +138,38 @@ export class Cart extends HTTPBaseService {
     });
   };
 
-  public checkout = (data: any) => {
+  public checkout = (data: any, order: any) => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
         .post(API.CHECKOUT + "/" + Cart.getCartId(), data)
         .then((response) => {
           if (response.status == 200) {
-            let message = response.data.msg ?? "";
-            resolve(response);
+            const { id } = response?.data?.data
+            const sellerId = LocalStorageService.getCustomerId();
+            const requestJSON = {
+              amount: {
+                value: order?.grandTotal,
+              },
+              autoCapture: false,
+              callbackUrl: API.RUPIFI_UC.CALLBACK_URL,
+              merchantCustomerRefId: constants.PAYMENT_METHOD.RUPIFI.TEST_ACCOUNT ?? sellerId,
+              merchantPaymentRefId: id,
+              redirectCancelUrl: constants.PAYMENT_METHOD.RUPIFI.REDIRECT_CANCEL_URL,
+              redirectConfirmUrl: constants.PAYMENT_METHOD.RUPIFI.REDIRECT_CONFIRM_URL,
+            };
+            RupifiUCService.getInstance("")
+              .createRupifiPayment(requestJSON)
+              .then((response: any) => {
+                if (response.status == 200) {
+                  resolve(response);
+                } else {
+                  reject(response);
+                }
+              })
+              .catch((error: any) => {
+                console.log(error);
+                reject(error);
+              });
           } else {
             let message = response.data.msg ?? "";
             Toast.showError(message);

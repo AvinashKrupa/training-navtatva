@@ -203,14 +203,11 @@ const CheckoutScreen: NextPage = () => {
         },
       };
       Cart.getInstance()
-        .checkout(param)
-        .then((data: any) => {
-          console.log("checkout info", data.data.data.id);
-          if (data.status) {
-            router.push({
-              pathname: "/thankyou",
-              query: { id: data?.data?.data.id },
-            });
+        .checkout(param, {grandTotal})
+        .then((response: any) => {
+          console.log("checkout info", response.data.data.id);
+          if (response.status) {            
+            window.location.href = response?.data?.data?.paymentUrl;
           }
         })
         .catch((error) => {

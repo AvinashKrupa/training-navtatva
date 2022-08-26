@@ -22,9 +22,19 @@ const RupifiProduction = {
       "http://www.navtatva.fashion/order-taking-app/success",
 };
 
+const RupifiUC = {
+  BASE_URL: "http://3.109.249.174:1880/rupifi/",
+  REDIRECT_CANCEL_URL: "http://www.navtatva.fashion/checkout/cancel",
+  REDIRECT_CONFIRM_URL: "http://www.navtatva.fashion/checkout/thank-you",
+  TEST_ACCOUNT: 7976545492, //8660178047 // 7976545492
+};
+
 const constants = {
   baseURL: "http://3.109.249.174:1880/",
   ACCESS_TOKEN: "0f40c705ef74aa0b3f20817c4aaf70d65938de66",
-  RUPIFI: RupifiSandbox,
+  RUPIFI: RupifiProduction,
+  PAYMENT_METHOD: {
+    RUPIFI: RupifiUC
+  }
 };
 export default constants;
