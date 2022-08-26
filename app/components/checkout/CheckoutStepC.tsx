@@ -4,40 +4,12 @@ import { TbCurrencyRupee } from "react-icons/tb";
 import { Cart } from "../../../network/gateway/Cart";
 
 const CheckoutStepC = (props: any) => {
-  const router = useRouter();
-  const [paymentTab, setPaymentTab] = useState<number>(3);
+  const [paymentTab, setPaymentTab] = useState<number>(0);
   const [eligibleForRupifi, setEligibleForRupifi] = useState<boolean>(true);
   const [availCod] = useState<boolean>(true);
   const [availCreditCard] = useState<boolean>(true);
   const [availUpi] = useState<boolean>(true);
 
-  function checkoutApi() {
-    if (props.validateForm()) {
-      const param = {
-        data: {
-          customer: {
-            id: props.customerId,
-          },
-          billing_address: props.fields,
-          shipping_address: props.fields,
-        },
-      };
-      Cart.getInstance()
-        .checkout(param)
-        .then((data: any) => {
-          console.log("checkout info", data.data.data.id);
-          if (data.status) {
-            router.push({
-              pathname: "/thankyou",
-              query: { id: data?.data?.data.id },
-            });
-          }
-        })
-        .catch((error) => {
-          console.log("error", error);
-        });
-    }
-  }
   return (
     <div className="accordion-item bgbar ms-0">
       <h2
@@ -168,7 +140,7 @@ const CheckoutStepC = (props: any) => {
                   </li>
                   <li className="list-inline-item">
                     <button
-                      onClick={checkoutApi}
+                      onClick={props.onCheckout}
                       className="btn btn-lg fs-16"
                       type="submit"
                     >
@@ -248,7 +220,7 @@ const CheckoutStepC = (props: any) => {
                     </li>
                     <li className="list-inline-item">
                       <button
-                        onClick={checkoutApi}
+                        onClick={props.onCheckout}
                         className="btn btn-lg fs-16 mt-3 mt-md-0"
                         type="submit"
                       >
@@ -315,7 +287,7 @@ const CheckoutStepC = (props: any) => {
                     </li>
                     <li className="list-inline-item">
                       <button
-                        onClick={checkoutApi}
+                        onClick={props.onCheckout}
                         className="btn btn-lg fs-16 mt-3 mt-md-0"
                         type="submit"
                       >
@@ -367,7 +339,7 @@ const CheckoutStepC = (props: any) => {
                     </li>
                     <li className="list-inline-item">
                       <button
-                        onClick={checkoutApi}
+                        onClick={props.onCheckout}
                         className="btn btn-lg fs-16 mt-3 mt-md-0"
                         type="submit"
                       >

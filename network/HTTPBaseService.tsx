@@ -25,10 +25,22 @@ export abstract class HTTPBaseService {
       this.token = token;
     } else {
       this.token = localStorage.getItem("hashToken") ?? "";
+
+      if (this.token == "") {
+        this.getToken();
+      }
     }
 
     this.initializeRequestInterceptor();
     this.initializeResponseInterceptor();
+  }
+
+  async getToken() {
+    const refreshToken = await this.refreshToken();
+    if (refreshToken.status === 200) {
+      this.token = refreshToken.data?.access_token || "";
+      localStorage.setItem("hashToken", this.token);
+    }
   }
 
   private initializeRequestInterceptor = () => {
