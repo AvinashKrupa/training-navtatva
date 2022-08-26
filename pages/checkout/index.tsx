@@ -17,6 +17,7 @@ import CheckoutStepC from "../../app/components/checkout/CheckoutStepC";
 import CheckoutStepB from "../../app/components/checkout/CheckoutStepB";
 import Validators from "../../utils/Validator";
 import { useRouter } from "next/router";
+import Spinner from "../../app/hoc/Spinner";
 
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
@@ -273,7 +274,9 @@ const CheckoutScreen: NextPage = () => {
                     />
                   </>
                 )}
-                <EmptyCart cartItems={cartItems} loading={loading} />
+
+                {cartItems.length <= 0 && !loading && <EmptyCart />}
+                <Spinner loading={loading} />
               </div>
             </div>
             {cartItems?.length != 0 && (

@@ -4,7 +4,7 @@ import { TbCurrencyRupee } from "react-icons/tb";
 import { Cart } from "../../../network/gateway/Cart";
 
 const CheckoutStepC = (props: any) => {
-  const [paymentTab, setPaymentTab] = useState<number>(3);
+  const [paymentTab, setPaymentTab] = useState<number>(0);
   const [eligibleForRupifi, setEligibleForRupifi] = useState<boolean>(true);
   const [availCod] = useState<boolean>(true);
   const [availCreditCard] = useState<boolean>(true);
@@ -220,7 +220,7 @@ const CheckoutStepC = (props: any) => {
                     </li>
                     <li className="list-inline-item">
                       <button
-                        onClick={checkoutApi}
+                        onClick={props.onCheckout}
                         className="btn btn-lg fs-16 mt-3 mt-md-0"
                         type="submit"
                       >
@@ -287,7 +287,7 @@ const CheckoutStepC = (props: any) => {
                     </li>
                     <li className="list-inline-item">
                       <button
-                        onClick={checkoutApi}
+                        onClick={props.onCheckout}
                         className="btn btn-lg fs-16 mt-3 mt-md-0"
                         type="submit"
                       >
@@ -339,7 +339,7 @@ const CheckoutStepC = (props: any) => {
                     </li>
                     <li className="list-inline-item">
                       <button
-                        onClick={checkoutApi}
+                        onClick={props.onCheckout}
                         className="btn btn-lg fs-16 mt-3 mt-md-0"
                         type="submit"
                       >

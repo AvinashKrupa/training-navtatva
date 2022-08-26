@@ -29,6 +29,21 @@ export class Cart extends HTTPBaseService {
     return cartId;
   }
 
+  static async regenrateCustomerCartAssociation() {
+    let cartId = uuidv4();
+    localStorage.setItem("CART_ID", cartId);
+    let params = {
+      data: [
+        {
+          type: "customer",
+          id: LocalStorageService.getCustomerId(),
+        },
+      ],
+    };
+
+    return Cart.getInstance().cartAssociationWithCustomer(params);
+  }
+
   public cartAssociationWithCustomer = (data: any) => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
