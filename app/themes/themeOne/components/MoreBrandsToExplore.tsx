@@ -6,7 +6,7 @@ interface IProps {
 }
 
 const MoreBrandsToExplore = (props: IProps) => {
-  const [brands, setBrands] = useState([1, 2, 3, 4, 5, 6])
+  const [brands, setBrands] = useState([1, 2, 3, 4, 5])
 
   return (
     <section className="mt-4 mt-md-5 brand">
@@ -19,7 +19,7 @@ const MoreBrandsToExplore = (props: IProps) => {
           </div>
           <div className="col-md-12 mt-4 mt-lg-5">
             <ul className="d-block text-center">
-              {/* {props.brand.map((info) => {
+              {props.brand.map((info) => {
                 return (
                   <li
                     style={{ backgroundColor: "white" }}
@@ -34,81 +34,15 @@ const MoreBrandsToExplore = (props: IProps) => {
                     </a>
                   </li>
                 );
-              })} */}
+              })}
 
-              {!props.loading && brands.map((info) => {
+              {props.loading && brands.map((info) => {
                 return (
-                  <li
-                    style={{ backgroundColor: "white" }}
-                    className="align-items-center justify-content-center d-inline-flex"
-                  >
-                    {/* <a href="/shop">
-                      <img
-                        style={{ maxWidth: 180, maxHeight: 180 }}
-                        src={info.image || "images/brand-1.png"}
-                        alt="brand"
-                      />
-                    </a> */}
-                     <Skeleton    style={{ maxWidth: 180, maxHeight: 180 }} />
+                  <li   className="align-items-center justify-content-center d-inline-flex">
+                    <Skeleton style={{ width: 180, height: 100 }} />
                   </li>
                 );
               })}
-
-              {/* <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-2.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-3.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-4.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-5.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-6.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-7.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-8.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-9.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-10.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-11.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-12.png" alt="brand" />
-                </a>
-              </li> */}
             </ul>
           </div>
         </div>
