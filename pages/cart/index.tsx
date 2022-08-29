@@ -13,6 +13,8 @@ import { occasionSetting } from "../../utils/sliderConfig";
 import ValidationMessage from "../../app/constants/validationMessage";
 import Validators from "../../utils/Validator";
 import Toast from "../../utils/Toast";
+import Loader from "../../app/components/loader/loader";
+import CartItemLoader from "../../app/components/cart/CartItemLoader";
 
 const CartScreen: NextPage = () => {
   const [cartItems, setCartItems] = useState<any>([]);
@@ -21,6 +23,8 @@ const CartScreen: NextPage = () => {
   const [youMayLikeList, setYouMayLikeList] = useState<any>([]);
   const isLogin = useUserStore((state: any) => state.isLogin, shallow);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
+  const[loading,setLoading]=useState(true)
+
   useEffect(() => {
     console.log("CartScreen", isLogin);
     if (isLogin) {
@@ -34,6 +38,7 @@ const CartScreen: NextPage = () => {
     Cart.getInstance()
       .getCustomerCart()
       .then((info: any) => {
+        setLoading(false)
         setCartItems(info.data.data);
         setSubTotal(info.data.grandTotal);
         console.log("this is cart items", info.data);
@@ -89,8 +94,10 @@ const CartScreen: NextPage = () => {
           <h1 className="fs-40 font-b text-color-2 list-inline-item">
             Your Shopping Bag
           </h1>
+
           <div className="row">
             <div className="col-md-12 col-lg-8">
+          {loading && <CartItemLoader />}
               {cartItems?.length != 0 &&
                 cartItems?.map((item: any, index: number) => {
                   return (

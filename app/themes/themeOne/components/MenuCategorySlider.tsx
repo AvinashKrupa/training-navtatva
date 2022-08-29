@@ -1,26 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, CSSProperties } from "react";
 import { menuSliderSettings } from "../../../../utils/sliderConfig";
 import { useDebouncedEffect } from "../../../../utils/useDebouncedEffect";
 import NavMenuCategory from "../../../components/layouts/category";
 import Slider from "react-slick";
 import Permalink from "../../../../utils/Permalink";
+import CategoryLoader from "../../../components/loader/CategoryLoader";
 
 interface IProps {
   category: Array<any>;
+  loading: boolean
 }
-
 const MenuCategorySlider = (props: IProps) => {
   const [tempselectedSubCat, setTempSelectedSubCat] = useState<any>([]);
   const [selectedSubCat, setSelectedSubCat] = useState<any>([]);
   const [sideImageOnHover, setSideImageOnHover] = useState<any>([]);
   // useDebouncedEffect(() => console.log(selectedSubCat), [selectedSubCat], 1000);
 
-  return (
+  return (<>
+
     <section className="category mt-4 mt-md-5 position-relative side-category">
       <div className="row mx-0 justify-content-center">
         <div className="col-lg-12 px-0">
           <div className="testimonial-slider">
-            <Slider {...menuSliderSettings}>
+            {props.loading ? <CategoryLoader /> : (<Slider {...menuSliderSettings}>
               {props.category.map((info: any, index: number) => {
                 return (
                   <NavMenuCategory
@@ -42,9 +44,8 @@ const MenuCategorySlider = (props: IProps) => {
                   />
                 );
               })}
-            </Slider>
+            </Slider>)}
           </div>
-
           <div
             onMouseEnter={() => {
               setSelectedSubCat(tempselectedSubCat);
@@ -68,7 +69,7 @@ const MenuCategorySlider = (props: IProps) => {
                       {info?.children?.map((info: any) => {
                         return (
                           <li
-                            onClick={() => {}}
+                            onClick={() => { }}
                             onMouseEnter={() => {
                               setSideImageOnHover(info);
                             }}
@@ -94,6 +95,7 @@ const MenuCategorySlider = (props: IProps) => {
         </div>
       </div>
     </section>
+  </>
   );
 };
 

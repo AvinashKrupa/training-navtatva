@@ -38,6 +38,7 @@ const ThemeOne: NextPage = () => {
   const [material, setMaterial] = useState([]);
   const [occasion, setOccasion] = useState([]);
   const [categoryByOccasion, setCategoryByOccasion] = useState([]);
+  const [loading,setLoading]=useState(true)
   useEffect(() => {
     getCatalog();
     return () => {};
@@ -47,6 +48,7 @@ const ThemeOne: NextPage = () => {
     CatalogService.getInstance()
       .getAllCategory()
       .then((response: any) => {
+        setLoading(false)
         if (response.data) {
           setCategory(response.data.data["Category By Style"].children);
           setBrand(response.data.data["Brands"].children);
@@ -68,7 +70,7 @@ const ThemeOne: NextPage = () => {
       <div className="wrapper">
         <Header />
         {/* category start */}
-        <MenuCategorySlider category={category} />
+        <MenuCategorySlider category={category} loading={loading} />
         {/* banner start */}
         <FestiveSaleBanner />
         {/*  Shopping Bag start & Review */}
@@ -117,7 +119,7 @@ const ThemeOne: NextPage = () => {
       {/* New Collections*/}
       {/* <NewCollections /> */}
       {/* More Brands To Explore*/}
-      <MoreBrandsToExplore brand={brand} />
+      <MoreBrandsToExplore brand={brand} loading={loading}/>
       {/* Make your outfits special */}
       {/* <MakeYourOutfitSpecial /> */}
       {/* For the look you desire */}

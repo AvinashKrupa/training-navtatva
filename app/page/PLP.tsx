@@ -19,6 +19,8 @@ import { Cart } from "../../network/gateway/Cart";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
 import Toast from "../../utils/Toast";
 import useUserStore from "../../zustand/store";
+import Loader from "../components/loader/loader";
+import ProductQuickViewLoader from "../components/loader/ProductQuickViewLoader";
 
 const PLP = () => {
   const router = useRouter();
@@ -37,6 +39,10 @@ const PLP = () => {
   const [selectedProductData, setSelectedProductData] = useState<Array<any>>(
     []
   );
+
+  const[quickViewStatus,setQuickViewStatus]=useState(false)
+  const[loading,setLoading]=useState(true)
+  const [quickViweLoader,setQuickViweLoader]=useState(true)
 
   useEffect(() => {
     if (productId != "") {
@@ -67,6 +73,7 @@ const PLP = () => {
     CatalogService.getInstance()
       .getProductByNode(id)
       .then((response: any) => {
+        setLoading(false)
         if (response.data) {
           setProductListing(response.data.data);
         } else {
@@ -83,6 +90,7 @@ const PLP = () => {
         if (response.data) {
           setSelectedProductData(response.data.data);
           setOpenProductQuickView(true);
+          setQuickViewStatus(false)
         } else {
           console.log("ERROR:", response.data);
         }
@@ -129,6 +137,7 @@ const PLP = () => {
                   <SearchBlock setOpenSearchBox={setOpenSearchBox} />
                   <SortByBlock />
                   <div className="row">
+                  {loading && <Loader loading={loading}/>}
                     {productListing.map((item: any, index: number) => {
                       if (
                         item.attributes.children &&
@@ -142,6 +151,7 @@ const PLP = () => {
                             {...item.attributes.children[0].attributes}
                             onClickQuickView={(id: any) => {
                               getProductDetail(id);
+                              setQuickViewStatus(true)
                             }}
                             setOpenCartPopup={setOpenCartPopup}
                             addToCart={(id: string) => {
@@ -219,7 +229,7 @@ const PLP = () => {
         openSearchBox={openSearchBox}
         setOpenSearchBox={setOpenSearchBox}
       />
-      {openProductQuickView && (
+      {(quickViweLoader && openProductQuickView) && (
         <ProductQuickView
           openProductQuickView={openProductQuickView}
           setOpenProductQuickView={() => setOpenProductQuickView(false)}
@@ -229,6 +239,8 @@ const PLP = () => {
           }}
         />
       )}
+      {quickViewStatus && <ProductQuickViewLoader quickViewStatus={quickViewStatus} setQuickViweLoader={setQuickViweLoader}
+      setQuickViewStatus={setQuickViewStatus}/>}
     </>
   );
 };

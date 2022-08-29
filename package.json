@@ -23,10 +23,12 @@
     "react-google-autocomplete": "^2.7.0",
     "react-hook-form": "^7.34.2",
     "react-icons": "^4.4.0",
+    "react-loading-skeleton": "^3.1.0",
     "react-modal": "^3.15.1",
     "react-router-dom": "^6.3.0",
     "react-shimmer": "^3.2.0",
-    "react-shimmer-effect": "^1.0.9",
+
+
     "react-slick": "^0.29.0",
     "react-spinners": "^0.13.4",
     "react-toastify": "^9.0.7",
