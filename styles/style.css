@@ -4473,3 +4473,149 @@ ul.iconBar .dropdown-menu li {
   align-self: flex-end;
   margin-top: 80px;
 }
+/* My Account */
+.account-sidebar {
+  position: fixed;
+  top: 0;
+  z-index: 1050;
+  height: 100vh;
+  background: #fff;
+  max-width: 323px;
+  padding: 30px;
+  width: 100%;
+}
+.account-sidebar ul li a {
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: -0.01em;
+  color: rgb(0 0 0 / 90%);
+  font-family: 'OpenSauceSans-Regular';
+  display: block;
+  margin: 0 -30px;
+  padding: 5px 0px 5px 30px;
+  position: relative;
+}
+.account-sidebar ul li a:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 0;
+  transition: all 0.4s ease;
+  background: #300056;
+  box-shadow: 0px 12px 22px rgb(48 0 86 / 20%);
+  border-radius: 8px;
+}
+.account-sidebar ul li a svg {
+  margin-right: 10px;
+  min-width: 20px;
+}
+.account-sidebar ul li {
+  margin-bottom: 20px;
+}
+.account-sidebar ul li a:hover, .account-sidebar ul li a.active {
+  color: #000;
+}
+.account-sidebar ul li a.active:before{
+  height: 100%;
+}
+.account-sidebar ul li a.active svg, .account-sidebar ul li a.active svg *{
+  fill:  #000;
+}
+.text-primary {
+  color: #300056!important;
+}
+.varification-box {
+  background: #300056;
+  border-radius: 14px;
+  padding: 30px;
+  margin: 30px 0;
+}
+.btn-sm{
+  border-radius: 10px;
+}
+.btn-white {
+  background: #fff;
+  color: #300056;
+}
+form.user-form .form-control {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: #000;
+}
+form.user-form .form-control::placeholder {
+  color: #000;
+}
+form.user-form .form-group {
+  margin-bottom: 20px;
+}
+.address-box-area {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 14px rgb(0 0 0 / 10%);
+  border-radius: 18px;
+  margin-top: 30px;
+}
+.address-box-area .location-name {
+  font-family: 'OpenSauceSans-Medium';
+}
+.address-box-area .address-box-content {
+  padding: 30px;
+}
+.address-box-area .map-area {
+  height: 100%;
+  overflow: hidden;
+}
+.address-button-area .address-btn {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #300056;
+  font-family: 'OpenSauceSans-Medium';
+  margin-right: 30px;
+}
+
+
+
+.discountBG{background: radial-gradient(113.97% 424.38% at 113.97% 113.28%, #FFAB08 0%, #C4C6FF 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 8px 21px rgba(230, 184, 117, 0.2);
+  border-radius: 24px; padding: 20px;}
+  .discountBG .imgbar{ position: absolute; right: 0; bottom: 0; }
+  .discountBG .checkbar{background: rgba(255, 255, 255, 0.2);border: 1px solid rgba(0, 0, 0, 0.1);border-radius: 8px; padding: 10px;}
+  .discountBG .checkbar p{color: #9E0000; z-index: 5; position: relative;}
+  .discountBG  h5{    background: linear-gradient(115deg, #6900D1 0%, #FF0000 44.16%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; z-index: 5; position: relative;
+  text-fill-color: transparent;}
+  .discountBG  h4{ font-style: italic; z-index: 5; position: relative;}
+  .discountBG img{ border-radius: 0 0 24px 0; }
+
+  .carddata{ position: absolute; top: 0; padding: 20px; }
+  .carddata .ltr-space{ letter-spacing: 5px; }
+
+  .jwellarySec{background: radial-gradient(100% 830.08% at 100% 100%, #D6A294 0%, rgba(214, 162, 148, 0.48) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+  border-radius: 32px; padding: 50px;}
+  .jwellarySec .leftBar .color-text{background: linear-gradient(97.84deg, #6900D1 0%, #FF0000 114.16%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent; font-size: 134px;  font-family: 'Conv_Hugolers Stylish'; line-height: 130px;}
+  .jwellarySec .leftBar p{ line-height: 60px; }
+  .jwellarySec .leftBar .btn{ color: #F5D919; font-style: italic; }
+  .jwellarySec .leftBar .btn:hover{ background: #000; }
+  .jwellarySec .overhead h4{ background: rgba(255, 255, 255, 0.7); border-radius: 8px; position: absolute; left: 0; top: 50%; padding: 10px; }
+  .jwellarySec .overhead img{ border-radius: 18px; }
+
+  .colorPopupshow {
+      background: #fff;
+      padding: 5px;
+      position: absolute;
+      right: 20px;
+      top: 11px;
+      z-index: 10;
+      border-radius: 40px;
+  }

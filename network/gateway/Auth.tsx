@@ -22,7 +22,7 @@ export class Auth extends HTTPBaseService {
   static getCustomerId() {
     let customer_id: any = LocalStorageService.getCustomerId()
     return customer_id;
-}
+  }
 
   public login = (data: any) => {
     return new Promise((resolve: any, reject: any) => {
@@ -76,11 +76,8 @@ export class Auth extends HTTPBaseService {
         .get(API.GET_CUSTOMER + "/" + Auth.getCustomerId())
         .then((response) => {
           if (response.status == 200) {
-            console.log("this is customer data",response)
             let message = response.data.msg ?? "";
-
-            Toast.showSuccess(message);
-
+            // Toast.showSuccess(message);
             resolve(response);
           } else {
             let message = response.data.msg ?? "";
