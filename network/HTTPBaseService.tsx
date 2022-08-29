@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 import API from "../app/constants/APIEndpoints";
 import LocalStorageService from "../utils/storage/LocalStorageService";
 import constants from "../app/constants/constant";
+import useUserStore from "../zustand/store";
 interface RefreshToken {
   status: number;
   data: {
@@ -24,10 +25,22 @@ export abstract class HTTPBaseService {
       this.token = token;
     } else {
       this.token = localStorage.getItem("hashToken") ?? "";
+
+      if (this.token == "") {
+        this.getToken();
+      }
     }
 
     this.initializeRequestInterceptor();
     this.initializeResponseInterceptor();
+  }
+
+  async getToken() {
+    const refreshToken = await this.refreshToken();
+    if (refreshToken.status === 200) {
+      this.token = refreshToken.data?.access_token || "";
+      localStorage.setItem("hashToken", this.token);
+    }
   }
 
   private initializeRequestInterceptor = () => {
@@ -84,6 +97,11 @@ export abstract class HTTPBaseService {
         localStorage.setItem("hashToken", this.token);
         return this.instance(originalRequest);
       }
+    }
+    if (error.response?.status === 403) {
+      LocalStorageService.logoutUser();
+      useUserStore.setState({ isLogin: false });
+      throw error;
     } else {
       throw error;
     }

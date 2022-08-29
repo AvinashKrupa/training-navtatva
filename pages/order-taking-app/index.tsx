@@ -209,7 +209,6 @@ const OrderTakingAppScreen: NextPage = () => {
       OrderTakingAppService.getInstance("")
         .placeOrder(requestJSON)
         .then((response: any) => {
-          console.log("current", response);
           if (response?.status == 200) {
             setRedirecting(true);
             setFormValues(initFormValues);

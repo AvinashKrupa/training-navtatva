@@ -3,7 +3,7 @@ import { devtools } from "zustand/middleware";
 import LocalStorageService from "../utils/storage/LocalStorageService";
 
 const useUserStore = create((set) => ({
-  isLogin: LocalStorageService.getAccessToken() ? true : false,
+  isLogin: false, //LocalStorageService.getAccessToken() ? true : false,
   loginPopup: false,
   userInfo: null,
   setUserInfo: (data: any) => {
@@ -20,7 +20,19 @@ const useUserStore = create((set) => ({
   },
   showLogin: (data: boolean) => {
     set((state) => ({
+      ...state,
       loginPopup: data,
+    }));
+  },
+  synchronized: (data: boolean) => {
+    console.log(
+      "synchronized",
+      LocalStorageService.getAccessToken() ? true : false
+    );
+    set((state) => ({
+      isLogin: LocalStorageService.getAccessToken() ? true : false,
+      loginPopup: false,
+      userInfo: null,
     }));
   },
 }));

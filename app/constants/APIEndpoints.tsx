@@ -11,8 +11,16 @@ const API = {
   CART_ASSOCIATION: "create_customer_cart_association",
   GET_CART: "get_customer_cart",
   GET_PRODUCT_DETAIL: "pcm_product/",
-  GET_PRODUCT_BY_NODE:'products_by_node/',
-  DELETE_CART_ITEM:'carts/',
+  GET_PRODUCT_BY_NODE: "products_by_node/",
+  DELETE_CART_ITEM: "carts/",
+  CHECKOUT: "checkout",
+  ADD_ADDRESS: "createAddress",
+  UPDATE_ADDRESS: "updateAddress",
+  GET_CUSTOMER: "get-customer",
+  GET_ALL_ADDRESS: "getAllAddresses",
+  DELETE_ADDRESS: "deleteAddress",
+  GET_BANNER: "banners/",
+  APPLY_PROMOTION: "applyPromotion",
   ORDER_TAKING_APP: {
     GET_SELLERS: "get-all-customers",
     PLACE_ORDER: "place-custom-order",
@@ -29,5 +37,12 @@ const API = {
     CHECK_PAYMENT_STATUS:
       constants.RUPIFI.BASE_URL_V1 + "payments/?merchantPaymentRefId=",
   },
+  RUPIFI_UC: {
+    CHECK_CREDIT_ELIGIBILITY: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "eligibility",
+    CREATE_PAYMENT: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "createPayment",
+    CAPTURE_AMOUNT: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "capturePayment",
+    CHECK_PAYMENT_STATUS: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "checkPyamentStatus?merchantPaymentRefId=",
+    CALLBACK_URL: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "callback",
+  }
 };
 export default API;

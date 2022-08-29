@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import Skeleton from "react-loading-skeleton";
 interface IProps {
   brand: Array<any>;
+  loading: boolean
 }
 
 const MoreBrandsToExplore = (props: IProps) => {
+  const [brands, setBrands] = useState([1, 2, 3, 4, 5])
+
   return (
     <section className="mt-4 mt-md-5 brand">
       <div className="wrapper">
@@ -32,61 +36,13 @@ const MoreBrandsToExplore = (props: IProps) => {
                 );
               })}
 
-              {/* <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-2.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-3.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-4.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-5.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-6.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-7.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-8.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-9.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-10.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-11.png" alt="brand" />
-                </a>
-              </li>
-              <li className="align-items-center justify-content-center d-inline-flex">
-                <a href="#">
-                  <img src="images/brand-12.png" alt="brand" />
-                </a>
-              </li> */}
+              {props.loading && brands.map((info) => {
+                return (
+                  <li   className="align-items-center justify-content-center d-inline-flex">
+                    <Skeleton style={{ width: 180, height: 100 }} />
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>

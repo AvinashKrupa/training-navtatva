@@ -19,6 +19,10 @@ export class Auth extends HTTPBaseService {
 
     return this.classInstance;
   }
+  static getCustomerId() {
+    let customer_id: any = LocalStorageService.getCustomerId()
+    return customer_id;
+}
 
   public login = (data: any) => {
     return new Promise((resolve: any, reject: any) => {
@@ -38,9 +42,13 @@ export class Auth extends HTTPBaseService {
                 },
               ],
             };
-            console.log("login data", params);
+            //console.log("login data", params);
             LocalStorageService.setToken(token);
+            LocalStorageService.setCustomerId(customer_id);
+
+
             let obj = Cart.getInstance();
+            LocalStorageService.setCustomerId(customer_id);
 
             await obj.cartAssociationWithCustomer(params);
 
@@ -57,6 +65,34 @@ export class Auth extends HTTPBaseService {
           // Toast.showError(
           //   JSON.parse(error.response.request.response).msg.detail
           // );
+          reject(error);
+        });
+    });
+  };
+
+  public getCustomerData = () => {
+    return new Promise((resolve: any, reject: any) => {
+      this.instance
+        .get(API.GET_CUSTOMER + "/" + Auth.getCustomerId())
+        .then((response) => {
+          if (response.status == 200) {
+            console.log("this is customer data",response)
+            let message = response.data.msg ?? "";
+
+            Toast.showSuccess(message);
+
+            resolve(response);
+          } else {
+            let message = response.data.msg ?? "";
+            Toast.showError(message);
+            reject(response);
+          }
+        })
+        .catch((error) => {
+          console.log("Error", error);
+          Toast.showError(
+            JSON.parse(error.response.request.response).msg.detail
+          );
           reject(error);
         });
     });

@@ -1,9 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import LocalStorageService from "../../utils/storage/LocalStorageService";
+import { useRouter } from "next/router";
+import { Cart } from "../../network/gateway/Cart";
 
 interface iProps {}
 
-function ThankYou(props: iProps) {
+function ThankYou(props: any) {
+  const router = useRouter();
+  const { id } = router.query;
+
+  let [orderId, setOrderId] = useState<string>("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [deliveryDate, setDeliveyDate] = useState(new Date());
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  console.log("this is today date", router.query);
+  console.log("this is thank you props", props);
+
+  function addDays(days: any) {
+    var result = new Date();
+    result.setDate(result.getDate() + days);
+    return setDeliveyDate(result);
+  }
+  useEffect(() => {
+    addDays(3);
+    Cart.regenrateCustomerCartAssociation();
+    return () => {};
+  }, []);
+  // useEffect(() => {
+  //   let customer_id: any = LocalStorageService.getCustomerId()
+  //   setOrderId(customer_id)
+
+  //   return () => { };
+  // }, []);
+
   return (
     <div>
       <section className="thankYou text-center">
@@ -15,10 +58,17 @@ function ThankYou(props: iProps) {
             <p className="fs-20 font-m text-color-1 mt-3">
               Your Order has been Confirmed
             </p>
-            <p className="fs-20 font-m text-color-1">Order ID: 0007672HB22</p>
+            <p className="fs-20 font-m text-color-1">Order ID: {id}</p>
             <ul className="mt-3">
               <li className="list-inline-item fs-20 font-m text-color-1">
-                Order Date: <span className="text-color-2">July 16, 2022</span>
+                Order Date:{" "}
+                <span className="text-color-2">
+                  {startDate.getDate() +
+                    ` ` +
+                    months[startDate.getMonth()] +
+                    ` ` +
+                    startDate.getFullYear()}
+                </span>
               </li>
               <li className="list-inline-item">|</li>
               <li className="estimate list-inline-item fs-20 font-m mb-5">
@@ -32,7 +82,12 @@ function ThankYou(props: iProps) {
                 >
                   <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849Z" />
                 </svg>
-                Estimated delivery: July 5, 2022
+                Estimated delivery:{" "}
+                {deliveryDate.getDate() +
+                  ` ` +
+                  months[deliveryDate.getMonth()] +
+                  ` ` +
+                  deliveryDate.getFullYear()}
               </li>
               <li className="my-5">
                 <img width={150} src="images/thank-you.gif" alt="" />

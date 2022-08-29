@@ -1,14 +1,221 @@
 import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import Header from "../../app/themes/themeOne/components/Header";
-
+import { Cart } from "../../network/gateway/Cart";
+import LocalStorageService from "../../utils/storage/LocalStorageService";
+import useUserStore from "../../zustand/store";
+import shallow from "zustand/shallow";
+import Toast from "../../utils/Toast";
+import { Address } from "../../network/gateway/Address";
+import AddressList from "../../app/components/common/AddressList";
+import OfferCard from "../../app/components/checkout/OfferCard";
+import CheckoutCartItem from "../../app/components/checkout/CheckoutCartItem";
+import PromoCode from "../../app/components/checkout/PromoCode";
+import EmptyCart from "../../app/components/checkout/EmptyCart";
+import CheckoutStepA from "../../app/components/checkout/CheckoutStepA";
+import CheckoutStepC from "../../app/components/checkout/CheckoutStepC";
+import CheckoutStepB from "../../app/components/checkout/CheckoutStepB";
+import Validators from "../../utils/Validator";
 import { useRouter } from "next/router";
+import Spinner from "../../app/hoc/Spinner";
 
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
+  // const { slug, id } = router.query;
   const router = useRouter();
-  const { slug, id } = router.query;
-  console.log("this is checkout id",id)
+  const [customerId, setCustomerId] = useState<string>("");
+  const [showAddress, setShowAddress] = useState<boolean>(false);
+  const [loading, setLoading] = useState(true);
+  const [cartItems, setCartItems] = useState<any>([]);
+  const [addressFields, setAddressFields] = useState<any>({
+    type: "address",
+    county: "Sunnyville",
+    country: "IN",
+  });
+  const [grandTotal, setGrandTotal] = useState("");
+  const [allAddress, setAllAddress] = useState<any>([]);
+  const isLogin = useUserStore((state: any) => state.isLogin, shallow);
+  const setLoginPopup = useUserStore((state: any) => state.showLogin);
+
+  useEffect(() => {
+    let customer_id: any = LocalStorageService.getCustomerId();
+    setCustomerId(customer_id);
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    if (isLogin) {
+      getCustomerCart();
+    } else {
+      setLoginPopup(true);
+    }
+  }, [isLogin]);
+
+  useEffect(() => {
+    console.log("loading", loading);
+  }, [loading]);
+
+  function getCustomerCart() {
+    setLoading(true);
+    Cart.getInstance()
+      .getCustomerCart()
+      .then((info: any) => {
+        getAddress();
+        setCartItems(info.data.data);
+        setGrandTotal(info?.data.grandTotal);
+      })
+      .catch((error) => {
+        setLoading(false);
+      });
+  }
+  function getAddress() {
+    Address.getInstance()
+      .getAllAddress()
+      .then((data: any) => {
+        setAllAddress(data?.data.data);
+        setLoading(false);
+        //console.log("this is all Address", data)
+      })
+      .catch((error) => {
+        setLoading(false);
+      });
+  }
+  const handleChange = (e: any) => {
+    console.log("e", e.target.name);
+    addressFields[e.target.name] = e.target.value;
+    setAddressFields(JSON.parse(JSON.stringify(addressFields)));
+
+    //  addressFields[e.target.name] = e.target.value;
+  };
+  function validateForm() {
+    let formIsValid = true;
+    if (!addressFields["first_name"]) {
+      formIsValid = false;
+      Toast.showError("Please enter your First Name.");
+    } else if (!addressFields["last_name"]) {
+      formIsValid = false;
+      Toast.showError("Please enter your Last Name.");
+    } else if (!addressFields["line_1"]) {
+      formIsValid = false;
+      Toast.showError("Please enter your Address.");
+    } else if (!addressFields["city"]) {
+      formIsValid = false;
+      Toast.showError("Please enter your City.");
+    } else if (!addressFields["postcode"]) {
+      formIsValid = false;
+      Toast.showError("Please enter your Postal Code.");
+    } else if (!Validators.isNumberOnly(addressFields["postcode"])) {
+      formIsValid = false;
+      Toast.showError("Please enter valid Postal Code.");
+    }
+    return formIsValid;
+  }
+
+  function removeCart(id: any, index: any) {
+    Cart.getInstance()
+      .deleteCartItem(id)
+      .then((response: any) => {
+        if (response.statusText === "OK") {
+          let newCartItem = cartItems;
+          newCartItem.splice(index, 1);
+          setCartItems([...newCartItem]);
+        }
+      });
+  }
+
+  function paymentMethod() {
+    let validationFunction = validateForm();
+    if (validationFunction) {
+      setOpenTab(openTab == 3 ? 0 : 3);
+    }
+  }
+  function test(data: any, all: any) {
+    let addressStatus = true;
+    Object.entries(all).map((item: any) => {
+      if (
+        item[1].first_name === data.first_name &&
+        item[1].line_1 == data.line_1
+      ) {
+        return (addressStatus = false);
+      }
+    });
+    return addressStatus;
+  }
+  function checkout(e: any) {
+    e.preventDefault();
+
+    const all = Object.assign({}, allAddress);
+    const data = Object.assign({}, addressFields);
+    let isDuplicateAddress = !test(data, all);
+    if (isDuplicateAddress) {
+      Toast.showError("*Address already exists.");
+      return;
+    }
+    let validationFunction = validateForm();
+    if (validationFunction) {
+      if (!isDuplicateAddress) {
+        addAddress();
+      }
+    }
+  }
+
+  function addAddress() {
+    if (isLogin && validateForm()) {
+      const param = {
+        data: addressFields,
+      };
+      Address.getInstance()
+        .addAddress(param)
+        .then((data: any) => {
+          setAllAddress([...allAddress, data.data.data]);
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    } else {
+      setLoginPopup(true);
+    }
+  }
+  function deleteAddress(id: any, index: any) {
+    Address.getInstance()
+      .deleteAddress(id)
+      .then((response: any) => {
+        if (response.statusText === "OK") {
+          let newAllAddress = allAddress;
+          newAllAddress.splice(index, 1);
+          setAllAddress([...newAllAddress]);
+          if (newAllAddress.length === 0) {
+            setShowAddress(false);
+          }
+        }
+      });
+  }
+
+  function checkoutApi() {
+    if (validateForm()) {
+      const param = {
+        data: {
+          customer: {
+            id: customerId,
+          },
+          billing_address: addressFields,
+          shipping_address: addressFields,
+        },
+      };
+      Cart.getInstance()
+        .checkout(param, {grandTotal})
+        .then((response: any) => {
+          console.log("checkout info", response.data.data.id);
+          if (response.status) {            
+            window.location.href = response?.data?.data?.paymentUrl;
+          }
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    }
+  }
+
   return (
     <div className="shoppingCart checkoutPage">
       <div className="wrapper">
@@ -22,761 +229,64 @@ const CheckoutScreen: NextPage = () => {
           <div className="row">
             <div className="col-md-12 col-lg-8 mt-4">
               <div className="accordion" id="accordionExample">
-                <div className="accordion-item bgbar ms-0">
-                  <h2
-                    className="accordion-header"
-                    id="headingOne"
-                    onClick={() => setOpenTab(openTab == 1 ? 0 : 1)}
-                  >
-                    <button
-                      className="accordion-button font-sb"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseOne"
-                      aria-expanded="true"
-                      aria-controls="collapseOne"
-                    >
-                      <span className="wordtype">A</span> Log In
-                    </button>
-                  </h2>
-                  <div
-                    id="collapseOne"
-                    className={
-                      "accordion-collapse collapse " +
-                      (openTab == 1 ? "show" : "")
-                    }
-                    aria-labelledby="headingOne"
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div className="accordion-body">
-                      <div className="row">
-                        <div className="col-md-12 mt-4">
-                          <div className="mb-3 promocode ">
-                            <label className="col-form-label fs-14 font-sb text-color-1">
-                              Mobile Number
-                            </label>
-                            <div className="col-sm-8 position-relative">
-                              <input type="text" className="form-control" />
-                              <a
-                                href="#"
-                                className=" fs-16 btn font-sb text-color-3 text-end otp"
-                              >
-                                Send OTP
-                              </a>
-                            </div>
-                            <p className="d-block font-sb text-color-1 mt-4">
-                              Don’t Have an account yet?
-                              <a
-                                href="#"
-                                className="text-color-3 position-relative signup"
-                              >
-                                Sign Up
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="seprtor">
-                        <span>or</span>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-12 mt-2">
-                          <h4 className="fs-20 font-sb text-color-2 mb-4">
-                            Guest Login
-                          </h4>
-                          <div className="mb-3 promocode ">
-                            <label className="col-form-label fs-14 font-sb text-color-1">
-                              Mobile Number
-                            </label>
-                            <div className="col-sm-8 position-relative">
-                              <input type="text" className="form-control" />{" "}
-                            </div>
-                            <p className="d-block font-sb mt-4 guest">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width={16}
-                                height={16}
-                                fill="currentColor"
-                                className="bi bi-info-circle"
-                                viewBox="0 0 16 16"
-                              >
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />{" "}
-                              </svg>
-                              Offers not Valid on Guest Login
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="accordion-item bgbar ms-0">
-                  <h2
-                    className="accordion-header"
-                    id="headingTwo"
-                    onClick={() => setOpenTab(openTab == 2 ? 0 : 2)}
-                  >
-                    <button
-                      className="accordion-button font-sb collapsed"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseTwo"
-                      aria-expanded="false"
-                      aria-controls="collapseTwo"
-                    >
-                      <span className="wordtype">B</span> SHIPPING ADDRESS{" "}
-                    </button>
-                  </h2>
-                  <div
-                    id="collapseTwo"
-                    className={
-                      "accordion-collapse collapse " +
-                      (openTab == 2 ? "show" : "")
-                    }
-                    aria-labelledby="headingTwo"
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div className="accordion-body">
-                      <form>
-                        <div className="row mt-4 mt-md-0">
-                          <div className="col-sm-6 mb-4">
-                            <label htmlFor="firstName" className="form-label">
-                              First name
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="firstName"
-                              placeholder=""
-                              defaultValue={""}
-                              required
-                            />
-                            <div className="invalid-feedback">
-                              {" "}
-                              Valid first name is required.{" "}
-                            </div>
-                          </div>
-                          <div className="col-sm-6  mb-4">
-                            <label htmlFor="lastName" className="form-label">
-                              Last name
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="lastName"
-                              placeholder=""
-                              defaultValue={""}
-                              required
-                            />{" "}
-                          </div>
-                          <div className="col-12  mb-4">
-                            <label htmlFor="address" className="form-label">
-                              Address
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="address"
-                              placeholder="#45, Avenue Towers, Scalpel Road"
-                              required
-                            />{" "}
-                          </div>
-                          <div className="col-12  mb-4">
-                            <label htmlFor="address2" className="form-label">
-                              Apartment, Street, Landmark{" "}
-                              <span className="text-muted">(Optional)</span>
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="address2"
-                              placeholder="80 Feet Road, Behind Hindu Temple"
-                            />{" "}
-                          </div>
-                          <div className="col-md-3 ">
-                            <label htmlFor="zip" className="form-label">
-                              Postal Code
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control postel"
-                              id="Postal Code"
-                              placeholder=""
-                              required
-                            />{" "}
-                          </div>
-                        </div>
-                        <div className="mt-4">
-                          <label htmlFor="zip" className="form-label">
-                            Address Type{" "}
-                          </label>
-                          <div className="d-flex">
-                            <div className="form-check mt-4">
-                              <input
-                                id="credit"
-                                name="paymentMethod"
-                                type="radio"
-                                className="form-check-input"
-                                defaultChecked
-                                required
-                              />
-                              <label
-                                className="form-check-label ms-2 me-4"
-                                htmlFor="credit"
-                              >
-                                Home (9am - 10pm)
-                              </label>
-                            </div>
-                            <div className="form-check  mt-4">
-                              <input
-                                id="debit"
-                                name="paymentMethod"
-                                type="radio"
-                                className="form-check-input"
-                                required
-                              />
-                              <label
-                                className="form-check-label ms-2 me-4"
-                                htmlFor="debit"
-                              >
-                                Office (9am - 5pm)
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="mt-4">
-                          <button className="btn  btn-lg fs-16" type="submit">
-                            Save &amp; Deliver Here
-                          </button>{" "}
-                          <a
-                            href="#"
-                            className="text-color-3 fs-16 font-sb ms-4"
-                            type="submit"
-                          >
-                            Cancel
-                          </a>{" "}
-                        </div>
-                        <div className="seprtor">
-                          <span>or</span>
-                        </div>
-                        <div className="mt-5">
-                          <div className="form-check  mt-4">
-                            <input
-                              id="delivery"
-                              name="delivery"
-                              type="radio"
-                              className="form-check-input"
-                              required
-                            />
-                            <label
-                              className="form-check-label ms-2 me-4"
-                              htmlFor="delivery"
-                            >
-                              In-store delivery
-                            </label>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                <div className="accordion-item bgbar ms-0">
-                  <h2
-                    className="accordion-header"
-                    id="headingThree"
-                    onClick={() => setOpenTab(openTab == 3 ? 0 : 3)}
-                  >
-                    <button
-                      className="accordion-button font-sb collapsed"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseThree"
-                      aria-expanded="false"
-                      aria-controls="collapseThree"
-                    >
-                      <span className="wordtype">C</span> PAYMENT METHOD{" "}
-                    </button>
-                  </h2>
-                  <div
-                    id="collapseThree"
-                    className={
-                      "accordion-collapse collapse " +
-                      (openTab == 3 ? "show" : "")
-                    }
-                    aria-labelledby="headingThree"
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div className="accordion-body">
-                      <div className="my-3">
-                        <div>
-                          <input
-                            id="credit"
-                            name="paymentMethod"
-                            type="radio"
-                            className="form-check-input"
-                            defaultChecked
-                            required
-                          />
-                          <label
-                            className="form-check-label fs-16 font-sb"
-                            htmlFor="credit"
-                          >
-                            Credit card
-                          </label>
-                        </div>
-                        <label className="form-label mt-4">Saved Cards</label>
-                        <ul>
-                          <li className="list-inline-item">
-                            {" "}
-                            <a href="#">
-                              <img
-                                src="images/credit-1.png"
-                                alt="logo"
-                                className="img-fluid desk-logo"
-                              />
-                            </a>
-                          </li>
-                          <li className="list-inline-item">
-                            {" "}
-                            <a href="#">
-                              <img
-                                src="images/credit-2.png"
-                                alt="logo"
-                                className="img-fluid desk-logo"
-                              />
-                            </a>
-                          </li>
-                        </ul>
-                        <hr />
-                        <div className="col-8">
-                          <label className="form-label">Card Number</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="5665 2344 1223 9801"
-                            required
-                          />
-                        </div>
-                        <ul>
-                          <li className="list-inline-item">
-                            <div className="mt-4">
-                              <label className="form-label">Valid Date</label>
-                              <div className="quantity d-flex px-2">
-                                <select
-                                  className="form-select fs-14 font-r text-color-2"
-                                  aria-label="Default select example"
-                                >
-                                  <option value={1} selected>
-                                    01
-                                  </option>
-                                  <option value={2}>02</option>
-                                  <option value={3}>03</option>
-                                </select>
-                                <select
-                                  className="form-select fs-14 font-r text-color-2"
-                                  aria-label="Default select example"
-                                >
-                                  <option value={1} selected>
-                                    28
-                                  </option>
-                                  <option value={2}>29</option>
-                                  <option value={3}>30</option>
-                                </select>
-                              </div>
-                            </div>
-                          </li>
-                          <li className="list-inline-item">
-                            <div className=" mt-4 ms-0 ms-md-4">
-                              <label htmlFor="zip" className="form-label">
-                                CVV
-                              </label>
-                              <input
-                                type="text"
-                                className="form-control cvv"
-                                placeholder=""
-                                required
-                              />
-                            </div>
-                          </li>
-                          <li className="list-inline-item">
-                            <button
-                              onClick={() => {
-                                router.push("/thankyou");
-                              }}
-                              className="btn btn-lg fs-16"
-                              type="submit"
-                            >
-                              Pay ₹16,994{" "}
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="mt-4 d-block d-md-flex">
-                        <div>
-                          <input
-                            id="debit"
-                            name="paymentMethod"
-                            type="radio"
-                            className="form-check-input"
-                            required
-                          />
-                          <label
-                            className="form-check-label fs-16 font-sb ml-4"
-                            htmlFor="debit"
-                          >
-                            UPI
-                          </label>
-                        </div>
-                        <div className="upi-amount">
-                          <p className="d-block font-sb">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width={16}
-                              height={16}
-                              fill="currentColor"
-                              className="bi bi-info-circle me-1"
-                              viewBox="0 0 16 16"
-                            >
-                              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                              <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />{" "}
-                            </svg>
-                            Offers not Valid on Guest Login
-                          </p>
-                        </div>
-                      </div>
-                      <div className="mt-4">
-                        <ul>
-                          <li className="list-inline-item col-md-8">
-                            <label className="form-label">Enter UPI ID</label>
-                            <input
-                              type="text"
-                              className="form-control "
-                              placeholder="5665 2344 1223 9801"
-                              required
-                            />
-                          </li>
-                          <li className="list-inline-item">
-                            {" "}
-                            <button
-                              className="btn btn-lg fs-16 mt-3 mt-md-0"
-                              type="submit"
-                            >
-                              Pay ₹16,994{" "}
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="mt-4 d-block d-md-flex">
-                        <div>
-                          <input
-                            id="debit"
-                            name="paymentMethod"
-                            type="radio"
-                            className="form-check-input"
-                            required
-                          />
-                          <label
-                            className="form-check-label fs-16 font-sb"
-                            htmlFor="debit"
-                          >
-                            Cash On Delivery{" "}
-                          </label>
-                        </div>
-                        <div className="upi-amount bgred">
-                          <p className="d-block font-sb">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width={16}
-                              height={16}
-                              fill="currentColor"
-                              className="bi bi-info-circle me-1"
-                              viewBox="0 0 16 16"
-                            >
-                              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                              <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />{" "}
-                            </svg>
-                            Extra ₹129 Convinience Fee{" "}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {cartItems?.length != 0 && (
+                  <>
+                    <CheckoutStepA
+                      isLogin={isLogin}
+                      setLoginPopup={setLoginPopup}
+                    />
+                    <CheckoutStepB
+                      handleChange={handleChange}
+                      onSave={checkout}
+                      paymentMethod={paymentMethod}
+                      addressFields={addressFields}
+                      openTab={openTab}
+                      setOpenTab={setOpenTab}
+                      allAddress={allAddress}
+                      setShowAddress={setShowAddress}
+                    />
+                    <CheckoutStepC
+                      customerId={customerId}
+                      openTab={openTab}
+                      setOpenTab={setOpenTab}
+                      grandTotal={grandTotal}
+                      onCheckout={checkoutApi}
+                    />
+                    <AddressList
+                      isVisible={showAddress}
+                      data={allAddress}
+                      onClose={() => {
+                        setShowAddress(false);
+                      }}
+                      onSelect={(id) => {
+                        setShowAddress(false);
+                        setAddressFields(
+                          JSON.parse(JSON.stringify(allAddress[id]))
+                        );
+                        setAddressFields(
+                          JSON.parse(JSON.stringify(allAddress[id]))
+                        );
+                      }}
+                      deleteAddress={deleteAddress}
+                    />
+                  </>
+                )}
+
+                {cartItems.length <= 0 && !loading && <EmptyCart />}
+                <Spinner loading={loading} />
               </div>
             </div>
-            <div className="col-md-12 col-lg-4">
-              <div className="w-100 mt-4">
-                <a href="#">
-                  {" "}
-                  <img className="w-100" src="images/discountAd.png" alt="" />
-                </a>{" "}
-                <a
-                  href="button"
-                  className="font-sb text-color-3 fs-16 justify-content-end align-items-end d-flex ms-auto mt-3 me-2"
-                >
-                  Multiple offers waiting for you after checkout
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={22}
-                    height={22}
-                    fill="currentColor"
-                    className="bi bi-arrow-up-right ms-2"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0v-6z"
-                    />
-                  </svg>
-                </a>{" "}
+            {cartItems?.length != 0 && (
+              <div className="col-md-12 col-lg-4">
+                <OfferCard />
+                <CheckoutCartItem
+                  cartItems={cartItems}
+                  removeCart={removeCart}
+                  grandTotal={grandTotal}
+                />
+                <PromoCode />
               </div>
-              <div className="col-md-12">
-                <div className="bgbar position-relative mt-4 ms-0 ">
-                  <div className="row">
-                    <div className="col-md-3 col-lg-4">
-                      <div className="imgbar ">
-                        <img className="w-100" src="images/img1.png" alt="" />
-                      </div>
-                    </div>
-                    <div className="col-md-9 col-lg-8 position-relative">
-                      <h3 className="fs-16 font-sb text-color-2">Anubhutee</h3>
-                      <p className="fs-14 font-r text-color-1 pt-1 prodes">
-                        Women Teal Blue &amp; Beige Ethnic Motifs Printed
-                        Straight Kurti
-                      </p>
-                      <div className="d-flex py-3 align-items-center">
-                        <p className="fs-14 font-sb text-color-1">
-                          Size: <span className="text-color-2">XL</span>
-                        </p>
-                        <p className="fs-14 font-sb text-color-1 ms-4">
-                          Colour: <span className="text-color-2">Blue</span>
-                        </p>
-                        <div className="d-flex topBarAlign position-static ms-2">
-                          <div className="quantity d-flex px-2 ">
-                            <label className="fs-14 font-r text-color-1 pt-1">
-                              Qty
-                            </label>
-                            <select
-                              className="form-select fs-14 font-r"
-                              aria-label="Default select example"
-                            >
-                              <option value={1}>1</option>
-                              <option value={2}>2</option>
-                              <option value={3}>3</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="d-flex pb-3 align-items-center">
-                        <p className="fs-14 font-sb text-color-1">
-                          Size: <span className="text-color-2">XL</span>
-                        </p>
-                        <p className="fs-14 font-sb text-color-1 ms-4">
-                          Colour: <span className="text-color-2">Blue</span>
-                        </p>
-                        <div className="d-flex topBarAlign position-static ms-2">
-                          <div className="quantity d-flex px-2 ">
-                            <label className="fs-14 font-r text-color-1 pt-1">
-                              Qty
-                            </label>
-                            <select
-                              className="form-select fs-14 font-r"
-                              aria-label="Default select example"
-                            >
-                              <option value={1}>1</option>
-                              <option value={2}>2</option>
-                              <option value={3}>3</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="d-flex pb-3 align-items-center">
-                        <p className="fs-14 font-sb text-color-1">
-                          Size: <span className="text-color-2">XL</span>
-                        </p>
-                        <p className="fs-14 font-sb text-color-1 ms-4">
-                          Colour: <span className="text-color-2">Blue</span>
-                        </p>
-                        <div className="d-flex topBarAlign position-static ms-2">
-                          <div className="quantity d-flex px-2 ">
-                            <label className="fs-14 font-r text-color-1 pt-1">
-                              Qty
-                            </label>
-                            <select
-                              className="form-select fs-14 font-r"
-                              aria-label="Default select example"
-                            >
-                              <option value={1}>1</option>
-                              <option value={2}>2</option>
-                              <option value={3}>3</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="d-flex pb-3">
-                        <p className="fs-14 font-sb text-color-1">
-                          Total: <span className="text-color-2">₹3,499</span>
-                        </p>
-                      </div>
-                      <div className="d-flex mt-4">
-                        {" "}
-                        <a className="fs-14 font-sb text-color-3" href="#">
-                          Move to Wishlist
-                        </a>{" "}
-                        <a className="fs-14 font-sb text-color-3 ms-4" href="#">
-                          Remove
-                        </a>{" "}
-                      </div>
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="row">
-                    <div className="col-md-3 col-lg-4">
-                      <div className="imgbar ">
-                        <img className="w-100" src="images/img1.png" alt="" />
-                      </div>
-                    </div>
-                    <div className="col-md-9 col-lg-8 position-relative">
-                      <h3 className="fs-16 font-sb text-color-2">Anubhutee</h3>
-                      <p className="fs-14 font-r text-color-1 pt-1 prodes">
-                        Women Teal Blue &amp; Beige Ethnic Motifs Printed
-                        Straight Kurti
-                      </p>
-                      <div className="d-flex py-3 align-items-center">
-                        <p className="fs-14 font-sb text-color-1">
-                          Size: <span className="text-color-2">XL</span>
-                        </p>
-                        <p className="fs-14 font-sb text-color-1 ms-4">
-                          Colour: <span className="text-color-2">Blue</span>
-                        </p>
-                        <div className="d-flex topBarAlign position-static ms-2">
-                          <div className="quantity d-flex px-2 ">
-                            <label className="fs-14 font-r text-color-1 pt-1">
-                              Qty
-                            </label>
-                            <select
-                              className="form-select fs-14 font-r"
-                              aria-label="Default select example"
-                            >
-                              <option value={1}>1</option>
-                              <option value={2}>2</option>
-                              <option value={3}>3</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="d-flex pb-3 align-items-center">
-                        <p className="fs-14 font-sb text-color-1">
-                          Size: <span className="text-color-2">XL</span>
-                        </p>
-                        <p className="fs-14 font-sb text-color-1 ms-4">
-                          Colour: <span className="text-color-2">Blue</span>
-                        </p>
-                        <div className="d-flex topBarAlign position-static ms-2">
-                          <div className="quantity d-flex px-2 ">
-                            <label className="fs-14 font-r text-color-1 pt-1">
-                              Qty
-                            </label>
-                            <select
-                              className="form-select fs-14 font-r"
-                              aria-label="Default select example"
-                            >
-                              <option value={1}>1</option>
-                              <option value={2}>2</option>
-                              <option value={3}>3</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="d-flex pb-3 align-items-center">
-                        <p className="fs-14 font-sb text-color-1">
-                          Size: <span className="text-color-2">XL</span>
-                        </p>
-                        <p className="fs-14 font-sb text-color-1 ms-4">
-                          Colour: <span className="text-color-2">Blue</span>
-                        </p>
-                        <div className="d-flex topBarAlign position-static ms-2">
-                          <div className="quantity d-flex px-2 ">
-                            <label className="fs-14 font-r text-color-1 pt-1">
-                              Qty
-                            </label>
-                            <select
-                              className="form-select fs-14 font-r"
-                              aria-label="Default select example"
-                            >
-                              <option value={1}>1</option>
-                              <option value={2}>2</option>
-                              <option value={3}>3</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="d-flex pb-3">
-                        <p className="fs-14 font-sb text-color-1">
-                          Total: <span className="text-color-2">₹3,499</span>
-                        </p>
-                      </div>
-                      <div className="d-flex mt-4">
-                        {" "}
-                        <a className="fs-14 font-sb text-color-3" href="#">
-                          Move to Wishlist
-                        </a>{" "}
-                        <a className="fs-14 font-sb text-color-3 ms-4" href="#">
-                          Remove
-                        </a>{" "}
-                      </div>
-                    </div>
-                  </div>
-                  <hr />
-                  <ul>
-                    <li className="fs-14 font-r text-color-1 d-flex mb-3">
-                      Delivery Charges (express)
-                      <small className="text-color-2 text-end ms-auto">
-                        + 100{" "}
-                      </small>
-                    </li>
-                    <li className="fs-14 font-r text-color-1 d-flex  mb-3">
-                      CGST + SGST (14%)
-                      <small className="text-color-2 text-end ms-auto">
-                        + ₹1255
-                      </small>
-                    </li>
-                    <li className="fs-14 font-r text-color-1 d-flex  mb-3">
-                      Discount
-                      <small className="text-end ms-auto  green">₹299 </small>
-                    </li>
-                  </ul>
-                  <hr />
-                  <ul>
-                    <li className="fs-19 font-sb text-color-2 d-flex mb-3">
-                      Grand Total
-                      <small className="text-color-2  text-end ms-auto">
-                        ₹16,994{" "}
-                      </small>
-                    </li>
-                  </ul>
-                </div>
-                <div className="mb-3 promocode ">
-                  <label className="col-form-label fs-14 font-sb text-color-1">
-                    Have a Promo Code?
-                  </label>
-                  <div className="col-sm-12 position-relative">
-                    <input
-                      type="text"
-                      className="form-control border"
-                      placeholder="NAVTATVA2022"
-                    />
-                    <a
-                      href="#"
-                      className=" fs-16 font-sb text-color-3 text-end apply"
-                    >
-                      Apply
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+            )}
           </div>
         </section>
       </div>

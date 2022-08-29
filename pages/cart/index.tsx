@@ -10,13 +10,23 @@ import { Cart } from "../../network/gateway/Cart";
 import shallow from "zustand/shallow";
 import useUserStore from "../../zustand/store";
 import { occasionSetting } from "../../utils/sliderConfig";
+import ValidationMessage from "../../app/constants/validationMessage";
+import Validators from "../../utils/Validator";
+import Toast from "../../utils/Toast";
+import Loader from "../../app/components/loader/loader";
+import CartItemLoader from "../../app/components/cart/CartItemLoader";
 
 const CartScreen: NextPage = () => {
   const [cartItems, setCartItems] = useState<any>([]);
+  const [couponCode, setCouponCode] = useState<any>("");
+  const [subTotal, setSubTotal] = useState<any>();
   const [youMayLikeList, setYouMayLikeList] = useState<any>([]);
   const isLogin = useUserStore((state: any) => state.isLogin, shallow);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
+  const[loading,setLoading]=useState(true)
+
   useEffect(() => {
+    console.log("CartScreen", isLogin);
     if (isLogin) {
       getCustomerCart();
     } else {
@@ -28,9 +38,38 @@ const CartScreen: NextPage = () => {
     Cart.getInstance()
       .getCustomerCart()
       .then((info: any) => {
+        setLoading(false)
         setCartItems(info.data.data);
-        console.log("this is cart items", info.data.data);
+        setSubTotal(info.data.grandTotal);
+        console.log("this is cart items", info.data);
       });
+  }
+
+  function isValidCouponCode() {
+    if (Validators.isEmpty(couponCode)) {
+      Toast.showError(ValidationMessage.couponCode);
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  function applyCouponCode() {
+    if (isValidCouponCode()) {
+      let data = {
+        data: {
+          type: "promotion_item",
+          code: couponCode,
+        },
+      };
+      Cart.getInstance()
+        .applyCouponCode(data)
+        .then((response: any) => {
+          if (response.statusText === "OK") {
+            setCartItems(response.data.data);
+          }
+        });
+    }
   }
 
   function removeCart(id: any, index: any) {
@@ -55,8 +94,10 @@ const CartScreen: NextPage = () => {
           <h1 className="fs-40 font-b text-color-2 list-inline-item">
             Your Shopping Bag
           </h1>
+
           <div className="row">
             <div className="col-md-12 col-lg-8">
+          {loading && <CartItemLoader />}
               {cartItems?.length != 0 &&
                 cartItems?.map((item: any, index: number) => {
                   return (
@@ -77,7 +118,6 @@ const CartScreen: NextPage = () => {
             <div className="col-md-12 col-lg-4">
               <div className="w-100 mt-4">
                 <a href="#">
-                  {" "}
                   <img className="w-100" src="images/discountAd.png" alt="" />
                 </a>
                 <a
@@ -111,18 +151,18 @@ const CartScreen: NextPage = () => {
                   <div className="col-md-12">
                     <div className="gray">
                       <p className="fs-14 font-r text-color-2">
-                        Add items worth{" "}
-                        <span className="font-sb"> ₹1,800 </span> more to avail{" "}
+                        Add items worth
+                        <span className="font-sb"> ₹1,800 </span> more to avail
                         <span className="font-sb text-color-9">
                           Free Shipping
                         </span>
                       </p>
-                    </div>{" "}
+                    </div>
                   </div>
                   <div className="col-md-12 d-flex mt-5">
                     <h3 className="fs-19 font-sb text-color-2">Sub Total</h3>
                     <h3 className="fs-24 font-sb text-color-3 ms-auto">
-                      ₹16,994
+                      ₹{subTotal}
                     </h3>
                   </div>
                   <div className="col-md-12 mt-4">
@@ -143,10 +183,21 @@ const CartScreen: NextPage = () => {
                       Have a Promo Code?
                     </label>
                     <div className="col-sm-12 position-relative">
-                      <input type="text" className="form-control" />
+                      <input
+                        value={couponCode}
+                        onChange={(event) => {
+                          setCouponCode(event.target.value);
+                        }}
+                        type="text"
+                        className="form-control"
+                      />
                       <a
                         href="#"
                         className=" fs-16 font-sb text-color-3 text-end apply"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          applyCouponCode();
+                        }}
                       >
                         Apply
                       </a>
@@ -158,11 +209,9 @@ const CartScreen: NextPage = () => {
                     Have a Promo Code?
                   </label>
                   <a href="#">
-                    {" "}
                     <img className="w-100" src="images/card-1.png" alt="" />
                   </a>
                   <a href="#" className="mt-4 d-block">
-                    {" "}
                     <img className="w-100" src="images/card-2.png" alt="" />
                   </a>
                 </div>
@@ -171,7 +220,6 @@ const CartScreen: NextPage = () => {
                     Redeem Coins
                   </label>
                   <a href="#">
-                    {" "}
                     <img className="w-100" src="images/card-3.png" alt="" />
                   </a>
                 </div>
