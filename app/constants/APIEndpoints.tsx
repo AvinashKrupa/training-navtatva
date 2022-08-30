@@ -8,11 +8,16 @@ const API = {
   GET_OCCASION: "pcm_occasion",
   GET_PRODUCT_LIST: "pcm_products",
   ADD_TO_CART: "add-to-cart",
+  ADD_PRODUCT_WISHLIST: "flows/wishlist/entries/",
+  CREATE_WISHLIST_ENTRY: "flows/wishlist/entries",
   CART_ASSOCIATION: "create_customer_cart_association",
+  ADD_WISHLIST_WITH_CUSTOMER: "customers/",
   GET_CART: "get_customer_cart",
+  GET_WISHLIST: "/flows/wishlist/entries",
   GET_PRODUCT_DETAIL: "pcm_product/",
   GET_PRODUCT_BY_NODE: "products_by_node/",
   DELETE_CART_ITEM: "carts/",
+  DELETE_WISHLIST_ITEM: "/flows/wishlist/entries/",
   CHECKOUT: "checkout",
   ADD_ADDRESS: "createAddress",
   UPDATE_ADDRESS: "updateAddress",
@@ -38,11 +43,14 @@ const API = {
       constants.RUPIFI.BASE_URL_V1 + "payments/?merchantPaymentRefId=",
   },
   RUPIFI_UC: {
-    CHECK_CREDIT_ELIGIBILITY: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "eligibility",
+    CHECK_CREDIT_ELIGIBILITY:
+      constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "eligibility",
     CREATE_PAYMENT: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "createPayment",
     CAPTURE_AMOUNT: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "capturePayment",
-    CHECK_PAYMENT_STATUS: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "checkPyamentStatus?merchantPaymentRefId=",
+    CHECK_PAYMENT_STATUS:
+      constants.PAYMENT_METHOD.RUPIFI.BASE_URL +
+      "checkPyamentStatus?merchantPaymentRefId=",
     CALLBACK_URL: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "callback",
-  }
+  },
 };
 export default API;
