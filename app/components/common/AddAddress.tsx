@@ -136,7 +136,7 @@ const AddressList = (props: any) => {
                                         />
                                     </div>
                                 </div>
-                                <div className="mt-4">
+                                {/* <div className="mt-4">
                                     <label htmlFor="zip" className="form-label">
                                         Address Type
                                     </label>
@@ -174,7 +174,7 @@ const AddressList = (props: any) => {
                                             </label>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="mt-4">
                                     <button
                                         className="btn  btn-lg fs-16"

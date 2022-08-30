@@ -5,7 +5,9 @@ import useUserStore from "../../../zustand/store";
 import AddAddress from "../../../app/components/common/AddAddress";
 import Toast from "../../../utils/Toast";
 import Validators from "../../../utils/Validator";
-import { channel } from "diagnostics_channel";
+import Loader from "../loader/loader";
+import { LoadingCellRenderer } from "ag-grid-community/dist/lib/rendering/cellRenderers/loadingCellRenderer";
+
 
 const SaveAdress = () => {
 
@@ -14,6 +16,7 @@ const SaveAdress = () => {
     const setLoginPopup = useUserStore((state: any) => state.showLogin);
     const [isShowing, setIsShowing] = useState<boolean>(false)
     const [editAddressStaus, setEditAddressStatus] = useState<boolean>(true)
+    const [loading,setLoading]=useState<boolean>(true)
 
     const [addressFields, setAddressFields] = useState<any>({
         type: "address",
@@ -34,6 +37,7 @@ const SaveAdress = () => {
             .getAllAddress()
             .then((data: any) => {
                 setAllAddress(data?.data.data);
+                setLoading(false)
             })
             .catch((error) => {
 
@@ -164,7 +168,7 @@ const SaveAdress = () => {
                 addressFields={addressFields}
                 editAddressStaus={editAddressStaus}
             />
-
+            {loading && <Loader loading={loading}/>}
             {allAddress.map((item: any, index: number) => {
                 return (<>
                     <div className="address-box-area">

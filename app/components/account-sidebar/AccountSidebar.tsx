@@ -4,7 +4,7 @@ const AccountSidebar=()=>{
     return(
         <div className="account-sidebar d-none d-lg-block">
         <div className="sidebar-logo mb-5">
-            <a href="#" className="d-none d-lg-block"><img src="images/logo-2.png" alt="logo" className="img-fluid" /></a>
+            <a href="/" className="d-none d-lg-block"><img src="images/logo-2.png" alt="logo" className="img-fluid" /></a>
         </div>
         <ul>
             <li className="font-m">

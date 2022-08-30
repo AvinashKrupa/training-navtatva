@@ -1,9 +1,34 @@
 import { useTheme } from "@emotion/react";
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
+import shallow from "zustand/shallow";
+import { Address } from "../../../network/gateway/Address";
+import { Auth } from "../../../network/gateway/Auth";
+import useUserStore from "../../../zustand/store";
 
 const OrderHistoryItems = () => {
     const [orderList, setOrderList] = useState([1, 2])
     const [deliveredList, setdeliverdList] = useState([1, 2])
+    const isLogin = useUserStore((state: any) => state.isLogin, shallow);
+    const setLoginPopup = useUserStore((state: any) => state.showLogin);
+
+    useEffect(() => {
+        if (isLogin) {
+            getCustomerOrders();
+        } else {
+            setLoginPopup(true);
+        }
+    }, [isLogin]);
+
+    function getCustomerOrders() {
+        Address.getInstance()
+            .getCustomerOrder()
+            .then((data: any) => {
+
+                console.log("this is customer order data",data)
+
+            });
+    }
 
     return (<div className="col-12 col-lg-8 col-xl-9">
         <div className="rightside-bar-area">

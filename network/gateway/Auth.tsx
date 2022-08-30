@@ -24,6 +24,7 @@ export class Auth extends HTTPBaseService {
     return customer_id;
   }
 
+
   public login = (data: any) => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
@@ -94,4 +95,6 @@ export class Auth extends HTTPBaseService {
         });
     });
   };
+
+
 }

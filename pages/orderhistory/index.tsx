@@ -1,6 +1,6 @@
 import React from "react";
 import type { NextPage } from "next";
-import Header from "../../app/components/HeaderOrder";
+import Header from "../../app/components/ProfileHeader";
 import AccountSidebar from "../../app/components/account-sidebar/AccountSidebar";
 import OrderHistoryItems from "../../app/components/order-history";
 
