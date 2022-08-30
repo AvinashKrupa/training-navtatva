@@ -13,7 +13,7 @@ const API = {
   CART_ASSOCIATION: "create_customer_cart_association",
   ADD_WISHLIST_WITH_CUSTOMER: "customers/",
   GET_CART: "get_customer_cart",
-  GET_WISHLIST: "/flows/wishlist/entries",
+  GET_WISHLIST: "customers/",
   GET_PRODUCT_DETAIL: "pcm_product/",
   GET_PRODUCT_BY_NODE: "products_by_node/",
   DELETE_CART_ITEM: "carts/",

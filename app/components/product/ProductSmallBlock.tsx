@@ -6,7 +6,7 @@ import SpinBlock from "../common/SpinBlock";
 import { useRouter } from "next/router";
 
 const ProductSmallBlock = (props: any) => {
-  const [cartView,setCartView]=useState(false)
+  const [cartView, setCartView] = useState(false);
   const router = useRouter();
   function randomIntFromInterval(min: number, max: number) {
     // min and max included
@@ -32,7 +32,14 @@ const ProductSmallBlock = (props: any) => {
               <button type="button" className="btn-voice">
                 <i className="fas fa-volume-high fa-fw" />
               </button>
-              <button type="button" className="btn-heart">
+              <button
+                onClick={() => {
+                  props.addToWishList(props.id);
+                  setCartView(true);
+                }}
+                type="button"
+                className="btn-heart"
+              >
                 <i className="far fa-heart fa-fw" />
               </button>
               <span className="img-name">Cotton + Khaadi</span>
@@ -101,32 +108,34 @@ const ProductSmallBlock = (props: any) => {
                 >
                   Quick View
                 </button>
-               {!cartView && <button
-                  type="button"
-                  className="btn btn-sm w-100 cart-btn"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                  onClick={() => {
-                    props.addToCart(props.id);
-                    setCartView(true)
-                  }}
-                >
-
-                  Add to Cart
-                </button>}
-                {cartView && <button
-                  type="button"
-                  className="btn btn-sm w-100 cart-btn"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                  onClick={() => {
-                    router.push("/cart");
-                    setCartView(false)
-                  }}
-                >
-
-                  show in cart
-                </button>}
+                {!cartView && (
+                  <button
+                    type="button"
+                    className="btn btn-sm w-100 cart-btn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                    onClick={() => {
+                      props.addToCart(props.id);
+                      setCartView(true);
+                    }}
+                  >
+                    Add to Cart
+                  </button>
+                )}
+                {cartView && (
+                  <button
+                    type="button"
+                    className="btn btn-sm w-100 cart-btn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                    onClick={() => {
+                      router.push("/cart");
+                      setCartView(false);
+                    }}
+                  >
+                    show in cart
+                  </button>
+                )}
               </div>
             </div>
           </div>
