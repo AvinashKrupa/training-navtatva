@@ -77,6 +77,7 @@ export abstract class HTTPBaseService {
       Accept: `application/json`,
       Authorization: `Bearer ${this.token}`,
       accessToken: this.token,
+      api_key: "7e61357c-137b-4093-9220-87484f6cf87b",
     };
 
     config.headers = headerJson;
