@@ -18,14 +18,14 @@ const OrderHistoryItems = () => {
         } else {
             setLoginPopup(true);
         }
+
     }, [isLogin]);
 
     function getCustomerOrders() {
         Address.getInstance()
             .getCustomerOrder()
             .then((data: any) => {
-
-                console.log("this is customer order data",data)
+                console.log("this is customer order data", data)
 
             });
     }
