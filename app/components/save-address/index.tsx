@@ -2,13 +2,24 @@ import React, { useEffect, useState } from "react";
 import shallow from "zustand/shallow";
 import { Address } from "../../../network/gateway/Address";
 import useUserStore from "../../../zustand/store";
+import AddAddress from "../../../app/components/common/AddAddress";
+import Toast from "../../../utils/Toast";
+import Validators from "../../../utils/Validator";
+import { channel } from "diagnostics_channel";
 
 const SaveAdress = () => {
 
     const [allAddress, setAllAddress] = useState<any>([]);
     const isLogin = useUserStore((state: any) => state.isLogin, shallow);
     const setLoginPopup = useUserStore((state: any) => state.showLogin);
+    const [isShowing, setIsShowing] = useState<boolean>(false)
+    const [editAddressStaus, setEditAddressStatus] = useState<boolean>(true)
 
+    const [addressFields, setAddressFields] = useState<any>({
+        type: "address",
+        county: "Sunnyville",
+        country: "IN",
+    });
 
     useEffect(() => {
         if (isLogin) {
@@ -28,6 +39,97 @@ const SaveAdress = () => {
 
             });
     }
+    function test(data: any, all: any) {
+        let addressStatus = true;
+        Object.entries(all).map((item: any) => {
+            if (
+                item[1].first_name === data.first_name &&
+                item[1].line_1 == data.line_1
+            ) {
+                return (addressStatus = false);
+            }
+        });
+        return addressStatus;
+    }
+    const handleChange = (e: any) => {
+        console.log("e", e.target.name);
+        addressFields[e.target.name] = e.target.value;
+        setAddressFields(JSON.parse(JSON.stringify(addressFields)));
+
+        //  addressFields[e.target.name] = e.target.value;
+    };
+    function validateForm() {
+        let formIsValid = true;
+        if (!addressFields["first_name"]) {
+            formIsValid = false;
+            Toast.showError("Please enter your First Name.");
+        } else if (!addressFields["last_name"]) {
+            formIsValid = false;
+            Toast.showError("Please enter your Last Name.");
+        } else if (!addressFields["line_1"]) {
+            formIsValid = false;
+            Toast.showError("Please enter your Address.");
+        } else if (!addressFields["city"]) {
+            formIsValid = false;
+            Toast.showError("Please enter your City.");
+        } else if (!addressFields["postcode"]) {
+            formIsValid = false;
+            Toast.showError("Please enter your Postal Code.");
+        } else if (!Validators.isNumberOnly(addressFields["postcode"])) {
+            formIsValid = false;
+            Toast.showError("Please enter valid Postal Code.");
+        }
+        return formIsValid;
+    }
+    function checkout(e: any) {
+        e.preventDefault();
+
+        const all = Object.assign({}, allAddress);
+        const data = Object.assign({}, addressFields);
+        let isDuplicateAddress = !test(data, all);
+        if (isDuplicateAddress) {
+            Toast.showError("*Address already exists.");
+            return;
+        }
+        let validationFunction = validateForm();
+        if (validationFunction) {
+            if (!isDuplicateAddress) {
+                addAddress();
+            }
+        }
+    }
+
+    function addAddress() {
+        if (isLogin && validateForm()) {
+            const param = {
+                data: addressFields,
+            };
+            Address.getInstance()
+                .addAddress(param)
+                .then((data: any) => {
+                    setAllAddress([...allAddress, data.data.data]);
+                    setIsShowing(false)
+                })
+                .catch((error) => {
+                    console.log("error", error);
+                });
+        } else {
+            setLoginPopup(true);
+        }
+    }
+
+    // function editAddress(number:number,id:any){
+    //     setAddressFields(
+    //         JSON.parse(JSON.stringify(allAddress[number]))
+    //       );
+    //       setAddressFields(
+    //         JSON.parse(JSON.stringify(allAddress[number]))
+    //       );
+    //       setIsShowing(true)
+    //       setEditAddressStatus(false)
+
+
+    // }
 
 
     function deleteAddress(id: any, index: any) {
@@ -44,12 +146,25 @@ const SaveAdress = () => {
                 }
             });
     }
+    console.log("this is testing data", allAddress)
+
     return (<div className="col-12 col-lg-8 col-xl-9 ">
         <div className="rightside-bar-area ">
-            <button type="button" className="add-address-btn btn fs-13 btn-sm">
+            <button type="button" className="add-address-btn btn fs-13 btn-sm" onClick={() => {
+                setIsShowing(true)
+                setEditAddressStatus(true)
+            }}>
                 <i className="fas fa-plus me-1" />
                 <span>Add Address</span>
             </button>
+            <AddAddress isShowing={isShowing}
+                setIsShowing={setIsShowing}
+                handleChange={handleChange}
+                onSave={checkout}
+                addressFields={addressFields}
+                editAddressStaus={editAddressStaus}
+            />
+
             {allAddress.map((item: any, index: number) => {
                 return (<>
                     <div className="address-box-area">
@@ -59,7 +174,9 @@ const SaveAdress = () => {
                                     <h5 className="location-name text-primary mb-2">{item.first_name}</h5>
                                     <p>{item.line_1} <br />{item.line_2} <br />{item.city}<br />{item.country}</p>
                                     <div className="address-button-area mt-4">
-                                        <button type="button" className="address-btn">EDIT</button>
+                                        <button type="button" className="address-btn"
+
+                                        >EDIT</button>
                                         <button type="button" className="address-btn">SHARE</button>
                                         <button type="button" className="address-btn" onClick={() => {
                                             deleteAddress(item.id, index)

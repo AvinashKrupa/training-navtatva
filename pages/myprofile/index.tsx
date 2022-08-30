@@ -30,10 +30,11 @@ const OrderHistoryScreen: NextPage = () => {
 
     return (
         <div className="chooseyourapparel " style={{ background: '#FAFAFA' }}>
-            <div className="wrapper">
+            <div className="wrapper" style={{height:1460}}>
                 {/* Header */}
                 <Header />
                 {/* End Header */}
+
                 <section className="myaccount-section mt-4 mt-lg-5">
                     <div className="container-fluid">
                         <div className="row">
@@ -84,13 +85,13 @@ const OrderHistoryScreen: NextPage = () => {
                                                             <input type="text" className="form-control" placeholder="Enabled" />
                                                         </div>
                                                     </div>
-                                                    <div className="col-12 col-sm-6">
+                                                    <div className="col-12 col-sm-6 mb-5">
                                                         <div className="form-group">
                                                             <label>Mobile Number</label>
                                                             <input type="text" className="form-control" placeholder="" value={"+" + 91 + " " + customerData?.data?.businessDetails?.whatsapp_number} />
                                                         </div>
                                                     </div>
-                                                    <div className="col-12 col-sm-12 mb-5">
+                                                    {/* <div className="col-12 col-sm-12 mb-5">
                                                         <button type="submit" className="btn fs-16 btn-sm btn-white mt-sm-4">
                                                             Edit Details
                                                             <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 20 20" fill="none">
@@ -100,7 +101,7 @@ const OrderHistoryScreen: NextPage = () => {
                                                                 </g>
                                                             </svg>
                                                         </button>
-                                                    </div>
+                                                    </div> */}
                                                 </div>
                                             </div>
                                         </div>

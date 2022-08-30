@@ -4,8 +4,8 @@ import Header from "../../app/components/HeaderOrder";
 import AccountSidebar from "../../app/components/account-sidebar/AccountSidebar";
 import SaveAdress from "../../app/components/save-address";
 
-const SaveAddressScreen: NextPage = () => {
 
+const SaveAddressScreen: NextPage = () => {
     return (
         <div className="chooseyourapparel " style={{ background: '#FAFAFA'}}>
             <div className="wrapper"  style={{ height: 1440}}>
@@ -20,6 +20,7 @@ const SaveAddressScreen: NextPage = () => {
                             </div>
                             <SaveAdress />
                         </div>
+
                     </div>
                 </section>
             </div>

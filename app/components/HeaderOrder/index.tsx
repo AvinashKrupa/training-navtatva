@@ -29,7 +29,8 @@ const Header=()=>{
                         </li>
                         <li className="list-inline-item">
                             <div className="btn-group">
-                                <a className="user rounded-circle d-block" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title><img width={32} height={32} src="images/user.png" alt="" /></a>
+                                <a className="user rounded-circle d-block" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title
+                                ><img width={32} height={32} src="images/user.png" alt="" /></a>
                                 <ul className="dropdown-menu shadow">
                                     <p className="fs-20 font-sb text-color-3 ps-3 ">Hey Darshil</p>
                                     <li><hr className="dropdown-divider" /></li>
