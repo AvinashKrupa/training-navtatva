@@ -1,8 +1,13 @@
 import React from "react";
 import Slider from "react-slick";
 import { preferenceSliderSetting } from "../../../../utils/sliderConfig";
+interface iProps {
+  data: any;
+  onAddCart: () => void;
+  onWishlist: () => void;
+}
 
-const ShopByPreference = () => {
+const ShopByPreference = (props: iProps) => {
   return (
     <section className="mt-4 mt-md-5 preferrnece">
       <div className="wrapper">
@@ -15,16 +20,21 @@ const ShopByPreference = () => {
           <div className="col-md-12 mt-4 mt-lg-5 position-relative sliderView Occasion">
             <div className="Preference-slider">
               <Slider {...preferenceSliderSetting}>
-                <div className="thumb position-relative text-center">
-                  <div className="bg5">
-                    <div className="text-start p-4">
-                      <p className="fs-20 font-r text-color-1">For</p>
-                      <h4 className="fs-36 font-Bsoul">The Playful</h4>
+                {props.data.map((info: any) => {
+                  return (
+                    <div className="thumb position-relative text-center">
+                      <div className="bg5">
+                        <div className="text-start p-4">
+                          <p className="fs-20 font-r text-color-1">For</p>
+                          <h4 className="fs-36 font-Bsoul">{info.title}</h4>
+                        </div>
+                        <img className="w-100" src={info.image} alt="" />
+                      </div>
                     </div>
-                    <img className="w-100" src="images/playful.png" alt="" />
-                  </div>
-                </div>
-                <div className="thumb position-relative text-center">
+                  );
+                })}
+
+                {/* <div className="thumb position-relative text-center">
                   <div className="bg6">
                     <div className="text-start p-4">
                       <p className="fs-20 font-r text-color-1">For</p>
@@ -41,7 +51,7 @@ const ShopByPreference = () => {
                     </div>
                     <img className="w-100" src="images/timeless.png" alt="" />
                   </div>
-                </div>
+                </div> */}
               </Slider>
             </div>
           </div>

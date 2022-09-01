@@ -38,9 +38,25 @@ const ThemeOne: NextPage = () => {
   const [material, setMaterial] = useState([]);
   const [occasion, setOccasion] = useState([]);
   const [categoryByOccasion, setCategoryByOccasion] = useState([]);
-  const [loading,setLoading]=useState(true)
+  const [outfits, setOutfits] = useState([]);
+  const [currentMonth, setCurrentMonth] = useState([]);
+  const [shopPreference, setShopPreference] = useState([]);
+  const [topPick, setTopPick] = useState([]);
+  const [topCollection, setTopCollection] = useState([]);
+  const [topCompliment, setTopCompliment] = useState([]);
+  const [newCollection, setNewCollection] = useState([]);
+
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     getCatalog();
+    getHomeContent("outflit_products");
+    getHomeContent("occassion_products");
+    getHomeContent("top_collection");
+    getHomeContent("shop_preference");
+    getHomeContent("this_month");
+    getHomeContent("top_pick");
+    getHomeContent("compliment");
+    getHomeContent("new_collection");
     return () => {};
   }, []);
 
@@ -48,7 +64,7 @@ const ThemeOne: NextPage = () => {
     CatalogService.getInstance()
       .getAllCategory()
       .then((response: any) => {
-        setLoading(false)
+        setLoading(false);
         if (response.data) {
           setCategory(response.data.data["Category By Style"].children);
           setBrand(response.data.data["Brands"].children);
@@ -58,6 +74,50 @@ const ThemeOne: NextPage = () => {
             response.data.data["Category By Occasion"].children
           );
           console.log("category", response.data.data);
+        } else {
+          console.log("ERROR:", response.data);
+        }
+      })
+      .catch((error) => {});
+  }
+
+  function getHomeContent(type: string) {
+    console.log("getTopPick");
+    CatalogService.getInstance()
+      .getHomeContent(type)
+      .then((response: any) => {
+        setLoading(false);
+        if (response.data) {
+          //  console.log("category", response.data.data);
+          switch (type) {
+            case "outflit_products":
+              setOutfits(response.data.data);
+              break;
+            case "occassion_products":
+              setOccasion(response.data.data);
+              break;
+            case "top_collection":
+              setTopCollection(response.data.data);
+              break;
+            case "shop_preference":
+              setShopPreference(response.data.data);
+              break;
+            case "top_pick":
+              setTopPick(response.data.data);
+              break;
+            case "this_month":
+              setCurrentMonth(response.data.data);
+              break;
+            case "compliment":
+              setTopCompliment(response.data.data);
+              break;
+            case "new_collection":
+              setNewCollection(response.data.data);
+              break;
+
+            default:
+              break;
+          }
         } else {
           console.log("ERROR:", response.data);
         }
@@ -90,9 +150,17 @@ const ThemeOne: NextPage = () => {
         {/* Bring in the Essence of  Holi to your wardrobe*/}
         <BringInEssence />
         {/* Top Collections */}
-        <TopCollections />
+        <TopCollections
+          data={topCollection}
+          onAddCart={() => {}}
+          onWishlist={() => {}}
+        />
         {/* Shop By Preference */}
-        <ShopByPreference />
+        <ShopByPreference
+          data={shopPreference}
+          onAddCart={() => {}}
+          onWishlist={() => {}}
+        />
         {/* What’s New This Month */}
         <WhatsNewThisMonth />
         {/* NavTatva’s Top Picks */}
@@ -119,7 +187,7 @@ const ThemeOne: NextPage = () => {
       {/* New Collections*/}
       {/* <NewCollections /> */}
       {/* More Brands To Explore*/}
-      <MoreBrandsToExplore brand={brand} loading={loading}/>
+      <MoreBrandsToExplore brand={brand} loading={loading} />
       {/* Make your outfits special */}
       {/* <MakeYourOutfitSpecial /> */}
       {/* For the look you desire */}
