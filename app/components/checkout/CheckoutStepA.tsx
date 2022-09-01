@@ -3,24 +3,14 @@ import { AiOutlineCheck } from "react-icons/ai";
 import { Auth } from "../../../network/gateway/Auth";
 
 const CheckoutStepA = (props: any) => {
-  const [customerData, setCustomerData] = useState<any>();
 
   useEffect(() => {
     if (props.isLogin) {
-      getCustomerData();
+      props.getCustomerData();
     } else {
       props.setLoginPopup(true);
     }
-  }, [props.isLogin]);
-
-  function getCustomerData() {
-    Auth.getInstance()
-      .getCustomerData()
-      .then((data: any) => {
-        //console.log("this is  customer data",data)
-        setCustomerData(data?.data);
-      });
-  }
+  }, [props.isLogin]); 
 
   function updateAddress() {
     //setOpenTab(openTab == 2 ? 0 : 2)
@@ -55,12 +45,12 @@ const CheckoutStepA = (props: any) => {
           </span>
         </p>
         <h1 className="fs-22  font-sb">
-          {customerData?.data?.userDetails.name}
+          {props.customerData?.data?.userDetails.name}
         </h1>
       </div>
       <h1 className="fs-22  font-sb mr-5">
         +91
-        {" " + customerData?.data?.businessDetails?.whatsapp_number}
+        {" " + props.customerData?.data?.businessDetails?.whatsapp_number}
       </h1>
       <div></div>
 
