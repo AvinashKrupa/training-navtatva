@@ -1,14 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { TbCurrencyRupee } from "react-icons/tb";
 import { Cart } from "../../../network/gateway/Cart";
+import { RupifiUCService } from "../../../network/gateway/RupifiUCService";
+import constants from "../../constants/constant";
+import LocalStorageService from "../../../utils/storage/LocalStorageService";
 
 const CheckoutStepC = (props: any) => {
+  const [customerId, setCustomerId] = useState<string>("");
   const [paymentTab, setPaymentTab] = useState<number>(0);
   const [eligibleForRupifi, setEligibleForRupifi] = useState<boolean>(true);
   const [availCod] = useState<boolean>(true);
   const [availCreditCard] = useState<boolean>(true);
-  const [availUpi] = useState<boolean>(true);
+  const [availUpi] = useState<boolean>(false);
+  const [eligibilityData, setEligibilityData] = useState<any>(null);
+
+  useEffect( ()=> {
+    let customer_id: any = LocalStorageService.getCustomerId();
+    setCustomerId(customer_id);
+    checkRupifiEligiblity();
+    return () => {}
+  },[])
+
+  function checkRupifiEligiblity() {
+    let requestJSON = {
+      merchantCustomerRefId: constants.PAYMENT_METHOD.RUPIFI.TEST_ACCOUNT ?? props.customerData?.data?.id,
+      phone: constants.PAYMENT_METHOD.RUPIFI.TEST_ACCOUNT ?? props.customerData?.data?.businessDetails?.whatsapp_number,
+      updateGMV: false,
+    };
+    RupifiUCService.getInstance("")
+      .checkRupifiCreditEligibility(requestJSON)
+      .then((response: any) => {
+        if (response?.data) {
+          setEligibleForRupifi(response?.data?.data?.isEligibleForTxn);
+          setEligibilityData(response?.data?.data);
+        } else {
+          console.log("ERROR:", response?.data);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   return (
     <div className="accordion-item bgbar ms-0">
