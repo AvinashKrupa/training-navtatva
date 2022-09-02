@@ -83,7 +83,7 @@ export abstract class HTTPBaseService {
     config.headers = headerJson;
 
     if (config.url?.startsWith(API.GET_CART)) {
-      headerJson.accessToken = `${LocalStorageService.getAccessToken()}`;
+      headerJson.accessToken = `${this.token}`;
     }
 
     return config;
