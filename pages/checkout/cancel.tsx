@@ -1,16 +1,53 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import LocalStorageService from "../../utils/storage/LocalStorageService";
-import { useRouter } from "next/router";
-import { Cart } from "../../network/gateway/Cart";
+import { useRouter, withRouter } from "next/router";
 import Footer from "../../app/components/common/Footer";
 import Header from "../../app/components/common/Header";
+import { RupifiUCService } from "../../network/gateway/RupifiUCService";
+import { Cart } from "../../network/gateway/Cart";
 
-interface iProps { }
+interface iProps {}
 
-function ThankYou(props: any) {
-  const router = useRouter();
-  const { id } = router.query;
+function Cancel(props: any) {
+  const router = useRouter();  
+  const [authStatus, setAuthStatus] = useState<string>("");
+  const [rupifiResponse, setRupifiResponse] = useState<any>({});
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    const query: any = router.query;
+    setAuthStatus(query?.status);
+    setRupifiResponse(query);
+  }, [router.isReady, router.query]);
+
+  useEffect(() => {
+    if (authStatus == "CANCELLED") {
+      updateOrder();
+    }
+    return () => {};
+  }, [authStatus]);
+
+  useEffect(() => {
+    Cart.regenrateCustomerCartAssociation();
+    return () => {};
+  }, []);
+
+
+  const updateOrder = async () => {
+    
+    RupifiUCService.getInstance("")
+      .cancelPayment(rupifiResponse)
+      .then((response: any) => {
+        if (response?.status == 200) {
+          // do something
+        } else {
+          console.log("ERROR:", response?.data);
+        }
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
       <Header />
@@ -37,4 +74,4 @@ function ThankYou(props: any) {
   );
 }
 
-export default ThankYou;
+export default withRouter(Cancel);

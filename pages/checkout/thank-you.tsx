@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import LocalStorageService from "../../utils/storage/LocalStorageService";
-import { useRouter } from "next/router";
+import { useRouter, withRouter } from "next/router";
 import { Cart } from "../../network/gateway/Cart";
+import { RupifiUCService } from "../../network/gateway/RupifiUCService";
 
 interface iProps {}
 
 function ThankYou(props: any) {
   const router = useRouter();
-  const { id } = router.query;
-
-  let [orderId, setOrderId] = useState<string>("");
-  const [startDate, setStartDate] = useState(new Date());
+  const { merchantPaymentRefId } = router.query;
+  const [authStatus, setAuthStatus] = useState<string>("");
+  const [rupifiResponse, setRupifiResponse] = useState<any>({});  
+  const [startDate,] = useState(new Date());
   const [deliveryDate, setDeliveyDate] = useState(new Date());
   const months = [
     "January",
@@ -27,8 +26,36 @@ function ThankYou(props: any) {
     "November",
     "December",
   ];
-  console.log("this is today date", router.query);
-  console.log("this is thank you props", props);
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    const query: any = router.query;
+    setAuthStatus(query?.status);
+    setRupifiResponse(query);
+  }, [router.isReady, router.query]);
+
+  useEffect(() => {
+    if (authStatus == "AUTH_APPROVED") {
+      updateOrder();
+    }
+    return () => {};
+  }, [authStatus]);
+
+  const updateOrder = async () => {
+    
+    RupifiUCService.getInstance("")
+      .successPayment(rupifiResponse)
+      .then((response: any) => {
+        if (response?.status == 200) {
+          // do something
+        } else {
+          console.log("ERROR:", response?.data);
+        }
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+  };
 
   function addDays(days: any) {
     var result = new Date();
@@ -40,12 +67,6 @@ function ThankYou(props: any) {
     Cart.regenrateCustomerCartAssociation();
     return () => {};
   }, []);
-  // useEffect(() => {
-  //   let customer_id: any = LocalStorageService.getCustomerId()
-  //   setOrderId(customer_id)
-
-  //   return () => { };
-  // }, []);
 
   return (
     <div>
@@ -58,7 +79,7 @@ function ThankYou(props: any) {
             <p className="fs-20 font-m text-color-1 mt-3">
               Your Order has been Confirmed
             </p>
-            <p className="fs-20 font-m text-color-1">Order ID: {id}</p>
+            <p className="fs-20 font-m text-color-1">Order ID: {merchantPaymentRefId}</p>
             <ul className="mt-3">
               <li className="list-inline-item fs-20 font-m text-color-1">
                 Order Date:{" "}
@@ -467,4 +488,4 @@ function ThankYou(props: any) {
   );
 }
 
-export default ThankYou;
+export default withRouter(ThankYou);

@@ -51,6 +51,8 @@ const API = {
       constants.PAYMENT_METHOD.RUPIFI.BASE_URL +
       "checkPyamentStatus?merchantPaymentRefId=",
     CALLBACK_URL: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "callback",
+    SUCCESS_PAYMENT: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "success",
+    CANCEL_PAYMENT: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "cancel",
   },
 };
 export default API;
