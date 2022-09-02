@@ -32,7 +32,7 @@ const FestiveSaleBanner = () => {
                 <Slider {...bannerSliderSettings}>
                     {banners?.map((items, index: number) => {
                         return (
-                            <div>
+                            <div key={index}>
                                 <div className="col-md-12 col-lg-12">
                                     {loading ? <Skeleton height={500} style={{ borderRadius: 25, }} /> : <img className="w-100" src={`http://3.109.249.174:1880${bannerUrl}`} alt="" />}
                                 </div>

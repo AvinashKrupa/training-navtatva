@@ -21,6 +21,7 @@ import Toast from "../../utils/Toast";
 import useUserStore from "../../zustand/store";
 import Loader from "../components/loader/loader";
 import ProductQuickViewLoader from "../components/loader/ProductQuickViewLoader";
+import { Wishlist } from "../../network/gateway/Wishlist";
 
 const PLP = () => {
   const router = useRouter();
@@ -40,9 +41,9 @@ const PLP = () => {
     []
   );
 
-  const[quickViewStatus,setQuickViewStatus]=useState(false)
-  const[loading,setLoading]=useState(true)
-  const [quickViweLoader,setQuickViweLoader]=useState(true)
+  const [quickViewStatus, setQuickViewStatus] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [quickViweLoader, setQuickViweLoader] = useState(true);
 
   useEffect(() => {
     if (productId != "") {
@@ -73,7 +74,7 @@ const PLP = () => {
     CatalogService.getInstance()
       .getProductByNode(id)
       .then((response: any) => {
-        setLoading(false)
+        setLoading(false);
         if (response.data) {
           setProductListing(response.data.data);
         } else {
@@ -90,7 +91,7 @@ const PLP = () => {
         if (response.data) {
           setSelectedProductData(response.data.data);
           setOpenProductQuickView(true);
-          setQuickViewStatus(false)
+          setQuickViewStatus(false);
         } else {
           console.log("ERROR:", response.data);
         }
@@ -108,6 +109,17 @@ const PLP = () => {
     };
     Cart.getInstance()
       .addToCart(params)
+      .then((info) => {
+        console.log("info", info);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }
+
+  function addToWishList(id: string) {
+    Wishlist.getInstance()
+      .addToWishList(id)
       .then((info) => {
         console.log("info", info);
       })
@@ -137,7 +149,7 @@ const PLP = () => {
                   <SearchBlock setOpenSearchBox={setOpenSearchBox} />
                   <SortByBlock />
                   <div className="row">
-                  {loading && <Loader loading={loading}/>}
+                    {loading && <Loader loading={loading} />}
                     {productListing.map((item: any, index: number) => {
                       if (
                         item.attributes.children &&
@@ -151,12 +163,20 @@ const PLP = () => {
                             {...item.attributes.children[0].attributes}
                             onClickQuickView={(id: any) => {
                               getProductDetail(id);
-                              setQuickViewStatus(true)
+                              setQuickViewStatus(true);
                             }}
                             setOpenCartPopup={setOpenCartPopup}
                             addToCart={(id: string) => {
                               if (LocalStorageService.getAccessToken()) {
                                 addToCart(`${id}`);
+                              } else {
+                                setProductId(`${id}`);
+                                setLoginPopup(true);
+                              }
+                            }}
+                            addToWishList={(id: string) => {
+                              if (LocalStorageService.getAccessToken()) {
+                                addToWishList(`${id}`);
                               } else {
                                 setProductId(`${id}`);
                                 setLoginPopup(true);
@@ -229,7 +249,7 @@ const PLP = () => {
         openSearchBox={openSearchBox}
         setOpenSearchBox={setOpenSearchBox}
       />
-      {(quickViweLoader && openProductQuickView) && (
+      {quickViweLoader && openProductQuickView && (
         <ProductQuickView
           openProductQuickView={openProductQuickView}
           setOpenProductQuickView={() => setOpenProductQuickView(false)}
@@ -239,8 +259,13 @@ const PLP = () => {
           }}
         />
       )}
-      {quickViewStatus && <ProductQuickViewLoader quickViewStatus={quickViewStatus} setQuickViweLoader={setQuickViweLoader}
-      setQuickViewStatus={setQuickViewStatus}/>}
+      {quickViewStatus && (
+        <ProductQuickViewLoader
+          quickViewStatus={quickViewStatus}
+          setQuickViweLoader={setQuickViweLoader}
+          setQuickViewStatus={setQuickViewStatus}
+        />
+      )}
     </>
   );
 };

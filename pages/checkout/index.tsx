@@ -18,12 +18,14 @@ import CheckoutStepB from "../../app/components/checkout/CheckoutStepB";
 import Validators from "../../utils/Validator";
 import { useRouter } from "next/router";
 import Spinner from "../../app/hoc/Spinner";
+import { Auth } from "../../network/gateway/Auth";
 
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
   // const { slug, id } = router.query;
   const router = useRouter();
-  const [customerId, setCustomerId] = useState<string>("");
+  const [customerId, setCustomerId] = useState<string>("");  
+  const [customerData, setCustomerData] = useState<any>();
   const [showAddress, setShowAddress] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);
   const [cartItems, setCartItems] = useState<any>([]);
@@ -50,6 +52,15 @@ const CheckoutScreen: NextPage = () => {
       setLoginPopup(true);
     }
   }, [isLogin]);
+
+  function getCustomerData() {
+    Auth.getInstance()
+      .getCustomerData()
+      .then((data: any) => {
+        //console.log("this is  customer data",data)
+        setCustomerData(data?.data);
+      });
+  }
 
   useEffect(() => {
     console.log("loading", loading);
@@ -233,7 +244,9 @@ const CheckoutScreen: NextPage = () => {
                   <>
                     <CheckoutStepA
                       isLogin={isLogin}
-                      setLoginPopup={setLoginPopup}
+                      setLoginPopup={setLoginPopup}                                            
+                      getCustomerData={getCustomerData}
+                      customerData={customerData}
                     />
                     <CheckoutStepB
                       handleChange={handleChange}
@@ -244,6 +257,7 @@ const CheckoutScreen: NextPage = () => {
                       setOpenTab={setOpenTab}
                       allAddress={allAddress}
                       setShowAddress={setShowAddress}
+                      customerData={customerData}
                     />
                     <CheckoutStepC
                       customerId={customerId}
@@ -251,6 +265,7 @@ const CheckoutScreen: NextPage = () => {
                       setOpenTab={setOpenTab}
                       grandTotal={grandTotal}
                       onCheckout={checkoutApi}
+                      customerData={customerData}
                     />
                     <AddressList
                       isVisible={showAddress}

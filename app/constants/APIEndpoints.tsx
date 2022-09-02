@@ -13,7 +13,7 @@ const API = {
   CART_ASSOCIATION: "create_customer_cart_association",
   ADD_WISHLIST_WITH_CUSTOMER: "customers/",
   GET_CART: "get_customer_cart",
-  GET_WISHLIST: "/flows/wishlist/entries",
+  GET_WISHLIST: "customers/",
   GET_PRODUCT_DETAIL: "pcm_product/",
   GET_PRODUCT_BY_NODE: "products_by_node/",
   DELETE_CART_ITEM: "carts/",
@@ -26,7 +26,8 @@ const API = {
   DELETE_ADDRESS: "deleteAddress",
   GET_BANNER: "banners/",
   APPLY_PROMOTION: "applyPromotion",
-  GET_CUSTOMER_ORDER :'getCustomerOrder',
+  GET_CUSTOMER_ORDER: 'getCustomerOrder',
+  GET_HOME_CONTENT: "getHomeContent/",
   ORDER_TAKING_APP: {
     GET_SELLERS: "get-all-customers",
     PLACE_ORDER: "place-custom-order",
@@ -52,6 +53,8 @@ const API = {
       constants.PAYMENT_METHOD.RUPIFI.BASE_URL +
       "checkPyamentStatus?merchantPaymentRefId=",
     CALLBACK_URL: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "callback",
+    SUCCESS_PAYMENT: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "success",
+    CANCEL_PAYMENT: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "cancel",
   },
 };
 export default API;

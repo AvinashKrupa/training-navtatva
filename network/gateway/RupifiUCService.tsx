@@ -92,4 +92,43 @@ export class RupifiUCService extends HTTPBaseService {
         });
     });
   };
+
+  public cancelPayment = (data: any) => {
+    return new Promise((resolve: any, reject: any) => {
+      this.instance
+        .post(API.RUPIFI_UC.CANCEL_PAYMENT, data)
+        .then((response) => {
+          //let message = response.data.detail;
+          if (response.status == 200) {
+            resolve(response);
+          } else {
+            reject(response);
+          }
+        })
+        .catch((error) => {
+          Toast.showError(error.message);
+          reject(error);
+        });
+    });
+  };
+
+  public successPayment = (data: any) => {
+    return new Promise((resolve: any, reject: any) => {
+      this.instance
+        .post(API.RUPIFI_UC.SUCCESS_PAYMENT, data)
+        .then((response) => {
+          //let message = response.data.detail;
+          if (response.status == 200) {
+            resolve(response);
+          } else {
+            reject(response);
+          }
+        })
+        .catch((error) => {
+          Toast.showError(error.message);
+          reject(error);
+        });
+    });
+  };
+
 }

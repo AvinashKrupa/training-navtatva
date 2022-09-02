@@ -147,12 +147,10 @@ export class Cart extends HTTPBaseService {
             const { id } = response?.data?.data
             const sellerId = LocalStorageService.getCustomerId();
             const requestJSON = {
-              amount: {
-                value: order?.grandTotal,
-              },
+              amount: order?.grandTotal,
               autoCapture: false,
               callbackUrl: API.RUPIFI_UC.CALLBACK_URL,
-              merchantCustomerRefId: constants.PAYMENT_METHOD.RUPIFI.TEST_ACCOUNT ?? sellerId,
+              merchantCustomerRefId: (constants.PAYMENT_METHOD.RUPIFI.TEST_ACCOUNT ?? sellerId).toString(),
               merchantPaymentRefId: id,
               redirectCancelUrl: constants.PAYMENT_METHOD.RUPIFI.REDIRECT_CANCEL_URL,
               redirectConfirmUrl: constants.PAYMENT_METHOD.RUPIFI.REDIRECT_CONFIRM_URL,
