@@ -82,7 +82,7 @@ const ThemeOne: NextPage = () => {
   }
 
   function getHomeContent(type: string) {
-    console.log("getTopPick");
+    
     CatalogService.getInstance()
       .getHomeContent(type)
       .then((response: any) => {
