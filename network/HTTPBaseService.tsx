@@ -84,7 +84,7 @@ export abstract class HTTPBaseService {
 
     if (config.url?.startsWith(API.GET_CUSTOMER_ORDER)) {
       headerJson.accessToken = `${LocalStorageService.getAccessToken()}`;
-      return config;
+
     }
 
     return config;

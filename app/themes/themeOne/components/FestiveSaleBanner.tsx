@@ -22,7 +22,7 @@ const FestiveSaleBanner = () => {
 
                 setBannerUrl(info?.data?.data[0].attributes.image.data.attributes.url);
                 setLoading(false)
-                console.log("this is Banner", info)
+                //console.log("this is Banner", info)
             });
     }
 

@@ -3,7 +3,7 @@ import { Modal } from "react-bootstrap";
 import Loader from "./loader";
 
 const ProductQuickViewLoader = (props:any) => {
-  console.log("this is props",props.quickView)
+
     return (
         <Modal
         show={props.quickViewStatus}

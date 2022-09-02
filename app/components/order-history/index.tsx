@@ -5,12 +5,14 @@ import shallow from "zustand/shallow";
 import { Address } from "../../../network/gateway/Address";
 import { Auth } from "../../../network/gateway/Auth";
 import useUserStore from "../../../zustand/store";
+import OrderItem from "./orderItems";
 
 const OrderHistoryItems = () => {
     const [orderList, setOrderList] = useState([1, 2])
     const [deliveredList, setdeliverdList] = useState([1, 2])
     const isLogin = useUserStore((state: any) => state.isLogin, shallow);
     const setLoginPopup = useUserStore((state: any) => state.showLogin);
+    const[orderItems,setOrderItems]=useState<any>([])
 
     useEffect(() => {
         if (isLogin) {
@@ -25,17 +27,23 @@ const OrderHistoryItems = () => {
         Address.getInstance()
             .getCustomerOrder()
             .then((data: any) => {
-                console.log("this is customer order data", data)
+             //console.log("this is callaed",data)
+             setOrderItems(data?.data.data)
 
             });
     }
+ console.log("this is order history",orderItems)
 
     return (<div className="col-12 col-lg-8 col-xl-9">
         <div className="rightside-bar-area">
             <div className="orderID p-4 cartItem bg-white mt-3">
-                <ul className="w-100">
+
+                <>
+                    {orderItems.map((item: any, index: number) => {
+                        return (<>
+                        <ul className="w-100">
                     <li className="fs-10 font-r list-inline-item">
-                        <span className="text-color-1">Order ID</span>
+                        <span className="text-color-1">{item.id}</span>
                         <p className="text-color-2">HX-8475-2022-BN</p>
                     </li>
                     <li className="fs-10 font-r list-inline-item">
@@ -47,12 +55,9 @@ const OrderHistoryItems = () => {
                         <p className="text-color-2">₹16,788.00</p>
                     </li>
                 </ul>
-                <>
-                    {orderList.map((otem: any, index: number) => {
-                        return (<>
                             <div className="bgbar position-relative mt-4 ms-0">
                                 <div className="row mb-3">
-                                    <div className="col-md-12 col-lg-9">
+                                    {/* <div className="col-md-12 col-lg-9">
                                         <div className="row">
                                             <div className="col-md-4 col-lg-3">
                                                 <div className="imgbar"><img className="w-100" src="images/img1.png" alt="" /></div>
@@ -108,7 +113,10 @@ const OrderHistoryItems = () => {
                                             </svg>
                                             Invoice
                                         </a>
-                                    </div>
+                                    </div> */}
+                                    {item.line_items.map((each:any,index:number)=>{
+                                        return(<OrderItem key={index} {...each} />)
+                                    })}
                                 </div>
                             </div>
                         </>)

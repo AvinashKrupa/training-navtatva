@@ -126,7 +126,7 @@ export class Address extends HTTPBaseService {
         .get(API.GET_CUSTOMER_ORDER)
         .then((response) => {
           if (response.status == 200) {
-            console.log("this is get customer order",response)
+            //console.log("this is get customer order",response)
             let message = response.data.msg ?? "";
              //Toast.showSuccess(message);
             resolve(response);

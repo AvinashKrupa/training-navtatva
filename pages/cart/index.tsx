@@ -83,7 +83,7 @@ const CartScreen: NextPage = () => {
         }
       });
   }
-
+console.log("this is cart items",cartItems)
   return (
     <div className="shoppingCart">
       <div className="wrapper">
