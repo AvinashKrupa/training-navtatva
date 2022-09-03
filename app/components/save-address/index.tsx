@@ -113,6 +113,12 @@ const SaveAdress = () => {
                 .then((data: any) => {
                     setAllAddress([...allAddress, data.data.data]);
                     setIsShowing(false)
+                    setAddressFields(JSON.parse(JSON.stringify({
+                        type: "address",
+                        county: "Sunnyville",
+                        country: "IN",
+                    })));
+
                 })
                 .catch((error) => {
                     console.log("error", error);
