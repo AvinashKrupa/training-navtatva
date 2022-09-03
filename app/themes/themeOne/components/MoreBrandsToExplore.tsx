@@ -19,9 +19,10 @@ const MoreBrandsToExplore = (props: IProps) => {
           </div>
           <div className="col-md-12 mt-4 mt-lg-5">
             <ul className="d-block text-center">
-              {props.brand.map((info) => {
+              {props.brand.map((info, index) => {
                 return (
                   <li
+                    key={index}
                     style={{ backgroundColor: "white" }}
                     className="align-items-center justify-content-center d-inline-flex"
                   >
@@ -36,9 +37,11 @@ const MoreBrandsToExplore = (props: IProps) => {
                 );
               })}
 
-              {props.loading && brands.map((info) => {
+              {props.loading && brands.map((info, index) => {
                 return (
-                  <li   className="align-items-center justify-content-center d-inline-flex">
+                  <li 
+                    key={index}
+                    className="align-items-center justify-content-center d-inline-flex">
                     <Skeleton style={{ width: 180, height: 100 }} />
                   </li>
                 );

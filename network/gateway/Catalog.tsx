@@ -170,7 +170,7 @@ export class CatalogService extends HTTPBaseService {
   };
 
   static getDomainName() {
-    return 'www.navtatva.fashion';
+    return "www.navtatva.fashion";
   }
 
   public getBanner = () => {
@@ -195,5 +195,23 @@ export class CatalogService extends HTTPBaseService {
     });
   };
 
-
+  public getHomeContent = (serviceName: string) => {
+    return new Promise((resolve: any, reject: any) => {
+      this.instance
+        .get(API.GET_HOME_CONTENT + serviceName)
+        .then((response) => {
+          if (response.status == 200) {
+            resolve(response);
+          } else {
+            let message = response.data.message;
+            Toast.showError(message);
+            reject(response);
+          }
+        })
+        .catch((error) => {
+          Toast.showError(error.message);
+          reject(error);
+        });
+    });
+  };
 }

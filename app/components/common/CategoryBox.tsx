@@ -58,7 +58,7 @@ const CategoryBox = (props: any,) => {
                     <b className="color-radio" style={{ background: item.color_code }}></b>
                   )
                 }
-                <input type="checkbox" name={item.name} value={item.name} checked={item.isSelected} onClick={() => handle(index, item.id)} />
+                <input type="checkbox" name={item.name} value={item.name} defaultChecked={item.isSelected} onClick={() => handle(index, item.id)} />
                 <span className="radio-checkmark"></span>
               </label>
             )

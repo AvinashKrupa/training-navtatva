@@ -144,19 +144,25 @@ export class Cart extends HTTPBaseService {
         .post(API.CHECKOUT + "/" + Cart.getCartId(), data)
         .then((response) => {
           if (response.status == 200) {
-            const { id } = response?.data?.data
+            const { id } = response?.data?.data;
             const sellerId = LocalStorageService.getCustomerId();
             const requestJSON = {
-              amount: {
-                value: order?.grandTotal,
-              },
+              amount: order?.grandTotal,
               autoCapture: false,
               callbackUrl: API.RUPIFI_UC.CALLBACK_URL,
-              merchantCustomerRefId: constants.PAYMENT_METHOD.RUPIFI.TEST_ACCOUNT ?? sellerId,
+              merchantCustomerRefId: (
+                constants.PAYMENT_METHOD.RUPIFI.TEST_ACCOUNT ?? sellerId
+              ).toString(),
               merchantPaymentRefId: id,
-              redirectCancelUrl: constants.PAYMENT_METHOD.RUPIFI.REDIRECT_CANCEL_URL,
-              redirectConfirmUrl: constants.PAYMENT_METHOD.RUPIFI.REDIRECT_CONFIRM_URL,
+              redirectCancelUrl:
+                constants.PAYMENT_METHOD.RUPIFI.REDIRECT_CANCEL_URL,
+              redirectConfirmUrl:
+                constants.PAYMENT_METHOD.RUPIFI.REDIRECT_CONFIRM_URL,
             };
+
+            /// Temporary Solution (Because of the backend issue)
+            Cart.regenrateCustomerCartAssociation();
+
             RupifiUCService.getInstance("")
               .createRupifiPayment(requestJSON)
               .then((response: any) => {

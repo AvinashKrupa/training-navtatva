@@ -22,7 +22,7 @@ export class Wishlist extends HTTPBaseService {
     let wishListId = localStorage.getItem("WISHLIST_ENTRY");
 
     if (wishListId) {
-      new Promise((resolve: any, reject: any) => {
+      return new Promise((resolve: any, reject: any) => {
         resolve(wishListId);
       });
     } else {
@@ -38,11 +38,16 @@ export class Wishlist extends HTTPBaseService {
       };
       this.instance
         .post(API.CREATE_WISHLIST_ENTRY, params)
-        .then((response) => {
+        .then(async (response) => {
           if (response.status == 200) {
             let wistList = response.data.data.id ?? "";
             localStorage.setItem("WISHLIST_ENTRY", wistList);
-            resolve(wistList);
+
+            let obj = Wishlist.getInstance();
+            let associationid = await obj.wishListAssociationWithCustomer(
+              localStorage
+            );
+            resolve(associationid);
           } else {
             let message = response.data.msg ?? "";
             Toast.showError(message);
@@ -59,12 +64,12 @@ export class Wishlist extends HTTPBaseService {
     });
   }
 
-  public wishListAssociationWithCustomer = async (data: any) => {
+  public wishListAssociationWithCustomer = async (id: any) => {
     let params = {
       data: [
         {
           type: "wishlist",
-          id: await Wishlist.getWishlistEntry(),
+          id: id,
         },
       ],
     };
@@ -74,7 +79,6 @@ export class Wishlist extends HTTPBaseService {
           API.ADD_WISHLIST_WITH_CUSTOMER +
             LocalStorageService.getCustomerId() +
             "/relationships/cwishlists",
-          data,
           params
         )
         .then((response) => {
@@ -97,7 +101,7 @@ export class Wishlist extends HTTPBaseService {
     });
   };
 
-  public addToWishList = (pId: any) => {
+  public addToWishList = async (pId: any) => {
     let params = {
       data: [
         {
@@ -106,17 +110,20 @@ export class Wishlist extends HTTPBaseService {
         },
       ],
     };
+
+    let entryId = await Wishlist.getWishlistEntry();
+    console.log("enntryid", entryId);
     return new Promise((resolve: any, reject: any) => {
       this.instance
         .post(
-          API.ADD_PRODUCT_WISHLIST +
-            LocalStorageService.getCustomerId() +
-            "relationships/products",
+          API.ADD_PRODUCT_WISHLIST + entryId + "/relationships/products",
           params
         )
-        .then((response) => {
+        .then(async (response) => {
           if (response.status == 200) {
             let message = response.data.msg ?? "";
+            let obj = Wishlist.getInstance();
+            await obj.getWishlist();
             resolve(response);
           } else {
             let message = response.data.msg ?? "";
@@ -137,12 +144,16 @@ export class Wishlist extends HTTPBaseService {
   public getWishlist = () => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
-        .get(API.GET_WISHLIST)
+        .get(API.GET_WISHLIST + LocalStorageService.getCustomerId())
         .then((response) => {
           if (response.status == 200) {
             let message = response.data.msg ?? "";
             localStorage.setItem("CART_ID", response.data.refId);
-            //Toast.showSuccess(message);
+
+            console.log(
+              "wishlist response",
+              response.data.data.filter((info: any) => {})
+            );
             resolve(response);
           } else {
             let message = response.data.msg ?? "";
@@ -160,9 +171,18 @@ export class Wishlist extends HTTPBaseService {
 
   public deleteWishListItem = async (id: any) => {
     let entryId = await Wishlist.getWishlistEntry();
+    let data = [
+      {
+        type: "product",
+        id: id,
+      },
+    ];
     return new Promise((resolve: any, reject: any) => {
       this.instance
-        .delete(API.DELETE_WISHLIST_ITEM + entryId)
+        .delete(
+          API.DELETE_WISHLIST_ITEM + entryId + "/relationships/products",
+          { data: data }
+        )
         .then((response) => {
           if (response.status == 200) {
             let message = response.data;
