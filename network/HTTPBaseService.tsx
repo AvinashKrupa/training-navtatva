@@ -86,6 +86,17 @@ export abstract class HTTPBaseService {
       headerJson.accessToken = `${this.token}`;
     }
 
+    if(
+      config.url?.startsWith(API.RUPIFI.CAPTURE_AMOUNT) ||
+      config.url?.startsWith(API.RUPIFI.CHECK_CREDIT_ELIGIBILITY) ||
+      config.url?.startsWith(API.RUPIFI.CHECK_PAYMENT_STATUS) ||
+      config.url?.startsWith(API.RUPIFI.CREATE_PAYMENT)
+    ){
+      let rpf_token: any = localStorage.getItem("rpf_token");
+      rpf_token = JSON.parse(rpf_token);
+      headerJson["Authorization"] = `Bearer ${rpf_token.accessToken}`;
+    }
+
     return config;
   };
 
