@@ -8,7 +8,7 @@ const OrderHistoryScreen: NextPage = () => {
 
     return (
         <div className="chooseyourapparel " style={{ background: '#FAFAFA' }}>
-            <div className="wrapper">
+            <div className="wrapper"  style={{ minHeight: 1440}}>
                 {/* Header */}
                 <Header />
                 {/* End Header */}

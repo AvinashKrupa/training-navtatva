@@ -1,7 +1,7 @@
 export const menuSliderSettings = {
   infinite: true,
   slidesToShow: 6,
-  slidesToScroll: 3,
+  slidesToScroll: 1,
   arrows: true,
   autoplay: true,
   dots: false,
@@ -66,7 +66,7 @@ export const productDetailSliderSetting = {
 export const customerSliderSetting = {
   infinite: true,
   slidesToShow: 3,
-  slidesToScroll: 3,
+  slidesToScroll: 1,
   arrows: true,
   centerMode: true,
   autoplay: true,
@@ -332,7 +332,7 @@ export const ocassionSliderSetting = {
 export const bannerSliderSettings = {
   infinite: true,
   slidesToShow: 1,
-  slidesToScroll: 2,
+  slidesToScroll: 1,
   arrows: true,
   autoplay: true,
   dots: false,
