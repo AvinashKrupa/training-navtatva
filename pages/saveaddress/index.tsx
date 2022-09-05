@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import Header from "../../app/components/ProfileHeader";
 import AccountSidebar from "../../app/components/account-sidebar/AccountSidebar";
-import SaveAdress from "../../app/components/save-address";
+import SaveAddress from "../../app/components/save-address";
 
 
 const SaveAddressScreen: NextPage = () => {
@@ -18,7 +18,7 @@ const SaveAddressScreen: NextPage = () => {
                             <div className="col-12 col-lg-4 col-xl-3">
                                 <AccountSidebar />
                             </div>
-                            <SaveAdress />
+                            <SaveAddress />
                         </div>
 
                     </div>

@@ -1,8 +1,6 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 import { useRouter } from "next/router";
-import { AiFillDelete } from "react-icons/ai";
-
 
 const AddressList = (props: any) => {
 
@@ -50,8 +48,8 @@ const AddressList = (props: any) => {
                                             name="first_name"
                                             placeholder=""
                                             required
-                                        onChange={props.handleChange}
-                                        value={props.addressFields.first_name}
+                                            onChange={props.handleChange}
+                                            value={props.addressFields.first_name}
                                         />
 
                                         <div className="invalid-feedback"></div>
@@ -69,7 +67,7 @@ const AddressList = (props: any) => {
                                             required
                                             onChange={props.handleChange}
                                             name="last_name"
-                                        value={props.addressFields.last_name}
+                                            value={props.addressFields.last_name}
                                         />
                                         <div className="invalid-feedback"></div>
                                     </div>
@@ -83,9 +81,9 @@ const AddressList = (props: any) => {
                                             id="address"
                                             placeholder="#45, Avenue Towers, Scalpel Road"
                                             required
-                                         onChange={props.handleChange}
+                                            onChange={props.handleChange}
                                             name="line_1"
-                                        value={props.addressFields.line_1}
+                                            value={props.addressFields.line_1}
                                         />
                                     </div>
                                     <div className="col-12  mb-4">
@@ -101,7 +99,7 @@ const AddressList = (props: any) => {
                                             onChange={props.handleChange}
                                             name="line_2"
                                             required
-                                        value={props.addressFields.line_2}
+                                            value={props.addressFields.line_2}
                                         />
                                     </div>
                                     <div className="col-sm-6  mb-4">
@@ -117,10 +115,10 @@ const AddressList = (props: any) => {
                                             required
                                             onChange={props.handleChange}
                                             name="city"
-                                        value={props.addressFields.city}
+                                            value={props.addressFields.city}
                                         />
                                     </div>
-                                    <div className="col-md-3 ">
+                                    <div className="col-sm-6  mb-4">
                                         <label htmlFor="zip" className="form-label">
                                             Postal Code
                                         </label>
@@ -132,73 +130,24 @@ const AddressList = (props: any) => {
                                             required
                                             onChange={props.handleChange}
                                             name="postcode"
-                                        value={props?.addressFields.postcode}
+                                            value={props?.addressFields.postcode}
                                         />
                                     </div>
                                 </div>
-                                {/* <div className="mt-4">
-                                    <label htmlFor="zip" className="form-label">
-                                        Address Type
-                                    </label>
-                                    <div className="d-flex">
-                                        <div className="form-check mt-4">
-                                            <input
-                                                id="credit"
-                                                name="paymentMethod"
-                                                type="radio"
-                                                className="form-check-input"
-                                                defaultChecked
-                                                required
-                                            />
 
-                                            <label
-                                                className="form-check-label ms-2 me-4"
-                                                htmlFor="credit"
-                                            >
-                                                Home (9am - 10pm)
-                                            </label>
-                                        </div>
-                                        <div className="form-check  mt-4">
-                                            <input
-                                                id="debit"
-                                                name="paymentMethod"
-                                                type="radio"
-                                                className="form-check-input"
-                                                required
-                                            />
-                                            <label
-                                                className="form-check-label ms-2 me-4"
-                                                htmlFor="debit"
-                                            >
-                                                Office (9am - 5pm)
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div> */}
                                 <div className="mt-4">
                                     <button
                                         className="btn  btn-lg fs-16"
                                         type="button"
-                                     onClick={props.onSave}
-                                    //disabled={true}
-                                    //type='submit'
+                                        onClick={props.editAddressStaus ? props.onSave : props.onUpdate}
+
                                     >
-                                        {props.editAddressStaus && "Save & Deliver Here"} {!props.editAddressStaus && "Update"}
+                                        {props.editAddressStaus && "Save"} {!props.editAddressStaus && "Update"}
                                     </button>
-                                    {/*
-                <button
-                  className="btn  btn-lg fs-16 m-2"
-                  type="button"
-                  //onClick={props.paymentMethod}
-                >
-                  Next
-                </button> */}
                                 </div>
-
-
                             </form>
-                            </div>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

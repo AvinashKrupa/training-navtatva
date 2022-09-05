@@ -6,17 +6,15 @@ import AddAddress from "../../../app/components/common/AddAddress";
 import Toast from "../../../utils/Toast";
 import Validators from "../../../utils/Validator";
 import Loader from "../loader/loader";
-import { LoadingCellRenderer } from "ag-grid-community/dist/lib/rendering/cellRenderers/loadingCellRenderer";
 
-
-const SaveAdress = () => {
+const SaveAddress = () => {
 
     const [allAddress, setAllAddress] = useState<any>([]);
     const isLogin = useUserStore((state: any) => state.isLogin, shallow);
     const setLoginPopup = useUserStore((state: any) => state.showLogin);
     const [isShowing, setIsShowing] = useState<boolean>(false)
     const [editAddressStaus, setEditAddressStatus] = useState<boolean>(true)
-    const [loading,setLoading]=useState<boolean>(true)
+    const [loading, setLoading] = useState<boolean>(true)
 
     const [addressFields, setAddressFields] = useState<any>({
         type: "address",
@@ -32,6 +30,15 @@ const SaveAdress = () => {
         }
     }, [isLogin]);
 
+    useEffect(() => {
+        if (!isShowing) {
+            setAddressFields(JSON.parse(JSON.stringify({
+                type: "address",
+                county: "Sunnyville",
+                country: "IN",
+            })))
+        }
+    }, [isShowing])
     function getAllAddress() {
         Address.getInstance()
             .getAllAddress()
@@ -48,7 +55,7 @@ const SaveAdress = () => {
         Object.entries(all).map((item: any) => {
             if (
                 item[1].first_name === data.first_name &&
-                item[1].line_1 == data.line_1
+                item[1].line_1 == data.line_1 && item[1].city == data.city && item[1].postcode == data.postcode
             ) {
                 return (addressStatus = false);
             }
@@ -103,6 +110,7 @@ const SaveAdress = () => {
         }
     }
 
+
     function addAddress() {
         if (isLogin && validateForm()) {
             const param = {
@@ -128,18 +136,51 @@ const SaveAdress = () => {
         }
     }
 
-    // function editAddress(number:number,id:any){
-    //     setAddressFields(
-    //         JSON.parse(JSON.stringify(allAddress[number]))
-    //       );
-    //       setAddressFields(
-    //         JSON.parse(JSON.stringify(allAddress[number]))
-    //       );
-    //       setIsShowing(true)
-    //       setEditAddressStatus(false)
+    function editAddress(id: any, index: number) {
+        setAddressFields(
+            JSON.parse(JSON.stringify(allAddress[index]))
+        );
+        setIsShowing(true)
+        setEditAddressStatus(false)
+    }
 
+    function updateAddress() {
 
-    // }
+        if (isLogin && validateForm()) {
+            const all = Object.assign({}, allAddress);
+            const data = Object.assign({}, addressFields);
+            let isDuplicateAddress = !test(data, all);
+            if (isDuplicateAddress) {
+                Toast.showError("*Please Update Address");
+                return;
+            }
+
+            const param = {
+                data: addressFields,
+            }
+            if (!isDuplicateAddress) {
+                Address.getInstance()
+                    .updateAddress(param)
+                    .then((data: any) => {
+                        const filteredUsersData = allAddress.filter((each: any) => each.id !== data.data.data.id
+                        )
+                        setAllAddress([...filteredUsersData, data.data.data]);
+
+                        setIsShowing(false)
+                        setAddressFields(JSON.parse(JSON.stringify({
+                            type: "address",
+                            county: "Sunnyville",
+                            country: "IN",
+                        })));
+
+                    })
+                    .catch((error) => {
+                        console.log("error", error);
+                    });
+            }
+
+        };
+    }
 
 
     function deleteAddress(id: any, index: any) {
@@ -156,7 +197,7 @@ const SaveAdress = () => {
                 }
             });
     }
-    console.log("this is testing data", allAddress)
+    //console.log("this is testing data", allAddress)
 
     return (<div className="col-12 col-lg-8 col-xl-9 ">
         <div className="rightside-bar-area ">
@@ -173,8 +214,9 @@ const SaveAdress = () => {
                 onSave={checkout}
                 addressFields={addressFields}
                 editAddressStaus={editAddressStaus}
+                onUpdate={updateAddress}
             />
-            {loading && <Loader loading={loading}/>}
+            {loading && <Loader loading={loading} />}
             {allAddress.map((item: any, index: number) => {
                 return (<>
                     <div className="address-box-area">
@@ -182,9 +224,12 @@ const SaveAdress = () => {
                             <div className="col-12 col-md-8">
                                 <div className="address-box-content">
                                     <h5 className="location-name text-primary mb-2">{item.first_name}</h5>
-                                    <p>{item.line_1} <br />{item.line_2} <br />{item.city}<br />{item.country}</p>
+                                    <p>{item.line_1} <br />{item.line_2} <br />{item.city}<br /> {item.postcode}<br />{item.country}</p>
                                     <div className="address-button-area mt-4">
                                         <button type="button" className="address-btn"
+                                            onClick={() => {
+                                                editAddress(item.id, index)
+                                            }}
 
                                         >EDIT</button>
                                         <button type="button" className="address-btn">SHARE</button>
@@ -208,4 +253,4 @@ const SaveAdress = () => {
     </div >)
 }
 
-export default SaveAdress;
+export default SaveAddress;

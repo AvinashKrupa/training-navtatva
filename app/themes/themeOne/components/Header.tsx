@@ -1,12 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import shallow from "zustand/shallow";
+import Logout from "../../../../pages/logout";
+import useUserStore from "../../../../zustand/store";
 import SearchPopup from "../../../components/common/SearchPopup";
 
 const Header = () => {
 
   const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);
+  const [showProfile, setShowProfile] = useState<boolean>(false);
+  const [isShowing,setIsShowing]=useState<boolean>(false)
+  const isLogin = useUserStore((state: any) => state.isLogin, shallow);
+  const setLoginPopup = useUserStore((state: any) => state.showLogin);
+
+  function signOut(){
+  if(isLogin){
+    setIsShowing(true)
+  }
+  else{
+    setLoginPopup(true)
+  }
+
+}
+useEffect(()=>{
+
+},[isLogin])
 
   return (
     <>
+    <Logout isShowing ={isShowing} setIsShowing={setIsShowing}/>
       <header className="main-header header-main">
         <div className="row">
           <div className="col-3 col-lg-1 align-self-center">
@@ -88,14 +109,35 @@ const Header = () => {
                   <img src="/images/cart.png" alt="" />
                 </a>
               </li>
-              <li className="list-inline-item">
-                <a
-                  className="user rounded-circle d-block user-img"
-                  href="#"
-                  title={""}
-                >
-                  <img width={32} height={32} src="/images/user.png" alt="" />
-                </a>
+              <li className="list-inline-item" onClick={() => {
+                setShowProfile(!showProfile)
+              }}>
+                <div className="d-none d-lg-block d-sm-none d-md-none">
+                    <a
+                      className="user rounded-circle d-block user-img"
+                      href="#"
+                      title={""}
+                    >
+                      <img width={32} height={32} src="/images/user.png" alt="" />
+                    </a>
+                  </div>
+                <div className="btn-group d-sm-block d-md-block d-lg-none">
+                  <a className="user rounded-circle d-block" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                  ><img width={32} height={32} src="images/user.png" alt="" /></a>
+                  <ul className={"dropdown-menu shadow " + (showProfile ? "show" : "")} data-bs-popper="none" >
+                    <p className="fs-20 font-sb text-color-3 ps-3 ">Hey </p>
+                    <li><hr className="dropdown-divider" /></li>
+                    <li className="fs-14 font-r text-color-2"><img className="d-inline-block" src="images/p-profile.png" alt="" /><a className="dropdown-item d-inline-block" href="myprofile">Profile</a></li>
+                    <li className="fs-14 font-r text-color-2 "><img className="d-inline-block" src="images/seller.png" alt="" /><a className="dropdown-item d-inline-block" href="#">Your Seller Account</a></li>
+                    <li className="fs-14 font-r text-color-2 "><img className="d-inline-block" src="images/order.png" alt="" /><a className="dropdown-item d-inline-block" href="orderhistory">Orders &amp; Returns</a></li>
+                    <li><hr className="dropdown-divider" /></li>
+                    <li className="fs-14 font-r text-color-2"><img className="d-inline-block" src="images/payment.png" alt="" /><a className="dropdown-item d-inline-block" href="payment">Saved Payment Methods</a></li>
+                    <li className="fs-14 font-r text-color-2 "><img className="d-inline-block" src="images/map.png" alt="" /><a className="dropdown-item d-inline-block" href="saveaddress">Saved Addresses</a></li>
+                    <li><hr className="dropdown-divider" /></li>
+                    <li className="fs-14 font-r text-color-2"><img className="d-inline-block" src="images/logout.png" alt="" /><a className="dropdown-item d-inline-block" onClick={() => {
+                            signOut()}}>Sign {isLogin ?'Out':'In'}</a></li>
+                  </ul>
+                </div>
               </li>
             </ul>
           </div>
