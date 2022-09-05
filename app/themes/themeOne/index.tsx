@@ -31,6 +31,9 @@ import VideoBlock from "./components/VideoBlock";
 import Footer from "../../components/common/Footer";
 import FooterFixedButton from "./components/FooterFixedButton";
 import { CatalogService } from "../../../network/gateway/Catalog";
+import { Cart } from "../../../network/gateway/Cart";
+import LocalStorageService from "../../../utils/storage/LocalStorageService";
+import useUserStore from "../../../zustand/store";
 
 const ThemeOne: NextPage = () => {
   const [category, setCategory] = useState([]);
@@ -45,6 +48,9 @@ const ThemeOne: NextPage = () => {
   const [topCollection, setTopCollection] = useState([]);
   const [topCompliment, setTopCompliment] = useState([]);
   const [newCollection, setNewCollection] = useState([]);
+  const [productId, setProductId] = useState<string>("");
+  const userData = useUserStore((state: any) => state.userInfo);
+  const setLoginPopup = useUserStore((state: any) => state.showLogin);
 
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -82,7 +88,6 @@ const ThemeOne: NextPage = () => {
   }
 
   function getHomeContent(type: string) {
-    
     CatalogService.getInstance()
       .getHomeContent(type)
       .then((response: any) => {
@@ -125,6 +130,24 @@ const ThemeOne: NextPage = () => {
       .catch((error) => {});
   }
 
+  function addToCart(id: string) {
+    const params = {
+      data: {
+        id: id,
+        type: "cart_item",
+        quantity: 1,
+      },
+    };
+    Cart.getInstance()
+      .addToCart(params)
+      .then((info: any) => {
+        console.log("info", info);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }
+
   return (
     <div className="home">
       <div className="wrapper">
@@ -152,7 +175,14 @@ const ThemeOne: NextPage = () => {
         {/* Top Collections */}
         <TopCollections
           data={topCollection}
-          onAddCart={() => {}}
+          onAddCart={(id) => {
+            if (LocalStorageService.getAccessToken()) {
+              addToCart(`${id}`);
+            } else {
+              setProductId(`${id}`);
+              setLoginPopup(true);
+            }
+          }}
           onWishlist={() => {}}
         />
         {/* Shop By Preference */}
