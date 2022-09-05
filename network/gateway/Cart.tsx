@@ -76,6 +76,15 @@ export class Cart extends HTTPBaseService {
         .then((response) => {
           if (response.status == 200) {
             let message = response.data.msg ?? "";
+            let cartItems: any = LocalStorageService.getCartItems();
+            console.log("paradsa", cartItems);
+            if (cartItems) {
+              cartItems.push(data.data.id);
+            } else {
+              cartItems = [data.data.id];
+            }
+            console.log("cartItemscartItems", cartItems);
+            LocalStorageService.setCartItems(cartItems);
             resolve(response);
           } else {
             let message = response.data.msg ?? "";
@@ -101,6 +110,13 @@ export class Cart extends HTTPBaseService {
           if (response.status == 200) {
             let message = response.data.msg ?? "";
             localStorage.setItem("CART_ID", response.data.refId);
+            let cartItems = response.data.data;
+            if (cartItems) {
+              let prdId = cartItems.map((info: any) => {
+                return info.product_id;
+              });
+              LocalStorageService.setCartItems(prdId);
+            }
             //Toast.showSuccess(message);
             resolve(response);
           } else {
@@ -116,6 +132,11 @@ export class Cart extends HTTPBaseService {
         });
     });
   };
+
+  static isProductInCart(id: string) {
+    let data = LocalStorageService.getCartItems();
+    return data?.includes(id) || false;
+  }
 
   public deleteCartItem = (id: any) => {
     return new Promise((resolve: any, reject: any) => {
@@ -144,17 +165,25 @@ export class Cart extends HTTPBaseService {
         .post(API.CHECKOUT + "/" + Cart.getCartId(), data)
         .then((response) => {
           if (response.status == 200) {
-            const { id } = response?.data?.data
+            const { id } = response?.data?.data;
             const sellerId = LocalStorageService.getCustomerId();
             const requestJSON = {
               amount: order?.grandTotal,
               autoCapture: false,
               callbackUrl: API.RUPIFI_UC.CALLBACK_URL,
-              merchantCustomerRefId: (constants.PAYMENT_METHOD.RUPIFI.TEST_ACCOUNT ?? sellerId).toString(),
+              merchantCustomerRefId: (
+                constants.PAYMENT_METHOD.RUPIFI.TEST_ACCOUNT ?? sellerId
+              ).toString(),
               merchantPaymentRefId: id,
-              redirectCancelUrl: constants.PAYMENT_METHOD.RUPIFI.REDIRECT_CANCEL_URL,
-              redirectConfirmUrl: constants.PAYMENT_METHOD.RUPIFI.REDIRECT_CONFIRM_URL,
+              redirectCancelUrl:
+                constants.PAYMENT_METHOD.RUPIFI.REDIRECT_CANCEL_URL,
+              redirectConfirmUrl:
+                constants.PAYMENT_METHOD.RUPIFI.REDIRECT_CONFIRM_URL,
             };
+
+            /// Temporary Solution (Because of the backend issue)
+            Cart.regenrateCustomerCartAssociation();
+
             RupifiUCService.getInstance("")
               .createRupifiPayment(requestJSON)
               .then((response: any) => {

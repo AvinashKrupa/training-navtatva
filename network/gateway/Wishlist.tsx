@@ -141,7 +141,8 @@ export class Wishlist extends HTTPBaseService {
     });
   };
 
-  public getWishlist = () => {
+  public getWishlist = async () => {
+    let entryId = await Wishlist.getWishlistEntry();
     return new Promise((resolve: any, reject: any) => {
       this.instance
         .get(API.GET_WISHLIST + LocalStorageService.getCustomerId())
@@ -150,10 +151,23 @@ export class Wishlist extends HTTPBaseService {
             let message = response.data.msg ?? "";
             localStorage.setItem("CART_ID", response.data.refId);
 
-            console.log(
-              "wishlist response",
-              response.data.data.filter((info: any) => {})
-            );
+            // console.log("sdad", response.data.data);
+            // return;
+
+            let customerWishList = response.data.data.filter((info: any) => {
+              return info.id == entryId;
+            });
+            let productId = [];
+            if (customerWishList.length > 0) {
+              let wishlistIds = customerWishList[0].relationships.products.data;
+              if (wishlistIds) {
+                let prdId = wishlistIds.map((info: any) => {
+                  return info.id;
+                });
+                LocalStorageService.setWishlist(prdId);
+              }
+            } else {
+            }
             resolve(response);
           } else {
             let message = response.data.msg ?? "";
@@ -169,6 +183,11 @@ export class Wishlist extends HTTPBaseService {
     });
   };
 
+  static isWishlistProduct(id: string) {
+    let data = LocalStorageService.getWishlist();
+    return data?.includes(id) || false;
+  }
+
   public deleteWishListItem = async (id: any) => {
     let entryId = await Wishlist.getWishlistEntry();
     let data = [
@@ -183,13 +202,15 @@ export class Wishlist extends HTTPBaseService {
           API.DELETE_WISHLIST_ITEM + entryId + "/relationships/products",
           { data: data }
         )
-        .then((response) => {
+        .then(async (response) => {
           if (response.status == 200) {
             let message = response.data;
             resolve(response);
           } else {
             let message = response.data.message;
             Toast.showError(message);
+            let obj = Wishlist.getInstance();
+            await obj.getWishlist();
             reject(response);
           }
         })

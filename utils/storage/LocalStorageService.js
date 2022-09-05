@@ -12,6 +12,25 @@ class LocalStorageService {
   static setCustomerId(customer_id) {
     localStorage.setItem("customer_id", customer_id);
   }
+  static setWishlist(ids) {
+    localStorage.setItem("customer_wishlist", ids);
+  }
+  static getWishlist() {
+    return localStorage.getItem("customer_wishlist");
+  }
+
+  static setCartItems(ids) {
+    localStorage.setItem("customer_cart_items", JSON.stringify(ids));
+  }
+  static getCartItems() {
+    let data = localStorage.getItem("customer_cart_items");
+    if (data) {
+      return JSON.parse(data);
+    } else {
+      return [];
+    }
+  }
+
   static getCustomerId() {
     return localStorage.getItem("customer_id");
   }

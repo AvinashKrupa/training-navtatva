@@ -1,11 +1,12 @@
 import React from "react";
 import Slider from "react-slick";
+import { Cart } from "../../../../network/gateway/Cart";
 import { occasionSetting } from "../../../../utils/sliderConfig";
 
 interface iProps {
   data: any;
-  onAddCart: () => void;
-  onWishlist: () => void;
+  onAddCart: (id: string) => void;
+  onWishlist: (id: string) => void;
 }
 
 const TopCollections = (props: iProps) => {
@@ -26,7 +27,12 @@ const TopCollections = (props: iProps) => {
                     <div className="thumb position-relative text-center">
                       <div className="bg1">
                         <a href="/shop">
-                          <img className="w-100" src={info.image} alt="" />
+                          <img
+                            style={{ minHeight: 385 }}
+                            className="w-100"
+                            src={info.image}
+                            alt=""
+                          />
                         </a>
                         <div className="hoverBlock">
                           <div className="overlay   text-center">
@@ -59,12 +65,27 @@ const TopCollections = (props: iProps) => {
                             >
                               More Info
                             </a>
-                            <a href="/cart" className="btn fs-13 " tabIndex={0}>
-                              Add to Cart
+                            <a
+                              onClick={() => {
+                                props.onAddCart(info.id);
+                              }}
+                              className="btn fs-13 "
+                              tabIndex={0}
+                            >
+                              {Cart.isProductInCart(info.id)
+                                ? "Go To Cart"
+                                : "Add to Cart"}
                             </a>
                           </div>
                           <div className="speaker">
-                            <a href="#" className="d-block mb-5" tabIndex={0}>
+                            <a
+                              onClick={() => {
+                                props.onWishlist(info.id);
+                              }}
+                              href="#"
+                              className="d-block mb-5"
+                              tabIndex={0}
+                            >
                               <img src="images/wishlist-detail.png" />
                             </a>
                             <a href="#" className="d-block  mb-5" tabIndex={0}>
