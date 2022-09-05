@@ -26,6 +26,8 @@ const API = {
   GET_ALL_ADDRESS: "getAllAddresses",
   DELETE_ADDRESS: "deleteAddress",
   GET_BANNER: "banners/",
+  APPLY_PROMOTION: "applyPromotion",
+  GET_CUSTOMER_ORDER: 'getCustomerOrder',
   GET_HOME_CONTENT: "getHomeContent/",
   ORDER_TAKING_APP: {
     GET_SELLERS: "get-all-customers",

@@ -119,4 +119,30 @@ export class Address extends HTTPBaseService {
         });
     });
   };
+
+  public getCustomerOrder = () => {
+    return new Promise((resolve: any, reject: any) => {
+      this.instance
+        .get(API.GET_CUSTOMER_ORDER)
+        .then((response) => {
+          if (response.status == 200) {
+            //console.log("this is get customer order",response)
+            let message = response.data.msg ?? "";
+             //Toast.showSuccess(message);
+            resolve(response);
+
+          } else {
+            let message = response.data.msg ?? "";
+            Toast.showError(message);
+            reject(response);
+          }
+        })
+        .catch((error) => {
+          console.log("Error", error);
+          Toast.showError(error.message);
+
+          reject(error);
+        });
+    });
+  };
 }
