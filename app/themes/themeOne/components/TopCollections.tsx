@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React from "react";
 import Slider from "react-slick";
 import { Cart } from "../../../../network/gateway/Cart";
@@ -10,6 +11,7 @@ interface iProps {
 }
 
 const TopCollections = (props: iProps) => {
+  const router = useRouter();
   return (
     <section className="mt-4 mt-md-5 bg-outfits pb-5">
       <div className="wrapper">
@@ -67,7 +69,11 @@ const TopCollections = (props: iProps) => {
                             </a>
                             <a
                               onClick={() => {
-                                props.onAddCart(info.id);
+                                if (Cart.isProductInCart(info.id)) {
+                                  router.push("/cart");
+                                } else {
+                                  props.onAddCart(info.id);
+                                }
                               }}
                               className="btn fs-13 "
                               tabIndex={0}
