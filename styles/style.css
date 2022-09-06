@@ -4613,6 +4613,110 @@ form.user-form .form-group {
   border-radius: 40px;
 }
 
+/* My Account */
+.account-sidebar {
+  position: fixed;
+  top: 0;
+  z-index: 1050;
+  height: 100vh;
+  background: #fff;
+  max-width: 323px;
+  padding: 30px;
+  width: 100%;
+}
+.account-sidebar ul li a {
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: -0.01em;
+  color: rgb(0 0 0 / 90%);
+  font-family: 'OpenSauceSans-Regular';
+  display: block;
+  margin: 0 -30px;
+  padding: 5px 0px 5px 30px;
+  position: relative;
+}
+.account-sidebar ul li a:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 0;
+  transition: all 0.4s ease;
+  background: #300056;
+  box-shadow: 0px 12px 22px rgb(48 0 86 / 20%);
+  border-radius: 8px;
+}
+.account-sidebar ul li a svg {
+  margin-right: 10px;
+  min-width: 20px;
+}
+.account-sidebar ul li {
+  margin-bottom: 20px;
+}
+.account-sidebar ul li a:hover, .account-sidebar ul li a.active {
+  color: #000;
+}
+.account-sidebar ul li a.active:before{
+  height: 100%;
+}
+.account-sidebar ul li a.active svg, .account-sidebar ul li a.active svg *{
+  fill:  #000;
+}
+.text-primary {
+  color: #300056!important;
+}
+.varification-box {
+  background: #300056;
+  border-radius: 14px;
+  padding: 30px;
+  margin: 30px 0;
+}
+.btn-sm{
+  border-radius: 10px;
+}
+.btn-white {
+  background: #fff;
+  color: #300056;
+}
+form.user-form .form-control {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: #000;
+}
+form.user-form .form-control::placeholder {
+  color: #000;
+}
+form.user-form .form-group {
+  margin-bottom: 20px;
+}
+.address-box-area {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 14px rgb(0 0 0 / 10%);
+  border-radius: 18px;
+  margin-top: 30px;
+}
+.address-box-area .location-name {
+  font-family: 'OpenSauceSans-Medium';
+}
+.address-box-area .address-box-content {
+  padding: 30px;
+}
+.address-box-area .map-area {
+  height: 100%;
+  overflow: hidden;
+}
+.address-button-area .address-btn {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #300056;
+  font-family: 'OpenSauceSans-Medium';
+  margin-right: 30px;
+}
+
 /* MY PROFILLE */
 
 .btn-new:hover {

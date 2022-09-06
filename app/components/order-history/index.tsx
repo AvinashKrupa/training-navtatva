@@ -54,6 +54,7 @@ const OrderHistoryItems = () => {
     return (<div className="col-12 col-lg-8 col-xl-9">
         <div className="rightside-bar-area">
             {loading && <Loader loading={loading} />}
+            <h3 className="username d-lg-none">Order History</h3>
             <>
                 {orderItems.map((item: any, index: number) => {
                     return (< div key={index}>
