@@ -77,6 +77,7 @@ const CartScreen: NextPage = () => {
       .deleteCartItem(id)
       .then((response: any) => {
         if (response.statusText === "OK") {
+          Toast.showSuccess(ValidationMessage.removedFromCart)
           let newCartItem = cartItems;
           newCartItem.splice(index, 1); // 2nd parameter means remove one item only
           setCartItems([...newCartItem]);

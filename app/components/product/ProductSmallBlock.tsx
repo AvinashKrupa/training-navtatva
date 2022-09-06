@@ -133,7 +133,7 @@ const ProductSmallBlock = (props: any) => {
                       setCartView(false);
                     }}
                   >
-                    show in cart
+                    Go to cart
                   </button>
                 )}
               </div>
