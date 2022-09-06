@@ -15,6 +15,7 @@ import Validators from "../../utils/Validator";
 import Toast from "../../utils/Toast";
 import Loader from "../../app/components/loader/loader";
 import CartItemLoader from "../../app/components/cart/CartItemLoader";
+import OfferCard from "../../app/components/checkout/OfferCard";
 
 const CartScreen: NextPage = () => {
   const [cartItems, setCartItems] = useState<any>([]);
@@ -23,7 +24,7 @@ const CartScreen: NextPage = () => {
   const [youMayLikeList, setYouMayLikeList] = useState<any>([]);
   const isLogin = useUserStore((state: any) => state.isLogin, shallow);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
-  const[loading,setLoading]=useState(true)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     console.log("CartScreen", isLogin);
@@ -83,7 +84,7 @@ const CartScreen: NextPage = () => {
         }
       });
   }
-console.log("this is cart items",cartItems)
+  console.log("this is cart items", cartItems)
   return (
     <div className="shoppingCart">
       <div className="wrapper">
@@ -97,7 +98,7 @@ console.log("this is cart items",cartItems)
 
           <div className="row">
             <div className="col-md-12 col-lg-8">
-          {loading && <CartItemLoader />}
+              {loading && <CartItemLoader />}
               {cartItems?.length != 0 &&
                 cartItems?.map((item: any, index: number) => {
                   return (
@@ -116,30 +117,7 @@ console.log("this is cart items",cartItems)
               )}
             </div>
             <div className="col-md-12 col-lg-4">
-              <div className="w-100 mt-4">
-                <a href="#">
-                  <img className="w-100" src="images/discountAd.png" alt="" />
-                </a>
-                <a
-                  href="button"
-                  className="font-sb text-color-3 fs-16 justify-content-end align-items-end d-flex ms-auto mt-3 me-2"
-                >
-                  Multiple offers waiting for you after checkout
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={22}
-                    height={22}
-                    fill="currentColor"
-                    className="bi bi-arrow-up-right ms-2"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0v-6z"
-                    />
-                  </svg>
-                </a>
-              </div>
+            <OfferCard />
               <div className="bg-white border p-3 mt-4 shipping">
                 <div className="row">
                   <div className="col-md-12 py-2">
@@ -204,25 +182,42 @@ console.log("this is cart items",cartItems)
                     </div>
                   </div>
                 </div>
+
                 <div className="col-md-12 mt-4">
-                  <label className="col-form-label fs-14 font-sb text-color-1 mb-2">
-                    Have a Promo Code?
-                  </label>
-                  <a href="#">
-                    <img className="w-100" src="images/card-1.png" alt="" />
-                  </a>
-                  <a href="#" className="mt-4 d-block">
-                    <img className="w-100" src="images/card-2.png" alt="" />
-                  </a>
+                  <label className="col-form-label fs-14 font-sb text-color-1 mb-2">Ongoing Offers</label>
+                  <div className="discountBG position-relative">
+                    <a href="#">
+                      <img className="w-100" src="images/card-1.png" alt="" />
+                      <div className="carddata align-items-start d-flex flex-column h-100 justify-content-between w-100 ">
+                        <div>
+                          <h4 className="fs-24 font-sb text-white">Upto 20% off</h4>
+                          <p className="fs-16 font-r text-color-8">on selected brands</p>
+                        </div>
+                        <div className="d-flex w-100">
+                          <p className="fs-16 font-sb text-white ltr-space">NAVTATVA2022 <img src="images/card-icon.png" alt="" /></p>
+                          <p className="fs-12 font-r text-color-8 ms-auto">Valid till  <small className="fs-16 font-r text-white">30th July</small></p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div className=" mt-4">
+                    <a href="#">
+                      <img className="w-100" src="images/card-2.png" alt="" />
+                      <div className="carddata align-items-start d-flex flex-column h-100 justify-content-between w-100 ">
+                        <div>
+                          <h4 className="fs-24 font-sb text-white">Upto 20% off</h4>
+                          <p className="fs-16 font-r text-color-8">on selected brands</p>
+                        </div>
+                        <div className="d-flex w-100">
+                          <p className="fs-16 font-sb text-white ltr-space">NAVTATVA2022 <img src="images/card-icon.png" alt="" /></p>
+                          <p className="fs-12 font-r text-color-8 ms-auto ">Valid till  <small className="fs-16 font-r text-white">30th July</small></p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
                 </div>
-                <div className="col-md-12 mt-4">
-                  <label className="col-form-label fs-14 font-sb text-color-1 mb-2">
-                    Redeem Coins
-                  </label>
-                  <a href="#">
-                    <img className="w-100" src="images/card-3.png" alt="" />
-                  </a>
-                </div>
+
+
               </div>
             </div>
           </div>
