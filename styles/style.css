@@ -4758,3 +4758,16 @@ form.user-form .form-group {
     border: solid 1px rgba(0,0,0,0.1);
     border-radius: 10px;
 }
+
+.btn-can{
+  color: #E53333;
+    background: rgba(229, 51, 51, 0.2);
+    padding: 10px 15px;
+    border: solid 1px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+.btn-can:hover {
+  background: #300056;
+  color: #fff;
+}

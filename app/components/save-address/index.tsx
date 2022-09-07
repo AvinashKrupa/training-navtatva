@@ -145,7 +145,6 @@ const SaveAddress = () => {
     }
 
     function updateAddress() {
-
         if (isLogin && validateForm()) {
             const all = Object.assign({}, allAddress);
             const data = Object.assign({}, addressFields);
@@ -154,7 +153,6 @@ const SaveAddress = () => {
                 Toast.showError("*Please Update Address");
                 return;
             }
-
             const param = {
                 data: addressFields,
             }
@@ -162,9 +160,9 @@ const SaveAddress = () => {
                 Address.getInstance()
                     .updateAddress(param)
                     .then((data: any) => {
-                        const filteredUsersData = allAddress.filter((each: any) => each.id !== data.data.data.id
+                        const filteredAllAddressData = allAddress.filter((each: any) => each.id !== data.data.data.id
                         )
-                        setAllAddress([...filteredUsersData, data.data.data]);
+                        setAllAddress([...filteredAllAddressData, data.data.data]);
 
                         setIsShowing(false)
                         setAddressFields(JSON.parse(JSON.stringify({
@@ -191,13 +189,10 @@ const SaveAddress = () => {
                     let newAllAddress = allAddress;
                     newAllAddress.splice(index, 1);
                     setAllAddress([...newAllAddress]);
-                    //   if (newAllAddress.length === 0) {
-                    //     setShowAddress(false);
-                    //   }
+
                 }
             });
     }
-    //console.log("this is testing data", allAddress)
 
     return (<div className="col-12 col-lg-8 col-xl-9 ">
         <div className="rightside-bar-area ">

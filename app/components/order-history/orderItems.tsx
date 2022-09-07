@@ -1,6 +1,4 @@
-const OrderItem = (props: any) => {
-
-
+const OrderItems = (props: any) => {
     function getSize() {
         let data = props.meta?.variant.filter((info: any) => {
             return info.name == "Size";
@@ -9,7 +7,6 @@ const OrderItem = (props: any) => {
     }
 
     function getColor() {
-
         let data = props.meta?.variant.filter((info: any) => {
             return info.name == "Color";
         });
@@ -33,9 +30,14 @@ const OrderItem = (props: any) => {
     function getDate(data: any) {
         let newDate = new Date(data)
         newDate.setDate(newDate.getDate() + 3);
-
         return newDate.getDate() + " " + months[newDate.getMonth()] + " " + newDate.getFullYear()
     }
+
+    function cancelOrder(id: any, index: number) {
+        props.cancelOrder(id, index)
+
+    }
+
     return (<>
         <div className="bgbar position-relative mt-4 ms-0">
             <div className="row mb-3">
@@ -52,19 +54,20 @@ const OrderItem = (props: any) => {
                                 <p className="fs-14 font-sb text-color-1 ms-4">Colour: <span className="text-color-2">{getColor()}</span></p>
                                 <p className="fs-14 font-sb text-color-1 ms-4">QTY: <span className="text-color-2">{props.quantity}</span></p>
                             </div>
-                            {/* <div className="d-flex">
-                                                    <p className="fs-14 font-sb text-color-1">Size: <span className="text-color-2">XL</span></p>
-                                                    <p className="fs-14 font-sb text-color-1 ms-4">Colour: <span className="text-color-2">Blue</span></p>
-                                                    <p className="fs-14 font-sb text-color-1 ms-4">QTY: <span className="text-color-2">2</span></p>
-                                                </div> */}
+
                         </div>
                         <div className="col-md-12 col-lg-10 col-xl-6 mt-3">
-                            <a href="#" className="btn-gray d-inline-block">
+                            {props.status === 'cancelled' ? <><a className="btn-can d-inline-block">
+                                <svg style={{ marginRight: 5 }} xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="currentColor" className="bi bi-x-lg" viewBox="0 0 16 16">
+                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+                                </svg>
+                                Cancelled
+                            </a> </> : <> <a href="#" className="btn-gray d-inline-block">
                                 <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="currentColor" className="bi bi-arrow-up-right me-2" viewBox="0 0 16 16">
                                     <path fillRule="evenodd" d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0v-6z" />
                                 </svg>
                                 Arriving {getDate(props.meta.timestamps.created_at)}
-                            </a>
+                            </a></>}
                         </div>
                     </div>
                 </div>
@@ -76,7 +79,7 @@ const OrderItem = (props: any) => {
                         </svg>
                         Track Package
                     </a>
-                    <a href="#" className="btn-new  btn-bor d-block mb-2">
+                    <a className="btn-new  btn-bor d-block mb-2" onClick={() => { cancelOrder(props.orderID, props.index) }}>
                         <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-x-lg" viewBox="0 0 16 16" style={{ marginRight: 5 }}>
                             <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
                         </svg>
@@ -101,4 +104,4 @@ const OrderItem = (props: any) => {
     </>)
 }
 
-export default OrderItem;
+export default OrderItems;

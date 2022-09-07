@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import shallow from "zustand/shallow";
-import { Address } from "../../../network/gateway/Address";
+import { CustomerOrderService } from "../../../network/gateway/CustomerOrderService";
 import useUserStore from "../../../zustand/store";
 import Loader from "../loader/loader";
-import OrderItem from "./orderItems";
+import OrderItems from "./orderItems";
 
 const OrderHistoryItems = () => {
     const [deliveredList, setdeliverdList] = useState([1, 2])
@@ -11,6 +11,7 @@ const OrderHistoryItems = () => {
     const setLoginPopup = useUserStore((state: any) => state.showLogin);
     const [orderItems, setOrderItems] = useState<any>([])
     const [loading, setLoading] = useState(true)
+
 
     useEffect(() => {
         if (isLogin) {
@@ -22,14 +23,12 @@ const OrderHistoryItems = () => {
     }, [isLogin]);
 
     function getCustomerOrders() {
-        Address.getInstance()
+        CustomerOrderService.getInstance()
             .getCustomerOrder()
             .then((data: any) => {
-                //console.log("this is callaed",data)
                 setOrderItems(data?.data.data)
                 setLoading(false)
-
-            });
+            }).catch((error) => { });
     }
 
     const months = [
@@ -49,6 +48,33 @@ const OrderHistoryItems = () => {
     function getDate(data: any) {
         let newDate = new Date(data)
         return newDate.getDate() + " " + months[newDate.getMonth()] + " " + newDate.getFullYear()
+    }
+
+    function cancelOrder(id: any, index: number) {
+        const param = {
+            "status": "cancelled"
+        }
+
+        CustomerOrderService.getInstance()
+            .cancelOrder(id, param)
+            .then((data: any) => {
+                if (data.statusText === "OK") {
+                    const newOrderItems: any = []
+                    orderItems.map((each: any) => {
+                        if (each.id === data.data.data.id) {
+                            return newOrderItems.push({ ...each, "status": "cancelled" })
+                        }
+                        else {
+                            return newOrderItems.push(each)
+                        }
+                    })
+
+                    setOrderItems([...newOrderItems])
+                }
+
+
+            }).catch((error) => { });
+
     }
 
     return (<div className="col-12 col-lg-8 col-xl-9">
@@ -75,7 +101,7 @@ const OrderHistoryItems = () => {
                                 </li>
                             </ul>
                             {item.line_items.map((each: any, index: number) => {
-                                return (<OrderItem key={index} {...each} />)
+                                return (<OrderItems key={index} {...each} cancelOrder={cancelOrder} status={item.status} orderID={item.id} />)
                             })}
                         </div>
                     </ div>)
