@@ -5,6 +5,7 @@ import LocalStorageService from "../../../utils/storage/LocalStorageService";
 import useUserStore from "../../../zustand/store";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import Permalink from "../../../utils/Permalink";
 
 const CartItem = (props: any) => {
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
@@ -47,11 +48,15 @@ const CartItem = (props: any) => {
           </div>
           <div className="col-md-3 col-lg-3">
             <div className="imgbar ">
-              <img className="w-100" src={props.image?.href} alt="" />
+              <a href={Permalink.ofProduct(props)}>
+                <img className="w-100" src={props.image?.href} alt="" />
+              </a>
             </div>
           </div>
           <div className="col-md-9 position-relative">
-            <h3 className="fs-16 font-sb text-color-2">{props.name}</h3>
+            <a href={Permalink.ofProduct(props)}>
+              <h3 className="fs-16 font-sb text-color-2">{props.name}</h3>
+            </a>
             <p className="fs-14 font-r text-color-1 pt-1 prodes">
               {props.description}
             </p>
@@ -68,6 +73,7 @@ const CartItem = (props: any) => {
                 Move to Wishlist
               </a>
               <a
+                href="#"
                 className="fs-14 font-sb text-color-3 ms-4"
                 onClick={() => {
                   removeCartitem();

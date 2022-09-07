@@ -7,6 +7,7 @@ const ValidationMessage = {
   password: "Please enter password",
   validPassword: "Please enter valid password",
   couponCode: "Please enter coupon code",
+  removedFromCart: "Item Removed from cart successfully.",
 };
 
 export default ValidationMessage;

@@ -1,17 +1,14 @@
 import React from "react";
 import Slider from "react-slick";
 import { customerSliderSetting } from "../../../../utils/sliderConfig";
+import SectionHeader from "./SectionHeader";
 
 const OurValuedCustomers = () => {
   return (
     <section className="mt-5 mostSearch">
       <div className="wrapper">
         <div className="row">
-          <div className="col-md-12">
-            <div className="heading2">
-              <h2>Our Valued Customers</h2>
-            </div>
-          </div>
+          <SectionHeader title={"Our Valued Customers"}/>
           <div className="col-md-12">
             <div className="customerSlider mt-4 mt-lg-5">
               <Slider {...customerSliderSetting}>

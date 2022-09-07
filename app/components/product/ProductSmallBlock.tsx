@@ -126,13 +126,25 @@ const ProductSmallBlock = (props: any) => {
                     } else {
                       props.addToCart(props.id);
                       setCartView(true);
-                    }
-                  }}
-                >
-                  {Cart.isProductInCart(props.id)
-                    ? "Go To Cart"
-                    : "Add to Cart"}
-                </button>
+                    }}
+                  >
+                    Add to Cart
+                  </button>
+                )}
+                {cartView && (
+                  <button
+                    type="button"
+                    className="btn btn-sm w-100 cart-btn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                    onClick={() => {
+                      router.push("/cart");
+                      setCartView(false);
+                    }}
+                  >
+                    show in cart
+                  </button>
+                )}
               </div>
             </div>
           </div>

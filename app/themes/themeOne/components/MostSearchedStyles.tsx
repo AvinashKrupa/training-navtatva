@@ -1,15 +1,12 @@
 import React from "react";
+import SectionHeader from "./SectionHeader";
 
 const MostSearchedStyles = () => {
     return (
         <section className="mt-4 mt-md-5 mostSearch pb-5">
             <div className="wrapper">
                 <div className="row">
-                    <div className="col-md-12">
-                        <div className="heading2">
-                            <h2>Most Searched Styles</h2>
-                        </div>
-                    </div>
+                    <SectionHeader title={"Most Searched Styles"}/>
                     <div className="col-md-12 mt-4 mt-lg-5 position-relative">
                         <div className="row">
                             <div className="col-width-5 mb-4  text-center">

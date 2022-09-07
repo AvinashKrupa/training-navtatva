@@ -1,4 +1,5 @@
 import { TbCurrencyRupee } from "react-icons/tb";
+import Permalink from "../../../utils/Permalink";
 
 const CheckoutCartItem = (props: any) => {
 
@@ -33,12 +34,12 @@ const CheckoutCartItem = (props: any) => {
       <div className="row">
         <div className="col-md-3 col-lg-4">
           <div className="imgbar ">
-            <img className="w-100" src={item.image?.href} alt="" />
+            <a href={Permalink.ofProduct(item)}><img className="w-100" src={item.image?.href} alt="" /></a>
           </div>
         </div>
 
         <div className="col-md-9 col-lg-8 position-relative">
-          <h3 className="fs-16 font-sb text-color-2">{item.name}</h3>
+          <a href={Permalink.ofProduct(item)}><h3 className="fs-16 font-sb text-color-2">{item.name}</h3></a>
           <p className="fs-14 font-r text-color-1 pt-1 prodes">
             {item.description}
           </p>
@@ -73,7 +74,7 @@ const CheckoutCartItem = (props: any) => {
             <a className="fs-14 font-sb text-color-3" href="#">
               Move to Wishlist
             </a>{" "}
-            <a className="fs-14 font-sb text-color-3 ms-4" onClick={() => {
+            <a href="#" className="fs-14 font-sb text-color-3 ms-4" onClick={() => {
               removeCartitem(item.id);
             }}>
               Remove
