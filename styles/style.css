@@ -4771,3 +4771,14 @@ form.user-form .form-group {
   background: #300056;
   color: #fff;
 }
+
+
+  @media screen and (min-width: 768px) {
+    .order-items-btn{
+      display: flex;
+      flex-direction: row;
+
+    }
+}
+ /* MY PROFILLE */
+
