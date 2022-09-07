@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
 import React from "react";
 import Slider from "react-slick";
+import { Cart } from "../../../../network/gateway/Cart";
+import Permalink from "../../../../utils/Permalink";
 import { occasionSetting } from "../../../../utils/sliderConfig";
 import SectionHeader from "./SectionHeader";
 
