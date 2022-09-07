@@ -4,7 +4,7 @@ import { Cart } from "../../../network/gateway/Cart";
 import LocalStorageService from "../../../utils/storage/LocalStorageService";
 import useUserStore from "../../../zustand/store";
 import Skeleton from "react-loading-skeleton";
-import 'react-loading-skeleton/dist/skeleton.css'
+import "react-loading-skeleton/dist/skeleton.css";
 
 const CartItem = (props: any) => {
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
@@ -34,7 +34,6 @@ const CartItem = (props: any) => {
 
   //console.log("this is cart data",props?.id)
   return (
-
     <>
       <div className="bgbar position-relative mt-4">
         <div className="row">
@@ -44,7 +43,7 @@ const CartItem = (props: any) => {
               type="checkbox"
               defaultValue={""}
               id="flexCheckDefault"
-            />{" "}
+            />
           </div>
           <div className="col-md-3 col-lg-3">
             <div className="imgbar ">
@@ -65,10 +64,9 @@ const CartItem = (props: any) => {
               </p>
             </div>
             <div className="d-flex mt-4">
-              {" "}
               <a className="fs-14 font-sb text-color-3" href="#">
                 Move to Wishlist
-              </a>{" "}
+              </a>
               <a
                 className="fs-14 font-sb text-color-3 ms-4"
                 onClick={() => {
@@ -76,11 +74,11 @@ const CartItem = (props: any) => {
                 }}
               >
                 Remove
-              </a>{" "}
+              </a>
             </div>
             <div className="d-flex topBarAlign">
               <p className="fs-16 font-sb text-color-2 align-self-center me-3">
-                {/* ₹3,499 */}{" "}
+                {/* ₹3,499 */}
                 {props.meta?.display_price?.with_tax.unit.formatted}
               </p>
               <div className="quantity d-flex px-2">
@@ -100,9 +98,7 @@ const CartItem = (props: any) => {
             </div>
           </div>
         </div>
-
       </div>
-
     </>
   );
 };
