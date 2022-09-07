@@ -77,8 +77,6 @@ const OrderHistoryItems = () => {
 
     }
 
-    console.log("this is order items", orderItems)
-
     return (<div className="col-12 col-lg-8 col-xl-9">
         <div className="rightside-bar-area">
             {loading && <Loader loading={loading} />}
