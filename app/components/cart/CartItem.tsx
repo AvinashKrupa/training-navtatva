@@ -77,17 +77,43 @@ const CartItem = (props: any) => {
               </a>
             </div>
             <div className="d-flex topBarAlign">
-              <p className="fs-16 font-sb text-color-2 align-self-center me-3">
-                {/* ₹3,499 */}
-                {props.meta?.display_price?.with_tax.unit.formatted}
-              </p>
-              <div className="quantity d-flex px-2">
-                <label className="fs-14 font-r text-color-1 pt-1">Qty</label>
+              <div className="fs-16 font-sb text-color-2 align-self-center me-3">
+                <div className="product-price">
+                  <p>
+                    <span className="new-price mb-0 font-sb">
+                      <span>
+                        ₹{props?.discountPrice?.currencies.INR.amount}{" "}
+                      </span>
+                    </span>
+                    <span className="last-price mb-0 fs-12 font-r">
+                      <span className="text-color-1">
+                        ₹{props?.originalPrice?.currencies.INR.amount}
+                      </span>
+                    </span>
+                  </p>
+
+                  <p className="save fs-10 font-r">
+                    You save ₹
+                    {props?.originalPrice?.currencies.INR.amount -
+                      (props?.discountPrice?.currencies.INR.amount || 0)}
+                  </p>
+                </div>
+              </div>
+              <div className="quantity d-flex px-4" style={{ maxHeight: 30 }}>
+                <label
+                  style={{ marginRight: 4 }}
+                  className="fs-14 font-r text-color-1 pt-1"
+                >
+                  Qty
+                </label>
                 <select
+                  style={{ width: 30, marginLeft: 4 }}
                   className="form-select fs-14 font-r"
                   aria-label="Default select example"
                 >
-                  <option value={1}>{props.quantity}</option>
+                  <option value={1}>
+                    <b>{props.quantity}</b>
+                  </option>
                   {/* <option value={2}>2</option>
                 <option value={3}>3</option> */}
                 </select>
