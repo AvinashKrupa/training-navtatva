@@ -1,14 +1,11 @@
 import React from "react";
+import SectionHeader from "./SectionHeader";
 
 const ShopByPrice = () => {
     return (
         <section className="ShopPrice">
             <div className="row">
-                <div className="col-md-12">
-                    <div className="heading2">
-                        <h2>Shop By Price</h2>
-                    </div>
-                </div>
+                <SectionHeader title={"Shop By Price"}/>
                 <div className="col-md-12 pt-5">
                     <ul className="text-center d-block d-lg-flex justify-content-center">
                         <li className="bg1 fs-64 mx-3 d-inline-block d-lg-flex align-items-center justify-content-center">

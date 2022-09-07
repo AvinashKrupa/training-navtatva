@@ -1,17 +1,14 @@
 import React from "react";
 import Slider from "react-slick";
 import { preferenceSliderSetting } from "../../../../utils/sliderConfig";
+import SectionHeader from "./SectionHeader";
 
 const WhatsNewThisMonth = () => {
   return (
     <section className="month-trend mt-4 mt-md-5 ">
       <div className="wrapper">
         <div className="row">
-          <div className="col-md-12">
-            <div className="heading2">
-              <h2>What’s New This Month</h2>
-            </div>
-          </div>
+          <SectionHeader title={"What’s New This Month"}/>
           <div className="col-md-12 mt-4 mt-lg-5 position-relative sliderView">
             <div className="Preference-slider">
               <Slider {...preferenceSliderSetting}>

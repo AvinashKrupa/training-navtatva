@@ -1,17 +1,14 @@
 import React from "react";
 import Slider from "react-slick";
 import { occasionSetting } from "../../../../utils/sliderConfig";
+import SectionHeader from "./SectionHeader";
 
 const NavTatvaTopPicks = () => {
   return (
     <section className="mt-4 mt-md-5 bg-outfits pb-5">
       <div className="wrapper">
         <div className="row">
-          <div className="col-md-12">
-            <div className="heading2">
-              <h2>NavTatva’s Top Picks</h2>
-            </div>
-          </div>
+          <SectionHeader title={"NavTatva’s Top Picks"}/>
           <div className="col-md-12 mt-4 mt-lg-5 position-relative sliderView Occasion">
             <div className="ocassion-slider">
               <Slider {...occasionSetting}>
