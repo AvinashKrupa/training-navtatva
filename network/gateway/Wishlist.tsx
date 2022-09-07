@@ -41,11 +41,11 @@ export class Wishlist extends HTTPBaseService {
         .then(async (response) => {
           if (response.status == 200) {
             let wistList = response.data.data.id ?? "";
-            localStorage.setItem("WISHLIST_ENTRY", wistList);
 
+            localStorage.setItem("WISHLIST_ENTRY", wistList);
             let obj = Wishlist.getInstance();
             let associationid = await obj.wishListAssociationWithCustomer(
-              localStorage
+              wistList
             );
             resolve(associationid);
           } else {
@@ -112,7 +112,7 @@ export class Wishlist extends HTTPBaseService {
     };
 
     let entryId = await Wishlist.getWishlistEntry();
-    console.log("enntryid", entryId);
+
     return new Promise((resolve: any, reject: any) => {
       this.instance
         .post(
@@ -154,19 +154,17 @@ export class Wishlist extends HTTPBaseService {
             // console.log("sdad", response.data.data);
             // return;
 
-            let customerWishList = response.data.data.filter((info: any) => {
-              return info.id == entryId;
+            let customerWishList =
+              response.data.data?.relationships?.cwishlists?.data || [];
+
+            let productId = customerWishList.map((info: any) => {
+              return info.id;
             });
-            let productId = [];
-            if (customerWishList.length > 0) {
-              let wishlistIds = customerWishList[0].relationships.products.data;
-              if (wishlistIds) {
-                let prdId = wishlistIds.map((info: any) => {
-                  return info.id;
-                });
-                LocalStorageService.setWishlist(prdId);
+
+            if (productId.length > 0) {
+              if (productId) {
+                LocalStorageService.setWishlist(productId);
               }
-            } else {
             }
             resolve(response);
           } else {
@@ -185,6 +183,7 @@ export class Wishlist extends HTTPBaseService {
 
   static isWishlistProduct(id: string) {
     let data = LocalStorageService.getWishlist();
+    console.log("dadsadsa", data);
     return data?.includes(id) || false;
   }
 

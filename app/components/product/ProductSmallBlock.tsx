@@ -5,6 +5,7 @@ import ExploreBlock from "../common/ExploreBlock";
 import SpinBlock from "../common/SpinBlock";
 import { useRouter } from "next/router";
 import { Cart } from "../../../network/gateway/Cart";
+import { Wishlist } from "../../../network/gateway/Wishlist";
 
 const ProductSmallBlock = (props: any) => {
   const [cartView, setCartView] = useState(false);
@@ -41,7 +42,11 @@ const ProductSmallBlock = (props: any) => {
                 type="button"
                 className="btn-heart"
               >
-                <i className="far fa-heart fa-fw" />
+                <i
+                  className={`far fa-heart fa-fw ${
+                    Wishlist.isWishlistProduct(props.id) ? "active" : ""
+                  }`}
+                />
               </button>
               <span className="img-name">Cotton + Khaadi</span>
             </div>
