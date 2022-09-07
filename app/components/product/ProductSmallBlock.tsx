@@ -126,11 +126,12 @@ const ProductSmallBlock = (props: any) => {
                     } else {
                       props.addToCart(props.id);
                       setCartView(true);
-                    }}
-                  >
-                    Add to Cart
-                  </button>
-                )}
+                    }
+                  }}
+                >
+                  Add to Cart
+                </button>
+
                 {cartView && (
                   <button
                     type="button"
