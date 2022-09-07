@@ -16,6 +16,7 @@ import Toast from "../../utils/Toast";
 import Loader from "../../app/components/loader/loader";
 import CartItemLoader from "../../app/components/cart/CartItemLoader";
 import OfferCard from "../../app/components/checkout/OfferCard";
+import Offers from "./Offers";
 
 const CartScreen: NextPage = () => {
   const [cartItems, setCartItems] = useState<any>([]);
@@ -117,7 +118,7 @@ const CartScreen: NextPage = () => {
               )}
             </div>
             <div className="col-md-12 col-lg-4">
-            <OfferCard />
+              <OfferCard />
               <div className="bg-white border p-3 mt-4 shipping">
                 <div className="row">
                   <div className="col-md-12 py-2">
@@ -182,42 +183,7 @@ const CartScreen: NextPage = () => {
                     </div>
                   </div>
                 </div>
-
-                <div className="col-md-12 mt-4">
-                  <label className="col-form-label fs-14 font-sb text-color-1 mb-2">Ongoing Offers</label>
-                  <div className="discountBG position-relative">
-                    <a href="#">
-                      <img className="w-100" src="images/card-1.png" alt="" />
-                      <div className="carddata align-items-start d-flex flex-column h-100 justify-content-between w-100 ">
-                        <div>
-                          <h4 className="fs-24 font-sb text-white">Upto 20% off</h4>
-                          <p className="fs-16 font-r text-color-8">on selected brands</p>
-                        </div>
-                        <div className="d-flex w-100">
-                          <p className="fs-16 font-sb text-white ltr-space">NAVTATVA2022 <img src="images/card-icon.png" alt="" /></p>
-                          <p className="fs-12 font-r text-color-8 ms-auto">Valid till  <small className="fs-16 font-r text-white">30th July</small></p>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <div className=" mt-4">
-                    <a href="#">
-                      <img className="w-100" src="images/card-2.png" alt="" />
-                      <div className="carddata align-items-start d-flex flex-column h-100 justify-content-between w-100 ">
-                        <div>
-                          <h4 className="fs-24 font-sb text-white">Upto 20% off</h4>
-                          <p className="fs-16 font-r text-color-8">on selected brands</p>
-                        </div>
-                        <div className="d-flex w-100">
-                          <p className="fs-16 font-sb text-white ltr-space">NAVTATVA2022 <img src="images/card-icon.png" alt="" /></p>
-                          <p className="fs-12 font-r text-color-8 ms-auto ">Valid till  <small className="fs-16 font-r text-white">30th July</small></p>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-
-
+                <Offers />
               </div>
             </div>
           </div>
