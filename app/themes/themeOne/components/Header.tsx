@@ -115,7 +115,7 @@ useEffect(()=>{
                 <div className="d-none d-lg-block d-sm-none d-md-none">
                     <a
                       className="user rounded-circle d-block user-img"
-                      href="#"
+                      href="myprofile"
                       title={""}
                     >
                       <img width={32} height={32} src="/images/user.png" alt="" />
