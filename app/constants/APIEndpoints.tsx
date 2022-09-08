@@ -28,6 +28,7 @@ const API = {
   GET_BANNER: "banners/",
   APPLY_PROMOTION: "applyPromotion",
   GET_CUSTOMER_ORDER: 'getCustomerOrder',
+  ORDER:'order',
   GET_HOME_CONTENT: "getHomeContent/",
   ORDER_TAKING_APP: {
     GET_SELLERS: "get-all-customers",

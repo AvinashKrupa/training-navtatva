@@ -541,18 +541,24 @@ const ProductQuickView = (props: any) => {
                       </button>
                       <button
                         onClick={() => {
-                          if (LocalStorageService.getAccessToken()) {
-                            console.log("product detal", props);
-                            addToCart(props?.data.id);
+                          if (Cart.isProductInCart(props?.data.id)) {
+                            router.push("/cart");
                           } else {
-                            setProductId(props?.data.id);
-                            setLogin(true);
+                            if (LocalStorageService.getAccessToken()) {
+                              console.log("product detal", props);
+                              addToCart(props?.data.id);
+                            } else {
+                              setProductId(props?.data.id);
+                              setLogin(true);
+                            }
                           }
                         }}
                         type="button"
                         className="btn w-50"
                       >
-                        Add to Cart
+                        {Cart.isProductInCart(props?.data.id)
+                          ? "Go To Cart"
+                          : "Add to Cart"}
                       </button>
                     </div>
                   </div>

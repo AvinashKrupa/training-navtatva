@@ -1,7 +1,10 @@
+import { useRouter } from "next/router";
 import React from "react";
 import Slider from "react-slick";
 import { Cart } from "../../../../network/gateway/Cart";
+import Permalink from "../../../../utils/Permalink";
 import { occasionSetting } from "../../../../utils/sliderConfig";
+import SectionHeader from "./SectionHeader";
 
 interface iProps {
   data: any;
@@ -10,15 +13,12 @@ interface iProps {
 }
 
 const TopCollections = (props: iProps) => {
+  const router = useRouter();
   return (
     <section className="mt-4 mt-md-5 bg-outfits pb-5">
       <div className="wrapper">
         <div className="row">
-          <div className="col-md-12">
-            <div className="heading2">
-              <h2>Top Collections</h2>
-            </div>
-          </div>
+          <SectionHeader title={"Top Collections"} />
           <div className="col-md-12 mt-4 mt-lg-5 position-relative sliderView Occasion">
             <div className="ocassion-slider">
               <Slider {...occasionSetting}>
@@ -27,17 +27,17 @@ const TopCollections = (props: iProps) => {
                     <div className="thumb position-relative text-center">
                       <div className="bg1">
                         <a href="/shop">
-                          <img
-                            style={{ minHeight: 385 }}
-                            className="w-100"
-                            src={info.image}
-                            alt=""
-                          />
+                          <img className="w-100" src={info.image} alt="" />
                         </a>
                         <div className="hoverBlock">
                           <div className="overlay   text-center">
-                            <p className="fs-13 font-r text-color-1">
-                              {info.title}
+                            <p>
+                              <a
+                                className="fs-13 font-r text-color-1"
+                                href={Permalink.ofProduct(info)}
+                              >
+                                {info.title}
+                              </a>
                             </p>
                             {/* <p className="fs-19 font-sb text-color-3 py-3">
                               {info.sale_price}
@@ -59,7 +59,7 @@ const TopCollections = (props: iProps) => {
                               </p>
                             </div>
                             <a
-                              href="/product/dummy"
+                              href={Permalink.ofProduct(info)}
                               className="btn-border fs-13 text-color-3"
                               tabIndex={0}
                             >
@@ -67,7 +67,11 @@ const TopCollections = (props: iProps) => {
                             </a>
                             <a
                               onClick={() => {
-                                props.onAddCart(info.id);
+                                if (Cart.isProductInCart(info.id)) {
+                                  router.push("/cart");
+                                } else {
+                                  props.onAddCart(info.id);
+                                }
                               }}
                               className="btn fs-13 "
                               tabIndex={0}

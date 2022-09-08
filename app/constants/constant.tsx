@@ -30,6 +30,7 @@ const RupifiUC = {
 };
 
 const constants = {
+  assetsBaseURL: "http://3.109.249.174:1880",
   baseURL: "http://3.109.249.174:1880/",
   ACCESS_TOKEN: "0f40c705ef74aa0b3f20817c4aaf70d65938de66",
   RUPIFI: RupifiProduction,

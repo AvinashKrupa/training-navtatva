@@ -19,6 +19,7 @@ import Validators from "../../utils/Validator";
 import { useRouter } from "next/router";
 import Spinner from "../../app/hoc/Spinner";
 import { Auth } from "../../network/gateway/Auth";
+import ValidationMessage from "../../app/constants/validationMessage";
 
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
@@ -127,6 +128,7 @@ const CheckoutScreen: NextPage = () => {
       .deleteCartItem(id)
       .then((response: any) => {
         if (response.statusText === "OK") {
+          Toast.showSuccess(ValidationMessage.removedFromCart)
           let newCartItem = cartItems;
           newCartItem.splice(index, 1);
           setCartItems([...newCartItem]);

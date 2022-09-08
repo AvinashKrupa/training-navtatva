@@ -4,6 +4,8 @@ import Permalink from "../../../utils/Permalink";
 import ExploreBlock from "../common/ExploreBlock";
 import SpinBlock from "../common/SpinBlock";
 import { useRouter } from "next/router";
+import { Cart } from "../../../network/gateway/Cart";
+import { Wishlist } from "../../../network/gateway/Wishlist";
 
 const ProductSmallBlock = (props: any) => {
   const [cartView, setCartView] = useState(false);
@@ -40,7 +42,11 @@ const ProductSmallBlock = (props: any) => {
                 type="button"
                 className="btn-heart"
               >
-                <i className="far fa-heart fa-fw" />
+                <i
+                  className={`far fa-heart fa-fw ${
+                    Wishlist.isWishlistProduct(props.id) ? "active" : ""
+                  }`}
+                />
               </button>
               <span className="img-name">Cotton + Khaadi</span>
             </div>
@@ -108,34 +114,25 @@ const ProductSmallBlock = (props: any) => {
                 >
                   Quick View
                 </button>
-                {!cartView && (
-                  <button
-                    type="button"
-                    className="btn btn-sm w-100 cart-btn"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                    onClick={() => {
+
+                <button
+                  type="button"
+                  className="btn btn-sm w-100 cart-btn"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  onClick={() => {
+                    if (Cart.isProductInCart(props.id)) {
+                      router.push("/cart");
+                    } else {
                       props.addToCart(props.id);
                       setCartView(true);
-                    }}
-                  >
-                    Add to Cart
-                  </button>
-                )}
-                {cartView && (
-                  <button
-                    type="button"
-                    className="btn btn-sm w-100 cart-btn"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                    onClick={() => {
-                      router.push("/cart");
-                      setCartView(false);
-                    }}
-                  >
-                    show in cart
-                  </button>
-                )}
+                    }
+                  }}
+                >
+                  {Cart.isProductInCart(props.id)
+                    ? "Go To Cart"
+                    : "Add to Cart"}
+                </button>
               </div>
             </div>
           </div>

@@ -1,15 +1,12 @@
 import React from "react";
+import SectionHeader from "./SectionHeader";
 
 const MustInWardrobe = () => {
     return (
         <section className="mt-4 mt-md-5 pb-md-5 mb-5">
             <div className="wrapper">
                 <div className="row">
-                    <div className="col-md-12">
-                        <div className="heading2">
-                            <h2>Must haves In Your Wardrobe</h2>
-                        </div>
-                    </div>
+                    <SectionHeader title={"Must haves In Your Wardrobe"}/>
                     <div className="col-md-12 mt-4 mt-lg-5 position-relative  wardrobecate">
                         <div className="row">
                             <div className="thumb col-sm-6 mb-4 mb-lg-0 col-lg-3 position-relative text-center">

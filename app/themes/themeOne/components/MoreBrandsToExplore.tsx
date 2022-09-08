@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Skeleton from "react-loading-skeleton";
+import SectionHeader from "./SectionHeader";
 interface IProps {
   brand: Array<any>;
   loading: boolean
@@ -12,11 +13,7 @@ const MoreBrandsToExplore = (props: IProps) => {
     <section className="mt-4 mt-md-5 brand">
       <div className="wrapper">
         <div className="row">
-          <div className="col-md-12">
-            <div className="heading2">
-              <h2>More Brands To Explore</h2>
-            </div>
-          </div>
+          <SectionHeader title={"More Brands To Explore"}/>
           <div className="col-md-12 mt-4 mt-lg-5">
             <ul className="d-block text-center">
               {props.brand.map((info, index) => {

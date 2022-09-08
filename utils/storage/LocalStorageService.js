@@ -13,10 +13,15 @@ class LocalStorageService {
     localStorage.setItem("customer_id", customer_id);
   }
   static setWishlist(ids) {
-    localStorage.setItem("customer_wishlist", ids);
+    localStorage.setItem("customer_wishlist", JSON.stringify(ids));
   }
   static getWishlist() {
-    return localStorage.getItem("customer_wishlist");
+    let data = localStorage.getItem("customer_wishlist");
+    if (data) {
+      return JSON.parse(data);
+    } else {
+      return [];
+    }
   }
 
   static setCartItems(ids) {
