@@ -298,11 +298,13 @@ const CheckoutScreen: NextPage = () => {
                 </div>
               </div>
             )}
-            <div className={`col-md-12 col-lg-12 mt-4`}>
-              <div style={{ marginTop: "7%" }}>
-                <Loader loading={loading} />
+            {loading && (
+              <div className={`col-md-12 col-lg-12 mt-4`}>
+                <div style={{ marginTop: "7%" }}>
+                  <Loader loading={loading} />
+                </div>
               </div>
-            </div>
+            )}
 
             {cartItems?.length != 0 && (
               <div className="col-md-12 col-lg-4">
