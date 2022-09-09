@@ -91,7 +91,7 @@ const PLP = () => {
         if (response.data) {
           setSelectedProductData(response.data.data);
           setOpenProductQuickView(true);
-          setQuickViewStatus(false);
+          // setQuickViewStatus(false);
         } else {
           console.log("ERROR:", response.data);
         }

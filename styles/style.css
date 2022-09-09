@@ -4877,3 +4877,7 @@ form.user-form .form-group {
     flex-direction: row;
   }
 }
+
+.full-window {
+  min-height: 100vh;
+}

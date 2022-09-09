@@ -28,7 +28,12 @@ const ShopByPreference = (props: iProps) => {
                             <h4 className="fs-36 font-Bsoul">{info.title}</h4>
                           </a>
                         </div>
-                        <img className="w-100" src={info.image} alt="" />
+                        <img
+                          style={{ height: 450, objectFit: "contain" }}
+                          className="w-100"
+                          src={info.image}
+                          alt=""
+                        />
                       </div>
                     </div>
                   );

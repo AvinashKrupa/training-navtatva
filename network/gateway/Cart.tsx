@@ -6,6 +6,7 @@ import Toast from "../../utils/Toast";
 import { v4 as uuidv4 } from "uuid";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
 import { RupifiUCService } from "./RupifiUCService";
+import useCartStore from "../../zustand/cart";
 export class Cart extends HTTPBaseService {
   private static classInstance?: Cart;
   constructor(token: string) {
@@ -85,6 +86,10 @@ export class Cart extends HTTPBaseService {
             }
             console.log("cartItemscartItems", cartItems);
             LocalStorageService.setCartItems(cartItems);
+            useCartStore.setState({
+              count: cartItems.length,
+              cartItems: cartItems,
+            });
             resolve(response);
           } else {
             let message = response.data.msg ?? "";
@@ -112,11 +117,16 @@ export class Cart extends HTTPBaseService {
             localStorage.setItem("CART_ID", response.data.refId);
             let cartItems = response.data.data;
             if (cartItems) {
-              let prdId = cartItems.map((info: any) => {
+              let prdId: any = cartItems.map((info: any) => {
                 return info.product_id;
               });
               LocalStorageService.setCartItems(prdId);
+              useCartStore.setState({
+                count: cartItems.length,
+                cartItems: cartItems,
+              });
             }
+
             //Toast.showSuccess(message);
             resolve(response);
           } else {

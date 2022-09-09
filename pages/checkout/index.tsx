@@ -20,12 +20,13 @@ import { useRouter } from "next/router";
 import Spinner from "../../app/hoc/Spinner";
 import { Auth } from "../../network/gateway/Auth";
 import ValidationMessage from "../../app/constants/validationMessage";
+import Loader from "../../app/components/loader/loader";
 
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
   // const { slug, id } = router.query;
   const router = useRouter();
-  const [customerId, setCustomerId] = useState<string>("");  
+  const [customerId, setCustomerId] = useState<string>("");
   const [customerData, setCustomerData] = useState<any>();
   const [showAddress, setShowAddress] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);
@@ -128,7 +129,7 @@ const CheckoutScreen: NextPage = () => {
       .deleteCartItem(id)
       .then((response: any) => {
         if (response.statusText === "OK") {
-          Toast.showSuccess(ValidationMessage.removedFromCart)
+          Toast.showSuccess(ValidationMessage.removedFromCart);
           let newCartItem = cartItems;
           newCartItem.splice(index, 1);
           setCartItems([...newCartItem]);
@@ -216,10 +217,10 @@ const CheckoutScreen: NextPage = () => {
         },
       };
       Cart.getInstance()
-        .checkout(param, {grandTotal})
+        .checkout(param, { grandTotal })
         .then((response: any) => {
           console.log("checkout info", response.data.data.id);
-          if (response.status) {            
+          if (response.status) {
             window.location.href = response?.data?.data?.paymentUrl;
           }
         })
@@ -230,7 +231,7 @@ const CheckoutScreen: NextPage = () => {
   }
 
   return (
-    <div className="shoppingCart checkoutPage">
+    <div className="shoppingCart checkoutPage full-window">
       <div className="wrapper">
         {/* Header */}
         <Header />
@@ -240,13 +241,13 @@ const CheckoutScreen: NextPage = () => {
             Checkout
           </h1>
           <div className="row">
-            <div className="col-md-12 col-lg-8 mt-4">
+            <div className={`col-md-12 col-lg-8 mt-4`}>
               <div className="accordion" id="accordionExample">
                 {cartItems?.length != 0 && (
                   <>
                     <CheckoutStepA
                       isLogin={isLogin}
-                      setLoginPopup={setLoginPopup}                                            
+                      setLoginPopup={setLoginPopup}
                       getCustomerData={getCustomerData}
                       customerData={customerData}
                     />
@@ -288,11 +289,21 @@ const CheckoutScreen: NextPage = () => {
                     />
                   </>
                 )}
-
-                {cartItems.length <= 0 && !loading && <EmptyCart />}
-                <Spinner loading={loading} />
               </div>
             </div>
+            {cartItems.length <= 0 && !loading && (
+              <div className={`col-md-12 col-lg-12 mt-4`}>
+                <div style={{ marginTop: "7%" }}>
+                  <EmptyCart />
+                </div>
+              </div>
+            )}
+            <div className={`col-md-12 col-lg-12 mt-4`}>
+              <div style={{ marginTop: "7%" }}>
+                <Loader loading={loading} />
+              </div>
+            </div>
+
             {cartItems?.length != 0 && (
               <div className="col-md-12 col-lg-4">
                 <OfferCard />
