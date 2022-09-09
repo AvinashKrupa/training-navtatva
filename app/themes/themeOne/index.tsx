@@ -54,80 +54,95 @@ const ThemeOne: NextPage = () => {
 
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    getCatalog();
-    getHomeContent("outflit_products");
-    getHomeContent("occassion_products");
-    getHomeContent("top_collection");
-    getHomeContent("shop_preference");
-    getHomeContent("this_month");
-    getHomeContent("top_pick");
-    getHomeContent("compliment");
-    getHomeContent("new_collection");
+    fetchDataFromServer();
     return () => {};
   }, []);
 
+  async function fetchDataFromServer() {
+    await getCatalog();
+    await getHomeContent("top_collection");
+    await getHomeContent("shop_preference");
+    await getHomeContent("outflit_products");
+    await getHomeContent("occassion_products");
+    await getHomeContent("this_month");
+    await getHomeContent("top_pick");
+    await getHomeContent("compliment");
+    await getHomeContent("new_collection");
+  }
+
   function getCatalog() {
-    CatalogService.getInstance()
-      .getAllCategory()
-      .then((response: any) => {
-        setLoading(false);
-        if (response.data) {
-          setCategory(response.data.data["Category By Style"].children);
-          setBrand(response.data.data["Brands"].children);
-          setMaterial(response.data.data["Material"].children);
-          setOccasion(response.data.data["Occasion"].children);
-          setCategoryByOccasion(
-            response.data.data["Category By Occasion"].children
-          );
-          console.log("category", response.data.data);
-        } else {
-          console.log("ERROR:", response.data);
-        }
-      })
-      .catch((error) => {});
+    return new Promise((resolve, reject) => {
+      CatalogService.getInstance()
+        .getAllCategory()
+        .then((response: any) => {
+          setLoading(false);
+          if (response.data) {
+            setCategory(response.data.data["Category By Style"].children);
+            setBrand(response.data.data["Brands"].children);
+            setMaterial(response.data.data["Material"].children);
+            setOccasion(response.data.data["Occasion"].children);
+            setCategoryByOccasion(
+              response.data.data["Category By Occasion"].children
+            );
+            console.log("category", response.data.data);
+            resolve(response);
+          } else {
+            resolve([]);
+            console.log("ERROR:", response.data);
+          }
+        })
+        .catch((error) => {
+          reject();
+        });
+    });
   }
 
   function getHomeContent(type: string) {
-    CatalogService.getInstance()
-      .getHomeContent(type)
-      .then((response: any) => {
-        setLoading(false);
-        if (response.data) {
-          //  console.log("category", response.data.data);
-          switch (type) {
-            case "outflit_products":
-              setOutfits(response.data.data);
-              break;
-            case "occassion_products":
-              setOccasion(response.data.data);
-              break;
-            case "top_collection":
-              setTopCollection(response.data.data);
-              break;
-            case "shop_preference":
-              setShopPreference(response.data.data);
-              break;
-            case "top_pick":
-              setTopPick(response.data.data);
-              break;
-            case "this_month":
-              setCurrentMonth(response.data.data);
-              break;
-            case "compliment":
-              setTopCompliment(response.data.data);
-              break;
-            case "new_collection":
-              setNewCollection(response.data.data);
-              break;
+    return new Promise((resolve, reject) => {
+      CatalogService.getInstance()
+        .getHomeContent(type)
+        .then((response: any) => {
+          setLoading(false);
+          if (response.data) {
+            switch (type) {
+              case "outflit_products":
+                setOutfits(response.data.data);
+                break;
+              case "occassion_products":
+                setOccasion(response.data.data);
+                break;
+              case "top_collection":
+                setTopCollection(response.data.data);
+                break;
+              case "shop_preference":
+                setShopPreference(response.data.data);
+                break;
+              case "top_pick":
+                setTopPick(response.data.data);
+                break;
+              case "this_month":
+                setCurrentMonth(response.data.data);
+                break;
+              case "compliment":
+                setTopCompliment(response.data.data);
+                break;
+              case "new_collection":
+                setNewCollection(response.data.data);
+                break;
 
-            default:
-              break;
+              default:
+                break;
+            }
+            resolve(response);
+          } else {
+            reject(response);
+            console.log("ERROR:", response.data);
           }
-        } else {
-          console.log("ERROR:", response.data);
-        }
-      })
-      .catch((error) => {});
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
   }
 
   function addToCart(id: string) {
