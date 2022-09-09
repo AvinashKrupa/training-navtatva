@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import { Cart } from "../../../../network/gateway/Cart";
 import Permalink from "../../../../utils/Permalink";
 import { occasionSetting } from "../../../../utils/sliderConfig";
+import useCartStore from "../../../../zustand/cart";
 import SectionHeader from "./SectionHeader";
 
 interface iProps {
@@ -14,6 +15,7 @@ interface iProps {
 
 const TopCollections = (props: iProps) => {
   const router = useRouter();
+  const cartItems = useCartStore((state: any) => state.cartItems);
   return (
     <section className="mt-4 mt-md-5 bg-outfits pb-5">
       <div className="wrapper">
@@ -27,7 +29,12 @@ const TopCollections = (props: iProps) => {
                     <div className="thumb position-relative text-center">
                       <div className="bg1">
                         <a href="/shop">
-                          <img className="w-100" src={info.image} alt="" />
+                          <img
+                            style={{ height: 380, objectFit: "contain" }}
+                            className="w-100"
+                            src={info.image}
+                            alt=""
+                          />
                         </a>
                         <div className="hoverBlock">
                           <div className="overlay   text-center">
@@ -76,7 +83,7 @@ const TopCollections = (props: iProps) => {
                               className="btn fs-13 "
                               tabIndex={0}
                             >
-                              {Cart.isProductInCart(info.id)
+                              {cartItems?.includes(info.id) || false
                                 ? "Go To Cart"
                                 : "Add to Cart"}
                             </a>

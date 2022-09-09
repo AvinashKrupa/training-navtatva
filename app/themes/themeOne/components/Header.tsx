@@ -3,31 +3,27 @@ import shallow from "zustand/shallow";
 import Logout from "../../../../pages/logout";
 import useUserStore from "../../../../zustand/store";
 import SearchPopup from "../../../components/common/SearchPopup";
+import CartButton from "../../../components/elements/cartButton";
 
 const Header = () => {
-
   const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);
   const [showProfile, setShowProfile] = useState<boolean>(false);
-  const [isShowing,setIsShowing]=useState<boolean>(false)
+  const [isShowing, setIsShowing] = useState<boolean>(false);
   const isLogin = useUserStore((state: any) => state.isLogin, shallow);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
 
-  function signOut(){
-  if(isLogin){
-    setIsShowing(true)
+  function signOut() {
+    if (isLogin) {
+      setIsShowing(true);
+    } else {
+      setLoginPopup(true);
+    }
   }
-  else{
-    setLoginPopup(true)
-  }
-
-}
-useEffect(()=>{
-
-},[isLogin])
+  useEffect(() => {}, [isLogin]);
 
   return (
     <>
-    <Logout isShowing ={isShowing} setIsShowing={setIsShowing}/>
+      <Logout isShowing={isShowing} setIsShowing={setIsShowing} />
       <header className="main-header header-main">
         <div className="row">
           <div className="col-3 col-lg-1 align-self-center">
@@ -95,47 +91,141 @@ useEffect(()=>{
             </div>
             <ul className="iconBar text-center">
               <li className="list-inline-item">
-                <a className="reverse rounded-circle d-block" href="#" title={""}>
+                <a
+                  className="reverse rounded-circle d-block"
+                  href="#"
+                  title={""}
+                >
                   <img src="/images/refresh.png" alt="" />
                 </a>
               </li>
               <li className="list-inline-item">
-                <a className="wishlist rounded-circle d-block" href="/mycollection" title={""}>
+                <a
+                  className="wishlist rounded-circle d-block"
+                  href="/mycollection"
+                  title={""}
+                >
                   <img src="/images/wishlist.png" alt="" />
                 </a>
               </li>
-              <li className="list-inline-item">
-                <a className="cart rounded-circle d-block" href="/cart" title={""}>
-                  <img src="/images/cart.png" alt="" />
-                </a>
-              </li>
-              <li className="list-inline-item" onClick={() => {
-                setShowProfile(!showProfile)
-              }}>
+              <CartButton />
+              <li
+                className="list-inline-item"
+                onClick={() => {
+                  setShowProfile(!showProfile);
+                }}
+              >
                 <div className="d-none d-lg-block d-sm-none d-md-none">
-                    <a
-                      className="user rounded-circle d-block user-img"
-                      href="myprofile"
-                      title={""}
-                    >
-                      <img width={32} height={32} src="/images/user.png" alt="" />
-                    </a>
-                  </div>
+                  <a
+                    className="user rounded-circle d-block user-img"
+                    href="myprofile"
+                    title={""}
+                  >
+                    <img width={32} height={32} src="/images/user.png" alt="" />
+                  </a>
+                </div>
                 <div className="btn-group d-sm-block d-md-block d-lg-none">
-                  <a className="user rounded-circle d-block" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                  ><img width={32} height={32} src="images/user.png" alt="" /></a>
-                  <ul className={"dropdown-menu shadow " + (showProfile ? "show" : "")} data-bs-popper="none" >
+                  <a
+                    className="user rounded-circle d-block"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <img width={32} height={32} src="images/user.png" alt="" />
+                  </a>
+                  <ul
+                    className={
+                      "dropdown-menu shadow " + (showProfile ? "show" : "")
+                    }
+                    data-bs-popper="none"
+                  >
                     <p className="fs-20 font-sb text-color-3 ps-3 ">Hey </p>
-                    <li><hr className="dropdown-divider" /></li>
-                    <li className="fs-14 font-r text-color-2"><img className="d-inline-block" src="images/p-profile.png" alt="" /><a className="dropdown-item d-inline-block" href="myprofile">Profile</a></li>
-                    <li className="fs-14 font-r text-color-2 "><img className="d-inline-block" src="images/seller.png" alt="" /><a className="dropdown-item d-inline-block" href="#">Your Seller Account</a></li>
-                    <li className="fs-14 font-r text-color-2 "><img className="d-inline-block" src="images/order.png" alt="" /><a className="dropdown-item d-inline-block" href="orderhistory">Orders &amp; Returns</a></li>
-                    <li><hr className="dropdown-divider" /></li>
-                    <li className="fs-14 font-r text-color-2"><img className="d-inline-block" src="images/payment.png" alt="" /><a className="dropdown-item d-inline-block" href="payment">Saved Payment Methods</a></li>
-                    <li className="fs-14 font-r text-color-2 "><img className="d-inline-block" src="images/map.png" alt="" /><a className="dropdown-item d-inline-block" href="saveaddress">Saved Addresses</a></li>
-                    <li><hr className="dropdown-divider" /></li>
-                    <li className="fs-14 font-r text-color-2"><img className="d-inline-block" src="images/logout.png" alt="" /><a className="dropdown-item d-inline-block" onClick={() => {
-                            signOut()}}>Sign {isLogin ?'Out':'In'}</a></li>
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+                    <li className="fs-14 font-r text-color-2">
+                      <img
+                        className="d-inline-block"
+                        src="images/p-profile.png"
+                        alt=""
+                      />
+                      <a
+                        className="dropdown-item d-inline-block"
+                        href="myprofile"
+                      >
+                        Profile
+                      </a>
+                    </li>
+                    <li className="fs-14 font-r text-color-2 ">
+                      <img
+                        className="d-inline-block"
+                        src="images/seller.png"
+                        alt=""
+                      />
+                      <a className="dropdown-item d-inline-block" href="#">
+                        Your Seller Account
+                      </a>
+                    </li>
+                    <li className="fs-14 font-r text-color-2 ">
+                      <img
+                        className="d-inline-block"
+                        src="images/order.png"
+                        alt=""
+                      />
+                      <a
+                        className="dropdown-item d-inline-block"
+                        href="orderhistory"
+                      >
+                        Orders &amp; Returns
+                      </a>
+                    </li>
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+                    <li className="fs-14 font-r text-color-2">
+                      <img
+                        className="d-inline-block"
+                        src="images/payment.png"
+                        alt=""
+                      />
+                      <a
+                        className="dropdown-item d-inline-block"
+                        href="payment"
+                      >
+                        Saved Payment Methods
+                      </a>
+                    </li>
+                    <li className="fs-14 font-r text-color-2 ">
+                      <img
+                        className="d-inline-block"
+                        src="images/map.png"
+                        alt=""
+                      />
+                      <a
+                        className="dropdown-item d-inline-block"
+                        href="saveaddress"
+                      >
+                        Saved Addresses
+                      </a>
+                    </li>
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+                    <li className="fs-14 font-r text-color-2">
+                      <img
+                        className="d-inline-block"
+                        src="images/logout.png"
+                        alt=""
+                      />
+                      <a
+                        className="dropdown-item d-inline-block"
+                        onClick={() => {
+                          signOut();
+                        }}
+                      >
+                        Sign {isLogin ? "Out" : "In"}
+                      </a>
+                    </li>
                   </ul>
                 </div>
               </li>
@@ -149,7 +239,7 @@ useEffect(()=>{
         setOpenSearchBox={setOpenSearchBox}
       />
     </>
-  )
-}
+  );
+};
 
 export default Header;

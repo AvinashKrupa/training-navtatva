@@ -6,9 +6,11 @@ import SpinBlock from "../common/SpinBlock";
 import { useRouter } from "next/router";
 import { Cart } from "../../../network/gateway/Cart";
 import { Wishlist } from "../../../network/gateway/Wishlist";
+import useCartStore from "../../../zustand/cart";
 
 const ProductSmallBlock = (props: any) => {
   const [cartView, setCartView] = useState(false);
+  const cartItems = useCartStore((state: any) => state.cartItems);
   const router = useRouter();
   function randomIntFromInterval(min: number, max: number) {
     // min and max included
@@ -129,7 +131,7 @@ const ProductSmallBlock = (props: any) => {
                     }
                   }}
                 >
-                  {Cart.isProductInCart(props.id)
+                  {cartItems?.includes(props.id) || false
                     ? "Go To Cart"
                     : "Add to Cart"}
                 </button>

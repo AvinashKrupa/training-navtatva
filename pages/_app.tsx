@@ -19,6 +19,7 @@ import "../styles/responsive.css";
 import Login from "./login";
 import useUserStore from "../zustand/store";
 import { useEffect, useState } from "react";
+import useCartStore from "../zustand/cart";
 
 // import $ from "jquery";
 // import "slick-carousel/slick/slick.css";
@@ -28,8 +29,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [authenticating, setAuthenticate] = useState(true);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
   const synchronized = useUserStore((state: any) => state.synchronized);
+  const cartSynchronized = useCartStore((state: any) => state.synchronized);
   useEffect(() => {
     synchronized();
+    cartSynchronized();
     setTimeout(() => {
       setAuthenticate(false);
     }, 100);
