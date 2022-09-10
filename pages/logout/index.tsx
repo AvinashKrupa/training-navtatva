@@ -2,6 +2,7 @@ import { Modal } from "react-bootstrap";
 import { useRouter } from "next/router";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
 import useUserStore from "../../zustand/store";
+import useCartStore from "../../zustand/cart";
 
 const Logout = (props: any) => {
   const router = useRouter();
@@ -9,9 +10,9 @@ const Logout = (props: any) => {
 
   const logout = () => {
     LocalStorageService.clearToken();
-    isRemoveUserInfo(false);
     props.setIsShowing(false);
-    router.push("/");
+    isRemoveUserInfo(false);
+    useCartStore.setState({ count: false, cartItems: [] });
   };
   return (
     <Modal show={props.isShowing} animation={false} size={"sm"} id="checkOut">
