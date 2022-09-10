@@ -62,12 +62,12 @@ const ThemeOne: NextPage = () => {
     await getCatalog();
     await getHomeContent("top_collection");
     await getHomeContent("shop_preference");
-    await getHomeContent("outflit_products");
-    await getHomeContent("occassion_products");
-    await getHomeContent("this_month");
-    await getHomeContent("top_pick");
-    await getHomeContent("compliment");
-    await getHomeContent("new_collection");
+    // await getHomeContent("outflit_products");
+    // await getHomeContent("occassion_products");
+    // await getHomeContent("this_month");
+    // await getHomeContent("top_pick");
+    // await getHomeContent("compliment");
+    // await getHomeContent("new_collection");
   }
 
   function getCatalog() {

@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import shallow from "zustand/shallow";
 import Logout from "../../../pages/logout";
@@ -10,7 +11,7 @@ const Header = () => {
   const [isShowing, setIsShowing] = useState<boolean>(false);
   const isLogin = useUserStore((state: any) => state.isLogin, shallow);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
-
+  const Route = useRouter();
   function signOut() {
     if (isLogin) {
       setIsShowing(true);
@@ -134,8 +135,14 @@ const Header = () => {
                     <div className="d-none d-lg-block d-sm-none d-md-none">
                       <a
                         className="user rounded-circle d-block user-img"
-                        href="myprofile"
                         title={""}
+                        onClick={() => {
+                          if (isLogin) {
+                            Route.push("/myprofile");
+                          } else {
+                            useUserStore.setState({ loginPopup: true });
+                          }
+                        }}
                       >
                         <img
                           width={32}

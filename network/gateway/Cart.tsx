@@ -137,7 +137,7 @@ export class Cart extends HTTPBaseService {
         })
         .catch((error) => {
           console.log("Error", error);
-          Toast.showError(error.message);
+          //    Toast.showError(error.message);
           reject(error);
         });
     });
