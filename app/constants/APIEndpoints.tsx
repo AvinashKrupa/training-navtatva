@@ -6,7 +6,6 @@ const API = {
   GET_CATEGORY_TREE: "categories/tree",
   GET_BRANDS: "pcm_brands",
   GET_OCCASION: "pcm_occasion",
-  APPLY_PROMOTION: "",
   GET_PRODUCT_LIST: "pcm_products",
   ADD_TO_CART: "add-to-cart",
   ADD_PRODUCT_WISHLIST: "flows/wishlist/entries/",
@@ -27,8 +26,8 @@ const API = {
   DELETE_ADDRESS: "deleteAddress",
   GET_BANNER: "banners/",
   APPLY_PROMOTION: "applyPromotion",
-  GET_CUSTOMER_ORDER: 'getCustomerOrder',
-  ORDER:'order',
+  GET_CUSTOMER_ORDER: "getCustomerOrder",
+  ORDER: "order",
   GET_HOME_CONTENT: "getHomeContent/",
   ORDER_TAKING_APP: {
     GET_SELLERS: "get-all-customers",

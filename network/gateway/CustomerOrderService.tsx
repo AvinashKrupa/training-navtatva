@@ -4,63 +4,62 @@ import { HTTPBaseService } from "../HTTPBaseService";
 import Toast from "../../utils/Toast";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
 export class CustomerOrderService extends HTTPBaseService {
-    private static classInstance?: CustomerOrderService;
-    constructor(token: string) {
-        super(constants.baseURL, token);
+  private static classInstance?: CustomerOrderService;
+  constructor(token: string) {
+    super(constants.baseURL, token);
+  }
+
+  public static getInstance(token?: string) {
+    if (!this.classInstance) {
+      this.classInstance = new CustomerOrderService(token ?? "");
     }
+    return this.classInstance;
+  }
 
-    public static getInstance(token?: string) {
-        if (!this.classInstance) {
-            this.classInstance = new CustomerOrderService(token ?? "");
-        }
-        return this.classInstance;
-    }
+  public getCustomerOrder = () => {
+    return new Promise((resolve: any, reject: any) => {
+      this.instance
+        .get(API.GET_CUSTOMER_ORDER)
+        .then((response) => {
+          if (response.status == 200) {
+            let message = response.data.msg ?? "";
+            //Toast.showSuccess(message);
+            resolve(response);
+          } else {
+            let message = response.data.msg ?? "";
+            Toast.showError(message);
+            reject(response);
+          }
+        })
+        .catch((error) => {
+          console.log("Error", error);
+          Toast.showError(error.message);
 
-    public getCustomerOrder = () => {
-        return new Promise((resolve: any, reject: any) => {
-            this.instance
-                .get(API.GET_CUSTOMER_ORDER)
-                .then((response) => {
-                    if (response.status == 200) {
-                        let message = response.data.msg ?? "";
-                        //Toast.showSuccess(message);
-                        resolve(response);
-
-                    } else {
-                        let message = response.data.msg ?? "";
-                        Toast.showError(message);
-                        reject(response);
-                    }
-                })
-                .catch((error) => {
-                    console.log("Error", error);
-                    Toast.showError(error.message);
-
-                    reject(error);
-                });
+          reject(error);
         });
-    };
+    });
+  };
 
-    public cancelOrder = (id: any,data:any) => {
-        return new Promise((resolve: any, reject: any) => {
-            this.instance
-                .put(API.ORDER + "/" + id,data)
-                .then((response) => {
-                    if (response.status == 200) {
-                        let message = response.data.msg ?? "";
-                        //Toast.showSuccess(message);
-                        resolve(response);
-                    } else {
-                        let message = response.data.msg ?? "";
-                        Toast.showError(message);
-                        reject(response);
-                    }
-                })
-                .catch((error) => {
-                    console.log("Error", error);
-                    Toast.showError(error.message);
-                    reject(error);
-                });
+  public cancelOrder = (id: any, data: any) => {
+    return new Promise((resolve: any, reject: any) => {
+      this.instance
+        .put(API.ORDER + "/" + id, data)
+        .then((response) => {
+          if (response.status == 200) {
+            let message = response.data.msg ?? "";
+            //Toast.showSuccess(message);
+            resolve(response);
+          } else {
+            let message = response.data.msg ?? "";
+            Toast.showError(message);
+            reject(response);
+          }
+        })
+        .catch((error) => {
+          console.log("Error", error);
+          Toast.showError(error.message);
+          reject(error);
         });
-    };
+    });
+  };
 }
