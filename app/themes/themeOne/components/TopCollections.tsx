@@ -1,5 +1,5 @@
-import { useRouter } from "next/router";
 import React from "react";
+import { useRouter } from "next/router";
 import Slider from "react-slick";
 import { Cart } from "../../../../network/gateway/Cart";
 import Permalink from "../../../../utils/Permalink";
@@ -24,9 +24,9 @@ const TopCollections = (props: iProps) => {
           <div className="col-md-12 mt-4 mt-lg-5 position-relative sliderView Occasion">
             <div className="ocassion-slider">
               <Slider {...occasionSetting}>
-                {props.data.map((info: any) => {
+                {props.data.map((info: any, index: number) => {
                   return (
-                    <div className="thumb position-relative text-center">
+                    <div key={index} className="thumb position-relative text-center">
                       <div className="bg1">
                         <a href="/shop">
                           <img

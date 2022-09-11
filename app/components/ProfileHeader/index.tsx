@@ -15,7 +15,7 @@ const Header = () => {
             <div className="col-lg-1 col-3 align-self-center">
               <a href="#" className="d-lg-none">
                 <img
-                  src="images/logo-2.png"
+                  src="/images/logo-2.png"
                   alt="logo"
                   className="img-fluid desk-logo"
                 />
@@ -55,12 +55,12 @@ const Header = () => {
                 <ul className="iconBar text-center">
                   <li className="list-inline-item">
                     <a className="reverse rounded-circle d-block" href="#">
-                      <img src="images/refresh.png" alt="" />
+                      <img src="/images/refresh.png" alt="" />
                     </a>
                   </li>
                   <li className="list-inline-item">
                     <a className="wishlist rounded-circle d-block" href="#">
-                      <img src="images/wishlist.png" alt="" />
+                      <img src="/images/wishlist.png" alt="" />
                     </a>
                   </li>
                   <CartButton />
@@ -95,7 +95,7 @@ const Header = () => {
                         <img
                           width={32}
                           height={32}
-                          src="images/user.png"
+                          src="/images/user.png"
                           alt=""
                         />
                       </a>
@@ -114,7 +114,7 @@ const Header = () => {
                         <li className="fs-14 font-r text-color-2">
                           <img
                             className="d-inline-block"
-                            src="images/p-profile.png"
+                            src="/images/p-profile.png"
                             alt=""
                           />
                           <a
@@ -127,7 +127,7 @@ const Header = () => {
                         <li className="fs-14 font-r text-color-2 ">
                           <img
                             className="d-inline-block"
-                            src="images/seller.png"
+                            src="/images/seller.png"
                             alt=""
                           />
                           <a className="dropdown-item d-inline-block" href="#">
@@ -137,7 +137,7 @@ const Header = () => {
                         <li className="fs-14 font-r text-color-2 ">
                           <img
                             className="d-inline-block"
-                            src="images/order.png"
+                            src="/images/order.png"
                             alt=""
                           />
                           <a
@@ -153,7 +153,7 @@ const Header = () => {
                         <li className="fs-14 font-r text-color-2">
                           <img
                             className="d-inline-block"
-                            src="images/payment.png"
+                            src="/images/payment.png"
                             alt=""
                           />
                           <a
@@ -166,7 +166,7 @@ const Header = () => {
                         <li className="fs-14 font-r text-color-2 ">
                           <img
                             className="d-inline-block"
-                            src="images/map.png"
+                            src="/images/map.png"
                             alt=""
                           />
                           <a
@@ -182,7 +182,7 @@ const Header = () => {
                         <li className="fs-14 font-r text-color-2">
                           <img
                             className="d-inline-block"
-                            src="images/logout.png"
+                            src="/images/logout.png"
                             alt=""
                           />
                           <a
