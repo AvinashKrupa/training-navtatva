@@ -63,16 +63,17 @@ const MenuCategorySlider = (props: IProps) => {
               >
                 <div className="row">
                   <div className="col-md-8 d-block d-lg-flex">
-                    {selectedSubCat.map((info: any) => {
+                    {selectedSubCat.map((info: any, index: number) => {
                       return (
-                        <ul className="me-5">
+                        <ul className="me-5" key={index}>
                           <li>
                             <h4>{info.name}</h4>
                           </li>
-                          {info?.children?.map((info: any) => {
+                          {info?.children?.map((info: any, index2: number) => {
                             return (
                               <li
                                 onClick={() => {}}
+                                key={index2}
                                 onMouseEnter={() => {
                                   setSideImageOnHover(info);
                                 }}

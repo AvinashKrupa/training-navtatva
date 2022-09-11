@@ -139,7 +139,7 @@ const Header = () => {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    <img width={32} height={32} src="images/user.png" alt="" />
+                    <img width={32} height={32} src="/images/user.png" alt="" />
                   </a>
                   <ul
                     className={
@@ -154,7 +154,7 @@ const Header = () => {
                     <li className="fs-14 font-r text-color-2">
                       <img
                         className="d-inline-block"
-                        src="images/p-profile.png"
+                        src="/images/p-profile.png"
                         alt=""
                       />
                       <a
@@ -167,7 +167,7 @@ const Header = () => {
                     <li className="fs-14 font-r text-color-2 ">
                       <img
                         className="d-inline-block"
-                        src="images/seller.png"
+                        src="/images/seller.png"
                         alt=""
                       />
                       <a className="dropdown-item d-inline-block" href="#">
@@ -177,7 +177,7 @@ const Header = () => {
                     <li className="fs-14 font-r text-color-2 ">
                       <img
                         className="d-inline-block"
-                        src="images/order.png"
+                        src="/images/order.png"
                         alt=""
                       />
                       <a
@@ -193,7 +193,7 @@ const Header = () => {
                     <li className="fs-14 font-r text-color-2">
                       <img
                         className="d-inline-block"
-                        src="images/payment.png"
+                        src="/images/payment.png"
                         alt=""
                       />
                       <a
@@ -206,7 +206,7 @@ const Header = () => {
                     <li className="fs-14 font-r text-color-2 ">
                       <img
                         className="d-inline-block"
-                        src="images/map.png"
+                        src="/images/map.png"
                         alt=""
                       />
                       <a
@@ -222,7 +222,7 @@ const Header = () => {
                     <li className="fs-14 font-r text-color-2">
                       <img
                         className="d-inline-block"
-                        src="images/logout.png"
+                        src="/images/logout.png"
                         alt=""
                       />
                       <a
