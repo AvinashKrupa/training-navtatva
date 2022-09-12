@@ -135,6 +135,7 @@ const Header = () => {
                     <div className="d-none d-lg-block d-sm-none d-md-none">
                       <a
                         className="user rounded-circle d-block user-img"
+                        href="/myprofile"
                         title={""}
                         onClick={() => {
                           if (isLogin) {
@@ -173,92 +174,17 @@ const Header = () => {
                         data-bs-popper="none"
                       >
                         <p className="fs-20 font-sb text-color-3 ps-3 ">Hey </p>
-                        <li>
-                          <hr className="dropdown-divider" />
-                        </li>
-                        <li className="fs-14 font-r text-color-2">
-                          <img
-                            className="d-inline-block"
-                            src="/images/p-profile.png"
-                            alt=""
-                          />
-                          <a
-                            className="dropdown-item d-inline-block"
-                            href="myprofile"
-                          >
-                            Profile
-                          </a>
-                        </li>
-                        <li className="fs-14 font-r text-color-2 ">
-                          <img
-                            className="d-inline-block"
-                            src="/images/seller.png"
-                            alt=""
-                          />
-                          <a className="dropdown-item d-inline-block" href="#">
-                            Your Seller Account
-                          </a>
-                        </li>
-                        <li className="fs-14 font-r text-color-2 ">
-                          <img
-                            className="d-inline-block"
-                            src="/images/order.png"
-                            alt=""
-                          />
-                          <a
-                            className="dropdown-item d-inline-block"
-                            href="orderhistory"
-                          >
-                            Orders &amp; Returns
-                          </a>
-                        </li>
-                        <li>
-                          <hr className="dropdown-divider" />
-                        </li>
-                        <li className="fs-14 font-r text-color-2">
-                          <img
-                            className="d-inline-block"
-                            src="/images/payment.png"
-                            alt=""
-                          />
-                          <a
-                            className="dropdown-item d-inline-block"
-                            href="payment"
-                          >
-                            Saved Payment Methods
-                          </a>
-                        </li>
-                        <li className="fs-14 font-r text-color-2 ">
-                          <img
-                            className="d-inline-block"
-                            src="/images/map.png"
-                            alt=""
-                          />
-                          <a
-                            className="dropdown-item d-inline-block"
-                            href="saveaddress"
-                          >
-                            Saved Addresses
-                          </a>
-                        </li>
-                        <li>
-                          <hr className="dropdown-divider" />
-                        </li>
-                        <li className="fs-14 font-r text-color-2">
-                          <img
-                            className="d-inline-block"
-                            src="/images/logout.png"
-                            alt=""
-                          />
-                          <a
-                            className="dropdown-item d-inline-block"
-                            onClick={() => {
-                              signOut();
-                            }}
-                          >
-                            Sign {isLogin ? "Out" : "In"}
-                          </a>
-                        </li>
+                        <li><hr className="dropdown-divider" /></li>
+                        <li className="fs-14 font-r text-color-2"><img className="d-inline-block" src="images/p-profile.png" alt="" /><a className="dropdown-item d-inline-block" href="/myprofile">Profile</a></li>
+                        <li className="fs-14 font-r text-color-2 "><img className="d-inline-block" src="images/seller.png" alt="" /><a className="dropdown-item d-inline-block" href="#">Your Seller Account</a></li>
+                        <li className="fs-14 font-r text-color-2 "><img className="d-inline-block" src="images/order.png" alt="" /><a className="dropdown-item d-inline-block" href="/orderhistory">Orders &amp; Returns</a></li>
+                        <li><hr className="dropdown-divider" /></li>
+                        <li className="fs-14 font-r text-color-2"><img className="d-inline-block" src="images/payment.png" alt="" /><a className="dropdown-item d-inline-block" href="/payment">Saved Payment Methods</a></li>
+                        <li className="fs-14 font-r text-color-2 "><img className="d-inline-block" src="images/map.png" alt="" /><a className="dropdown-item d-inline-block" href="/saveaddress">Saved Addresses</a></li>
+                        <li><hr className="dropdown-divider" /></li>
+                        <li className="fs-14 font-r text-color-2"><img className="d-inline-block" src="images/logout.png" alt="" /><a className="dropdown-item d-inline-block" onClick={() => {
+                          signOut()
+                        }}>Sign {isLogin ? 'Out' : 'In'}</a></li>
                       </ul>
                     </div>
                   </li>
