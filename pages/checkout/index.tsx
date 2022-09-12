@@ -21,6 +21,7 @@ import Spinner from "../../app/hoc/Spinner";
 import { Auth } from "../../network/gateway/Auth";
 import ValidationMessage from "../../app/constants/validationMessage";
 import Loader from "../../app/components/loader/loader";
+import constants from "../../app/constants/constant";
 
 const CheckoutScreen: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(1);
@@ -205,7 +206,7 @@ const CheckoutScreen: NextPage = () => {
       });
   }
 
-  function checkoutApi() {
+  function checkoutApi(paymentType: string) {
     if (validateForm()) {
       const param = {
         data: {
@@ -217,12 +218,15 @@ const CheckoutScreen: NextPage = () => {
         },
       };
       Cart.getInstance()
-        .checkout(param, { grandTotal })
+        .checkout(param, { grandTotal, paymentType })
         .then((response: any) => {
-          console.log("checkout info", response.data.data.id);
-          if (response.status) {
-            window.location.href = response?.data?.data?.paymentUrl;
+          console.log("checkout info", response.data);          
+          if (response.status && paymentType == constants.PAYMENT_TYPE.COD) {
+            window.location.href = constants.PAYMENT_METHOD.RUPIFI.REDIRECT_CONFIRM_URL+`?merchantPaymentRefId=${response?.data?.data?.id}`;
           }
+          if (response.status && paymentType == constants.PAYMENT_TYPE.RUPIFI) {
+            window.location.href = response?.data?.data?.paymentUrl;
+          }          
         })
         .catch((error) => {
           console.log("error", error);

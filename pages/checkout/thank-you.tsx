@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter, withRouter } from "next/router";
 import { Cart } from "../../network/gateway/Cart";
 import { RupifiUCService } from "../../network/gateway/RupifiUCService";
+import LocalStorageService from "../../utils/storage/LocalStorageService";
 
 interface iProps {}
 
@@ -42,9 +43,12 @@ function ThankYou(props: any) {
   }, [authStatus]);
 
   const updateOrder = async () => {
-    
+    let customer_id: any = LocalStorageService.getCustomerId();
     RupifiUCService.getInstance("")
-      .successPayment(rupifiResponse)
+      .successPayment({        
+        merchantCustomerRefId: customer_id,
+        ...rupifiResponse
+      })
       .then((response: any) => {
         if (response?.status == 200) {
           // do something

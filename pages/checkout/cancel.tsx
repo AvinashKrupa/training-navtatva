@@ -4,6 +4,7 @@ import Footer from "../../app/components/common/Footer";
 import Header from "../../app/components/common/Header";
 import { RupifiUCService } from "../../network/gateway/RupifiUCService";
 import { Cart } from "../../network/gateway/Cart";
+import LocalStorageService from "../../utils/storage/LocalStorageService";
 
 interface iProps {}
 
@@ -33,9 +34,12 @@ function Cancel(props: any) {
 
 
   const updateOrder = async () => {
-    
+    let customer_id: any = LocalStorageService.getCustomerId();
     RupifiUCService.getInstance("")
-      .cancelPayment(rupifiResponse)
+      .cancelPayment({
+        merchantCustomerRefId: customer_id,
+        ...rupifiResponse
+      })
       .then((response: any) => {
         if (response?.status == 200) {
           // do something
