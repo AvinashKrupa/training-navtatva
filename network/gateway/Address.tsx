@@ -52,10 +52,17 @@ export class Address extends HTTPBaseService {
   public updateAddress = (data: any) => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
-        .put(API.UPDATE_ADDRESS + "/" + Address.getCustomerId()+"/"+data.data.id, data)
+        .put(
+          API.UPDATE_ADDRESS +
+            "/" +
+            Address.getCustomerId() +
+            "/" +
+            data.data.id,
+          data
+        )
         .then((response) => {
           if (response.status == 200) {
-           // console.log("this is address response", response);
+            // console.log("this is address response", response);
             let message = response.data.msg ?? "";
             Toast.showSuccess(message);
             resolve(response);
@@ -128,9 +135,8 @@ export class Address extends HTTPBaseService {
           if (response.status == 200) {
             //console.log("this is get customer order",response)
             let message = response.data.msg ?? "";
-             //Toast.showSuccess(message);
+            //Toast.showSuccess(message);
             resolve(response);
-
           } else {
             let message = response.data.msg ?? "";
             Toast.showError(message);

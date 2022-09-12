@@ -8,7 +8,7 @@ import CategoryLoader from "../../../components/loader/CategoryLoader";
 
 interface IProps {
   category: Array<any>;
-  loading: boolean
+  loading: boolean;
 }
 const MenuCategorySlider = (props: IProps) => {
   const [tempselectedSubCat, setTempSelectedSubCat] = useState<any>([]);
@@ -16,9 +16,11 @@ const MenuCategorySlider = (props: IProps) => {
   const [sideImageOnHover, setSideImageOnHover] = useState<any>([]);
   // useDebouncedEffect(() => console.log(selectedSubCat), [selectedSubCat], 1000);
 
-  return (<>
-    {
-      props.loading ? <CategoryLoader /> :
+  return (
+    <>
+      {props.loading ? (
+        <CategoryLoader />
+      ) : (
         <section className="category mt-4 mt-md-5 position-relative side-category">
           <div className="row mx-0 justify-content-center">
             <div className="col-lg-12 px-0">
@@ -61,21 +63,24 @@ const MenuCategorySlider = (props: IProps) => {
               >
                 <div className="row">
                   <div className="col-md-8 d-block d-lg-flex">
-                    {selectedSubCat.map((info: any) => {
+                    {selectedSubCat.map((info: any, index: number) => {
                       return (
-                        <ul className="me-5">
+                        <ul className="me-5" key={index}>
                           <li>
                             <h4>{info.name}</h4>
                           </li>
-                          {info?.children?.map((info: any) => {
+                          {info?.children?.map((info: any, index2: number) => {
                             return (
                               <li
-                                onClick={() => { }}
+                                onClick={() => {}}
+                                key={index2}
                                 onMouseEnter={() => {
                                   setSideImageOnHover(info);
                                 }}
                               >
-                                <a href={Permalink.ofCategory(info)}>{info.name}</a>
+                                <a href={Permalink.ofCategory(info)}>
+                                  {info.name}
+                                </a>
                               </li>
                             );
                           })}
@@ -96,8 +101,8 @@ const MenuCategorySlider = (props: IProps) => {
             </div>
           </div>
         </section>
-    }
-  </>
+      )}
+    </>
   );
 };
 

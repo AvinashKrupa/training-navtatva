@@ -1,8 +1,8 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 import Logout from "../../../pages/logout";
 
 const AccountSidebar = () => {
-    const [isShowing, setIsShowing] = useState<boolean>(false)
+  const [isShowing, setIsShowing] = useState<boolean>(false);
 
     return (
         <>
@@ -64,4 +64,4 @@ const AccountSidebar = () => {
     )
 }
 
-export default AccountSidebar
+export default AccountSidebar;

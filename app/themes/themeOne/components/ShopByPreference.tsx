@@ -18,9 +18,9 @@ const ShopByPreference = (props: iProps) => {
           <div className="col-md-12 mt-4 mt-lg-5 position-relative sliderView Occasion">
             <div className="Preference-slider">
               <Slider {...preferenceSliderSetting}>
-                {props.data.map((info: any) => {
+                {props.data.map((info: any, index: number) => {
                   return (
-                    <div className="thumb position-relative text-center">
+                    <div key={index} className="thumb position-relative text-center">
                       <div className="bg5">
                         <div className="text-start p-4">
                           <p className="fs-20 font-r text-color-1">For</p>
@@ -28,7 +28,12 @@ const ShopByPreference = (props: iProps) => {
                             <h4 className="fs-36 font-Bsoul">{info.title}</h4>
                           </a>
                         </div>
-                        <img className="w-100" src={info.image} alt="" />
+                        <img
+                          style={{ height: 450, objectFit: "contain" }}
+                          className="w-100"
+                          src={info.image}
+                          alt=""
+                        />
                       </div>
                     </div>
                   );

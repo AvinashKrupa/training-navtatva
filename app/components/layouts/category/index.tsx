@@ -9,16 +9,18 @@ interface iProps {
 }
 
 function NavMenuCategory(props: iProps) {
-  useEffect(() => {
-    return () => {};
-  }, []);
-
   return (
     <div className="thumb position-relative text-center category-thumb">
       <a
-        onClick={props.onClick}
-        onMouseEnter={props.onClick}
-        onMouseLeave={props.onMouseLeave}
+        onClick={() => {
+          props.onClick && props.onClick();
+        }}
+        onMouseEnter={() => {
+          props.onClick && props.onClick();
+        }}
+        onMouseLeave={() => {
+          props.onMouseLeave && props.onMouseLeave();
+        }}
       >
         <img
           style={{ maxHeight: 204, height: 210 }}

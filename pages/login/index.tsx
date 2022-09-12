@@ -4,6 +4,8 @@ import { Auth } from "../../network/gateway/Auth";
 import useUserStore from "../../zustand/store";
 import Validators from "../../utils/Validator";
 import FormValidation from "../../validation/form";
+import Toast from "../../utils/Toast";
+import ValidationMessage from "../../app/constants/validationMessage";
 function Login(props: any) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -26,10 +28,12 @@ function Login(props: any) {
             setUserInfo(setUserInfo);
             props.onSuccess(response);
             setLoginPopup(false);
+          }else{
+            Toast.showError(ValidationMessage.loginFailed);
           }
         })
         .catch((error) => {
-          setLoginPopup(false);
+          Toast.showError(error?.response?.data?.msg?.title ?? ValidationMessage.loginFailed);
         });
     }
   }

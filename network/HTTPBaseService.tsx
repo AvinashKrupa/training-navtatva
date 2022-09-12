@@ -24,7 +24,7 @@ export abstract class HTTPBaseService {
     if (token && token != "") {
       this.token = token;
     } else {
-      this.token = localStorage.getItem("hashToken") ?? "";
+      this.token = localStorage.getItem("access_token") ?? "";
 
       if (this.token == "") {
         this.getToken();

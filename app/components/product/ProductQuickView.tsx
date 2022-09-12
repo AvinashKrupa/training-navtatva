@@ -4,6 +4,7 @@ import { Modal } from "react-bootstrap";
 import Login from "../../../pages/login";
 import { Cart } from "../../../network/gateway/Cart";
 import LocalStorageService from "../../../utils/storage/LocalStorageService";
+import useCartStore from "../../../zustand/cart";
 
 const ProductQuickView = (props: any) => {
   const [selectCombination, setSelectedCombination] = useState({
@@ -14,7 +15,7 @@ const ProductQuickView = (props: any) => {
 
   const [productId, setProductId] = useState<string>("");
   const [login, setLogin] = useState<boolean>(false);
-
+  const cartItems = useCartStore((state: any) => state.cartItems);
   const [selectedImage, setSelectedImage] = useState(0);
   const [colorCode, setColorCode] = useState("#ffffff");
   const router = useRouter();
@@ -556,7 +557,7 @@ const ProductQuickView = (props: any) => {
                         type="button"
                         className="btn w-50"
                       >
-                        {Cart.isProductInCart(props?.data.id)
+                        {cartItems?.includes(props?.data.id) || false
                           ? "Go To Cart"
                           : "Add to Cart"}
                       </button>

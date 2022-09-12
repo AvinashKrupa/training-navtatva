@@ -1,27 +1,25 @@
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import shallow from "zustand/shallow";
 import Logout from "../../../pages/logout";
 import useUserStore from "../../../zustand/store";
+import CartButton from "../elements/cartButton";
 
 const Header = () => {
   const [openTap, setOpenTap] = useState<boolean>(true);
   const [showProfile, setShowProfile] = useState<boolean>(false);
-  const [isShowing, setIsShowing] = useState<boolean>(false)
+  const [isShowing, setIsShowing] = useState<boolean>(false);
   const isLogin = useUserStore((state: any) => state.isLogin, shallow);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
-
+  const Route = useRouter();
   function signOut() {
     if (isLogin) {
-      setIsShowing(true)
+      setIsShowing(true);
+    } else {
+      setLoginPopup(true);
     }
-    else {
-      setLoginPopup(true)
-    }
-
   }
-  useEffect(() => {
-
-  }, [isLogin])
+  useEffect(() => {}, [isLogin]);
 
   return (
     <>
@@ -53,14 +51,17 @@ const Header = () => {
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#navbarSupportedContent"
-                  aria-expanded="false" onClick={() => setOpenTap(!openTap)}
+                  aria-expanded="false"
+                  onClick={() => setOpenTap(!openTap)}
                 >
                   <span className="navbar-toggler-icon" />
                   <span className="navbar-toggler-icon" />
                   <span className="navbar-toggler-icon" />
                 </button>
                 <div
-                  className={"collapse navbar-collapse " + (openTap ? "show" : "")}
+                  className={
+                    "collapse navbar-collapse " + (openTap ? "show" : "")
+                  }
                   id="navbarSupportedContent"
                 >
                   <ul className="navbar-nav mx-auto">
@@ -115,14 +116,13 @@ const Header = () => {
                       <img src="/images/wishlist.png" alt="" />
                     </a>
                   </li>
-                  <li className="list-inline-item">
-                    <a className="cart rounded-circle d-block" href="/cart" title="">
-                      <img src="/images/cart.png" alt="" />
-                    </a>
-                  </li>
-                  <li className="list-inline-item" onClick={() => {
-                    setShowProfile(!showProfile)
-                  }}>
+                  <CartButton />
+                  <li
+                    className="list-inline-item"
+                    onClick={() => {
+                      setShowProfile(!showProfile);
+                    }}
+                  >
                     {/* <a className="user rounded-circle d-block" href="#" title="">
                         <img
                           width={32}
@@ -137,14 +137,42 @@ const Header = () => {
                         className="user rounded-circle d-block user-img"
                         href="/myprofile"
                         title={""}
+                        onClick={() => {
+                          if (isLogin) {
+                            Route.push("/myprofile");
+                          } else {
+                            useUserStore.setState({ loginPopup: true });
+                          }
+                        }}
                       >
-                        <img width={32} height={32} src="/images/user.png" alt="" />
+                        <img
+                          width={32}
+                          height={32}
+                          src="/images/user.png"
+                          alt=""
+                        />
                       </a>
                     </div>
                     <div className="btn-group d-sm-block d-md-block d-lg-none">
-                      <a className="user rounded-circle d-block" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                      ><img width={32} height={32} src="images/user.png" alt="" /></a>
-                      <ul className={"dropdown-menu shadow " + (showProfile ? "show" : "")} data-bs-popper="none" >
+                      <a
+                        className="user rounded-circle d-block"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <img
+                          width={32}
+                          height={32}
+                          src="/images/user.png"
+                          alt=""
+                        />
+                      </a>
+                      <ul
+                        className={
+                          "dropdown-menu shadow " + (showProfile ? "show" : "")
+                        }
+                        data-bs-popper="none"
+                      >
                         <p className="fs-20 font-sb text-color-3 ps-3 ">Hey </p>
                         <li><hr className="dropdown-divider" /></li>
                         <li className="fs-14 font-r text-color-2"><img className="d-inline-block" src="images/p-profile.png" alt="" /><a className="dropdown-item d-inline-block" href="/myprofile">Profile</a></li>
@@ -167,7 +195,7 @@ const Header = () => {
         </div>
       </header>
     </>
-  )
-}
+  );
+};
 
 export default Header;
