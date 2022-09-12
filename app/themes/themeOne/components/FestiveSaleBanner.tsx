@@ -8,9 +8,9 @@ import constants from "../../../constants/constant";
 
 const FestiveSaleBanner = () => {
 
-    const [banners, setBanners] = useState([1])
     const [bannerUrl, setBannerUrl] = useState<any>()
     const [loading, setLoading] = useState(true)
+    const [banners, setBanners] = useState<any>([])
     useEffect(() => {
         getBannersData();
 
@@ -20,9 +20,10 @@ const FestiveSaleBanner = () => {
         CatalogService.getInstance()
             .getBanner()
             .then((info: any) => {
-                setBannerUrl(info?.data?.data[0].attributes.image.data.attributes.url);
+                //setBannerUrl(info?.data?.data[2].attributes.image.data.attributes.url);
                 setLoading(false)
-                //console.log("this is Banner", info)
+                console.log("this is Banner", info)
+                setBanners(info?.data?.data)
             });
     }
 
@@ -33,11 +34,11 @@ const FestiveSaleBanner = () => {
                     <Skeleton height={500} style={{ borderRadius: 25, }} /> :
                     <section className="category mt-5 mt-md-5">
                         <Slider {...bannerSliderSettings}>
-                            {banners?.map((items, index: number) => {
+                            {banners?.map((items: any, index: number) => {
                                 return (
                                     <div key={index}>
                                         <div className="col-md-12 col-lg-12">
-                                            <img className="w-100" src={`${constants.assetsBaseURL}${bannerUrl}`} alt="" />
+                                            <img className="w-100" src={`${constants.assetsBaseURL}${items.attributes.image.data.attributes.url}`} alt="" />
                                         </div>
                                     </div>)
                             })}
