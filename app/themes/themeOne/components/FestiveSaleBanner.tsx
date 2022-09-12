@@ -37,8 +37,8 @@ const FestiveSaleBanner = () => {
                             {banners?.map((items: any, index: number) => {
                                 return (
                                     <div key={index}>
-                                        <div className="col-md-12 col-lg-12">
-                                            <img className="w-100" src={`${constants.assetsBaseURL}${items.attributes.image.data.attributes.url}`} alt="" />
+                                        <div className="col-md-12 col-lg-12" >
+                                            <img  className="w-100" src={`${constants.assetsBaseURL}${items.attributes.image.data.attributes.url}`} alt="" />
                                         </div>
                                     </div>)
                             })}
