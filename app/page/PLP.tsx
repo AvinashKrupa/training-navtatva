@@ -43,7 +43,6 @@ const PLP = () => {
 
   const [quickViewStatus, setQuickViewStatus] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [quickViweLoader, setQuickViweLoader] = useState(true);
 
   useEffect(() => {
     if (productId != "") {
@@ -91,7 +90,7 @@ const PLP = () => {
         if (response.data) {
           setSelectedProductData(response.data.data);
           setOpenProductQuickView(true);
-          // setQuickViewStatus(false);
+          setQuickViewStatus(false);
         } else {
           console.log("ERROR:", response.data);
         }
@@ -249,10 +248,10 @@ const PLP = () => {
         openSearchBox={openSearchBox}
         setOpenSearchBox={setOpenSearchBox}
       />
-      {quickViweLoader && openProductQuickView && (
+      {!quickViewStatus && openProductQuickView && (
         <ProductQuickView
           openProductQuickView={openProductQuickView}
-          setOpenProductQuickView={() => setOpenProductQuickView(false)}
+          setOpenProductQuickView={setOpenProductQuickView}
           data={selectedProductData}
           onSelectedProduct={(id: any) => {
             getProductDetail(id);
@@ -262,7 +261,6 @@ const PLP = () => {
       {quickViewStatus && (
         <ProductQuickViewLoader
           quickViewStatus={quickViewStatus}
-          setQuickViweLoader={setQuickViweLoader}
           setQuickViewStatus={setQuickViewStatus}
         />
       )}

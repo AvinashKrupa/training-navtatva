@@ -33,7 +33,7 @@ export class Cart extends HTTPBaseService {
 
   static async regenrateCustomerCartAssociation() {
     let cartId = uuidv4();
-    localStorage.setItem("CART_ID", cartId);
+    localStorage.setItem("CART_ID", cartId);    
     let params = {
       data: [
         {
@@ -44,6 +44,11 @@ export class Cart extends HTTPBaseService {
     };
 
     return Cart.getInstance().cartAssociationWithCustomer(params);
+  }
+
+  static async removeCartItems() {
+    localStorage.removeItem("customer_cart_items");
+    return true;
   }
 
   public cartAssociationWithCustomer = (data: any) => {
@@ -176,6 +181,8 @@ export class Cart extends HTTPBaseService {
         .then((response) => {          
           console.log("ORDER PLACED",response)
           if(response.status == 200 && order.paymentType == constants.PAYMENT_TYPE.COD){
+            Cart.regenrateCustomerCartAssociation();
+            Cart.removeCartItems();
             resolve(response)
           }else if (response.status == 200 && order.paymentType == constants.PAYMENT_TYPE.RUPIFI) {
             const { id } = response?.data?.data;
@@ -196,6 +203,7 @@ export class Cart extends HTTPBaseService {
 
             /// Temporary Solution (Because of the backend issue)
             Cart.regenrateCustomerCartAssociation();
+            Cart.removeCartItems();
 
             RupifiUCService.getInstance("")
               .createRupifiPayment(requestJSON)
