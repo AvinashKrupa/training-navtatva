@@ -71,6 +71,8 @@ class LocalStorageService {
     localStorage.removeItem("cartRef");
     localStorage.removeItem("CART_ID");
     localStorage.removeItem("hashToken");
+    localStorage.removeItem("customer_id");
+    localStorage.removeItem("accessToken");
   }
   static getCartRef() {
     let cartRef = localStorage.getItem("cartRef");
