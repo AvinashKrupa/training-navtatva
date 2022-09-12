@@ -106,7 +106,7 @@ export class RupifiUCService extends HTTPBaseService {
           }
         })
         .catch((error) => {
-          Toast.showError(error.message);
+          Toast.showError(error?.response?.data?.msg?.detail || error.message);
           reject(error);
         });
     });
@@ -125,7 +125,7 @@ export class RupifiUCService extends HTTPBaseService {
           }
         })
         .catch((error) => {
-          Toast.showError(error.message);
+          Toast.showError(error?.response?.data?.msg?.detail || error.message);
           reject(error);
         });
     });
