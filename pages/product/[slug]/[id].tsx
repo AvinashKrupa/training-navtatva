@@ -17,6 +17,7 @@ import Header from "../../../app/themes/themeOne/components/Header";
 import { productDetailSliderSetting } from "../../../utils/sliderConfig";
 import ProductObj from "../../../utils/ProductObj";
 
+
 const ProductDetailScreen: NextPage = () => {
   const router = useRouter();
   const { slug, id } = router.query;
@@ -27,15 +28,21 @@ const ProductDetailScreen: NextPage = () => {
       size: "",
       qty: "",
       color: "",
+      popup: ''
     },
   ];
   const [sizeValues, setSizeValues] = useState<any>(initSizeValues);
+  const [colorPopup, setColorPopup] = useState<boolean>(false)
+
+
+
+
 
   useEffect(() => {
     if (id) {
       getProductDetail(id);
     }
-    return () => {};
+    return () => { };
   }, [id]);
 
   function getProductDetail(itemId: any) {
@@ -49,7 +56,7 @@ const ProductDetailScreen: NextPage = () => {
             console.log("ERROR:", response.data);
           }
         })
-        .catch((error) => {});
+        .catch((error) => { });
     }
   }
 
@@ -60,6 +67,7 @@ const ProductDetailScreen: NextPage = () => {
     let selectCombination = product?.selectCombination;
     selectCombination.size = e.target.value;
     product?.setSelectCombination(selectCombination);
+
   };
 
   const addSizeFields = () => {
@@ -214,8 +222,44 @@ const ProductDetailScreen: NextPage = () => {
                               })}
                           </div>
                           <div className="cart-right-area p-0">
-                            <div className="table-responsive mt-5">
+                            <div className="table-responsive mt-5 position-relative">
+                              <div className={"custom-radios colorPopup" + (colorPopup ? "show" : " ")} style={!colorPopup ? { display: 'none', } : {}}>
+                                {product
+                                  ?.getColors()
+                                  .map((item: any, index: number) => {
+                                    return (
+                                      <div
+                                        key={index}
+                                        onClick={(e) => {
+                                          product?.changeVariantByColor(item.id);
+                                          getProductDetail(
+                                            product?.selectCombination.id
+                                          );
+                                        }}
+                                      >
+                                        <input
+                                          type="radio"
+                                          id={"color-" + index}
+                                          name="color"
+                                          defaultValue={""}
+                                          defaultChecked={false}
+                                          tabIndex={index}
+
+                                        />
+                                        <label htmlFor={"color-" + index}>
+                                          <span
+                                            style={{ background: item.description }}
+                                          >
+                                            <div title={item.name} onClick={() => { setColorPopup(!colorPopup) }} />
+                                          </span>
+                                        </label>
+                                      </div>
+                                    );
+                                  })}
+                              </div>
+
                               <table className="table cart-table">
+
                                 <tbody>
                                   {sizeValues.map(
                                     (element: any, index: number) => (
@@ -274,11 +318,12 @@ const ProductDetailScreen: NextPage = () => {
                                               )}
                                           </select>
                                         </td>
-                                        <td className="price d-flex">
+                                        <td className="price d-flex" >
+
                                           <span className="align-self-center">
                                             Color
                                           </span>
-                                          <div className="custom-radios">
+                                          <div className="custom-radios colorPopup">
                                             <div>
                                               <input
                                                 type="radio"
@@ -291,10 +336,14 @@ const ProductDetailScreen: NextPage = () => {
                                                   handleSizeChange(index, e)
                                                 }
                                                 value={element.color}
+                                                onClick={() => {
+                                                  setColorPopup(!colorPopup)
+
+                                                }}
                                               />
                                               <label htmlFor="color-3">
                                                 <span>
-                                                  <div />
+                                                  <div></div>
                                                 </span>
                                               </label>
                                             </div>
@@ -304,6 +353,7 @@ const ProductDetailScreen: NextPage = () => {
                                     )
                                   )}
                                 </tbody>
+
                               </table>
                             </div>
                             <div className="text-center mb-4">
@@ -355,9 +405,8 @@ const ProductDetailScreen: NextPage = () => {
                 >
                   <li className="nav-item" role="presentation">
                     <button
-                      className={`nav-link font-sb bg-1 ${
-                        selectedSection == 1 ? "active" : ""
-                      }`}
+                      className={`nav-link font-sb bg-1 ${selectedSection == 1 ? "active" : ""
+                        }`}
                       id="home-tab"
                       data-bs-toggle="tab"
                       data-bs-target="#home"
@@ -387,9 +436,8 @@ const ProductDetailScreen: NextPage = () => {
                   </li>
                   <li className="nav-item" role="presentation">
                     <button
-                      className={`nav-link font-sb bg-2 second ${
-                        selectedSection == 2 ? "active" : ""
-                      }`}
+                      className={`nav-link font-sb bg-2 second ${selectedSection == 2 ? "active" : ""
+                        }`}
                       id="profile-tab"
                       data-bs-toggle="tab"
                       data-bs-target="#profile"
@@ -416,9 +464,8 @@ const ProductDetailScreen: NextPage = () => {
                   </li>
                   <li className="nav-item" role="presentation">
                     <button
-                      className={`nav-link font-sb bg-3 third ${
-                        selectedSection == 3 ? "active" : ""
-                      }`}
+                      className={`nav-link font-sb bg-3 third ${selectedSection == 3 ? "active" : ""
+                        }`}
                       id="contact-tab"
                       data-bs-toggle="tab"
                       data-bs-target="#contact"
@@ -446,9 +493,8 @@ const ProductDetailScreen: NextPage = () => {
                 </ul>
                 <div className="tab-content" id="myTabContent">
                   <div
-                    className={`tab-pane fade show ${
-                      selectedSection == 1 ? "active" : ""
-                    }`}
+                    className={`tab-pane fade show ${selectedSection == 1 ? "active" : ""
+                      }`}
                     id="home"
                     role="tabpanel"
                     aria-labelledby="home-tab"
@@ -456,9 +502,8 @@ const ProductDetailScreen: NextPage = () => {
                     {product?.getDescription()}
                   </div>
                   <div
-                    className={`tab-pane fade show ${
-                      selectedSection == 2 ? "active" : ""
-                    }`}
+                    className={`tab-pane fade show ${selectedSection == 2 ? "active" : ""
+                      }`}
                     id="profile"
                     role="tabpanel"
                     aria-labelledby="profile-tab"
@@ -507,20 +552,37 @@ const ProductDetailScreen: NextPage = () => {
                               </a>
                             </div>
                           </div>
-                          <div className="col-md-12 mt-4 d-flex">
+
+                        </div>
+                        <div className="row mt-4">
+                          <div className=" col-lg-6 position-relative mb-4 mb-lg-0">
                             <a href="#">
-                              <img
-                                className="w-100"
-                                src="/images/ref-2.png"
-                                alt=""
-                              />
+                              <div className="similarBox bg-clr1">
+                                <div className="imgitem">
+                                  <img className="w-100" src="/images/simi-1.png" alt="" />
+                                </div>
+                                <div className="content">
+                                  <h5 className="fs-18 font-r btn-simi">Similar</h5>
+                                  <h4 className="fs-20 font-r text-color-8">Top Trending on </h4>
+                                  <h4 className="fs-26 font-m text-white my-2">www.myntra.com </h4>
+                                  <h4 className="fs-20 font-r text-color-8">Indian Ethnic Collection</h4>
+                                </div>
+                              </div>
                             </a>
+                          </div>
+                          <div className=" col-lg-6 position-relative">
                             <a href="#">
-                              <img
-                                className="w-100"
-                                src="/images/ref-3.png"
-                                alt=""
-                              />
+                              <div className="similarBox bg-clr2">
+                                <div className="imgitem">
+                                  <img className="w-100" src="/images/simi-2.png" alt="" />
+                                </div>
+                                <div className="content">
+                                  <h5 className="fs-18 font-r btn-simi">Similar</h5>
+                                  <h4 className="fs-20 font-r text-color-8">Top Trending on </h4>
+                                  <h4 className="fs-26 font-m text-white my-2">www.myntra.com </h4>
+                                  <h4 className="fs-20 font-r text-color-8">Indian Ethnic Collection</h4>
+                                </div>
+                              </div>
                             </a>
                           </div>
                         </div>
@@ -528,9 +590,8 @@ const ProductDetailScreen: NextPage = () => {
                     </div>
                   </div>
                   <div
-                    className={`tab-pane fade show ${
-                      selectedSection == 3 ? "active" : ""
-                    }`}
+                    className={`tab-pane fade show ${selectedSection == 3 ? "active" : ""
+                      }`}
                     id="contact"
                     role="tabpanel"
                     aria-labelledby="contact-tab"
@@ -1088,12 +1149,12 @@ const ProductDetailScreen: NextPage = () => {
                       alt=""
                     />
                   </a>
-                  {/* <a
+                  <a
                     href="#"
                     className="btn-border fs-20 me-2 d-none d-lg-inline-block"
                   >
                     Request Semple
-                  </a> */}
+                  </a>
                   <a href="#" className="btn-border fs-20 me-2 d-lg-none">
                     Wishlist
                   </a>
