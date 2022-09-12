@@ -39,7 +39,7 @@ const Header = () => {
             </div>
             <div className="col-md-11">
               <nav className="navbar navbar-expand-lg p-0">
-                <a className="navbar-brand d-md-none" href="#">
+                <a className="navbar-brand d-md-none" href="/">
                   <img
                     src="/images/logo-2.png"
                     alt="logo"

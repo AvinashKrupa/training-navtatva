@@ -4877,6 +4877,13 @@ form.user-form .form-group {
     flex-direction: row;
   }
 }
+.btn-can{color: #E53333;
+    background: rgba(229, 51, 51, 0.2);
+    padding: 10px 15px;
+    border: solid 1px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+/* MY PROFILLE END */
 
 .product-detail-page .tab-content .btn-simi{    background: rgba(255, 255, 255, 0.1);
   display: inline-block; margin-bottom: 70px;
