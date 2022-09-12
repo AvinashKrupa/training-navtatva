@@ -173,7 +173,7 @@ const CheckoutStepC = (props: any) => {
                   </li>
                   <li className="list-inline-item">
                     <button
-                      onClick={props.onCheckout}
+                      onClick={() => props.onCheckout(constants.PAYMENT_TYPE.CARD)}
                       className="btn btn-lg fs-16"
                       type="submit"
                     >
@@ -253,7 +253,7 @@ const CheckoutStepC = (props: any) => {
                     </li>
                     <li className="list-inline-item">
                       <button
-                        onClick={props.onCheckout}
+                        onClick={() => props.onCheckout(constants.PAYMENT_TYPE.UPI)}
                         className="btn btn-lg fs-16 mt-3 mt-md-0"
                         type="submit"
                       >
@@ -320,11 +320,11 @@ const CheckoutStepC = (props: any) => {
                     </li>
                     <li className="list-inline-item">
                       <button
-                        onClick={props.onCheckout}
+                        onClick={() => props.onCheckout(constants.PAYMENT_TYPE.COD)}
                         className="btn btn-lg fs-16 mt-3 mt-md-0"
                         type="submit"
                       >
-                        Order Place
+                        Place Order
                       </button>
                     </li>
                   </ul>
@@ -372,7 +372,7 @@ const CheckoutStepC = (props: any) => {
                     </li>
                     <li className="list-inline-item">
                       <button
-                        onClick={props.onCheckout}
+                        onClick={() => props.onCheckout(constants.PAYMENT_TYPE.RUPIFI)}
                         className="btn btn-lg fs-16 mt-3 mt-md-0"
                         type="submit"
                       >
