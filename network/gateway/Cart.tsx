@@ -173,8 +173,11 @@ export class Cart extends HTTPBaseService {
     return new Promise((resolve: any, reject: any) => {
       this.instance
         .post(API.CHECKOUT + "/" + Cart.getCartId(), data)
-        .then((response) => {
-          if (response.status == 200) {
+        .then((response) => {          
+          console.log("ORDER PLACED",response)
+          if(response.status == 200 && order.paymentType == constants.PAYMENT_TYPE.COD){
+            resolve(response)
+          }else if (response.status == 200 && order.paymentType == constants.PAYMENT_TYPE.RUPIFI) {
             const { id } = response?.data?.data;
             const sellerId = LocalStorageService.getCustomerId();
             const requestJSON = {
@@ -208,7 +211,7 @@ export class Cart extends HTTPBaseService {
                 reject(error);
               });
           } else {
-            let message = response.data.msg ?? "";
+            let message = response.data.msg || "Something went wrong.";
             Toast.showError(message);
             reject(response);
           }
