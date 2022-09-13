@@ -5,7 +5,7 @@ export default class Permalink {
   static ofProduct(item: any): string {
     const router = useRouter();
     const { slug, id } = router.query;
-    return "/product/" + item.slug + "/" + item.id;
+    return "/product/" + item.slug + "/" + (item.product_id? item.product_id: item.id);
   }
 
   static ofCategory(item: any): string {

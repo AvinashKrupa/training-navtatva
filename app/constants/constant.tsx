@@ -1,6 +1,6 @@
 import React from "react";
 
-const HOST = 1 ? "http://localhost:3000": "http://www.navtatva.fashion";
+const HOST = 0 ? "http://localhost:3000": "http://www.navtatva.fashion";
 
 const RupifiSandbox = {
   BASE_URL_V1: "https://api-sandbox.rupifi.com/v1/",

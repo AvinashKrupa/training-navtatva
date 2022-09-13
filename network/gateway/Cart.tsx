@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
 import { RupifiUCService } from "./RupifiUCService";
 import useCartStore from "../../zustand/cart";
+import { CustomerOrderService } from "./CustomerOrderService";
 export class Cart extends HTTPBaseService {
   private static classInstance?: Cart;
   constructor(token: string) {
@@ -33,7 +34,7 @@ export class Cart extends HTTPBaseService {
 
   static async regenrateCustomerCartAssociation() {
     let cartId = uuidv4();
-    localStorage.setItem("CART_ID", cartId);
+    localStorage.setItem("CART_ID", cartId);    
     let params = {
       data: [
         {
@@ -44,6 +45,11 @@ export class Cart extends HTTPBaseService {
     };
 
     return Cart.getInstance().cartAssociationWithCustomer(params);
+  }
+
+  static async removeCartItems() {
+    localStorage.removeItem("customer_cart_items");
+    return true;
   }
 
   public cartAssociationWithCustomer = (data: any) => {
@@ -170,13 +176,33 @@ export class Cart extends HTTPBaseService {
   };
 
   public checkout = (data: any, order: any) => {
+    
     return new Promise((resolve: any, reject: any) => {
       this.instance
         .post(API.CHECKOUT + "/" + Cart.getCartId(), data)
         .then((response) => {          
           console.log("ORDER PLACED",response)
           if(response.status == 200 && order.paymentType == constants.PAYMENT_TYPE.COD){
-            resolve(response)
+            Cart.regenrateCustomerCartAssociation();
+            Cart.removeCartItems();
+            let requestJSON = {
+              method_type: constants.PAYMENT_TYPE.COD,
+              amount: order?.grandTotal
+            }
+            const { id } = response?.data?.data;
+            CustomerOrderService.getInstance("")
+              .createCODPayment(id, requestJSON)
+              .then((response2: any) => {
+                if (response2.status == 200) {
+                  resolve(response);
+                } else {
+                  reject(response);
+                }
+              })
+              .catch((error: any) => {
+                console.log(error);
+                reject(error);
+              });
           }else if (response.status == 200 && order.paymentType == constants.PAYMENT_TYPE.RUPIFI) {
             const { id } = response?.data?.data;
             const sellerId = LocalStorageService.getCustomerId();
@@ -196,6 +222,7 @@ export class Cart extends HTTPBaseService {
 
             /// Temporary Solution (Because of the backend issue)
             Cart.regenrateCustomerCartAssociation();
+            Cart.removeCartItems();
 
             RupifiUCService.getInstance("")
               .createRupifiPayment(requestJSON)
