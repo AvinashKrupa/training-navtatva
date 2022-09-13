@@ -5,10 +5,11 @@ import Header from "../../app/components/common/Header";
 import { RupifiUCService } from "../../network/gateway/RupifiUCService";
 import { Cart } from "../../network/gateway/Cart";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
+import { NextPage } from "next";
 
 interface iProps {}
 
-function Cancel(props: any) {
+const Cancel: NextPage = (props: any) => {
   const router = useRouter();  
   const [authStatus, setAuthStatus] = useState<string>("");
   const [rupifiResponse, setRupifiResponse] = useState<any>({});

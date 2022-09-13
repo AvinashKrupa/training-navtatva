@@ -4,10 +4,10 @@ import { Cart } from "../../network/gateway/Cart";
 import { RupifiUCService } from "../../network/gateway/RupifiUCService";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
 import VisitNunchiBanner from "../../app/components/common/VisitNunchiBanner";
+import { NextPage } from "next";
 
 interface iProps { }
-
-function ThankYou(props: any) {
+const ThankYou: NextPage = (props: any) => {
   const router = useRouter();
   const { merchantPaymentRefId } = router.query;
   const [authStatus, setAuthStatus] = useState<string>("");
