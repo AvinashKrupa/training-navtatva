@@ -89,7 +89,7 @@ function Login(props: any) {
                         id="exampleInputEmail"
                         aria-describedby="emailHelp"
                         value={email}
-                        onChange={(event) => {
+                        onChange={(event:any) => {
                           setEmail(event.target.value);
                         }}
                       />
@@ -106,7 +106,7 @@ function Login(props: any) {
                         className="form-control"
                         id="exampleInputPassword"
                         value={password}
-                        onChange={(event) => {
+                        onChange={(event:any) => {
                           setPassword(event.target.value);
                         }}
                       />

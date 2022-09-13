@@ -1244,7 +1244,7 @@ const ProductDetailScreen: NextPage = () => {
                       </h4>
                       <div className="row align-items-center barReview mb-3">
                         <div className="col-md-12">
-                          <div className>
+                          <div>
                             <h4 className="fs-16 font-r text-color-1">Fit</h4>
                           </div>
                         </div>
@@ -1325,8 +1325,8 @@ const ProductDetailScreen: NextPage = () => {
                     <h4 className="fs-32 font-sb text-color-1 pb-4">
                       Customer Reviews (32)
                     </h4>
-                    <ul cla>
-                      <li className>
+                    <ul >
+                      <li>
                         <div className="starReview green text-white d-inline-block me-3">
                           5
                           <svg
