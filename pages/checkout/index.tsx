@@ -23,7 +23,7 @@ import ValidationMessage from "../../app/constants/validationMessage";
 import Loader from "../../app/components/loader/loader";
 import constants from "../../app/constants/constant";
 
-const CheckoutScreen: NextPage = () => {
+const CheckoutScreen: NextPage = (props: any) => {
   const [openTab, setOpenTab] = useState<number>(1);
   // const { slug, id } = router.query;
   const router = useRouter();
