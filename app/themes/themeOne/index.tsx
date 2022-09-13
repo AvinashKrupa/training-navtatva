@@ -51,17 +51,19 @@ const ThemeOne: NextPage = () => {
   const [productId, setProductId] = useState<string>("");
   const userData = useUserStore((state: any) => state.userInfo);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
+  const [festivalProducts, setFestivalProducts] = useState([])
 
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetchDataFromServer();
-    return () => {};
+    return () => { };
   }, []);
 
   async function fetchDataFromServer() {
     await getCatalog();
     await getHomeContent("top_collection");
     await getHomeContent("shop_preference");
+    await getHomeContent("festival_products");
     // await getHomeContent("outflit_products");
     // await getHomeContent("occassion_products");
     // await getHomeContent("this_month");
@@ -129,6 +131,9 @@ const ThemeOne: NextPage = () => {
               case "new_collection":
                 setNewCollection(response.data.data);
                 break;
+              case "festival_products":
+                setFestivalProducts(response.data.data);
+                break;
 
               default:
                 break;
@@ -163,6 +168,8 @@ const ThemeOne: NextPage = () => {
       });
   }
 
+
+
   return (
     <div className="home">
       <div className="wrapper">
@@ -186,7 +193,17 @@ const ThemeOne: NextPage = () => {
         {/* Shop virtually  with a Product Expert. */}
         {/* <ShopVirtuallyWithExpert /> */}
         {/* Bring in the Essence of  Holi to your wardrobe*/}
-        <BringInEssence />
+        <BringInEssence
+          data={festivalProducts}
+          onAddCart={(id) => {
+            if (LocalStorageService.getAccessToken()) {
+              addToCart(`${id}`);
+            } else {
+              setProductId(`${id}`);
+              setLoginPopup(true);
+            }
+          }}
+        />
         {/* Top Collections */}
         <TopCollections
           data={topCollection}
@@ -198,13 +215,13 @@ const ThemeOne: NextPage = () => {
               setLoginPopup(true);
             }
           }}
-          onWishlist={() => {}}
+          onWishlist={() => { }}
         />
         {/* Shop By Preference */}
         <ShopByPreference
           data={shopPreference}
-          onAddCart={() => {}}
-          onWishlist={() => {}}
+          onAddCart={() => { }}
+          onWishlist={() => { }}
         />
         {/* What’s New This Month */}
         <WhatsNewThisMonth />

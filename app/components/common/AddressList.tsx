@@ -3,16 +3,9 @@ import { Modal } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { AiFillDelete } from "react-icons/ai";
 
-interface iProps {
-  onClick?: () => void;
-  onSelect?: (index: number) => void;
-  isVisible: boolean;
-  data: any;
-  onClose?: () => void;
-  deleteAddress?:(id:any,index:number)=> void
-}
 
-const AddressList = (props: iProps) => {
+
+const AddressList = (props:any) => {
 
   const router = useRouter();
   return (
