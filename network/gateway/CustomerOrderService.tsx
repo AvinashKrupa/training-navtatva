@@ -62,4 +62,25 @@ export class CustomerOrderService extends HTTPBaseService {
         });
     });
   };
+
+  public createCODPayment = (id: any, data: any) => {
+    return new Promise((resolve: any, reject: any) => {
+      this.instance
+        .post(API.ORDERS + "/" + id+ "/payments", data)
+        .then((response) => {
+          if (response.status == 200) {
+            resolve(response);
+          } else {
+            let message = response.data.msg ?? "";
+            Toast.showError(message);
+            reject(response);
+          }
+        })
+        .catch((error) => {
+          console.log("Error", error);
+          Toast.showError(error.message);
+          reject(error);
+        });
+    });
+  };
 }

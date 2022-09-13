@@ -1,8 +1,20 @@
 import React from "react";
 import Slider from "react-slick";
+import { Cart } from "../../../../network/gateway/Cart";
 import { exploreSliderSetting } from "../../../../utils/sliderConfig";
+import { useRouter } from "next/router";
+import useCartStore from "../../../../zustand/cart";
+import Permalink from "../../../../utils/Permalink";
 
-const BringInEssence = () => {
+interface iProps {
+  data: any;
+  onAddCart: (id: string) => void;
+
+}
+
+const BringInEssence = (props: iProps) => {
+  const cartItems = useCartStore((state: any) => state.cartItems);
+  const router = useRouter();
   return (
     <section className="wardrobe mt-4 mt-md-5">
       <div className="row">
@@ -35,234 +47,77 @@ const BringInEssence = () => {
             </p>
             <div className="explore-slider">
               <Slider {...exploreSliderSetting}>
-                <div className="thumb position-relative text-center bg1">
-                  <a href="/shop">
-                    <img
-                      className="w-100"
-                      src="images/explore-thumb-1.png"
-                      alt=""
-                    />
-                  </a>
-                  <div className="hoverBlock">
-                    <div className="overlay   text-center">
-                      <p className="fs-13 font-r text-color-1">
-                        Women Teal Blue &amp; Beige Ethnic Motifs Printed
-                        Straight Kurti
-                      </p>
-                      <p className="fs-19 font-sb text-color-3 py-2">₹3,450</p>
-                      <a
-                        href="/product/dummy"
-                        className="btn-border fs-13 text-color-3"
-                      >
-                        More Info
-                      </a>
-                      <a href="/cart" className="btn fs-13 ">
-                        Add to Cart
-                      </a>
-                    </div>
-                    <div className="speaker">
-                      <a href="#" className="d-block mb-2" tabIndex={0}>
-                        <img src="images/wishlist-detail.png" />
-                      </a>
-                      <a href="#" className="d-block  mb-2" tabIndex={0}>
-                        <img src="images/volume.png" />
-                      </a>
-                      <a href="#" className="d-block  mb-2" tabIndex={0}>
-                        <img src="images/swap.png" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="thumb position-relative text-center bg2">
-                  <a href="/shop">
-                    <img
-                      className="w-100"
-                      src="images/explore-thumb-2.png"
-                      alt=""
-                    />
-                  </a>
-                  <div className="hoverBlock">
-                    <div className="overlay   text-center">
-                      <p className="fs-13 font-r text-color-1">
-                        Women Teal Blue &amp; Beige Ethnic Motifs Printed
-                        Straight Kurti
-                      </p>
-                      <p className="fs-19 font-sb text-color-3 py-2">₹3,450</p>
-                      <a
-                        href="/product/dummy"
-                        className="btn-border fs-13 text-color-3"
-                      >
-                        More Info
-                      </a>
-                      <a href="/cart" className="btn fs-13 ">
-                        Add to Cart
-                      </a>
-                    </div>
-                    <div className="speaker">
-                      <a href="#" className="d-block mb-2" tabIndex={0}>
-                        <img src="images/wishlist-detail.png" />
-                      </a>
-                      <a href="#" className="d-block  mb-2" tabIndex={0}>
-                        <img src="images/volume.png" />
-                      </a>
-                      <a href="#" className="d-block  mb-2" tabIndex={0}>
-                        <img src="images/swap.png" />
-                      </a>
+                {props.data.map((info: any, index: number) => {
+                  return (<div key={index} className="thumb position-relative text-center bg1">
+                    <a href="/shop">
+                      <img
+                        style={{ height: 380, }}
+                        className="w-100"
+                        src={info.image}
+                        alt=""
+                      />
+                    </a>
+                    <div className="hoverBlock">
+                      <div className="overlay   text-center">
+                        <p className="fs-13 font-r text-color-1">
+                          {info.title}
+                        </p>
+                        {/* <p className="fs-19 font-sb text-color-3 py-2">{info.sale_price}</p> */}
+                        <div className="product-price">
+                          <span className="new-price mb-0 font-sb">
+                            <span>₹{info.sale_price}</span>
+                          </span>
+                          <span className="last-price mb-0 fs-12 font-r">
+                            <span className="text-color-1">
+                              ₹{info.list_price}
+                            </span>
+                          </span>
+
+                          <p className="save fs-10 font-r">
+                            You save ₹
+                            {info.list_price - (info.sale_price || 0)}
+                          </p>
+                        </div>
+                        <a
+                           href={Permalink.ofProduct(info)}
+                          className="btn-border fs-13 text-color-3"
+                          tabIndex={0}
+                        >
+                          More Info
+                        </a>
+                        <a
+                          onClick={() => {
+                            if (Cart.isProductInCart(info.id)) {
+                              router.push("/cart");
+                            } else {
+                              props.onAddCart(info.id);
+                            }
+                          }}
+                          className="btn fs-13 "
+                          tabIndex={0}
+                        >
+                          {cartItems?.includes(info.id) || false
+                            ? "Go To Cart"
+                            : "Add to Cart"}
+                        </a>
+                      </div>
+                      <div className="speaker">
+                        <a href="#" className="d-block mb-2" tabIndex={0}>
+                          <img src="images/wishlist-detail.png" />
+                        </a>
+                        <a href="#" className="d-block  mb-2" tabIndex={0}>
+                          <img src="images/volume.png" />
+                        </a>
+                        <a href="#" className="d-block  mb-2" tabIndex={0}>
+                          <img src="images/swap.png" />
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="thumb position-relative text-center bg3">
-                  <a href="/shop">
-                    <img
-                      className="w-100"
-                      src="images/explore-thumb-3.png"
-                      alt=""
-                    />
-                  </a>
-                  <div className="hoverBlock">
-                    <div className="overlay   text-center">
-                      <p className="fs-13 font-r text-color-1">
-                        Women Teal Blue &amp; Beige Ethnic Motifs Printed
-                        Straight Kurti
-                      </p>
-                      <p className="fs-19 font-sb text-color-3 py-2">₹3,450</p>
-                      <a
-                        href="/product/dummy"
-                        className="btn-border fs-13 text-color-3"
-                      >
-                        More Info
-                      </a>
-                      <a href="/cart" className="btn fs-13 ">
-                        Add to Cart
-                      </a>
-                    </div>
-                    <div className="speaker">
-                      <a href="#" className="d-block mb-2" tabIndex={0}>
-                        <img src="images/wishlist-detail.png" />
-                      </a>
-                      <a href="#" className="d-block  mb-2" tabIndex={0}>
-                        <img src="images/volume.png" />
-                      </a>
-                      <a href="#" className="d-block  mb-2" tabIndex={0}>
-                        <img src="images/swap.png" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="thumb position-relative text-center bg1">
-                  <a href="/shop">
-                    <img
-                      className="w-100"
-                      src="images/explore-thumb-1.png"
-                      alt=""
-                    />
-                  </a>
-                  <div className="hoverBlock">
-                    <div className="overlay   text-center">
-                      <p className="fs-13 font-r text-color-1">
-                        Women Teal Blue &amp; Beige Ethnic Motifs Printed
-                        Straight Kurti
-                      </p>
-                      <p className="fs-19 font-sb text-color-3 py-2">₹3,450</p>
-                      <a
-                        href="/product/dummy"
-                        className="btn-border fs-13 text-color-3"
-                      >
-                        More Info
-                      </a>
-                      <a href="/cart" className="btn fs-13 ">
-                        Add to Cart
-                      </a>
-                    </div>
-                    <div className="speaker">
-                      <a href="#" className="d-block mb-2" tabIndex={0}>
-                        <img src="images/wishlist-detail.png" />
-                      </a>
-                      <a href="#" className="d-block mb-2" tabIndex={0}>
-                        <img src="images/volume.png" />
-                      </a>
-                      <a href="#" className="d-block  mb-2" tabIndex={0}>
-                        <img src="images/swap.png" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="thumb position-relative text-center bg2">
-                  <a href="/shop">
-                    <img
-                      className="w-100"
-                      src="images/explore-thumb-2.png"
-                      alt=""
-                    />
-                  </a>
-                  <div className="hoverBlock">
-                    <div className="overlay   text-center">
-                      <p className="fs-13 font-r text-color-1">
-                        Women Teal Blue &amp; Beige Ethnic Motifs Printed
-                        Straight Kurti
-                      </p>
-                      <p className="fs-19 font-sb text-color-3 py-2">₹3,450</p>
-                      <a
-                        href="/product/dummy"
-                        className="btn-border fs-13 text-color-3"
-                      >
-                        More Info
-                      </a>
-                      <a href="/cart" className="btn fs-13 ">
-                        Add to Cart
-                      </a>
-                    </div>
-                    <div className="speaker">
-                      <a href="#" className="d-block mb-2" tabIndex={0}>
-                        <img src="images/wishlist-detail.png" />
-                      </a>
-                      <a href="#" className="d-block  mb-2" tabIndex={0}>
-                        <img src="images/volume.png" />
-                      </a>
-                      <a href="#" className="d-block  mb-2" tabIndex={0}>
-                        <img src="images/swap.png" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="thumb position-relative text-center bg3">
-                  <a href="/shop">
-                    <img
-                      className="w-100"
-                      src="images/explore-thumb-3.png"
-                      alt=""
-                    />
-                  </a>
-                  <div className="hoverBlock">
-                    <div className="overlay   text-center">
-                      <p className="fs-13 font-r text-color-1">
-                        Women Teal Blue &amp; Beige Ethnic Motifs Printed
-                        Straight Kurti
-                      </p>
-                      <p className="fs-19 font-sb text-color-3 py-2">₹3,450</p>
-                      <a
-                        href="/product/dummy"
-                        className="btn-border fs-13 text-color-3"
-                      >
-                        More Info
-                      </a>
-                      <a href="/cart" className="btn fs-13 ">
-                        Add to Cart
-                      </a>
-                    </div>
-                    <div className="speaker">
-                      <a href="#" className="d-block mb-2" tabIndex={0}>
-                        <img src="images/wishlist-detail.png" />
-                      </a>
-                      <a href="#" className="d-block  mb-2" tabIndex={0}>
-                        <img src="images/volume.png" />
-                      </a>
-                      <a href="#" className="d-block  mb-2" tabIndex={0}>
-                        <img src="images/swap.png" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                  )
+                })}
+
+
               </Slider>
             </div>
           </div>

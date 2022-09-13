@@ -3,14 +3,15 @@ import { useRouter, withRouter } from "next/router";
 import { Cart } from "../../network/gateway/Cart";
 import { RupifiUCService } from "../../network/gateway/RupifiUCService";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
+import VisitNunchiBanner from "../../app/components/common/VisitNunchiBanner";
 
-interface iProps {}
+interface iProps { }
 
 function ThankYou(props: any) {
   const router = useRouter();
   const { merchantPaymentRefId } = router.query;
   const [authStatus, setAuthStatus] = useState<string>("");
-  const [rupifiResponse, setRupifiResponse] = useState<any>({});  
+  const [rupifiResponse, setRupifiResponse] = useState<any>({});
   const [startDate,] = useState(new Date());
   const [deliveryDate, setDeliveyDate] = useState(new Date());
   const months = [
@@ -39,13 +40,13 @@ function ThankYou(props: any) {
     if (authStatus == "AUTH_APPROVED") {
       updateOrder();
     }
-    return () => {};
+    return () => { };
   }, [authStatus]);
 
   const updateOrder = async () => {
     let customer_id: any = LocalStorageService.getCustomerId();
     RupifiUCService.getInstance("")
-      .successPayment({        
+      .successPayment({
         merchantCustomerRefId: customer_id,
         ...rupifiResponse
       })
@@ -69,7 +70,7 @@ function ThankYou(props: any) {
   useEffect(() => {
     addDays(3);
     Cart.regenrateCustomerCartAssociation();
-    return () => {};
+    return () => { };
   }, []);
 
   return (
@@ -115,7 +116,7 @@ function ThankYou(props: any) {
                   deliveryDate.getFullYear()}
               </li>
               <li className="my-5">
-                <img width={150} src="images/thank-you.gif" alt="" />
+                <img width={150} src="/images/thank-you.gif" alt="" />
               </li>
               <li className="list-inline-item">
                 <a href="/" className="btn fs-18 w-100" tabIndex={0}>
@@ -155,8 +156,8 @@ function ThankYou(props: any) {
             </ul>
           </div>
         </div>
-        <div className="row cartItem">
-          <div className="col-md-12 col-lg-8 ">
+        <div className="row cartItem m-3">
+          <div className="col-md-12 col-lg-8">
             <h4 className="fs-20 font-m text-color-1 text-start">
               Order Summary
             </h4>
@@ -429,18 +430,51 @@ function ThankYou(props: any) {
                 <h4 className="fs-20 font-m text-color-1 text-start">
                   You Unlocked 5 Offers with this order
                 </h4>
-                <a href="#" className="mt-4 d-block">
-                  {" "}
-                  <img className="w-100" src="images/card-1.png" alt="" />
-                </a>
-                <a href="#" className="mt-4 d-block">
-                  {" "}
-                  <img className="w-100" src="images/discountAd.png" alt="" />
-                </a>
-                <a href="#" className="mt-4 d-block">
-                  {" "}
-                  <img className="w-100" src="images/card-2.png" alt="" />
-                </a>
+                <div className="position-relative">
+                  <a href="#">
+                    <img className="w-100" src="/images/card-1.png" alt="" />
+                    <div className="carddata align-items-start d-flex flex-column h-100 justify-content-between w-100 ">
+                      <div>
+                        <h4 className="fs-24 font-sb text-white">Upto 20% off</h4>
+                        <p className="fs-16 font-r text-color-8">on selected brands</p>
+                      </div>
+                      <div className="d-flex w-100">
+                        <p className="fs-16 font-sb text-white ltr-space">NAVTATVA2022 <img src="/images/card-icon.png" alt="" /></p>
+                        <p className="fs-12 font-r text-color-8 ms-auto">Valid till  <small className="fs-16 font-r text-white">30th July</small></p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+
+                <div className="discountBG position-relative mt-3">
+                  <a href="#">
+                    <div className="imgbar"> <img className="w-100" src="/images/discountAd.png" alt="" /></div>
+                    <div className="checkbar">
+                      <p className="fs-16 font-r"><img className="me-2" src="/images/cart-shop.png" alt="" />Checkout Within the next 24 Hours </p>
+                    </div>
+                    <div className="mt-4">
+                      <p className="fs-16 font-m text-color-1">Get upto </p>
+                      <h5 className="fs-48 font-bk mt-2">₹1,500</h5>
+                      <p className="fs-16 font-r text-color-1  mt-2">discount on your first order at </p>
+                      <h4 className="fs-24 font-b text-color-2 mt-4"> <img className="me-2" src="/images/nunchi.png" alt="" />Nunchi Jewellery</h4>
+                    </div>
+                  </a>
+                </div>
+                <div className="position-relative mt-4">
+                  <a href="#">
+                    <img className="w-100" src="/images/card-2.png" alt="" />
+                    <div className="carddata align-items-start d-flex flex-column h-100 justify-content-between w-100 ">
+                      <div>
+                        <h4 className="fs-24 font-sb text-white">Upto 20% off</h4>
+                        <p className="fs-16 font-r text-color-8">on selected brands</p>
+                      </div>
+                      <div className="d-flex w-100">
+                        <p className="fs-16 font-sb text-white ltr-space">NAVTATVA2022 <img src="/images/card-icon.png" alt="" /></p>
+                        <p className="fs-12 font-r text-color-8 ms-auto ">Valid till  <small className="fs-16 font-r text-white">30th July</small></p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
                 <a
                   href="#"
                   className=" fs-16 btn t-btn font-sb text-color-3 text-center w-100 mt-4"
@@ -460,7 +494,7 @@ function ThankYou(props: any) {
                   View 8 Other offers
                 </a>
                 <a
-                  href="#"
+                  href="/"
                   className=" fs-16 b-t-h btn bg-white border font-sb text-color-3 text-center w-100 mt-4"
                 >
                   Back to Home Page{" "}
@@ -488,6 +522,7 @@ function ThankYou(props: any) {
           <img className="w-100" src="images/advertise.png" alt="" />
         </a>
       </section>
+      <VisitNunchiBanner />
     </div>
   );
 }

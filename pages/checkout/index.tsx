@@ -131,7 +131,7 @@ const CheckoutScreen: NextPage = () => {
       .then((response: any) => {
         if (response.statusText === "OK") {
           Toast.showSuccess(ValidationMessage.removedFromCart);
-          let newCartItem = cartItems;
+          let newCartItem= cartItems;
           newCartItem.splice(index, 1);
           setCartItems([...newCartItem]);
         }
@@ -220,13 +220,16 @@ const CheckoutScreen: NextPage = () => {
       Cart.getInstance()
         .checkout(param, { grandTotal, paymentType })
         .then((response: any) => {
-          console.log("checkout info", response.data);          
+          console.log("checkout info", response.data);
+          if(response.status){
+            LocalStorageService.clearCartItem()
+          }
           if (response.status && paymentType == constants.PAYMENT_TYPE.COD) {
             window.location.href = constants.PAYMENT_METHOD.RUPIFI.REDIRECT_CONFIRM_URL+`?merchantPaymentRefId=${response?.data?.data?.id}`;
           }
           if (response.status && paymentType == constants.PAYMENT_TYPE.RUPIFI) {
             window.location.href = response?.data?.data?.paymentUrl;
-          }          
+          }
         })
         .catch((error) => {
           console.log("error", error);
@@ -280,7 +283,7 @@ const CheckoutScreen: NextPage = () => {
                       onClose={() => {
                         setShowAddress(false);
                       }}
-                      onSelect={(id) => {
+                      onSelect={(id:any) => {
                         setShowAddress(false);
                         setAddressFields(
                           JSON.parse(JSON.stringify(allAddress[id]))

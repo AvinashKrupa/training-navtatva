@@ -64,7 +64,7 @@ const ProductDetailScreen: NextPage = () => {
     let newSizeValues: any = [...sizeValues];
     newSizeValues[i][e.target.name] = e.target.value;
     setSizeValues(newSizeValues);
-    let selectCombination = product?.selectCombination;
+    let selectCombination:any = product?.selectCombination;
     selectCombination.size = e.target.value;
     product?.setSelectCombination(selectCombination);
 
