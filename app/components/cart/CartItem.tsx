@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Login from "../../../pages/login";
 import { Cart } from "../../../network/gateway/Cart";
 import LocalStorageService from "../../../utils/storage/LocalStorageService";
 import useUserStore from "../../../zustand/store";

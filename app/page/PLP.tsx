@@ -14,7 +14,6 @@ import SortByBlock from "../../app/components/common/SortByBlock";
 import Paging from "../../app/components/common/Paging";
 import { useRouter } from "next/router";
 import { CatalogService } from "../../network/gateway/Catalog";
-import Login from "../../pages/login";
 import { Cart } from "../../network/gateway/Cart";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
 import Toast from "../../utils/Toast";

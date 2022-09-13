@@ -1,7 +1,8 @@
+import { NextPage } from "next";
 import React from "react";
 import Header from "../../app/themes/themeOne/components/Header";
 
-const appointment = () => {
+const appointment:NextPage = () => {
   return (
     <div className="shoppingCart">
       <div className="wrapper">

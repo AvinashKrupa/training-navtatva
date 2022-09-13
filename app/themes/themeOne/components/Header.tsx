@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import shallow from "zustand/shallow";
-import Logout from "../../../../pages/logout";
 import useUserStore from "../../../../zustand/store";
 import SearchPopup from "../../../components/common/SearchPopup";
 import CartButton from "../../../components/elements/cartButton";
+import Logout from "../../../components/logout";
 
 const Header = () => {
   const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);

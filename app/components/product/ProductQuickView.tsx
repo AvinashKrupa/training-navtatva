@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import Login from "../../../pages/login";
 import { Cart } from "../../../network/gateway/Cart";
 import LocalStorageService from "../../../utils/storage/LocalStorageService";
 import useCartStore from "../../../zustand/cart";
+import Login from "../login";
 
 const ProductQuickView = (props: any) => {
   const [selectCombination, setSelectedCombination] = useState({

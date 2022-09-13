@@ -1,11 +1,11 @@
 import React, { Component, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { Auth } from "../../network/gateway/Auth";
-import useUserStore from "../../zustand/store";
-import Validators from "../../utils/Validator";
-import FormValidation from "../../validation/form";
-import Toast from "../../utils/Toast";
-import ValidationMessage from "../../app/constants/validationMessage";
+import { Auth } from "../../../network/gateway/Auth";
+import Toast from "../../../utils/Toast";
+import FormValidation from "../../../validation/form";
+import useUserStore from "../../../zustand/store";
+import ValidationMessage from "../../constants/validationMessage";
+
 function Login(props: any) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();

@@ -1,8 +1,8 @@
 import { Modal } from "react-bootstrap";
 import { useRouter } from "next/router";
-import LocalStorageService from "../../utils/storage/LocalStorageService";
-import useUserStore from "../../zustand/store";
-import useCartStore from "../../zustand/cart";
+import useUserStore from "../../../zustand/store";
+import LocalStorageService from "../../../utils/storage/LocalStorageService";
+import useCartStore from "../../../zustand/cart";
 
 const Logout = (props: any) => {
   const router = useRouter();
