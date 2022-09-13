@@ -39,7 +39,7 @@ const appointment = () => {
                       </button>
                     </li>
                     <li className="list-inline-item" id="show">
-                      <button type="button" className>
+                      <button type="button">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width={16}
@@ -53,7 +53,7 @@ const appointment = () => {
                       </button>
                     </li>
                     <li className="list-inline-item">
-                      <button type="button" className>
+                      <button type="button">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width={16}
@@ -68,7 +68,7 @@ const appointment = () => {
                       </button>
                     </li>
                     <li className="list-inline-item">
-                      <button type="button" className>
+                      <button type="button">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width={16}

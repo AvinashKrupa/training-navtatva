@@ -118,7 +118,7 @@ const RenderAddressList = (props: any) => {
                 onClose={() => {
                     setShowAddress(false);
                 }}
-                onSelect={(id) => {
+                onSelect={(id:any) => {
                     setShowAddress(false);
                     //console.log("this is index",id)
                     setField(allAddress.data[id])
@@ -129,5 +129,5 @@ const RenderAddressList = (props: any) => {
             />
         )
     }
-
+}
     export default RenderAddressList;

@@ -283,7 +283,7 @@ const CheckoutScreen: NextPage = () => {
                       onClose={() => {
                         setShowAddress(false);
                       }}
-                      onSelect={(id) => {
+                      onSelect={(id:any) => {
                         setShowAddress(false);
                         setAddressFields(
                           JSON.parse(JSON.stringify(allAddress[id]))
