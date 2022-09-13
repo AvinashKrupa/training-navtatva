@@ -1,6 +1,6 @@
 import React from "react";
 
-const Offers = () => {
+const OngoingOffers = () => {
   return (
     <>
       <div>
@@ -59,4 +59,4 @@ const Offers = () => {
   )
 
 }
-export default Offers
+export default OngoingOffers;

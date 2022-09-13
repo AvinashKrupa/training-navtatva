@@ -13,11 +13,10 @@ import { occasionSetting } from "../../utils/sliderConfig";
 import ValidationMessage from "../../app/constants/validationMessage";
 import Validators from "../../utils/Validator";
 import Toast from "../../utils/Toast";
-import Loader from "../../app/components/loader/loader";
 import CartItemLoader from "../../app/components/cart/CartItemLoader";
 import EmptyCart from "../../app/components/checkout/EmptyCart";
-import Offers from "./Offers";
 import OfferCard from "../../app/components/checkout/OfferCard";
+import OngoingOffers from "../../app/components/cart/OngoingOffers";
 
 const CartScreen: NextPage = () => {
   const [cartItems, setCartItems] = useState<any>([]);
@@ -194,7 +193,7 @@ const CartScreen: NextPage = () => {
                       </div>
                     </div>
                   </div>
-                <Offers />
+                <OngoingOffers />
                 </div>
               </div>
             )}

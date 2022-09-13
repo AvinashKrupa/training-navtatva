@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Logout from "../../../pages/logout";
 import CartButton from "../elements/cartButton";
+import Logout from "../logout";
 
 const Header = () => {
   const [showProfile, setShowProfile] = useState(false);
@@ -12,7 +12,7 @@ const Header = () => {
       <header className="main-header">
         <div className="container-fluid">
           <div className="row">
-            <div className="col-lg-1 col-3 align-self-center">  
+            <div className="col-lg-1 col-3 align-self-center">
               <a href="#" className="d-lg-none">
                 <img
                   src="/images/logo-2.png"

@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import shallow from "zustand/shallow";
-import Logout from "../../../pages/logout";
 import useUserStore from "../../../zustand/store";
 import CartButton from "../elements/cartButton";
+import Logout from "../logout";
 
 const Header = () => {
   const [openTap, setOpenTap] = useState<boolean>(true);

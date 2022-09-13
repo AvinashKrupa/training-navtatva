@@ -16,10 +16,11 @@ import "../styles/custom.css";
 import "../styles/multiRangeSlider.css";
 import shallow from "zustand/shallow";
 import "../styles/responsive.css";
-import Login from "./login";
+
 import useUserStore from "../zustand/store";
 import { useEffect, useState } from "react";
 import useCartStore from "../zustand/cart";
+import Login from "../app/components/login";
 
 // import $ from "jquery";
 // import "slick-carousel/slick/slick.css";

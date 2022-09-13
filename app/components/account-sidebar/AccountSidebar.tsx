@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logout from "../../../pages/logout";
+import Logout from "../logout";
 
 const AccountSidebar = () => {
   const [isShowing, setIsShowing] = useState<boolean>(false);
