@@ -220,13 +220,16 @@ const CheckoutScreen: NextPage = () => {
       Cart.getInstance()
         .checkout(param, { grandTotal, paymentType })
         .then((response: any) => {
-          console.log("checkout info", response.data);          
+          console.log("checkout info", response.data);
+          if(response.status){
+            LocalStorageService.clearCartItem()
+          }
           if (response.status && paymentType == constants.PAYMENT_TYPE.COD) {
             window.location.href = constants.PAYMENT_METHOD.RUPIFI.REDIRECT_CONFIRM_URL+`?merchantPaymentRefId=${response?.data?.data?.id}`;
           }
           if (response.status && paymentType == constants.PAYMENT_TYPE.RUPIFI) {
             window.location.href = response?.data?.data?.paymentUrl;
-          }          
+          }
         })
         .catch((error) => {
           console.log("error", error);

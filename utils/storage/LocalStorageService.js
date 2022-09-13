@@ -35,6 +35,9 @@ class LocalStorageService {
       return [];
     }
   }
+  static clearCartItem(){
+    localStorage.removeItem("customer_cart_items");
+  }
 
   static getCustomerId() {
     return localStorage.getItem("customer_id");
