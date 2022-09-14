@@ -105,3 +105,6 @@
 .product-detail-page .discount-offer {
   width: 132px!important;
 }
+a {
+  cursor: pointer;
+}

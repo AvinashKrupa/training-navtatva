@@ -29,8 +29,8 @@ const ProductSmallBlock = (props: any) => {
           <div className="col-sm-7">
             <div className="product-image position-relative">
               {props.images && props.images.length > 0 ? (
-                <a href={Permalink.ofProduct(props)}>
-                  <img src={props.images[0]} className="img-fluid" />
+                <a onClick={ ()=> router.replace(Permalink.ofProduct(props))}>
+                  <img src={props.images[0]} className="img-fluid"/>
                 </a>
               ) : null}
               <button type="button" className="btn-voice">
@@ -60,7 +60,7 @@ const ProductSmallBlock = (props: any) => {
           <div className="col-sm-5">
             <div className="product-content-area">
               <h6>
-                <a href={Permalink.ofProduct(props)}>{props.name}</a>
+                <a onClick={ ()=> router.replace(Permalink.ofProduct(props))}>{props.name}</a>
               </h6>
               <p
                 style={{
