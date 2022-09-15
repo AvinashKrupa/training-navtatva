@@ -88,7 +88,7 @@ const BringInEssence = (props: iProps) => {
                         <a
                           onClick={() => {
                             if (Cart.isProductInCart(info.id)) {
-                              router.push("/cart");
+                              router.replace(Permalink.ofCart());
                             } else {
                               props.onAddCart(info.id);
                             }

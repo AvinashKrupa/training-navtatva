@@ -12,7 +12,7 @@ const Header = () => {
   const [showProfile, setShowProfile] = useState<boolean>(false);
   const [isShowing, setIsShowing] = useState<boolean>(false);
   const isLogin = useUserStore((state: any) => state.isLogin, shallow);
-  const route = useRouter();
+  const router = useRouter();
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
 
   function signOut() {
@@ -105,7 +105,7 @@ const Header = () => {
               <li className="list-inline-item">
                 <a
                   className="wishlist rounded-circle d-block"
-                  onClick={() => route.replace(Permalink.ofWishlist())}
+                  onClick={() => router.replace(Permalink.ofWishlist())}
                   title={""}
                 >
                   <img src="/images/wishlist.png" alt="" />
@@ -124,7 +124,7 @@ const Header = () => {
                     title={""}
                     onClick={() => {
                       if (isLogin) {
-                        route.replace(Permalink.ofMyProfile());
+                        router.replace(Permalink.ofMyProfile());
                       } else {
                         useUserStore.setState({ loginPopup: true });
                       }
@@ -160,7 +160,7 @@ const Header = () => {
                       />
                       <a
                         className="dropdown-item d-inline-block"
-                        href="myprofile"
+                        onClick={() => router.replace(Permalink.ofMyProfile())}
                       >
                         Profile
                       </a>
@@ -183,7 +183,7 @@ const Header = () => {
                       />
                       <a
                         className="dropdown-item d-inline-block"
-                        href="orderhistory"
+                        onClick={() => router.replace(Permalink.ofOrderHistory())}
                       >
                         Orders &amp; Returns
                       </a>
@@ -199,7 +199,7 @@ const Header = () => {
                       />
                       <a
                         className="dropdown-item d-inline-block"
-                        href="payment"
+                        onClick={() => router.replace(Permalink.ofPayment())}
                       >
                         Saved Payment Methods
                       </a>
@@ -212,7 +212,8 @@ const Header = () => {
                       />
                       <a
                         className="dropdown-item d-inline-block"
-                        href="saveaddress"
+                        onClick={() => router.replace(Permalink.ofSaveAddress())}
+
                       >
                         Saved Addresses
                       </a>

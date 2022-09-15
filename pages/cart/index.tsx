@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import Header from "../../app/themes/themeOne/components/Header";
-
+import { useRouter } from "next/router";
 import Slider from "react-slick";
 import CartItem from "../../app/components/cart/CartItem";
 import VisitNunchiBanner from "../../app/components/common/VisitNunchiBanner";
@@ -17,8 +17,10 @@ import CartItemLoader from "../../app/components/cart/CartItemLoader";
 import EmptyCart from "../../app/components/checkout/EmptyCart";
 import OfferCard from "../../app/components/checkout/OfferCard";
 import OngoingOffers from "../../app/components/cart/OngoingOffers";
+import Permalink from "../../utils/Permalink";
 
 const CartScreen: NextPage = () => {
+  const route = useRouter();
   const [cartItems, setCartItems] = useState<any>([]);
   const [couponCode, setCouponCode] = useState<any>("");
   const [subTotal, setSubTotal] = useState<any>();
@@ -156,7 +158,7 @@ const CartScreen: NextPage = () => {
                     </div>
                     <div className="col-md-12 mt-4">
                       <a
-                        href="/checkout"
+                        onClick={() => route.replace(Permalink.ofOrderHistory())}
                         className="btn fs-18 w-100"
                         tabIndex={0}
                       >

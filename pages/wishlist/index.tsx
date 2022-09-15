@@ -34,7 +34,7 @@ const WishlistScreen: NextPage = () => {
                     }
                 })
                 setWishlistProductIds(newWishlist)
-                console.log("this is",newWishlist)
+
             })
             .catch((error) => { });
     }
