@@ -124,7 +124,7 @@ const ProductSmallBlock = (props: any) => {
                   data-bs-target="#exampleModal"
                   onClick={() => {
                     if (Cart.isProductInCart(props.id)) {
-                      router.push("/cart");
+                      router.replace(Permalink.ofCart());
                     } else {
                       props.addToCart(props.id);
                       setCartView(true);

@@ -1,17 +1,19 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import shallow from "zustand/shallow";
+import Permalink from "../../../utils/Permalink";
 import useUserStore from "../../../zustand/store";
 import CartButton from "../elements/cartButton";
 import Logout from "../logout";
 
 const Header = () => {
+  const route = useRouter();
   const [openTap, setOpenTap] = useState<boolean>(true);
   const [showProfile, setShowProfile] = useState<boolean>(false);
   const [isShowing, setIsShowing] = useState<boolean>(false);
   const isLogin = useUserStore((state: any) => state.isLogin, shallow);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
-  const Route = useRouter();
+
   function signOut() {
     if (isLogin) {
       setIsShowing(true);
@@ -19,7 +21,7 @@ const Header = () => {
       setLoginPopup(true);
     }
   }
-  useEffect(() => {}, [isLogin]);
+  useEffect(() => { }, [isLogin]);
 
   return (
     <>
@@ -110,7 +112,7 @@ const Header = () => {
                   <li className="list-inline-item">
                     <a
                       className="wishlist rounded-circle d-block"
-                      href="#"
+                      onClick={() => route.replace(Permalink.ofWishlist())}
                       title=""
                     >
                       <img src="/images/wishlist.png" alt="" />
@@ -135,11 +137,11 @@ const Header = () => {
                     <div className="d-none d-lg-block d-sm-none d-md-none">
                       <a
                         className="user rounded-circle d-block user-img"
-                        href="/myprofile"
+
                         title={""}
                         onClick={() => {
                           if (isLogin) {
-                            Route.push("/myprofile");
+                            route.replace(Permalink.ofMyProfile());
                           } else {
                             useUserStore.setState({ loginPopup: true });
                           }
@@ -175,12 +177,18 @@ const Header = () => {
                       >
                         <p className="fs-20 font-sb text-color-3 ps-3 ">Hey </p>
                         <li><hr className="dropdown-divider" /></li>
-                        <li className="fs-14 font-r text-color-2"><img className="d-inline-block" src="images/p-profile.png" alt="" /><a className="dropdown-item d-inline-block" href="/myprofile">Profile</a></li>
+                        <li className="fs-14 font-r text-color-2"><img className="d-inline-block" src="images/p-profile.png" alt="" /><a className="dropdown-item d-inline-block" onClick={() => {
+                          if (isLogin) {
+                            route.replace(Permalink.ofMyProfile());
+                          } else {
+                            useUserStore.setState({ loginPopup: true });
+                          }
+                        }}>Profile</a></li>
                         <li className="fs-14 font-r text-color-2 "><img className="d-inline-block" src="images/seller.png" alt="" /><a className="dropdown-item d-inline-block" href="#">Your Seller Account</a></li>
-                        <li className="fs-14 font-r text-color-2 "><img className="d-inline-block" src="images/order.png" alt="" /><a className="dropdown-item d-inline-block" href="/orderhistory">Orders &amp; Returns</a></li>
+                        <li className="fs-14 font-r text-color-2 "><img className="d-inline-block" src="images/order.png" alt="" /><a className="dropdown-item d-inline-block"  onClick={() => route.replace(Permalink.ofOrderHistory())}>Orders &amp; Returns</a></li>
                         <li><hr className="dropdown-divider" /></li>
-                        <li className="fs-14 font-r text-color-2"><img className="d-inline-block" src="images/payment.png" alt="" /><a className="dropdown-item d-inline-block" href="/payment">Saved Payment Methods</a></li>
-                        <li className="fs-14 font-r text-color-2 "><img className="d-inline-block" src="images/map.png" alt="" /><a className="dropdown-item d-inline-block" href="/saveaddress">Saved Addresses</a></li>
+                        <li className="fs-14 font-r text-color-2"><img className="d-inline-block" src="images/payment.png" alt="" /><a className="dropdown-item d-inline-block"  onClick={() => route.replace(Permalink.ofPayment())}>Saved Payment Methods</a></li>
+                        <li className="fs-14 font-r text-color-2 "><img className="d-inline-block" src="images/map.png" alt="" /><a className="dropdown-item d-inline-block" onClick={() => route.replace(Permalink.ofSaveAddress())}>Saved Addresses</a></li>
                         <li><hr className="dropdown-divider" /></li>
                         <li className="fs-14 font-r text-color-2"><img className="d-inline-block" src="images/logout.png" alt="" /><a className="dropdown-item d-inline-block" onClick={() => {
                           signOut()
