@@ -17,4 +17,16 @@ export default class Permalink {
   static ofModel(item: any): string {   
     return "/model/" + item.slug + "/" + item.id;
   }
+
+  static ofWishlist(): string {
+    return "/wishlist"
+  }
+
+  static ofCart(): string {
+    return "/cart"
+  }
+
+  static ofMyProfile(): string {
+    return "/myprofile"
+  }
 }
