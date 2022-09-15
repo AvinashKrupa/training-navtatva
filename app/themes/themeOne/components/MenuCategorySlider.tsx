@@ -5,12 +5,14 @@ import NavMenuCategory from "../../../components/layouts/category";
 import Slider from "react-slick";
 import Permalink from "../../../../utils/Permalink";
 import CategoryLoader from "../../../components/loader/CategoryLoader";
+import { useRouter } from "next/router";
 
 interface IProps {
   category: Array<any>;
   loading: boolean;
 }
 const MenuCategorySlider = (props: IProps) => {
+  const router = useRouter();
   const [tempselectedSubCat, setTempSelectedSubCat] = useState<any>([]);
   const [selectedSubCat, setSelectedSubCat] = useState<any>([]);
   const [sideImageOnHover, setSideImageOnHover] = useState<any>([]);
@@ -78,7 +80,7 @@ const MenuCategorySlider = (props: IProps) => {
                                   setSideImageOnHover(info);
                                 }}
                               >
-                                <a href={Permalink.ofCategory(info)}>
+                                <a onClick={ () => router.replace(Permalink.ofCategory(info))}>
                                   {info.name}
                                 </a>
                               </li>
