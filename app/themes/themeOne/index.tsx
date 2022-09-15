@@ -34,6 +34,7 @@ import { CatalogService } from "../../../network/gateway/Catalog";
 import { Cart } from "../../../network/gateway/Cart";
 import LocalStorageService from "../../../utils/storage/LocalStorageService";
 import useUserStore from "../../../zustand/store";
+import { Wishlist } from "../../../network/gateway/Wishlist";
 
 const ThemeOne: NextPage = () => {
   const [category, setCategory] = useState([]);
@@ -167,7 +168,16 @@ const ThemeOne: NextPage = () => {
         console.log("error", error);
       });
   }
-
+  function addToWishList(id: string) {
+    Wishlist.getInstance()
+      .addToWishList(id)
+      .then((info) => {
+        console.log("info", info);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }
 
 
   return (
@@ -202,6 +212,7 @@ const ThemeOne: NextPage = () => {
               setProductId(`${id}`);
               setLoginPopup(true);
             }
+
           }}
         />
         {/* Top Collections */}
@@ -215,7 +226,7 @@ const ThemeOne: NextPage = () => {
               setLoginPopup(true);
             }
           }}
-          onWishlist={() => { }}
+          onWishlist={(id) => {addToWishList(`${id}`) }}
         />
         {/* Shop By Preference */}
         <ShopByPreference
