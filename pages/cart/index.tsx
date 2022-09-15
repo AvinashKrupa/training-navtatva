@@ -158,7 +158,7 @@ const CartScreen: NextPage = () => {
                     </div>
                     <div className="col-md-12 mt-4">
                       <a
-                        onClick={() => route.replace(Permalink.ofOrderHistory())}
+                        onClick={() => route.replace(Permalink.ofCheckout())}
                         className="btn fs-18 w-100"
                         tabIndex={0}
                       >
