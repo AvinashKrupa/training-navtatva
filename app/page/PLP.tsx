@@ -39,7 +39,7 @@ const PLP = () => {
   const [selectedProductData, setSelectedProductData] = useState<Array<any>>(
     []
   );
-
+  const [productsBundle, setProductsBundle] = useState<Array<any>>([]);
   const [quickViewStatus, setQuickViewStatus] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -48,12 +48,12 @@ const PLP = () => {
       addToCart(`${productId}`);
       setProductId("");
     }
-    return () => {};
+    return () => { };
   }, [userData]);
 
   useEffect(() => {
     getProductLists("1661b1f9-64c5-44c4-aeeb-d7e8e9385fc4");
-    return () => {};
+    return () => { };
   }, [id]);
 
   function getProductList() {
@@ -66,20 +66,22 @@ const PLP = () => {
           console.log("ERROR:", response.data);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   }
   function getProductLists(id: any) {
     CatalogService.getInstance()
       .getProductByNode(id)
       .then((response: any) => {
+        console.log("this is product by node", response)
         setLoading(false);
         if (response.data) {
           setProductListing(response.data.data);
+
         } else {
           console.log("ERROR:", response.data);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   }
 
   function getProductDetail(id: any) {
@@ -94,7 +96,7 @@ const PLP = () => {
           console.log("ERROR:", response.data);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   }
 
   function addToCart(id: string) {
@@ -126,6 +128,20 @@ const PLP = () => {
       });
   }
 
+  function getProductsBundle() {
+    CatalogService.getInstance()
+      .getProductsBundle()
+      .then((response: any) => {
+        if (response.data) {
+          setProductsBundle(response.data.data);
+        } else {
+          console.log("ERROR:", response.data);
+        }
+      })
+      .catch((error) => { });
+  }
+
+
   return (
     <>
       <div className="wrapper">
@@ -153,7 +169,7 @@ const PLP = () => {
                         item.attributes.children &&
                         item.attributes.children.length > 0
                       ) {
-                        console.log("itemitemaaa", item.attributes.children);
+                        // console.log("itemitemaaa", item.attributes.children);
                         return (
                           <ProductSmallBlock
                             key={index}
@@ -186,10 +202,17 @@ const PLP = () => {
                         return;
                       }
                     })}
-                    {/* <GroupProductBlock
+                    {/*
+                    {productsBundle.length >0 && productsBundle.map((item: any, index: number) =>{
+                      return(
+                        <GroupProductBlock {...item.attributes}
                       setOpenProductQuickView={setOpenProductQuickView}
                       setOpenCartPopup={setOpenCartPopup}
-                    /> */}
+                    />
+
+                      )
+                    })} */}
+
                     {/* {products?.slice(2, 4)?.map((item: any, index: number) => {
                       return (
                         <ProductSmallBlock

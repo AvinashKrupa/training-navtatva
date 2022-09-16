@@ -50,5 +50,11 @@ export default class Permalink {
     return "/checkout"
   }
 
+  static ofShop(): string {
+    return "/shop";
+  }
+
+
 
 }
+

@@ -30,6 +30,7 @@ const API = {
   ORDER: "order",
   ORDERS: "orders",
   GET_HOME_CONTENT: "getHomeContent/",
+  GET_PRODUCTS_BUNDLE:"category/bundle/products",
   ORDER_TAKING_APP: {
     GET_SELLERS: "get-all-customers",
     PLACE_ORDER: "place-custom-order",

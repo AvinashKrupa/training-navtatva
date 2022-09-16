@@ -226,7 +226,7 @@ const ThemeOne: NextPage = () => {
               setLoginPopup(true);
             }
           }}
-          onWishlist={(id) => {addToWishList(`${id}`) }}
+          onWishlist={(id) => { addToWishList(`${id}`) }}
         />
         {/* Shop By Preference */}
         <ShopByPreference
