@@ -1,7 +1,11 @@
 import React from "react";
+import { useRouter } from "next/router";
 import SectionHeader from "./SectionHeader";
+import Permalink from "../../../../utils/Permalink";
+
 
 const MustInWardrobe = () => {
+    const router = useRouter();
     return (
         <section className="mt-4 mt-md-5 pb-md-5 mb-5">
             <div className="wrapper">
@@ -11,7 +15,7 @@ const MustInWardrobe = () => {
                         <div className="row">
                             <div className="thumb col-sm-6 mb-4 mb-lg-0 col-lg-3 position-relative text-center">
                                 <div className="bg1">
-                                    <a href="/shop">
+                                    <a onClick={() => router.replace(Permalink.ofShop())}>
                                         <img className="w-100" src="images/sarees.png" alt="" />
                                         <h4>SAREES</h4>
                                     </a>
@@ -19,7 +23,7 @@ const MustInWardrobe = () => {
                             </div>
                             <div className="thumb col-sm-6 mb-4 mb-lg-0 col-lg-3 position-relative text-center">
                                 <div className="bg2">
-                                    <a href="/shop">
+                                    <a onClick={() => router.replace(Permalink.ofShop())} >
                                         <img className="w-100" src="images/lehangs.png" alt="" />
                                         <h4>LEHANGAS</h4>
                                     </a>
@@ -27,7 +31,7 @@ const MustInWardrobe = () => {
                             </div>
                             <div className="thumb col-sm-6 mb-4 mb-lg-0 col-lg-3 position-relative text-center">
                                 <div className="bg3">
-                                    <a href="/shop">
+                                    <a onClick={() => router.replace(Permalink.ofShop())} >
                                         <img className="w-100" src="images/churidar.png" alt="" />
                                         <h4>Churidars</h4>
                                     </a>
@@ -35,7 +39,7 @@ const MustInWardrobe = () => {
                             </div>
                             <div className="thumb col-sm-6 mb-4 mb-lg-0 col-lg-3 position-relative text-center">
                                 <div className="bg4">
-                                    <a href="/shop">
+                                    <a onClick={() => router.replace(Permalink.ofShop())} >
                                         <img className="w-100" src="images/fancy.png" alt="" />
                                         <h4>fancy</h4>
                                     </a>
@@ -45,7 +49,7 @@ const MustInWardrobe = () => {
                         <div className="row mt-4 mt-lg-5">
                             <div className="thumb col-sm-6 mb-4 mb-lg-0 col-lg-3 position-relative text-center">
                                 <div className="bg1">
-                                    <a href="/shop">
+                                    <a onClick={() => router.replace(Permalink.ofShop())} >
                                         <img className="w-100" src="images/sarees.png" alt="" />
                                         <h4>SAREES</h4>
                                     </a>
@@ -53,7 +57,7 @@ const MustInWardrobe = () => {
                             </div>
                             <div className="thumb col-sm-6 mb-4 mb-lg-0 col-lg-3 position-relative text-center">
                                 <div className="bg2">
-                                    <a href="/shop">
+                                    <a onClick={() => router.replace(Permalink.ofShop())}>
                                         <img className="w-100" src="images/lehangs.png" alt="" />
                                         <h4>LEHANGAS</h4>
                                     </a>
@@ -61,7 +65,7 @@ const MustInWardrobe = () => {
                             </div>
                             <div className="thumb col-sm-6 mb-4 mb-lg-0 col-lg-3 position-relative text-center">
                                 <div className="bg3">
-                                    <a href="/shop">
+                                    <a onClick={() => router.replace(Permalink.ofShop())} >
                                         <img className="w-100" src="images/churidar.png" alt="" />
                                         <h4>Churidars</h4>
                                     </a>
@@ -69,7 +73,7 @@ const MustInWardrobe = () => {
                             </div>
                             <div className="thumb col-sm-6 mb-4 mb-lg-0 col-lg-3 position-relative text-center">
                                 <div className="bg4">
-                                    <a href="/shop">
+                                    <a onClick={() => router.replace(Permalink.ofShop())}>
                                         <img className="w-100" src="images/fancy.png" alt="" />
                                         <h4>fancy</h4>
                                     </a>

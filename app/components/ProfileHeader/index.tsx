@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Permalink from "../../../utils/Permalink";
 import useUserStore from "../../../zustand/store";
 import shallow from "zustand/shallow";
+import CommonIconBar from "../common/CommonIconBar";
 
 const Header = () => {
   const router = useRouter();
@@ -20,7 +21,7 @@ const Header = () => {
         <div className="container-fluid">
           <div className="row">
             <div className="col-lg-1 col-3 align-self-center">
-              <a href="/" className="d-lg-none">
+              <a onClick={() => router.replace(Permalink.ofHomePage())} className="d-lg-none">
                 <img
                   src="/images/logo-2.png"
                   alt="logo"
@@ -59,7 +60,7 @@ const Header = () => {
                     <i className="fas fa-xmark fa-fw" />
                   </button>
                 </div>
-                <ul className="iconBar text-center">
+                {/* <ul className="iconBar text-center">
                   <li className="list-inline-item">
                     <a className="reverse rounded-circle d-block" href="#">
                       <img src="/images/refresh.png" alt="" />
@@ -216,7 +217,8 @@ const Header = () => {
                       </ul>
                     </div>
                   </li>
-                </ul>
+                </ul> */}
+                <CommonIconBar />
               </nav>
             </div>
           </div>

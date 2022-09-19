@@ -20,7 +20,7 @@ const BringInEssence = (props: iProps) => {
       <div className="row">
         <div className="col-md-12 col-lg-6 pe-3 pe-lg-0">
           <img className="w-100" src="images/explore.png" alt="" />
-          <a href="/shop" className="btn fs-26 ms-0 ms-lg-4 mt-4">
+          <a onClick={() => router.replace(Permalink.ofShop())} className="btn fs-26 ms-0 ms-lg-4 mt-4">
             Explore the Holi Store
             <svg
               xmlns="http://www.w3.org/2000/svg"

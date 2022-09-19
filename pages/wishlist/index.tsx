@@ -6,6 +6,7 @@ import WishlistProductItem from "../../app/components/wishlist/WishlistProductIt
 import Loader from "../../app/components/loader/loader";
 import useUserStore from "../../zustand/store";
 import shallow from "zustand/shallow";
+import WishlistLoader from "../../app/components/loader/WishlistLoader";
 
 const WishlistScreen: NextPage = () => {
 
@@ -39,14 +40,15 @@ const WishlistScreen: NextPage = () => {
             .catch((error) => { });
     }
 
-
+    console.log("this is", wishlistProductIds)
     return (
         <div className="mycollection">
             <div className="wrapper">
                 {/* Header */}
                 <Header />
+                {!wishlistProductIds.length && <WishlistLoader />}
                 {/* End Header */}
-                <section className="productBar mt-4 mt-md-5">
+                {wishlistProductIds.length > 0 && <section className="productBar mt-4 mt-md-5">
                     <ul className="breadcrumb">
                         <li className="fs-40 font-b text-color-2 list-inline-item"><a className="text-color-1" href="#">My Collections</a></li>
                         <li className="fs-40 font-b text-color-2 list-inline-item"><svg xmlns="http://www.w3.org/2000/svg" width={30} height={30} fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
@@ -61,7 +63,7 @@ const WishlistScreen: NextPage = () => {
                         </a></li>
                     </ul>
 
-                    <div className="mt-4 mt-lg-5">
+                    <div className="mt-4 mt-lg-5 mb-3">
                         <div className="row">
                             {wishlistProductIds?.map((each: any, index: number) => {
                                 return (
@@ -70,7 +72,8 @@ const WishlistScreen: NextPage = () => {
                             })}
                         </div>
                     </div>
-                </section>
+                </section>}
+
                 <div className="modal fade wishlistPopup" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
@@ -196,134 +199,7 @@ const WishlistScreen: NextPage = () => {
                     </div>
                 </div>
 
-                {/* Create New Collection*/}
-                <div className="modal fade wishlistPopup show " id="exampleModal1" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header ">
-                                <h5 className="modal-title fs-32 font-b text-color-3 text-center mx-auto" id="exampleModalLabel"><svg xmlns="http://www.w3.org/2000/svg" width={40} height={40} fill="currentColor" className="bi bi-plus-lg" viewBox="0 0 16 16">
-                                    <path fillRule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
-                                </svg> Create New Collection</h5>
-                                <button type="button" className="btn-close mx-0" data-bs-dismiss="modal" aria-label="Close" />
-                            </div>
-                            <div className="modal-body">
-                                <div className="form-group mb-3">
-                                    <p className="fs-16 font-sb text-color-1">Name your collection</p>
-                                    <input className="form-control" placeholder="Kurtis for Summer" />
-                                </div>
-                                <div className="row scroll">
-                                    <div className="col-md-6 col-lg-3 mb-4 mb-md-4">
-                                        <div className="category-area">
-                                            <label className="cateory-checkbox">
-                                                <input type="checkbox" />
-                                                <div className="imgsec"> <img className="w-100" src="images/img1.png" alt="" /></div>
-                                                <span className="checkmark" />
-                                                <div className="overlay   text-start">
-                                                    <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                                    <p className="fs-10 font-r text-color-1 py-2">Women Teal Blue &amp; Beige Ethnic Motifs Printed Straight Kurti
-                                                    </p></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6 col-lg-3 mb-4 mb-md-0">
-                                        <div className="category-area">
-                                            <label className="cateory-checkbox">
-                                                <input type="checkbox" />
-                                                <div className="imgsec"> <img className="w-100" src="images/img1.png" alt="" /></div>
-                                                <span className="checkmark" />
-                                                <div className="overlay   text-start">
-                                                    <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                                    <p className="fs-10 font-r text-color-1 py-2">Women Teal Blue &amp; Beige Ethnic Motifs Printed Straight Kurti
-                                                    </p></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6 col-lg-3 mb-4 mb-md-0">
-                                        <div className="category-area">
-                                            <label className="cateory-checkbox">
-                                                <input type="checkbox" />
-                                                <div className="imgsec"> <img className="w-100" src="images/img1.png" alt="" /></div>
-                                                <span className="checkmark" />
-                                                <div className="overlay   text-start">
-                                                    <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                                    <p className="fs-10 font-r text-color-1 py-2">Women Teal Blue &amp; Beige Ethnic Motifs Printed Straight Kurti
-                                                    </p></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6 col-lg-3 mb-4 mb-md-0">
-                                        <div className="category-area">
-                                            <label className="cateory-checkbox">
-                                                <input type="checkbox" />
-                                                <div className="imgsec"> <img className="w-100" src="images/img1.png" alt="" /></div>
-                                                <span className="checkmark" />
-                                                <div className="overlay   text-start">
-                                                    <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                                    <p className="fs-10 font-r text-color-1 py-2">Women Teal Blue &amp; Beige Ethnic Motifs Printed Straight Kurti
-                                                    </p></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6 col-lg-3 mb-4 mb-md-0">
-                                        <div className="category-area">
-                                            <label className="cateory-checkbox">
-                                                <input type="checkbox" />
-                                                <div className="imgsec"> <img className="w-100" src="images/img1.png" alt="" /></div>
-                                                <span className="checkmark" />
-                                                <div className="overlay   text-start">
-                                                    <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                                    <p className="fs-10 font-r text-color-1 py-2">Women Teal Blue &amp; Beige Ethnic Motifs Printed Straight Kurti
-                                                    </p></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6 col-lg-3 mb-4 mb-md-0">
-                                        <div className="category-area">
-                                            <label className="cateory-checkbox">
-                                                <input type="checkbox" />
-                                                <div className="imgsec"> <img className="w-100" src="images/img1.png" alt="" /></div>
-                                                <span className="checkmark" />
-                                                <div className="overlay   text-start">
-                                                    <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                                    <p className="fs-10 font-r text-color-1 py-2">Women Teal Blue &amp; Beige Ethnic Motifs Printed Straight Kurti
-                                                    </p></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6 col-lg-3 mb-4 mb-md-0">
-                                        <div className="category-area">
-                                            <label className="cateory-checkbox">
-                                                <input type="checkbox" />
-                                                <div className="imgsec"> <img className="w-100" src="images/img1.png" alt="" /></div>
-                                                <span className="checkmark" />
-                                                <div className="overlay   text-start">
-                                                    <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                                    <p className="fs-10 font-r text-color-1 py-2">Women Teal Blue &amp; Beige Ethnic Motifs Printed Straight Kurti
-                                                    </p></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6 col-lg-3 mb-4 mb-md-0">
-                                        <div className="category-area">
-                                            <label className="cateory-checkbox">
-                                                <input type="checkbox" />
-                                                <div className="imgsec"> <img className="w-100" src="images/img1.png" alt="" /></div>
-                                                <span className="checkmark" />
-                                                <div className="overlay   text-start">
-                                                    <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                                    <p className="fs-10 font-r text-color-1 py-2">Women Teal Blue &amp; Beige Ethnic Motifs Printed Straight Kurti
-                                                    </p></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn">Create Collection</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
 
             </div>
         </div>
