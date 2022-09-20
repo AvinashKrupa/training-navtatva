@@ -40,10 +40,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     return () => {};
   }, []);
 
-  useEffect(() => {
-    console.log("HACKER", loginPopup);
-  }, [loginPopup]);
-
   return (
     <>
       <Head>
