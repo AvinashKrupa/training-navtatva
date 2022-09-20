@@ -1,11 +1,18 @@
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { TypeSenseService } from "../../../network/gateway/TypeSenseService";
+import Permalink from "../../../utils/Permalink";
 import SearchPopupItem from "./SearchPopupItem";
 
 const SearchPopup = (props: any) => {
 
+    const route = useRouter();
     const [q, setQ] = useState<any>("");
+    const [category, setCategory] = useState<any>("");
+    const [material, setMaterial] = useState<any>("");
+    const [print, setPrint] = useState<any>("");
+    const [occasion, setOccasion] = useState<any>("");
     const [categories, setCategories] = useState<any>([]);
     const [materials, setMaterials] = useState<any>([]);
     const [occasions, setOccasions] = useState<any>([]);
@@ -84,11 +91,47 @@ const SearchPopup = (props: any) => {
     }
 
     const setSearchOption = (type: string, value: string) => {
-       if(type=="q"){
-        setQ(value)
-       }else{
-        // do something
-       }
+        switch(type){
+            case "q":
+                setQ(value);
+                break;
+            case "category":
+                setCategory(value)
+                break;
+            case "material":
+                setMaterial(value)
+                break;
+            case "print":
+                setPrint(value)
+                break;
+            case "occasion":
+                setOccasion(value)
+                break;
+            default:
+                break;
+        }
+        if (type == "q") {
+            setQ(value)
+        } else {
+            // do something
+            console.log(type, value)
+        }
+    }
+
+    const applyFilter = () => {
+        route.replace(
+            {
+                pathname: Permalink.ofShop(),
+                query: {
+                    q,
+                    category,
+                    material,
+                    print,
+                    occasion,
+                }
+            }
+        )
+        props.setOpenSearchBox(false)
     }
 
     return (
@@ -140,7 +183,7 @@ const SearchPopup = (props: any) => {
                                     type="text"
                                     className="form-control fs-16"
                                     placeholder="Find clothing from over 500+ categories..."
-                                    onChange={ (e) => setSearchOption("q", e.target.value)}
+                                    onChange={(e) => setSearchOption("q", e.target.value)}
                                     value={q}
                                 />
                             </div>
@@ -149,6 +192,17 @@ const SearchPopup = (props: any) => {
                                 <SearchPopupItem {...materials} setSearchOption={setSearchOption} />
                                 <SearchPopupItem {...works} setSearchOption={setSearchOption} />
                                 <SearchPopupItem {...occasions} setSearchOption={setSearchOption} />
+                            </div>
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <button
+                                        onClick={() => applyFilter()}
+                                        type="button"
+                                        className="btn float-end"
+                                    >
+                                        Apply Search
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

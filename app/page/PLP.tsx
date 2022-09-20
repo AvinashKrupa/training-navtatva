@@ -21,6 +21,8 @@ import useUserStore from "../../zustand/store";
 import Loader from "../components/loader/loader";
 import ProductQuickViewLoader from "../components/loader/ProductQuickViewLoader";
 import { Wishlist } from "../../network/gateway/Wishlist";
+import TypeSenseProductSmallBlock from "../components/product/TypeSenseProductSmallBlock";
+import { TypeSenseService } from "../../network/gateway/TypeSenseService";
 
 const PLP = () => {
   const router = useRouter();
@@ -52,11 +54,12 @@ const PLP = () => {
   }, [userData]);
 
   useEffect(() => {
-    getProductLists("1661b1f9-64c5-44c4-aeeb-d7e8e9385fc4");
+    //getProductLists("1661b1f9-64c5-44c4-aeeb-d7e8e9385fc4");
+    getProductCollections();
     return () => { };
   }, [id]);
 
-  function getProductList() {
+/*   function getProductList() {
     CatalogService.getInstance()
       .getProductListing()
       .then((response: any) => {
@@ -67,8 +70,9 @@ const PLP = () => {
         }
       })
       .catch((error) => { });
-  }
-  function getProductLists(id: any) {
+  } */
+
+/*   function getProductLists(id: any) {
     CatalogService.getInstance()
       .getProductByNode(id)
       .then((response: any) => {
@@ -76,6 +80,28 @@ const PLP = () => {
         if (response.data) {
           setProductListing(response.data.data);
 
+        } else {
+          console.log("ERROR:", response.data);
+        }
+      })
+      .catch((error) => { });
+  } */
+
+  function getProductCollections() {
+    let requestJSON: any = {
+      "q": "",
+      "query_by": "name,category,color,brand,material,occasion,description",
+      "page": 1,
+      "per_page": 20,
+      "filter_by": "",
+      "sort_by": ""
+    };
+    TypeSenseService.getInstance()
+      .getProductCollections(requestJSON)
+      .then((response: any) => {
+        setLoading(false);
+        if (response.data) {
+          setProductListing(response.data.data);
         } else {
           console.log("ERROR:", response.data);
         }
@@ -164,42 +190,33 @@ const PLP = () => {
                   <div className="row">
                     {loading && <Loader loading={loading} />}
                     {productListing.map((item: any, index: number) => {
-                      if (
-                        item.attributes.children &&
-                        item.attributes.children.length > 0
-                      ) {
-                        // console.log("itemitemaaa", item.attributes.children);
-                        return (
-                          <ProductSmallBlock
-                            key={index}
-                            {...item.attributes.children[0]}
-                            {...item.attributes.children[0].attributes}
-                            onClickQuickView={(id: any) => {
-                              getProductDetail(id);
-                              setQuickViewStatus(true);
-                            }}
-                            setOpenCartPopup={setOpenCartPopup}
-                            addToCart={(id: string) => {
-                              if (LocalStorageService.getAccessToken()) {
-                                addToCart(`${id}`);
-                              } else {
-                                setProductId(`${id}`);
-                                setLoginPopup(true);
-                              }
-                            }}
-                            addToWishList={(id: string) => {
-                              if (LocalStorageService.getAccessToken()) {
-                                addToWishList(`${id}`);
-                              } else {
-                                setProductId(`${id}`);
-                                setLoginPopup(true);
-                              }
-                            }}
-                          />
-                        );
-                      } else {
-                        return;
-                      }
+                       return (
+                        <TypeSenseProductSmallBlock
+                          key={index}
+                          {...item}
+                          onClickQuickView={(id: any) => {
+                            getProductDetail(id);
+                            setQuickViewStatus(true);
+                          }}
+                          setOpenCartPopup={setOpenCartPopup}
+                          addToCart={(id: string) => {
+                            if (LocalStorageService.getAccessToken()) {
+                              addToCart(`${id}`);
+                            } else {
+                              setProductId(`${id}`);
+                              setLoginPopup(true);
+                            }
+                          }}
+                          addToWishList={(id: string) => {
+                            if (LocalStorageService.getAccessToken()) {
+                              addToWishList(`${id}`);
+                            } else {
+                              setProductId(`${id}`);
+                              setLoginPopup(true);
+                            }
+                          }}
+                        />
+                      );
                     })}
                     {/*
                     {productsBundle.length >0 && productsBundle.map((item: any, index: number) =>{
