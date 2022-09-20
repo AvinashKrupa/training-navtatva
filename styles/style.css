@@ -3122,7 +3122,7 @@ body {
 }
 
 #searchPopup .modal-dialog {
-  max-width: 55% !important;
+  max-width: 100% !important;
 }
 
 #searchPopup .btn-close {

@@ -15,6 +15,7 @@ import Header from "../../../app/themes/themeOne/components/Header";
 
 import { productDetailSliderSetting } from "../../../utils/sliderConfig";
 import ProductObj from "../../../utils/ProductObj";
+import Loader from "../../../app/components/loader/loader";
 
 
 const ProductDetailScreen: NextPage = () => {
@@ -22,6 +23,7 @@ const ProductDetailScreen: NextPage = () => {
   const { slug, id } = router.query;
   const [selectedSection, setSelectedSection] = useState<number>(1);
   const [product, setProduct] = useState<ProductObj>();
+  const [loading, setLoading] = useState<Boolean>(true);
   const initSizeValues: any = [
     {
       size: "",
@@ -51,6 +53,7 @@ const ProductDetailScreen: NextPage = () => {
         .then((response: any) => {
           if (response.data) {
             setProduct(new ProductObj(response?.data?.data));
+            setLoading(false)
           } else {
             console.log("ERROR:", response.data);
           }
@@ -86,6 +89,7 @@ const ProductDetailScreen: NextPage = () => {
           {/* Header */}
           <Header />
           {/* End Header */}
+          {loading && <Loader loading={loading} />}
           {
             product && (
               <section className="mt-0 mt-lg-5 pdp-detail">

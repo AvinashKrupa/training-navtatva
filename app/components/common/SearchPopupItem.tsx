@@ -46,13 +46,12 @@ const SearchPopupItem = (props: any) => {
                             props?.data?.map((item: any, index: number) => {
                                 return (
                                     <li key={index} className="list-inline-item">
-                                        <a href="#">
+                                        <a onClick={() => props.setSearchOption(props?.name, item?.name)}>
                                             <div
                                                 className="meterial-box"
                                                 style={{
-                                                    backgroundImage: "url(/images/month-bg2.jpg)" ??  `url(${item.background_image})` ,
-                                                }}
-                                                onClick={() => props.setSearchOption(props?.name, item?.name)}
+                                                    backgroundImage: item.background_image? `url(${item.background_image})` : "url(/images/month-bg2.jpg)" ,
+                                                }}                                                
                                             >
                                                 <span>{item.name}</span>
                                             </div>
