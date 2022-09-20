@@ -23,6 +23,11 @@ const SearchPopup = (props: any) => {
         return () => { };
     }, [])
 
+    useEffect(() => {
+        setQ(route.query.q)
+        return () => { };
+    }, [route.query])
+
     function getFacetAttributes() {
         TypeSenseService.getInstance()
             .getFacetAttributes("search")
@@ -184,7 +189,7 @@ const SearchPopup = (props: any) => {
                                     className="form-control fs-16"
                                     placeholder="Find clothing from over 500+ categories..."
                                     onChange={(e) => setSearchOption("q", e.target.value)}
-                                    value={q}
+                                    value={q ?? ""}
                                 />
                             </div>
                             <div className="searchbar-popup-contnet">

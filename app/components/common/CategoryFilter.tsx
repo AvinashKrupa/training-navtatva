@@ -3,9 +3,12 @@ import CategoryBox from "./CategoryBox";
 import { filters } from "../../constants/sampleData";
 import { TypeSenseService } from "../../../network/gateway/TypeSenseService";
 import { NavItem } from "react-bootstrap";
+import { useRouter } from "next/router";
+import Permalink from "../../../utils/Permalink";
 
 const CategoryFilter = (props: any) => {
 
+  const route = useRouter();
   const [priceRangeValue, setPriceRangeValue] = useState<any>([0, 100000]);
   const [categories, setCategories] = useState<any>(null);
   const [colors, setColors] = useState<any>(null);
@@ -19,19 +22,20 @@ const CategoryFilter = (props: any) => {
   };
 
   const [reset, setReset] = useState(false);
-  const handlereset = () => {
-    setReset(true)
-    Object.entries(filters)?.map((item: any) => {
-      item[1]?.data?.map((a: any) => {
-        a.isSelected = false
+  const handleReset = () => {
+    /* setReset(true)
+      Object.entries(filters)?.map((item: any) => {
+        item[1]?.data?.map((a: any) => {
+          a.isSelected = false
+        })
       })
-    })
-
+  */
+    route.replace(Permalink.ofShop())
   }
-  useEffect( ()=> {
+  useEffect(() => {
     getFacetAttributes();
-    return () => {};
-  },[])
+    return () => { };
+  }, [])
 
   const {
     //categories,
@@ -49,11 +53,11 @@ const CategoryFilter = (props: any) => {
       .getFacetAttributes("filter")
       .then((response: any) => {
         if (response.data) {
-           let filtersList = response?.data?.data;
-           //console.log("filtersList",filtersList)
-           filtersList.map( (item: any) => {
-              setFiltersData(item)
-           })
+          let filtersList = response?.data?.data;
+          //console.log("filtersList",filtersList)
+          filtersList.map((item: any) => {
+            setFiltersData(item)
+          })
         } else {
           console.log("ERROR:", response.data);
         }
@@ -61,24 +65,24 @@ const CategoryFilter = (props: any) => {
       .catch((error) => { });
   }
 
-  function setFiltersData({display_name, attribute_name, possible_values}: any) {
-    
-    switch(attribute_name){
-      case "category":               
-          setCategories({
-            title: display_name,
-            name: attribute_name,
-            data: getFormatedData(possible_values,attribute_name)
-          })     
+  function setFiltersData({ display_name, attribute_name, possible_values }: any) {
+
+    switch (attribute_name) {
+      case "category":
+        setCategories({
+          title: display_name,
+          name: attribute_name,
+          data: getFormatedData(possible_values, attribute_name)
+        })
         break;
-      case "color":               
+      case "color":
         setColors({
           title: display_name,
           name: attribute_name,
           data: getFormatedData(possible_values, attribute_name)
-        }) 
+        })
         break;
-      case "brand":               
+      case "brand":
         setBrands({
           title: display_name,
           name: attribute_name,
@@ -92,26 +96,26 @@ const CategoryFilter = (props: any) => {
           data: getFormatedData(possible_values, attribute_name)
         })
         break; */
-      case "material":               
+      case "material":
         setMaterials({
           title: display_name,
           name: attribute_name,
           data: getFormatedData(possible_values, attribute_name)
-        }) 
+        })
         break;
-      case "occasion":               
+      case "occasion":
         setOccasions({
           title: display_name,
           name: attribute_name,
           data: getFormatedData(possible_values, attribute_name)
-        })           
+        })
         break;
-      case "print":               
+      case "print":
         setPrints({
           title: display_name,
           name: attribute_name,
           data: getFormatedData(possible_values, attribute_name)
-        })     
+        })
         break;
       default:
         break;
@@ -120,11 +124,11 @@ const CategoryFilter = (props: any) => {
 
   function getFormatedData(data: any, attribute_name: string) {
     let newObje: any = [];
-    data?.map( (item: any, index: number) => {
+    data?.map((item: any, index: number) => {
       newObje.push({
         id: index,
-        name: attribute_name == "color"? item.name: item,
-        color_code: attribute_name =="color"? item.code: item,
+        name: attribute_name == "color" ? item.name : item,
+        color_code: attribute_name == "color" ? item.code : item,
         isSelected: false
       })
     })
@@ -135,7 +139,11 @@ const CategoryFilter = (props: any) => {
   return (
     <div className="col-lg-3 col-xl-2 mb-5 mb-lg-0">
       <div className="leftside-bar">
-        <h6 className="main-title d-flex justify-content-between">Filters <div className="btn-reset" onClick={handlereset}><i className="fas fa-arrows-rotate fa-fw"></i> Reset All</div> </h6>
+        <h6 className="main-title d-flex justify-content-between">Filters
+          <div className="btn-reset" onClick={() => handleReset()}>
+            <i className="fas fa-arrows-rotate fa-fw"></i> Reset All
+          </div>
+        </h6>
         <CategoryBox
           {...categories}
           reset={reset}

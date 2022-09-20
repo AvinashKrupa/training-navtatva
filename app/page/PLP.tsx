@@ -26,8 +26,7 @@ import { TypeSenseService } from "../../network/gateway/TypeSenseService";
 
 const PLP = () => {
   const router = useRouter();
-  const { slug, id } = router.query;
-
+  const { slug, id, q, category, material, print, occasion } = router.query;
   const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);
   const userData = useUserStore((state: any) => state.userInfo);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
@@ -57,7 +56,7 @@ const PLP = () => {
     //getProductLists("1661b1f9-64c5-44c4-aeeb-d7e8e9385fc4");
     getProductCollections();
     return () => { };
-  }, [id]);
+  }, [id, router.query]);
 
 /*   function getProductList() {
     CatalogService.getInstance()
@@ -87,24 +86,42 @@ const PLP = () => {
       .catch((error) => { });
   } */
 
+  function getFilterQuery() {
+    let queryString = "";
+    if(category){
+      queryString+="category:"+category+"&&";
+    }
+    if(material){
+      queryString+="material:"+material+"&&";
+    }
+    if(print){
+      queryString+="print:"+print+"&&";
+    }
+    if(occasion){
+      queryString+="occasion:"+occasion+"&&";
+    }
+    return queryString;
+  }
+
   function getProductCollections() {
+    setLoading(true);
     let requestJSON: any = {
-      "q": "",
+      "q": q ?? "",
       "query_by": "name,category,color,brand,material,occasion,description",
       "page": 1,
       "per_page": 20,
-      "filter_by": "",
+      "filter_by": getFilterQuery(),
       "sort_by": ""
     };
     TypeSenseService.getInstance()
       .getProductCollections(requestJSON)
-      .then((response: any) => {
-        setLoading(false);
-        if (response.data) {
+      .then((response: any) => {                
+        if (response.data) {          
           setProductListing(response.data.data);
         } else {
           console.log("ERROR:", response.data);
         }
+        setLoading(false);
       })
       .catch((error) => { });
   }
