@@ -65,12 +65,12 @@ const ThemeOne: NextPage = () => {
     await getHomeContent("top_collection");
     await getHomeContent("shop_preference");
     await getHomeContent("festival_products");
-    // await getHomeContent("outflit_products");
-    // await getHomeContent("occassion_products");
-    // await getHomeContent("this_month");
-    // await getHomeContent("top_pick");
-    // await getHomeContent("compliment");
-    // await getHomeContent("new_collection");
+    await getHomeContent("outflit_products");
+    await getHomeContent("occassion_products");
+    await getHomeContent("this_month");
+    await getHomeContent("top_pick");
+    await getHomeContent("compliment");
+    await getHomeContent("new_collection");
   }
 
   function getCatalog() {
@@ -178,8 +178,7 @@ const ThemeOne: NextPage = () => {
         console.log("error", error);
       });
   }
-
-
+  //console.log("this is top collection data",topCollection)
   return (
     <div className="home">
       <div className="wrapper">
@@ -192,9 +191,19 @@ const ThemeOne: NextPage = () => {
         {/* <ShoppingBagBlock /> */}
       </div>
       {/* Select your companion to try on your Outfit */}
-      {/* <CompaignOnOutFit /> */}
+      <CompaignOnOutFit data={outfits} />
       {/* Kurtis For Every Occassion */}
-      {/* <KurtisForOccassion /> */}
+      <KurtisForOccassion data={occasion}
+        onAddCart={(id) => {
+          if (LocalStorageService.getAccessToken()) {
+            addToCart(`${id}`);
+          } else {
+            setProductId(`${id}`);
+            setLoginPopup(true);
+          }
+        }}
+        onWishlist={(id) => { addToWishList(`${id}`) }}
+      />
       {/* Must haves In Your Wardrobe section */}
       <MustInWardrobe />
       <div className="wrapper">
@@ -214,6 +223,7 @@ const ThemeOne: NextPage = () => {
             }
 
           }}
+
         />
         {/* Top Collections */}
         <TopCollections
@@ -235,11 +245,20 @@ const ThemeOne: NextPage = () => {
           onWishlist={() => { }}
         />
         {/* What’s New This Month */}
-        <WhatsNewThisMonth />
+        <WhatsNewThisMonth data={currentMonth} />
         {/* NavTatva’s Top Picks */}
-        <NavTatvaTopPicks />
+        <NavTatvaTopPicks data={topCompliment}
+          onAddCart={(id) => {
+            if (LocalStorageService.getAccessToken()) {
+              addToCart(`${id}`);
+            } else {
+              setProductId(`${id}`);
+              setLoginPopup(true);
+            }
+          }}
+        />
         {/* Compliment your Outfits */}
-        {/* <ComplimentYourOutfits /> */}
+        <ComplimentYourOutfits data={topCompliment} />
       </div>
       {/* Designer’s Pick */}
       <DesignersPick />
@@ -258,7 +277,7 @@ const ThemeOne: NextPage = () => {
       {/* Spend More, Win More*/}
       {/* <SpendMoreWinMore /> */}
       {/* New Collections*/}
-      {/* <NewCollections /> */}
+      <NewCollections data={newCollection} />
       {/* More Brands To Explore*/}
       <MoreBrandsToExplore brand={brand} loading={loading} />
       {/* Make your outfits special */}

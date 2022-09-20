@@ -37,7 +37,7 @@ const BringInEssence = (props: iProps) => {
             </svg>
           </a>
         </div>
-        <div className="col-md-12 col-lg-6 align-self-center ps-3 ps-lg-0">
+        <div className="col-md-12 col-lg-6 align-self-center ps-3 ps-lg-0 Occasion">
           <div className="leftbar">
             <h3 className="ps-0 ps-lg-5 mt-4 mt-lg-0 fs-40 font-sb">
               Bring in the Essence of Holi to your wardrobe
@@ -93,7 +93,7 @@ const BringInEssence = (props: iProps) => {
                               props.onAddCart(info.id);
                             }
                           }}
-                          className="btn fs-13 "
+                          className="btn fs-12"
                           tabIndex={0}
                         >
                           {cartItems?.includes(info.id) || false
