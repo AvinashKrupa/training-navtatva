@@ -72,7 +72,6 @@ const PLP = () => {
     CatalogService.getInstance()
       .getProductByNode(id)
       .then((response: any) => {
-        console.log("this is product by node", response)
         setLoading(false);
         if (response.data) {
           setProductListing(response.data.data);

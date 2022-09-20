@@ -183,7 +183,6 @@ export class Wishlist extends HTTPBaseService {
 
   static isWishlistProduct(id: string) {
     let data = LocalStorageService.getWishlist();
-    console.log("dadsadsa", data);
     return data?.includes(id) || false;
   }
 

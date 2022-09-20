@@ -59,5 +59,7 @@ const API = {
     SUCCESS_PAYMENT: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "success",
     CANCEL_PAYMENT: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "cancel",
   },
+  GET_FACET_ATTRIBUTES: 'typesense/collections/facetAttributes',
+  GET_PRODUCT_COLLECTIONS: 'typesense/collections/products/documents',
 };
 export default API;

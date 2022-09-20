@@ -71,7 +71,7 @@ const CategoryBox = (props: any,) => {
                 <MultiRangeSlider
                   min={1000}
                   max={10000}
-                  onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}
+                  onChange={({ min, max }) => {}}
                 />
               </div>
 
