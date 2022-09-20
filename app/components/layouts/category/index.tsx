@@ -23,7 +23,7 @@ function NavMenuCategory(props: iProps) {
         }}
       >
         <img
-          style={{ maxHeight: 204, height: 210 }}
+          style={{ maxHeight: 240, height: 220 }}
           className="img-fluid"
           src={props.image}
           alt={props.title}
