@@ -143,7 +143,7 @@ const TypeSenseProductSmallBlock = (props : any) => {
                     if (Cart.isProductInCart(document.product_id)) {
                       router.replace(Permalink.ofCart());
                     } else {
-                      document.addToCart(document.product_id);
+                      props.addToCart(document.product_id);
                       setCartView(true);
                     }
                   }}

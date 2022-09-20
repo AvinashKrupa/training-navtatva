@@ -45,7 +45,7 @@ function Login(props: any) {
         show={props.visible}
         animation={true}
         size={"xl"}
-        id="searchPopup"
+        id="loginPopup"
         role="dialog"
       >
         <Modal.Dialog className="modal-dialog" role={"document"}>
