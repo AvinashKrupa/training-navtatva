@@ -17,10 +17,10 @@ export class TypeSenseService extends HTTPBaseService {
     return this.classInstance;
   }
 
-  public getFacetAttributes = () => {
+  public getFacetAttributes = (type:string) => {
     return new Promise((resolve: any, reject: any) => {
       this.instance
-        .get(API.GET_FACET_ATTRIBUTES)
+        .get(API.GET_FACET_ATTRIBUTES+type)
         .then((response) => {
           if (response.status == 200) {
             resolve(response);

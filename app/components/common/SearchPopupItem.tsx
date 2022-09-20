@@ -50,7 +50,7 @@ const SearchPopupItem = (props: any) => {
                                             <div
                                                 className="meterial-box"
                                                 style={{
-                                                    backgroundImage: "url(/images/month-bg2.jpg)",
+                                                    backgroundImage: "url(/images/month-bg2.jpg)" ??  `url(${item.background_image})` ,
                                                 }}
                                                 onClick={() => props.setSearchOption(props?.name, item?.name)}
                                             >

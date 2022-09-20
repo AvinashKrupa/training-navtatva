@@ -18,10 +18,10 @@ const SearchPopup = (props: any) => {
 
     function getFacetAttributes() {
         TypeSenseService.getInstance()
-            .getFacetAttributes()
+            .getFacetAttributes("search")
             .then((response: any) => {
                 if (response.data) {
-                    let filtersList = response?.data?.data?.facet_attributes[0]?.collection_attributes?.search_attributes;
+                    let filtersList = response?.data?.data;
                     //console.log("filtersList",filtersList)
                     filtersList.map((item: any) => {
                         setFiltersData(item)
@@ -75,7 +75,8 @@ const SearchPopup = (props: any) => {
         data?.map((item: any, index: number) => {
             newObje.push({
                 id: index,
-                name: item,
+                name: item.name,
+                background_image: item.background_image,
                 isSelected: false
             })
         })

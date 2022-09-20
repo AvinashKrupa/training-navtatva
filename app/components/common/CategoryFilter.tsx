@@ -46,10 +46,10 @@ const CategoryFilter = (props: any) => {
 
   function getFacetAttributes() {
     TypeSenseService.getInstance()
-      .getFacetAttributes()
+      .getFacetAttributes("filter")
       .then((response: any) => {
         if (response.data) {
-           let filtersList = response?.data?.data?.facet_attributes[0]?.collection_attributes?.filter_attributes;
+           let filtersList = response?.data?.data;
            //console.log("filtersList",filtersList)
            filtersList.map( (item: any) => {
               setFiltersData(item)
