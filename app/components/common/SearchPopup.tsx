@@ -1,7 +1,94 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
+import { TypeSenseService } from "../../../network/gateway/TypeSenseService";
+import SearchPopupItem from "./SearchPopupItem";
 
 const SearchPopup = (props: any) => {
+
+    const [q, setQ] = useState<any>("");
+    const [categories, setCategories] = useState<any>([]);
+    const [materials, setMaterials] = useState<any>([]);
+    const [occasions, setOccasions] = useState<any>([]);
+    const [works, setWorks] = useState<any>([]);
+
+    useEffect(() => {
+        getFacetAttributes();
+        return () => { };
+    }, [])
+
+    function getFacetAttributes() {
+        TypeSenseService.getInstance()
+            .getFacetAttributes()
+            .then((response: any) => {
+                if (response.data) {
+                    let filtersList = response?.data?.data?.facet_attributes[0]?.collection_attributes?.search_attributes;
+                    //console.log("filtersList",filtersList)
+                    filtersList.map((item: any) => {
+                        setFiltersData(item)
+                    })
+                } else {
+                    console.log("ERROR:", response.data);
+                }
+            })
+            .catch((error) => { });
+    }
+
+    function setFiltersData({ display_name, attribute_name, possible_values }: any) {
+
+        switch (attribute_name) {
+            case "category":
+                setCategories({
+                    title: display_name,
+                    name: attribute_name,
+                    data: getFormatedData(possible_values, attribute_name)
+                })
+                break;
+            case "material":
+                setMaterials({
+                    title: display_name,
+                    name: attribute_name,
+                    data: getFormatedData(possible_values, attribute_name)
+                })
+                break;
+
+            case "print":
+                setWorks({
+                    title: display_name,
+                    name: attribute_name,
+                    data: getFormatedData(possible_values, attribute_name)
+                })
+                break;
+            case "occasion":
+                setOccasions({
+                    title: display_name,
+                    name: attribute_name,
+                    data: getFormatedData(possible_values, attribute_name)
+                })
+                break;
+            default:
+                break;
+        }
+    }
+
+    function getFormatedData(data: any, attribute_name: string) {
+        let newObje: any = [];
+        data?.map((item: any, index: number) => {
+            newObje.push({
+                id: index,
+                name: item,
+                isSelected: false
+            })
+        })
+        return newObje;
+    }
+
+    const setSearchOption = (type: string, value: string) => {
+       if(type=="q"){
+        setQ(value)
+       }else{
+        // do something
+       }
+    }
 
     return (
         <Modal
@@ -52,168 +139,15 @@ const SearchPopup = (props: any) => {
                                     type="text"
                                     className="form-control fs-16"
                                     placeholder="Find clothing from over 500+ categories..."
+                                    onChange={ (e) => setSearchOption("q", e.target.value)}
+                                    value={q}
                                 />
                             </div>
                             <div className="searchbar-popup-contnet">
-                                <p className="textlight">For</p>
-                                <ul className="list-inline mb-4">
-                                    <li className="list-inline-item">
-                                        <div className="gender-box malebox">
-                                            <i className="fas fa-mars fa-fw" />
-                                        </div>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <div className="gender-box femalebox">
-                                            <i className="fas fa-venus fa-fw" />
-                                        </div>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <div className="gender-box otherbox">
-                                            <i className="fas fa-transgender fa-fw" />
-                                        </div>
-                                    </li>
-                                </ul>
-                                <p className="textlight">Material</p>
-                                <ul className="list-inline mb-4">
-                                    <li className="list-inline-item">
-                                        <a href="#">
-                                            <div
-                                                className="meterial-box"
-                                                style={{
-                                                    backgroundImage: "url(/images/month-bg2.jpg)",
-                                                }}
-                                            >
-                                                <span>Cotton</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <a href="#">
-                                            <div
-                                                className="meterial-box"
-                                                style={{
-                                                    backgroundImage: "url(/images/month-bg3.jpg)",
-                                                }}
-                                            >
-                                                <span>Silk</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <a href="#">
-                                            <div
-                                                className="meterial-box"
-                                                style={{
-                                                    backgroundImage: "url(/images/month-bg4.jpg)",
-                                                }}
-                                            >
-                                                <span>Khaadi</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <a href="#">
-                                            <div
-                                                className="meterial-box"
-                                                style={{
-                                                    backgroundImage: "url(/images/month-bg2.jpg)",
-                                                }}
-                                            >
-                                                <span>Nylon</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <p className="textlight">Work</p>
-                                <ul className="list-inline mb-4">
-                                    <li className="list-inline-item">
-                                        <a href="#">
-                                            <div
-                                                className="meterial-box"
-                                                style={{
-                                                    backgroundImage: "url(/images/month-bg2.jpg)",
-                                                }}
-                                            >
-                                                <span>Printed</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <a href="#">
-                                            <div
-                                                className="meterial-box"
-                                                style={{
-                                                    backgroundImage: "url(/images/month-bg3.jpg)",
-                                                }}
-                                            >
-                                                <span>Embroidery</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <a href="#">
-                                            <div
-                                                className="meterial-box"
-                                                style={{
-                                                    backgroundImage: "url(/images/month-bg4.jpg)",
-                                                }}
-                                            >
-                                                <span>Plain</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <p className="textlight">Occasion</p>
-                                <ul className="list-inline mb-4">
-                                    <li className="list-inline-item">
-                                        <a href="#">
-                                            <div
-                                                className="meterial-box"
-                                                style={{
-                                                    backgroundImage: "url(/images/month-bg2.jpg)",
-                                                }}
-                                            >
-                                                <span>Bridal</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <a href="#">
-                                            <div
-                                                className="meterial-box"
-                                                style={{
-                                                    backgroundImage: "url(/images/month-bg3.jpg)",
-                                                }}
-                                            >
-                                                <span>Office Wear</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <a href="#">
-                                            <div
-                                                className="meterial-box"
-                                                style={{
-                                                    backgroundImage: "url(/images/month-bg4.jpg)",
-                                                }}
-                                            >
-                                                <span>Party Wear</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <a href="#">
-                                            <div
-                                                className="meterial-box"
-                                                style={{
-                                                    backgroundImage: "url(/images/month-bg4.jpg)",
-                                                }}
-                                            >
-                                                <span>Traditional</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
+                                <SearchPopupItem {...categories} setSearchOption={setSearchOption} />
+                                <SearchPopupItem {...materials} setSearchOption={setSearchOption} />
+                                <SearchPopupItem {...works} setSearchOption={setSearchOption} />
+                                <SearchPopupItem {...occasions} setSearchOption={setSearchOption} />
                             </div>
                         </div>
                     </div>
