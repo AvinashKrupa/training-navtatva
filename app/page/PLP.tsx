@@ -26,7 +26,7 @@ import { TypeSenseService } from "../../network/gateway/TypeSenseService";
 
 const PLP = () => {
   const route = useRouter();
-  const { slug, id, q, category, color, price, brand, discount_range, material, occasion, print, page } = route.query;
+  const { slug, id, q, category, color, price, brand, discount_percentage, material, occasion, print, page, sort_by } = route.query;
   const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);
   const [pageCount, setPageCount] = useState<number>(1);
   const [found, setFound] = useState<number>(0);
@@ -97,13 +97,15 @@ const PLP = () => {
       queryString+="color:="+color+"&&";
     }
     if(price){
-      //queryString+="price:=<"+price[0]+"&&price:=>"+price[1]+"&&";
+      let priceRange = price;
+      priceRange = priceRange.split(",");
+      queryString+="sale_price:>"+priceRange[0]+"&&sale_price:<"+priceRange[1]+"&&";
     }
     if(brand){
       queryString+="brand:="+brand+"&&";
     }
-    if(discount_range){
-      //queryString+="discount_range:=<"+discount_range+"&&";
+    if(discount_percentage){
+      queryString+="discount_percentage:<"+discount_percentage+"&&";
     }
     if(material){
       queryString+="material:="+material+"&&";
@@ -118,8 +120,27 @@ const PLP = () => {
   }
 
   function getSortQuery() {
-    let queryString = "";
     
+    let queryString = "created_at:desc";
+    switch(sort_by){
+      case "revelance":
+        //queryString="revelance:asc";
+        break;
+      case "popular":
+        //queryString="popular:asc";
+        break;
+      case "created_at":
+        queryString="created_at:asc";
+        break;
+      case "price":
+        queryString="sale_price:asc";
+        break;
+      case "minimum_order_quantity":
+        queryString="minimum_order_quantity:asc";
+        break;
+      default:
+        break;
+    }
     return queryString;
   }
 
@@ -225,7 +246,7 @@ const PLP = () => {
               <div className="col-lg-9 col-xl-10">
                 <div className="rightside-bar">
                   <SearchBlock setOpenSearchBox={setOpenSearchBox} />
-                  {found>0 && <SortByBlock />}
+                  {found>0 && <SortByBlock route={route}/>}
                   <div className="row">
                     {loading && <Loader loading={loading} />}
                     {productListing.map((item: any, index: number) => {

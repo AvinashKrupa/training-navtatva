@@ -136,7 +136,7 @@ export const filters: any = {
   },
   "discount_ranges": {
     "title": "Discount Range",
-    "name": "discount_range",
+    "name": "discount_percentage",
     "data": [
       {
         "id": 1,

@@ -81,7 +81,7 @@ const CategoryBox = (props: any,) => {
             <>
               <div style={{ marginTop: "15%" }} className="mb-4 price-range-filter">
                 <MultiRangeSlider
-                  min={1000}
+                  min={500}
                   max={10000}
                   onChange={({ min, max }) => setPriceRange(`${min},${max}`)}
                   selectedValue={props.selectedValue}
