@@ -8,49 +8,46 @@ import useUserStore from "../../zustand/store";
 import shallow from "zustand/shallow";
 import WishlistLoader from "../../app/components/loader/WishlistLoader";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
+import Permalink from "../../utils/Permalink";
+import { useRouter } from "next/router";
 
 const WishlistScreen: NextPage = () => {
 
+    const route = useRouter();
     const isLogin = useUserStore((state: any) => state.isLogin, shallow);
     const setLoginPopup = useUserStore((state: any) => state.showLogin);
+    const [loader, setLoader] = useState<Boolean>(true)
     const [wishlistProductIds, setWishlistProductIds] = useState([])
 
     useEffect(() => {
-        if (isLogin) {
+        if (isLogin) {            
             getAllWishist();
         } else {
             setLoginPopup(true);
         }
         //deleteWishListEntry();
+        return () => { };
     }, [isLogin]);
 
     function getAllWishist() {
         Wishlist.getInstance()
             .getWishlist()
-            .then((data: any) => {
-                let newWishlist: any = []
-                data.data.included.cwishlists.map((each: any) => {
-                    if (each?.relationships.wproducts) {
-                        if (each?.relationships.wproducts.data?.length > 0) {
-                            return newWishlist.push(each.relationships?.wproducts?.data[0].id)
-                        }
-                    }
-                })
+            .then((newWishlist: any) => {
+                setLoader(false)
                 setWishlistProductIds(newWishlist)
-
             })
             .catch((error) => { });
     }
 
     function deleteWishListEntry() {
-        let entries: any =[];
-        entries.map( (item: any) => {
+        let entries: any = [];
+        entries.map((item: any) => {
             Wishlist.getInstance()
-            .deleteWishListEntry(item.id)
-            .then((data: any) => {
-                console.log("wishlist entry delted", data)
-            })
-            .catch((error) => console.log(error));
+                .deleteWishListEntry(item.id)
+                .then((data: any) => {
+                    console.log("wishlist entry delted", data)
+                })
+                .catch((error) => console.log(error));
         })
         return true;
     }
@@ -59,34 +56,49 @@ const WishlistScreen: NextPage = () => {
             <div className="wrapper">
                 {/* Header */}
                 <Header />
-                {!wishlistProductIds?.length && <WishlistLoader />}
-                {/* End Header */}
-                {wishlistProductIds?.length > 0 && <section className="productBar mt-4 mt-md-5">
-                    <ul className="breadcrumb">
-                        <li className="fs-40 font-b text-color-2 list-inline-item"><a className="text-color-1" href="#">My Collections</a></li>
-                        <li className="fs-40 font-b text-color-2 list-inline-item"><svg xmlns="http://www.w3.org/2000/svg" width={30} height={30} fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
-                            <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
-                        </svg></li>
-                        <li className="fs-40 font-b text-color-2 list-inline-item"><span className="text-color-3">Kurtis</span></li>
-                        <li className="ms-auto align-self-end"><a type="button" className=" bundle-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-plus-lg" viewBox="0 0 16 16">
-                                <path fillRule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
-                            </svg>
-                            Create Bundle
-                        </a></li>
-                    </ul>
-
-                    <div className="mt-4 mt-lg-5 mb-5">
-                        <div className="row">
-                            {wishlistProductIds?.map((each: any, index: number) => {
-                                return (
-                                    <WishlistProductItem key={index} id={each} wishlistProductIds={wishlistProductIds} getAllWishist={getAllWishist} />
-                                )
-                            })}
+                {loader && <WishlistLoader />}
+                {!loader && wishlistProductIds?.length ==0 && (
+                    <div className="row">
+                        <div className="col-md-12 text-center">
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <button className="btn btn-primary" onClick={() => route.replace(Permalink.ofShop())}>
+                                Wishlist is Empty!! click to Create Now
+                            </button>
                         </div>
                     </div>
-                </section>}
+                )}
+                {/* End Header */}
+                {
+                    wishlistProductIds?.length > 0 &&
+                    <section className="productBar mt-4 mt-md-5">
+                        <ul className="breadcrumb">
+                            <li className="fs-40 font-b text-color-2 list-inline-item"><a className="text-color-1" href="#">My Collections</a></li>
+                            <li className="fs-40 font-b text-color-2 list-inline-item"><svg xmlns="http://www.w3.org/2000/svg" width={30} height={30} fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
+                                <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                            </svg></li>
+                            <li className="fs-40 font-b text-color-2 list-inline-item"><span className="text-color-3">Kurtis</span></li>
+                            <li className="ms-auto align-self-end"><a type="button" className=" bundle-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-plus-lg" viewBox="0 0 16 16">
+                                    <path fillRule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                                </svg>
+                                Create Bundle
+                            </a></li>
+                        </ul>
 
+                        <div className="mt-4 mt-lg-5 mb-5">
+                            <div className="row">
+                                {wishlistProductIds?.map((each: any, index: number) => {
+                                    return (
+                                        <WishlistProductItem key={index} id={each} wishlistProductIds={wishlistProductIds} getAllWishist={getAllWishist} />
+                                    )
+                                })}
+                            </div>
+                        </div>
+                    </section>
+                }
                 <div className="modal fade wishlistPopup" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
@@ -211,9 +223,6 @@ const WishlistScreen: NextPage = () => {
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     );

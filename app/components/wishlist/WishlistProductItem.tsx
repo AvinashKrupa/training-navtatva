@@ -31,7 +31,7 @@ const WishlistProductItem = (props: any) => {
         CatalogService.getInstance()
             .getProducDetail(id)
             .then((data: any) => {
-               //console.log("this is product data",data.data.data)
+                //console.log("this is product data",data.data.data)
                 setWishlistITems(data.data.data.attributes)
                 setLoading(false)
 
@@ -74,42 +74,42 @@ const WishlistProductItem = (props: any) => {
     }
 
 
-    function deleteWishList(id:any){
+    function deleteWishList(id: any) {
 
         Wishlist.getInstance()
-        .deleteWishListItem(id)
-        .then((response: any) => {
-            console.log("this is delete wishlist",response)
+            .deleteWishListItem(id)
+            .then((response: any) => {
+                console.log("this is delete wishlist", response)
 
-            if (response.data) {
-                props.getAllWishist()
+                if (response.data) {
+                    props.getAllWishist()
 
-            } else {
-                console.log("ERROR:", response.data);
-            }
-        })
-        .catch((error) => { });
+                } else {
+                    console.log("ERROR:", response.data);
+                }
+            })
+            .catch((error) => { });
 
     }
 
     function addToCart(id: string) {
         const params = {
-          data: {
-            id: id,
-            type: "cart_item",
-            quantity: 1,
-          },
+            data: {
+                id: id,
+                type: "cart_item",
+                quantity: 1,
+            },
         };
         Cart.getInstance()
-          .addToCart(params)
-          .then((info: any) => {
-            console.log("info", info);
-            deleteWishList(params.data.id)
-          })
-          .catch((error) => {
-            console.log("error", error);
-          });
-      }
+            .addToCart(params)
+            .then((info: any) => {
+                console.log("info", info);
+                deleteWishList(params.data.id)
+            })
+            .catch((error) => {
+                console.log("error", error);
+            });
+    }
 
     return (<>
         {!loading && <div className="col-md-6 col-lg-3 mb-4 mb-md-0 mb-2">
@@ -151,9 +151,9 @@ const WishlistProductItem = (props: any) => {
                             {/* {cartItems?.includes(props.id) || false
                                 ? "Go To Cart"
                                 : "Add to Cart"} */}
-                                 MovetoCart
+                            MovetoCart
 
-                                </a>
+                        </a>
                         <div className="btnbarcart">
                             <a className="btn fs-13 quick m-2" tabIndex={0} onClick={() => {
                                 getProductDetail(props.id);
@@ -176,7 +176,7 @@ const WishlistProductItem = (props: any) => {
                                 {/* {cartItems?.includes(props.id) || false
                                     ? "Go To Cart"
                                     : "Add to Cart"} */}
-                                     MovetoCart
+                                MovetoCart
                             </a>
                         </div>
                     </div>

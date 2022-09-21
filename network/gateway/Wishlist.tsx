@@ -143,40 +143,26 @@ export class Wishlist extends HTTPBaseService {
   };
 
   public getWishlist = async () => {
-    let entryId = await Wishlist.getWishlistEntry();
+
     return new Promise((resolve: any, reject: any) => {
       this.instance
         .get(API.GET_WISHLIST + LocalStorageService.getCustomerId())
         .then((response) => {
           if (response.status == 200) {
-            let message = response.data.msg ?? "";
-            localStorage.setItem("CART_ID", response.data.refId);
-
-
-            console.log("sdad",   response.data);
-            // return;
-            let newWishlist: any = []
-                response.data.included.cwishlists.map((each: any) => {
-                    if (each?.relationships.wproducts) {
-                        if (each?.relationships.wproducts.data?.length > 0) {
-                            return newWishlist.push(each.relationships?.wproducts?.data[0])
-                        }
-                    }
-                })
-
-            let customerWishList =
-              response.data.data?.relationships?.cwishlists?.data || [];
-
-            let productId = newWishlist.map((info: any) => {
-              return info.id;
-            });
-
-            if (productId.length > 0) {
-              if (productId) {
-                LocalStorageService.setWishlist(productId);
-              }
+            let productIds: any = [];
+            if(response?.data?.included){
+                response?.data?.included?.cwishlists[0]?.relationships?.wproducts?.data?.map((item: any) => {
+                  productIds.push(item.id)
+                }
+              )
             }
-            resolve(response);
+            if (productIds?.length > 0) {
+                LocalStorageService.setWishlist(productIds);
+            }else{
+              productIds = [];
+            }
+            localStorage.setItem("WISHLIST_ENTRY", response?.data?.included?.cwishlists[0]?.id);
+            resolve(productIds);
           } else {
             let message = response.data.msg ?? "";
             Toast.showError(message);
