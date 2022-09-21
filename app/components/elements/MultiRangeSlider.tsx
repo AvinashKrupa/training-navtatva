@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 const MultiRangeSlider = (props: any) => {
   const [minVal, setMinVal] = useState(props.min);
   const [maxVal, setMaxVal] = useState(props.max);
+  // todo
+  const [selectedValue, setSelectedValue] = useState([props.min, props.max])
   const minValRef: any = useRef(null);
   const maxValRef: any = useRef(null);
   const range: any = useRef(null);
@@ -14,6 +16,15 @@ const MultiRangeSlider = (props: any) => {
     (value: any) => Math.round(((value - props.min) / (props.max - props.min)) * 100),
     [props.min, props.max]
   );
+
+  useEffect( () => {
+        
+    if(props.selectedValue){
+      let valueArray = props.selectedValue.split(",")
+      setSelectedValue(valueArray)
+    }    
+    return () => {}
+  },[props.selectedValue])
 
   // Set width of the range to decrease from the left side
   useEffect(() => {
@@ -46,46 +57,46 @@ const MultiRangeSlider = (props: any) => {
   }, [minVal, maxVal, props.onChange]);
 
   return (
-    <>
-        <input type="text" id="priceRange" readOnly={true}
-            value={minVal + " - " + maxVal}
+    <>     
+      <input type="text" id="priceRange" readOnly={true}
+        value={minVal + " - " + maxVal}
+      />
+      <div className="range-container">
+        <input
+          type="range"
+          min={props.min}
+          max={props.max}
+          value={minVal}
+          ref={minValRef}
+          onChange={(event) => {
+            const value = Math.min(+event.target.value, maxVal - 1);
+            setMinVal(value);
+            event.target.value = value.toString();
+          }}
+          className={classnames("range-thumb thumb--zindex-3", {
+            "thumb--zindex-5": minVal > props.max - 100
+          })}
         />
-        <div className="range-container">
-            <input
-                type="range"
-                min={props.min}
-                max={props.max}
-                value={minVal}
-                ref={minValRef}
-                onChange={(event) => {
-                const value = Math.min(+event.target.value, maxVal - 1);
-                setMinVal(value);
-                event.target.value = value.toString();
-                }}
-                className={classnames("range-thumb thumb--zindex-3", {
-                "thumb--zindex-5": minVal > props.max - 100
-                })}
-            />
-            <input
-                type="range"
-                min={props.min}
-                max={props.max}
-                value={maxVal}
-                ref={maxValRef}
-                onChange={(event) => {
-                const value = Math.max(+event.target.value, minVal + 1);
-                setMaxVal(value);
-                event.target.value = value.toString();
-                }}
-                className="range-thumb thumb--zindex-4"
-            />
+        <input
+          type="range"
+          min={props.min}
+          max={props.max}
+          value={maxVal}
+          ref={maxValRef}
+          onChange={(event) => {
+            const value = Math.max(+event.target.value, minVal + 1);
+            setMaxVal(value);
+            event.target.value = value.toString();
+          }}
+          className="range-thumb thumb--zindex-4"
+        />
 
-            <div className="range-slider">
-                <div className="slider__track" />
-                <div ref={range} className="slider__range" />
-            </div>
+        <div className="range-slider">
+          <div className="slider__track" />
+          <div ref={range} className="slider__range" />
         </div>
-    </>    
+      </div>
+    </>
   );
 };
 

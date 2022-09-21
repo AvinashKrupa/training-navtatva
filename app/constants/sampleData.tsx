@@ -140,20 +140,20 @@ export const filters: any = {
     "data": [
       {
         "id": 1,
-        "name": "Upto 20% off"
-        ,
+        "name": "Upto 20% off",
+        "value": 20,
         'isSelected': false,
       },
       {
         "id": 2,
-        "name": "Upto 30% off"
-        ,
+        "name": "Upto 30% off",
+        "value": 30,
         'isSelected': false,
       },
       {
         "id": 3,
-        "name": "Upto 40% off"
-        ,
+        "name": "Upto 40% off",
+        "value": 40,
         'isSelected': false,
       },
     ]

@@ -25,9 +25,11 @@ import TypeSenseProductSmallBlock from "../components/product/TypeSenseProductSm
 import { TypeSenseService } from "../../network/gateway/TypeSenseService";
 
 const PLP = () => {
-  const router = useRouter();
-  const { slug, id, q, category, material, print, occasion } = router.query;
+  const route = useRouter();
+  const { slug, id, q, category, color, price, brand, discount_range, material, occasion, print, page } = route.query;
   const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);
+  const [pageCount, setPageCount] = useState<number>(1);
+  const [found, setFound] = useState<number>(0);
   const userData = useUserStore((state: any) => state.userInfo);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
   const [openProductQuickView, setOpenProductQuickView] =
@@ -52,11 +54,11 @@ const PLP = () => {
     return () => { };
   }, [userData]);
 
-  useEffect(() => {
+  useEffect(() => {    
     //getProductLists("1661b1f9-64c5-44c4-aeeb-d7e8e9385fc4");
     getProductCollections();
     return () => { };
-  }, [id, router.query]);
+  }, [id, route.query]);
 
 /*   function getProductList() {
     CatalogService.getInstance()
@@ -89,17 +91,35 @@ const PLP = () => {
   function getFilterQuery() {
     let queryString = "";
     if(category){
-      queryString+="category:"+category+"&&";
+      queryString+="category:="+category+"&&";
+    }
+    if(color){
+      queryString+="color:="+color+"&&";
+    }
+    if(price){
+      //queryString+="price:=<"+price[0]+"&&price:=>"+price[1]+"&&";
+    }
+    if(brand){
+      queryString+="brand:="+brand+"&&";
+    }
+    if(discount_range){
+      //queryString+="discount_range:=<"+discount_range+"&&";
     }
     if(material){
-      queryString+="material:"+material+"&&";
-    }
-    if(print){
-      queryString+="print:"+print+"&&";
+      queryString+="material:="+material+"&&";
     }
     if(occasion){
-      queryString+="occasion:"+occasion+"&&";
+      queryString+="occasion:="+occasion+"&&";
     }
+    if(print){
+      queryString+="print:="+print+"&&";
+    }
+    return queryString;
+  }
+
+  function getSortQuery() {
+    let queryString = "";
+    
     return queryString;
   }
 
@@ -108,15 +128,17 @@ const PLP = () => {
     let requestJSON: any = {
       "q": q ?? "",
       "query_by": "name,category,color,brand,material,occasion,description",
-      "page": 1,
+      "page": parseInt(page) || 1,
       "per_page": 20,
       "filter_by": getFilterQuery(),
-      "sort_by": ""
+      "sort_by": getSortQuery(),
     };
     TypeSenseService.getInstance()
       .getProductCollections(requestJSON)
       .then((response: any) => {                
-        if (response.data) {          
+        if (response.data) {  
+          setFound(response.data.found || 0)
+          setPageCount(Math.ceil(response.data.found/response.data.request_params.per_page))       
           setProductListing(response.data.data);
         } else {
           console.log("ERROR:", response.data);
@@ -203,7 +225,7 @@ const PLP = () => {
               <div className="col-lg-9 col-xl-10">
                 <div className="rightside-bar">
                   <SearchBlock setOpenSearchBox={setOpenSearchBox} />
-                  <SortByBlock />
+                  {found>0 && <SortByBlock />}
                   <div className="row">
                     {loading && <Loader loading={loading} />}
                     {productListing.map((item: any, index: number) => {
@@ -257,6 +279,9 @@ const PLP = () => {
                       );
                     })} */}
                   </div>
+                  {found==0 && !loading && (
+                  <div className="text-center"><br/><b>No products found mathing the applied search.</b></div>
+                )}
                 </div>
                 {/* <SortingBlock />
                 <div className="rightside-bar">
@@ -283,7 +308,8 @@ const PLP = () => {
                     })}
                   </div>
                 </div>*/}
-                <Paging />
+                { found>0 && <Paging currentPage={page || 1} pageCount={pageCount} router={route}/>}
+                
               </div>
             </div>
           </div>
