@@ -61,5 +61,6 @@ const API = {
   },
   GET_FACET_ATTRIBUTES: 'typesense/collections/facetAttributes/',
   GET_PRODUCT_COLLECTIONS: 'typesense/collections/products/documents',
+  DELETE_WISHLIST_ENTRY: 'flows/wishlist/entries/',
 };
 export default API;
