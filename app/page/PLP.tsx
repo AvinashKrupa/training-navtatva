@@ -25,10 +25,11 @@ import TypeSenseProductSmallBlock from "../components/product/TypeSenseProductSm
 import { TypeSenseService } from "../../network/gateway/TypeSenseService";
 
 const PLP = () => {
-  const router = useRouter();
-  const { slug, id } = router.query;
-
+  const route = useRouter();
+  const { slug, id, q, category, color, price, brand, discount_percentage, material, occasion, print, page, sort_by } = route.query;
   const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);
+  const [pageCount, setPageCount] = useState<number>(1);
+  const [found, setFound] = useState<number>(0);
   const userData = useUserStore((state: any) => state.userInfo);
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
   const [openProductQuickView, setOpenProductQuickView] =
@@ -53,11 +54,11 @@ const PLP = () => {
     return () => { };
   }, [userData]);
 
-  useEffect(() => {
+  useEffect(() => {    
     //getProductLists("1661b1f9-64c5-44c4-aeeb-d7e8e9385fc4");
     getProductCollections();
     return () => { };
-  }, [id]);
+  }, [id, route.query]);
 
 /*   function getProductList() {
     CatalogService.getInstance()
@@ -87,24 +88,83 @@ const PLP = () => {
       .catch((error) => { });
   } */
 
+  function getFilterQuery() {
+    let queryString = "";
+    if(category){
+      queryString+="category:="+category+"&&";
+    }
+    if(color){
+      queryString+="color:="+color+"&&";
+    }
+    if(price){
+      let priceRange = price;
+      priceRange = priceRange.split(",");
+      queryString+="sale_price:>"+priceRange[0]+"&&sale_price:<"+priceRange[1]+"&&";
+    }
+    if(brand){
+      queryString+="brand:="+brand+"&&";
+    }
+    if(discount_percentage){
+      queryString+="discount_percentage:<"+discount_percentage+"&&";
+    }
+    if(material){
+      queryString+="material:="+material+"&&";
+    }
+    if(occasion){
+      queryString+="occasion:="+occasion+"&&";
+    }
+    if(print){
+      queryString+="print:="+print+"&&";
+    }
+    return queryString;
+  }
+
+  function getSortQuery() {
+    
+    let queryString = "created_at:desc";
+    switch(sort_by){
+      case "revelance":
+        //queryString="revelance:asc";
+        break;
+      case "popular":
+        //queryString="popular:asc";
+        break;
+      case "created_at":
+        queryString="created_at:asc";
+        break;
+      case "price":
+        queryString="sale_price:asc";
+        break;
+      case "minimum_order_quantity":
+        queryString="minimum_order_quantity:asc";
+        break;
+      default:
+        break;
+    }
+    return queryString;
+  }
+
   function getProductCollections() {
+    setLoading(true);
     let requestJSON: any = {
-      "q": "",
+      "q": q ?? "",
       "query_by": "name,category,color,brand,material,occasion,description",
-      "page": 1,
+      "page": parseInt(page) || 1,
       "per_page": 20,
-      "filter_by": "",
-      "sort_by": ""
+      "filter_by": getFilterQuery(),
+      "sort_by": getSortQuery(),
     };
     TypeSenseService.getInstance()
       .getProductCollections(requestJSON)
-      .then((response: any) => {
-        setLoading(false);
-        if (response.data) {
+      .then((response: any) => {                
+        if (response.data) {  
+          setFound(response.data.found || 0)
+          setPageCount(Math.ceil(response.data.found/response.data.request_params.per_page))       
           setProductListing(response.data.data);
         } else {
           console.log("ERROR:", response.data);
         }
+        setLoading(false);
       })
       .catch((error) => { });
   }
@@ -186,7 +246,7 @@ const PLP = () => {
               <div className="col-lg-9 col-xl-10">
                 <div className="rightside-bar">
                   <SearchBlock setOpenSearchBox={setOpenSearchBox} />
-                  <SortByBlock />
+                  {found>0 && <SortByBlock route={route}/>}
                   <div className="row">
                     {loading && <Loader loading={loading} />}
                     {productListing.map((item: any, index: number) => {
@@ -240,6 +300,9 @@ const PLP = () => {
                       );
                     })} */}
                   </div>
+                  {found==0 && !loading && (
+                  <div className="text-center"><br/><b>No products found mathing the applied search.</b></div>
+                )}
                 </div>
                 {/* <SortingBlock />
                 <div className="rightside-bar">
@@ -266,7 +329,8 @@ const PLP = () => {
                     })}
                   </div>
                 </div>*/}
-                <Paging />
+                { found>0 && <Paging currentPage={page || 1} pageCount={pageCount} router={route}/>}
+                
               </div>
             </div>
           </div>

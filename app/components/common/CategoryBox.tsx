@@ -1,22 +1,15 @@
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { NavItem } from "react-bootstrap";
 import { addAbortSignal } from "stream";
 import MultiRangeSlider from "../elements/MultiRangeSlider";
-import { filters } from "../../constants/sampleData";
-const {
-  categories,
-  colors,
-  brands,
-  discount_ranges,
-  materials,
-  occasions,
-  prints,
-  prices,
-} = filters;
 
 const CategoryBox = (props: any,) => {
+
+  const route = useRouter();  
   const [active, setActive] = useState<boolean>(true);
   const [propsData, setPropsData] = useState<any>([])
-
+  const [priceRange, setPriceRange] = useState<string>("")
 
   useEffect(() => {
     if (props?.reset) {
@@ -26,7 +19,7 @@ const CategoryBox = (props: any,) => {
     }
   })
 
-  const handle = (index: any, id: any) => {
+  const handle = (index: any, value: any) => {
 
 
     if (props.data[index].isSelected) {
@@ -38,8 +31,27 @@ const CategoryBox = (props: any,) => {
       props.data[index].isSelected = true;
       setPropsData([...propsData, props])
     }
+
+    const currentPath = route.pathname;
+    const currentQuery = {...route.query};
+    currentQuery[props.name] = value;
+
+    route.replace({
+        pathname: currentPath,
+        query: currentQuery,
+    });
+
   }
-//console.log("this is filters",filters)
+ 
+  const handlePriceRange = () => {
+    const currentPath = route.pathname;
+    const currentQuery = {...route.query};
+    currentQuery.price = priceRange;
+    route.replace({
+        pathname: currentPath,
+        query: currentQuery,
+    });
+  }
 
   return (
     <div className="category-box">
@@ -58,7 +70,7 @@ const CategoryBox = (props: any,) => {
                     <b className="color-radio" style={{ background: item.color_code }}></b>
                   )
                 }
-                <input type="checkbox" name={item.name} value={item.name} defaultChecked={item.isSelected} onClick={() => handle(index, item.id)} />
+                <input type="radio" name={props.name} value={item.name} defaultChecked={(item.value ?? item.name) == props.selectedValue} onClick={() => handle(index, item.value ?? item.name)} />
                 <span className="radio-checkmark"></span>
               </label>
             )
@@ -69,13 +81,16 @@ const CategoryBox = (props: any,) => {
             <>
               <div style={{ marginTop: "15%" }} className="mb-4 price-range-filter">
                 <MultiRangeSlider
-                  min={1000}
+                  min={500}
                   max={10000}
-                  onChange={({ min, max }) => {}}
+                  onChange={({ min, max }) => setPriceRange(`${min},${max}`)}
+                  selectedValue={props.selectedValue}
                 />
               </div>
 
-              <button type="button" className="btn btn-sm w-100">
+              <button type="button" className="btn btn-sm w-100"
+                onClick={() => handlePriceRange()}
+              >
                 Set Price
               </button>
 

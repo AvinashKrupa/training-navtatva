@@ -21,6 +21,7 @@ const WishlistScreen: NextPage = () => {
         } else {
             setLoginPopup(true);
         }
+        //deleteWishListEntry();
     }, [isLogin]);
 
     function getAllWishist() {
@@ -41,8 +42,18 @@ const WishlistScreen: NextPage = () => {
             .catch((error) => { });
     }
 
-    //  console.log("this is", wishlistProductIds)
-    // console.log("this is one for all wishlists", LocalStorageService.getWishlist())
+    function deleteWishListEntry() {
+        let entries: any =[];
+        entries.map( (item: any) => {
+            Wishlist.getInstance()
+            .deleteWishListEntry(item.id)
+            .then((data: any) => {
+                console.log("wishlist entry delted", data)
+            })
+            .catch((error) => console.log(error));
+        })
+        return true;
+    }
     return (
         <div className="mycollection">
             <div className="wrapper">

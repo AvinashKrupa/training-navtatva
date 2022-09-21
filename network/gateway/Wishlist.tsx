@@ -229,5 +229,26 @@ export class Wishlist extends HTTPBaseService {
     });
   };
 
-
+  public deleteWishListEntry = async (id: any) => {
+   
+    return new Promise((resolve: any, reject: any) => {
+      this.instance
+        .delete(
+          API.DELETE_WISHLIST_ENTRY + id,
+        )
+        .then(async (response) => {
+          if (response.status == 200) {
+            resolve(response);
+          } else {
+            let message = response.data.message;
+            Toast.showError(message);
+            reject(response);
+          }
+        })
+        .catch((error) => {
+          Toast.showError(error.message);
+          reject(error);
+        });
+    });
+  };
 }

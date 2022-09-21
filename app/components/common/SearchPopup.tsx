@@ -23,6 +23,15 @@ const SearchPopup = (props: any) => {
         return () => { };
     }, [])
 
+    useEffect(() => {
+        setQ(route.query.q)
+        setCategory(route.query.category)
+        setMaterial(route.query.material)
+        setPrint(route.query.print)
+        setOccasion(route.query.occasion)
+        return () => { };
+    }, [route.query])
+
     function getFacetAttributes() {
         TypeSenseService.getInstance()
             .getFacetAttributes("search")
@@ -184,14 +193,30 @@ const SearchPopup = (props: any) => {
                                     className="form-control fs-16"
                                     placeholder="Find clothing from over 500+ categories..."
                                     onChange={(e) => setSearchOption("q", e.target.value)}
-                                    value={q}
+                                    value={q ?? ""}
                                 />
                             </div>
                             <div className="searchbar-popup-contnet">
-                                <SearchPopupItem {...categories} setSearchOption={setSearchOption} />
-                                <SearchPopupItem {...materials} setSearchOption={setSearchOption} />
-                                <SearchPopupItem {...works} setSearchOption={setSearchOption} />
-                                <SearchPopupItem {...occasions} setSearchOption={setSearchOption} />
+                                <SearchPopupItem 
+                                    {...categories} 
+                                    setSearchOption={setSearchOption}
+                                    selectedItem={category}
+                                />
+                                <SearchPopupItem 
+                                    {...materials} 
+                                    setSearchOption={setSearchOption} 
+                                    selectedItem={material}
+                                />
+                                <SearchPopupItem 
+                                    {...works} 
+                                    setSearchOption={setSearchOption} 
+                                    selectedItem={print}
+                                />
+                                <SearchPopupItem 
+                                    {...occasions} 
+                                    setSearchOption={setSearchOption} 
+                                    selectedItem={occasion}
+                                />
                             </div>
                             <div className="row">
                                 <div className="col-md-12">
