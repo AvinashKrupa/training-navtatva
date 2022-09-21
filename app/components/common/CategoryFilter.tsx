@@ -9,7 +9,7 @@ import Permalink from "../../../utils/Permalink";
 const CategoryFilter = (props: any) => {
 
   const route = useRouter();
-  const { slug, id, q, category, color, price, brand, discount_range, material, occasion, print, page } = route.query;
+  const { slug, id, q, category, color, price, brand, discount_percentage, material, occasion, print, page } = route.query;
   const [priceRangeValue, setPriceRangeValue] = useState<any>([0, 100000]);
   const [categories, setCategories] = useState<any>(null);
   const [colors, setColors] = useState<any>(null);
@@ -175,7 +175,7 @@ const CategoryFilter = (props: any) => {
           {...discount_ranges}
           reset={reset}
           setReset={setReset}
-          selectedValue={discount_range}
+          selectedValue={discount_percentage}
         />
         <CategoryBox
           {...materials}
