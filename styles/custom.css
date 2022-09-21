@@ -140,4 +140,15 @@ a {
   background: none !important;
   border: none;
 }
+.page-item.active .page-link {
+  background-color: #300056!important;
+  border-color: #300056!important;
+}
+li.page-item.disabled {
+  display: none;
+}
+.active-border{
+  border: 2px dashed #300056;
+  border-radius: 10px;
+}
 
