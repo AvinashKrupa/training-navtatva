@@ -7,6 +7,7 @@ import Loader from "../../app/components/loader/loader";
 import useUserStore from "../../zustand/store";
 import shallow from "zustand/shallow";
 import WishlistLoader from "../../app/components/loader/WishlistLoader";
+import LocalStorageService from "../../utils/storage/LocalStorageService";
 
 const WishlistScreen: NextPage = () => {
 
@@ -30,7 +31,7 @@ const WishlistScreen: NextPage = () => {
                 data.data.included.cwishlists.map((each: any) => {
                     if (each?.relationships.wproducts) {
                         if (each?.relationships.wproducts.data?.length > 0) {
-                            return newWishlist.push(each.relationships?.wproducts?.data[0])
+                            return newWishlist.push(each.relationships?.wproducts?.data[0].id)
                         }
                     }
                 })
@@ -40,15 +41,16 @@ const WishlistScreen: NextPage = () => {
             .catch((error) => { });
     }
 
-    console.log("this is", wishlistProductIds)
+    //  console.log("this is", wishlistProductIds)
+    // console.log("this is one for all wishlists", LocalStorageService.getWishlist())
     return (
         <div className="mycollection">
             <div className="wrapper">
                 {/* Header */}
                 <Header />
-                {!wishlistProductIds.length && <WishlistLoader />}
+                {!wishlistProductIds?.length && <WishlistLoader />}
                 {/* End Header */}
-                {wishlistProductIds.length > 0 && <section className="productBar mt-4 mt-md-5">
+                {wishlistProductIds?.length > 0 && <section className="productBar mt-4 mt-md-5">
                     <ul className="breadcrumb">
                         <li className="fs-40 font-b text-color-2 list-inline-item"><a className="text-color-1" href="#">My Collections</a></li>
                         <li className="fs-40 font-b text-color-2 list-inline-item"><svg xmlns="http://www.w3.org/2000/svg" width={30} height={30} fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
@@ -63,11 +65,11 @@ const WishlistScreen: NextPage = () => {
                         </a></li>
                     </ul>
 
-                    <div className="mt-4 mt-lg-5 mb-3">
+                    <div className="mt-4 mt-lg-5 mb-5">
                         <div className="row">
                             {wishlistProductIds?.map((each: any, index: number) => {
                                 return (
-                                    <WishlistProductItem key={index} id={each.id} size={wishlistProductIds.length} />
+                                    <WishlistProductItem key={index} id={each} wishlistProductIds={wishlistProductIds} getAllWishist={getAllWishist} />
                                 )
                             })}
                         </div>

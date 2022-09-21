@@ -87,7 +87,7 @@ const ThemeOne: NextPage = () => {
             setCategoryByOccasion(
               response.data.data["Category By Occasion"].children
             );
-            console.log("category", response.data.data);
+
             resolve(response);
           } else {
             resolve([]);

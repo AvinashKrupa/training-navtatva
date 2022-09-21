@@ -24,6 +24,7 @@ export class Wishlist extends HTTPBaseService {
     if (wishListId) {
       return new Promise((resolve: any, reject: any) => {
         resolve(wishListId);
+        //localStorage.removeItem("WISHLIST_ENTRY")
       });
     } else {
       let obj = Wishlist.getInstance();
@@ -151,13 +152,22 @@ export class Wishlist extends HTTPBaseService {
             let message = response.data.msg ?? "";
             localStorage.setItem("CART_ID", response.data.refId);
 
-            // console.log("sdad", response.data.data);
+
+            console.log("sdad",   response.data);
             // return;
+            let newWishlist: any = []
+                response.data.included.cwishlists.map((each: any) => {
+                    if (each?.relationships.wproducts) {
+                        if (each?.relationships.wproducts.data?.length > 0) {
+                            return newWishlist.push(each.relationships?.wproducts?.data[0])
+                        }
+                    }
+                })
 
             let customerWishList =
               response.data.data?.relationships?.cwishlists?.data || [];
 
-            let productId = customerWishList.map((info: any) => {
+            let productId = newWishlist.map((info: any) => {
               return info.id;
             });
 
@@ -218,4 +228,6 @@ export class Wishlist extends HTTPBaseService {
         });
     });
   };
+
+
 }

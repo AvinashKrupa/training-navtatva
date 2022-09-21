@@ -5005,3 +5005,21 @@ background: linear-gradient(36deg, rgba(123,74,0,1) 0%, rgba(31,31,31,1) 100%);}
 .mycollection .kurti-bundel h5 span.title-3{ font-size: 4vw; line-height: 56px; }
 
 /* WISHLIST END */
+
+.product-block-1 .btn-heart {
+  border: 0;
+  padding: 0;
+  position: absolute;
+  right: 2px;
+  top: 0;
+  background: #eb1354;
+  width: 36px;
+  height: 36px;
+  line-height: 30px;
+  border-radius: 50px;
+  font-size: 20px;
+  color: #fff;
+  transition: all 0.4s ease;
+  margin-bottom: 30px;
+
+}

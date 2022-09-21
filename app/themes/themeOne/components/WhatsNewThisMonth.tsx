@@ -18,7 +18,7 @@ const WhatsNewThisMonth = (props: iProps) => {
               <Slider {...preferenceSliderSetting}>
                 {props.data.map((info: any, index: number) => {
                   return (
-                    <div className="thumb position-relative text-center"  >
+                    <div className="thumb position-relative text-center" key={index} >
                       <div className="bg1" style={{backgroundImage:`url(${info.image})`}}>
                         <img
                           className="w-100"

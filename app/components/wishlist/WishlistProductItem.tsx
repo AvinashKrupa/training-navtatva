@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import ProductQuickView from "../product/ProductQuickView";
 import ProductQuickViewLoader from "../loader/ProductQuickViewLoader";
 import LocalStorageService from "../../../utils/storage/LocalStorageService";
+import { Wishlist } from "../../../network/gateway/Wishlist";
 
 
 const WishlistProductItem = (props: any) => {
@@ -30,6 +31,7 @@ const WishlistProductItem = (props: any) => {
         CatalogService.getInstance()
             .getProducDetail(id)
             .then((data: any) => {
+               //console.log("this is product data",data.data.data)
                 setWishlistITems(data.data.data.attributes)
                 setLoading(false)
 
@@ -68,12 +70,52 @@ const WishlistProductItem = (props: any) => {
                 }
             })
             .catch((error) => { });
+
     }
+
+
+    function deleteWishList(id:any){
+
+        Wishlist.getInstance()
+        .deleteWishListItem(id)
+        .then((response: any) => {
+            console.log("this is delete wishlist",response)
+
+            if (response.data) {
+                props.getAllWishist()
+
+            } else {
+                console.log("ERROR:", response.data);
+            }
+        })
+        .catch((error) => { });
+
+    }
+
+    function addToCart(id: string) {
+        const params = {
+          data: {
+            id: id,
+            type: "cart_item",
+            quantity: 1,
+          },
+        };
+        Cart.getInstance()
+          .addToCart(params)
+          .then((info: any) => {
+            console.log("info", info);
+            deleteWishList(params.data.id)
+          })
+          .catch((error) => {
+            console.log("error", error);
+          });
+      }
+
     return (<>
         {!loading && <div className="col-md-6 col-lg-3 mb-4 mb-md-0 mb-2">
             <div className="collection position-relative">
                 <a href="#">
-                    <div className="imgsec">
+                    <div className="imgsec mb-4">
                         {wishlistItems.images && wishlistItems.images.length > 0 ? (
                             <a href={Permalink.ofProduct(props)}>
                                 <img src={wishlistItems.images[0]} className="w-100" style={{ height: 380 }} />
@@ -105,25 +147,37 @@ const WishlistProductItem = (props: any) => {
                     </p>
 
                 </a>
-                        <a className="btn btnbg fs-13 " tabIndex={0}>{cartItems?.includes(props.id) || false
-                            ? "Go To Cart"
-                            : "Add to Cart"}</a>
+                        <a className="btn btnbg fs-13 " tabIndex={0}>
+                            {/* {cartItems?.includes(props.id) || false
+                                ? "Go To Cart"
+                                : "Add to Cart"} */}
+                                 MovetoCart
+
+                                </a>
                         <div className="btnbarcart">
                             <a className="btn fs-13 quick m-2" tabIndex={0} onClick={() => {
                                 getProductDetail(props.id);
                                 setQuickViewStatus(true);
-                            }} >Quick View</a>
+                            }} >
+                                Quick View
+                            </a>
                             <a className="btn fs-13 m-2" tabIndex={0} onClick={() => {
                                 if (LocalStorageService.getAccessToken()) {
-                                    if (Cart.isProductInCart(props.id)) {
-                                        router.push("/cart");
-                                    } else {
-                                        addtoCart(`${props?.id}`)
-                                    }
+                                    // if (Cart.isProductInCart(props.id)) {
+                                    //     router.push("/cart");
+                                    // } else {
+                                    //     addToCart(props?.id)
+
+                                    // }
+                                    deleteWishList(props.id)
+                                    // console.log("this is id",props.id)
                                 }
-                            }}>{cartItems?.includes(props.id) || false
-                                ? "Go To Cart"
-                                : "Add to Cart"}</a>
+                            }}>
+                                {/* {cartItems?.includes(props.id) || false
+                                    ? "Go To Cart"
+                                    : "Add to Cart"} */}
+                                     MovetoCart
+                            </a>
                         </div>
                     </div>
                 </div>
