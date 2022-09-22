@@ -1,8 +1,11 @@
+import { useRouter } from "next/router";
 import React from "react";
 import Slider from "react-slick";
+import Permalink from "../../../utils/Permalink";
 import { occasionSetting } from "../../../utils/sliderConfig";
 
 const DetailUpsellCrossSell = () => {
+  const route = useRouter();
   return (
     <section className="mt-4 mt-md-5 pb-5">
       <div className="row">
@@ -33,7 +36,7 @@ const DetailUpsellCrossSell = () => {
                       </p>
                       <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
                       <a
-                        href="/product/dummy"
+                        onClick={() => route.replace(Permalink.ofDummyProduct())}
                         className="btn-border fs-13 text-color-3"
                       >
                         More Info
@@ -73,7 +76,7 @@ const DetailUpsellCrossSell = () => {
                       </p>
                       <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
                       <a
-                        href="/product/dummy"
+                        onClick={() => route.replace(Permalink.ofDummyProduct())}
                         className="btn-border fs-13 text-color-3"
                       >
                         More Info
@@ -113,7 +116,7 @@ const DetailUpsellCrossSell = () => {
                       </p>
                       <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
                       <a
-                        href="/product/dummy"
+                        onClick={() => route.replace(Permalink.ofDummyProduct())}
                         className="btn-border fs-13 text-color-3"
                       >
                         More Info
@@ -153,7 +156,7 @@ const DetailUpsellCrossSell = () => {
                       </p>
                       <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
                       <a
-                        href="/product/dummy"
+                        onClick={() => route.replace(Permalink.ofDummyProduct())}
                         className="btn-border fs-13 text-color-3"
                       >
                         More Info
@@ -193,7 +196,7 @@ const DetailUpsellCrossSell = () => {
                       </p>
                       <p className="fs-19 font-sb text-color-3 py-3">₹3,450</p>
                       <a
-                        href="/product/dummy"
+                        onClick={() => route.replace(Permalink.ofDummyProduct())}
                         className="btn-border fs-13 text-color-3"
                       >
                         More Info

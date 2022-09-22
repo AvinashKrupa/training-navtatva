@@ -16,14 +16,22 @@ import Header from "../../../app/themes/themeOne/components/Header";
 import { productDetailSliderSetting } from "../../../utils/sliderConfig";
 import ProductObj from "../../../utils/ProductObj";
 import Loader from "../../../app/components/loader/loader";
+import { Cart } from "../../../network/gateway/Cart";
+import LocalStorageService from "../../../utils/storage/LocalStorageService";
+import Permalink from "../../../utils/Permalink";
+import Login from "../../../app/components/login";
+import useCartStore from "../../../zustand/cart";
+import { Wishlist } from "../../../network/gateway/Wishlist";
 
 
 const ProductDetailScreen: NextPage = () => {
   const router = useRouter();
   const { slug, id } = router.query;
+  const [login, setLogin] = useState<boolean>(false);
   const [selectedSection, setSelectedSection] = useState<number>(1);
   const [product, setProduct] = useState<ProductObj>();
   const [loading, setLoading] = useState<Boolean>(true);
+  const cartItems = useCartStore((state: any) => state.cartItems);
   const initSizeValues: any = [
     {
       size: "",
@@ -34,10 +42,6 @@ const ProductDetailScreen: NextPage = () => {
   ];
   const [sizeValues, setSizeValues] = useState<any>(initSizeValues);
   const [colorPopup, setColorPopup] = useState<boolean>(false)
-
-
-
-
 
   useEffect(() => {
     if (id) {
@@ -81,6 +85,46 @@ const ProductDetailScreen: NextPage = () => {
     newSizeValues.splice(i, 1);
     setSizeValues(newSizeValues);
   };
+
+  function addToCart(id: string) {
+    const params = {
+      data: {
+        id: id,
+        type: "cart_item",
+        quantity: 1,
+      },
+    };
+    Cart.getInstance()
+      .addToCart(params)
+      .then((info) => {
+        console.log("info", info);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }
+
+  function addToWishList(id: string) {
+    Wishlist.getInstance()
+      .addToWishList(id)
+      .then((info) => {
+        console.log("info", info);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }
+
+  function deleteFromWishlist(id: string) {
+    Wishlist.getInstance()
+      .deleteWishListItem(id)
+      .then((info) => {
+        console.log("info", info);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }
 
   return (
     <>
@@ -1156,12 +1200,24 @@ const ProductDetailScreen: NextPage = () => {
                     </h5>
                   </li>
                   <li className="list-inline-item offset-lg-2 mt-3 mt-lg-0 text-center text-lg-start">
-                    <a href="#" className="wishlist">
-                      <img
-                        className="me-2"
-                        src="/images/wishlist-detail.png"
-                        alt=""
-                      />
+                    <a className="product-block">
+                      <button
+                        onClick={() => {
+                          if(Wishlist.isWishlistProduct(product.getId())){
+                            deleteFromWishlist(product.getId())
+                          }else{
+                            addToWishList(product.getId())
+                          }                          
+                        }}
+                        type="button"
+                        className={`btn-heart ${
+                          Wishlist.isWishlistProduct(product.getId()) ? "active" : ""
+                        }`}
+                      >
+                        <i
+                          className={`far fa-heart fa-fw`}
+                        />
+                      </button>
                     </a>
                     <a
                       href="#"
@@ -1172,8 +1228,25 @@ const ProductDetailScreen: NextPage = () => {
                     <a href="#" className="btn-border fs-20 me-2 d-lg-none">
                       Wishlist
                     </a>
-                    <a href="/cart" className="btn fs-20">
-                      Add to Cart
+                    <a
+                      className="btn fs-20"
+                      onClick={() => {
+                        if (Cart.isProductInCart(product.getId())) {
+                          router.replace(Permalink.ofCart());
+                        } else {
+                          if (LocalStorageService.getAccessToken()) {
+                            addToCart(product.getId());
+                          } else {
+                            setLogin(true);
+                          }
+                        }
+                      }}
+                    >
+                      {
+                        cartItems?.includes(product.getId()) || false
+                          ? "Go To Cart"
+                          : "Add to Cart"
+                      }  
                     </a>
                   </li>
                 </ul>
@@ -1186,6 +1259,14 @@ const ProductDetailScreen: NextPage = () => {
         <SearchPopup />
         {/* End Search Popup */}
       </div>
+      <Login
+        onSuccess={() => {
+          setLogin(false);
+          addToCart(product?.getId());
+        }}
+        visible={login}
+        onClose={() => setLogin(false)}
+      />
     </>
   );
 };
