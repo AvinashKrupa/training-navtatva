@@ -25,16 +25,17 @@ export class Cart extends HTTPBaseService {
   static getCartId() {
     let cartId = localStorage.getItem("CART_ID");
 
-    if (!cartId) {
+    if (!cartId || cartId === 'undefined') {
       cartId = uuidv4();
       localStorage.setItem("CART_ID", cartId);
     }
     return cartId;
+
   }
 
   static async regenrateCustomerCartAssociation() {
     let cartId = uuidv4();
-    localStorage.setItem("CART_ID", cartId);    
+    localStorage.setItem("CART_ID", cartId);
     let params = {
       data: [
         {
@@ -176,13 +177,13 @@ export class Cart extends HTTPBaseService {
   };
 
   public checkout = (data: any, order: any) => {
-    
+
     return new Promise((resolve: any, reject: any) => {
       this.instance
         .post(API.CHECKOUT + "/" + Cart.getCartId(), data)
-        .then((response) => {          
-          console.log("ORDER PLACED",response)
-          if(response.status == 200 && order.paymentType == constants.PAYMENT_TYPE.COD){
+        .then((response) => {
+          console.log("ORDER PLACED", response)
+          if (response.status == 200 && order.paymentType == constants.PAYMENT_TYPE.COD) {
             Cart.regenrateCustomerCartAssociation();
             Cart.removeCartItems();
             let requestJSON = {
@@ -203,7 +204,7 @@ export class Cart extends HTTPBaseService {
                 console.log(error);
                 reject(error);
               });
-          }else if (response.status == 200 && order.paymentType == constants.PAYMENT_TYPE.RUPIFI) {
+          } else if (response.status == 200 && order.paymentType == constants.PAYMENT_TYPE.RUPIFI) {
             const { id } = response?.data?.data;
             const sellerId = LocalStorageService.getCustomerId();
             const requestJSON = {

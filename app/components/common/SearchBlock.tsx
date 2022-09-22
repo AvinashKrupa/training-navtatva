@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
 const SearchBlock = (props: any) => {
 
-    const [searchText, setSearchText] = useState("")
+    const route = useRouter();
+    const [searchText, setSearchText] = useState<any>("")
+
+    useEffect( () => {
+        setSearchText(route.query.q)
+        return () => {}
+    },[route.query])
 
     return (
         <>
@@ -31,12 +38,13 @@ const SearchBlock = (props: any) => {
                         placeholder="Kurtis"
                         aria-label="Kurtis"
                         aria-describedby="addon-wrapping"
-                        value={searchText}
+                        value={searchText ?? ""}
                         onChange={ (e) => setSearchText(e.target.value)}
                         onClick={(event) => {
                             event.preventDefault();
                             props.setOpenSearchBox(true);
                         }}
+                        readOnly={true}
                     />
                 </div>
                 {

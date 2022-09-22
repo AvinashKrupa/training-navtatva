@@ -30,6 +30,7 @@ const API = {
   ORDER: "order",
   ORDERS: "orders",
   GET_HOME_CONTENT: "getHomeContent/",
+  GET_PRODUCTS_BUNDLE:"category/bundle/products",
   ORDER_TAKING_APP: {
     GET_SELLERS: "get-all-customers",
     PLACE_ORDER: "place-custom-order",
@@ -58,5 +59,8 @@ const API = {
     SUCCESS_PAYMENT: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "success",
     CANCEL_PAYMENT: constants.PAYMENT_METHOD.RUPIFI.BASE_URL + "cancel",
   },
+  GET_FACET_ATTRIBUTES: 'typesense/collections/facetAttributes/',
+  GET_PRODUCT_COLLECTIONS: 'typesense/collections/products/documents',
+  DELETE_WISHLIST_ENTRY: 'flows/wishlist/entries/',
 };
 export default API;

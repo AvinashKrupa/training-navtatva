@@ -20,7 +20,7 @@ const BringInEssence = (props: iProps) => {
       <div className="row">
         <div className="col-md-12 col-lg-6 pe-3 pe-lg-0">
           <img className="w-100" src="images/explore.png" alt="" />
-          <a href="/shop" className="btn fs-26 ms-0 ms-lg-4 mt-4">
+          <a onClick={() => router.replace(Permalink.ofShop())} className="btn fs-26 ms-0 ms-lg-4 mt-4">
             Explore the Holi Store
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@ const BringInEssence = (props: iProps) => {
             </svg>
           </a>
         </div>
-        <div className="col-md-12 col-lg-6 align-self-center ps-3 ps-lg-0">
+        <div className="col-md-12 col-lg-6 align-self-center ps-3 ps-lg-0 Occasion">
           <div className="leftbar">
             <h3 className="ps-0 ps-lg-5 mt-4 mt-lg-0 fs-40 font-sb">
               Bring in the Essence of Holi to your wardrobe
@@ -88,12 +88,12 @@ const BringInEssence = (props: iProps) => {
                         <a
                           onClick={() => {
                             if (Cart.isProductInCart(info.id)) {
-                              router.push("/cart");
+                              router.replace(Permalink.ofCart());
                             } else {
                               props.onAddCart(info.id);
                             }
                           }}
-                          className="btn fs-13 "
+                          className="btn fs-12"
                           tabIndex={0}
                         >
                           {cartItems?.includes(info.id) || false

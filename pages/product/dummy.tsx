@@ -1,7 +1,9 @@
 import { NextPage } from "next";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Slider from "react-slick";
 import Header from "../../app/themes/themeOne/components/Header";
+import Permalink from "../../utils/Permalink";
 import {
   customerSliderSetting,
   occasionSetting,
@@ -9,6 +11,7 @@ import {
 } from "../../utils/sliderConfig";
 
 const ProductDetailScreen: NextPage = () => {
+  const route = useRouter();
   const [selectedSection, setSelectedSection] = useState(1);
 
   return (
@@ -1571,7 +1574,7 @@ const ProductDetailScreen: NextPage = () => {
                               ₹3,450
                             </p>
                             <a
-                              href="/product/dummy"
+                              onClick={() => route.replace(Permalink.ofDummyProduct())}
                               className="btn-border fs-13 text-color-3"
                             >
                               More Info
@@ -1613,7 +1616,7 @@ const ProductDetailScreen: NextPage = () => {
                               ₹3,450
                             </p>
                             <a
-                              href="/product/dummy"
+                              onClick={() => route.replace(Permalink.ofDummyProduct())}
                               className="btn-border fs-13 text-color-3"
                             >
                               More Info
@@ -1655,7 +1658,7 @@ const ProductDetailScreen: NextPage = () => {
                               ₹3,450
                             </p>
                             <a
-                              href="/product/dummy"
+                              onClick={() => route.replace(Permalink.ofDummyProduct())}
                               className="btn-border fs-13 text-color-3"
                             >
                               More Info
@@ -1697,7 +1700,7 @@ const ProductDetailScreen: NextPage = () => {
                               ₹3,450
                             </p>
                             <a
-                              href="/product/dummy"
+                              onClick={() => route.replace(Permalink.ofDummyProduct())}
                               className="btn-border fs-13 text-color-3"
                             >
                               More Info
@@ -1739,7 +1742,7 @@ const ProductDetailScreen: NextPage = () => {
                               ₹3,450
                             </p>
                             <a
-                              href="/product/dummy"
+                              onClick={() => route.replace(Permalink.ofDummyProduct())}
                               className="btn-border fs-13 text-color-3"
                             >
                               More Info
@@ -1866,7 +1869,7 @@ const ProductDetailScreen: NextPage = () => {
                               ₹3,450
                             </p>
                             <a
-                              href="/product/dummy"
+                              onClick={() => route.replace(Permalink.ofDummyProduct())}
                               className="btn-border fs-13 text-color-3"
                             >
                               More Info
@@ -1908,7 +1911,7 @@ const ProductDetailScreen: NextPage = () => {
                               ₹3,450
                             </p>
                             <a
-                              href="/product/dummy"
+                              onClick={() => route.replace(Permalink.ofDummyProduct())}
                               className="btn-border fs-13 text-color-3"
                             >
                               More Info
@@ -1950,7 +1953,7 @@ const ProductDetailScreen: NextPage = () => {
                               ₹3,450
                             </p>
                             <a
-                              href="/product/dummy"
+                              onClick={() => route.replace(Permalink.ofDummyProduct())}
                               className="btn-border fs-13 text-color-3"
                             >
                               More Info
@@ -1992,7 +1995,7 @@ const ProductDetailScreen: NextPage = () => {
                               ₹3,450
                             </p>
                             <a
-                              href="/product/dummy"
+                              onClick={() => route.replace(Permalink.ofDummyProduct())}
                               className="btn-border fs-13 text-color-3"
                             >
                               More Info
@@ -2034,7 +2037,7 @@ const ProductDetailScreen: NextPage = () => {
                               ₹3,450
                             </p>
                             <a
-                              href="/product/dummy"
+                              onClick={() => route.replace(Permalink.ofDummyProduct())}
                               className="btn-border fs-13 text-color-3"
                             >
                               More Info
@@ -2093,7 +2096,7 @@ const ProductDetailScreen: NextPage = () => {
                               ₹3,450
                             </p>
                             <a
-                              href="/product/dummy"
+                              onClick={() => route.replace(Permalink.ofDummyProduct())}
                               className="btn-border fs-13 text-color-3"
                             >
                               More Info
@@ -2135,7 +2138,7 @@ const ProductDetailScreen: NextPage = () => {
                               ₹3,450
                             </p>
                             <a
-                              href="/product/dummy"
+                              onClick={() => route.replace(Permalink.ofDummyProduct())}
                               className="btn-border fs-13 text-color-3"
                             >
                               More Info
@@ -2177,7 +2180,7 @@ const ProductDetailScreen: NextPage = () => {
                               ₹3,450
                             </p>
                             <a
-                              href="/product/dummy"
+                              onClick={() => route.replace(Permalink.ofDummyProduct())}
                               className="btn-border fs-13 text-color-3"
                             >
                               More Info
@@ -2219,7 +2222,7 @@ const ProductDetailScreen: NextPage = () => {
                               ₹3,450
                             </p>
                             <a
-                              href="/product/dummy"
+                              onClick={() => route.replace(Permalink.ofDummyProduct())}
                               className="btn-border fs-13 text-color-3"
                             >
                               More Info
@@ -2261,7 +2264,7 @@ const ProductDetailScreen: NextPage = () => {
                               ₹3,450
                             </p>
                             <a
-                              href="/product/dummy"
+                              onClick={() => route.replace(Permalink.ofDummyProduct())}
                               className="btn-border fs-13 text-color-3"
                             >
                               More Info

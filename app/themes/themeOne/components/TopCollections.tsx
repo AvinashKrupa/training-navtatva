@@ -14,7 +14,7 @@ interface iProps {
 }
 
 const TopCollections = (props: iProps) => {
-  const router = useRouter();
+  const route = useRouter();
   const cartItems = useCartStore((state: any) => state.cartItems);
   return (
     <section className="mt-4 mt-md-5 bg-outfits pb-5">
@@ -75,7 +75,7 @@ const TopCollections = (props: iProps) => {
                             <a
                               onClick={() => {
                                 if (Cart.isProductInCart(info.id)) {
-                                  router.push("/cart");
+                                  route.replace(Permalink.ofCart());
                                 } else {
                                   props.onAddCart(info.id);
                                 }

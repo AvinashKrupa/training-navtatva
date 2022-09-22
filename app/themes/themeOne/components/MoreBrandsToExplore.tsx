@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Skeleton from "react-loading-skeleton";
+import Permalink from "../../../../utils/Permalink";
 import SectionHeader from "./SectionHeader";
+import { useRouter } from "next/router";
 interface IProps {
   brand: Array<any>;
   loading: boolean
@@ -8,7 +10,7 @@ interface IProps {
 
 const MoreBrandsToExplore = (props: IProps) => {
   const [brands, setBrands] = useState([1, 2, 3, 4, 5])
-
+  const router = useRouter();
   return (
     <section className="mt-4 mt-md-5 brand">
       <div className="wrapper">
@@ -23,7 +25,7 @@ const MoreBrandsToExplore = (props: IProps) => {
                     style={{ backgroundColor: "white" }}
                     className="align-items-center justify-content-center d-inline-flex"
                   >
-                    <a href="/shop">
+                    <a  onClick={() => router.replace(Permalink.ofShop())} >
                       <img
                         style={{ maxWidth: 180, maxHeight: 180 }}
                         src={info.image || "images/brand-1.png"}
@@ -36,7 +38,7 @@ const MoreBrandsToExplore = (props: IProps) => {
 
               {props.loading && brands.map((info, index) => {
                 return (
-                  <li 
+                  <li
                     key={index}
                     className="align-items-center justify-content-center d-inline-flex">
                     <Skeleton style={{ width: 180, height: 100 }} />

@@ -15,11 +15,14 @@ export default class ProductObj {
         this.data = item;
         this.currency = currency;
     }
+    getId(): string {
+        return this.data?.id;
+    }
     getName(): string {
         return this.data?.attributes?.name;
     }
     getFeaturedImage(): string {
-        return this.data?.attributes?.images?.length ? this.data?.attributes?.images[0] : "/images/detail-img.png";
+        return this.data?.attributes?.images?.length ? this.data?.attributes?.images[0] : "/images/no-image.png";
     }
     getPrice(): string {
         return (this.data?.attributes?.originalPrice?.currencies[this.currency]?.amount ?? 0).toLocaleString('en-IN')
@@ -35,7 +38,7 @@ export default class ProductObj {
     getOffPercent(): number {
         let price = this.data?.attributes?.originalPrice?.currencies[this.currency]?.amount ?? 0
         let salePrice = this.data?.attributes?.discountPrice?.currencies[this.currency]?.amount ?? 0
-        return Math.round((price - salePrice) / price * 100 * 100) / 100
+        return Math.floor((price - salePrice) / price * 100)
     }
     getStockLine(): any {
         return HtmlParser(`Hurry! Only <strong> ${this.data?.attributes?.stock} Items</strong> Left in Stock`)

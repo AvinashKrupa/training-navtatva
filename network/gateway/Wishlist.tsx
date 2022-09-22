@@ -183,7 +183,6 @@ export class Wishlist extends HTTPBaseService {
 
   static isWishlistProduct(id: string) {
     let data = LocalStorageService.getWishlist();
-    console.log("dadsadsa", data);
     return data?.includes(id) || false;
   }
 
@@ -210,6 +209,29 @@ export class Wishlist extends HTTPBaseService {
             Toast.showError(message);
             let obj = Wishlist.getInstance();
             await obj.getWishlist();
+            reject(response);
+          }
+        })
+        .catch((error) => {
+          Toast.showError(error.message);
+          reject(error);
+        });
+    });
+  };
+
+  public deleteWishListEntry = async (id: any) => {
+   
+    return new Promise((resolve: any, reject: any) => {
+      this.instance
+        .delete(
+          API.DELETE_WISHLIST_ENTRY + id,
+        )
+        .then(async (response) => {
+          if (response.status == 200) {
+            resolve(response);
+          } else {
+            let message = response.data.message;
+            Toast.showError(message);
             reject(response);
           }
         })

@@ -25,6 +25,8 @@ import Login from "../app/components/login";
 // import $ from "jquery";
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
+import NextNProgress from 'nextjs-progressbar';
+
 function MyApp({ Component, pageProps }: AppProps) {
   const loginPopup = useUserStore((state: any) => state.loginPopup);
   const [authenticating, setAuthenticate] = useState(true);
@@ -40,12 +42,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     return () => {};
   }, []);
 
-  useEffect(() => {
-    console.log("HACKER", loginPopup);
-  }, [loginPopup]);
-
   return (
     <>
+      <NextNProgress />      
       <Head>
         <title>NavTatva</title>
         <meta charSet="utf-8" />

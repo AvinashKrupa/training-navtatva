@@ -105,3 +105,62 @@
 .product-detail-page .discount-offer {
   width: 132px!important;
 }
+a {
+  cursor: pointer;
+}
+.gender-box {
+  cursor: pointer;
+}
+
+
+#loginPopup .modal-dialog {
+  max-width: 50% !important;
+}
+
+#loginPopup .btn-close {
+  position: absolute;
+  background: #fceace !important;
+  right: -18px;
+  top: -18px;
+  border-radius: 25px;
+  width: 30px;
+  height: 30px;
+  opacity: 1;
+  z-index: 1500;
+}
+
+#loginPopup .btn-close svg {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  top: -2px;
+}
+
+#loginPopup .modal-content {
+  background: none !important;
+  border: none;
+}
+.page-item.active .page-link {
+  background-color: #300056!important;
+  border-color: #300056!important;
+}
+li.page-item.disabled {
+  display: none;
+}
+.active-border{
+  border: 2px dashed #300056;
+  border-radius: 10px;
+}
+.selected-color {
+  border: 2px dashed #300056;
+  border-radius: 46px;
+  width: 43px;
+  height: 43px;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.product-block .btn-heart.active {
+  background: #eb1354;
+  color: #fff;
+}

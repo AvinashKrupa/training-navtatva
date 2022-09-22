@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import useUserStore from "../../../zustand/store";
 import LocalStorageService from "../../../utils/storage/LocalStorageService";
 import useCartStore from "../../../zustand/cart";
+import Permalink from "../../../utils/Permalink";
 
 const Logout = (props: any) => {
   const router = useRouter();
@@ -13,6 +14,7 @@ const Logout = (props: any) => {
     props.setIsShowing(false);
     isRemoveUserInfo(false);
     useCartStore.setState({ count: false, cartItems: [] });
+    router.replace(Permalink.ofHomePage())
   };
   return (
     <Modal show={props.isShowing} animation={false} size={"sm"} id="checkOut">

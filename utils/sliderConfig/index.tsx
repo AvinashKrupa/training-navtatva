@@ -133,8 +133,8 @@ export const kurtiSettings = {
 
 export const exploreMoreSetting = {
   infinite: true,
-  slidesToShow: 3,
-  slidesToScroll: 3,
+  slidesToShow: 4,
+  slidesToScroll: 4,
   arrows: true,
   dots: false,
   margin: 30,

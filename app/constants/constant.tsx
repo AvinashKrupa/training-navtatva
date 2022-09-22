@@ -1,6 +1,7 @@
 import React from "react";
 
-const HOST = 0 ? "http://localhost:3000": "http://www.navtatva.fashion";
+const HOST_NAME = process.env.HOST_NAME;
+const API_BASE_URL = process.env.API_BASE_URL;
 
 const RupifiSandbox = {
   BASE_URL_V1: "https://api-sandbox.rupifi.com/v1/",
@@ -8,9 +9,9 @@ const RupifiSandbox = {
   TEST_ACCOUNT: 7976545492, //8660178047 // 7976545492
   MERCHANT_ID: "TESTCLIENT",
   MERCHANT_SECRET: "OGFlN2Q2MGItMmJiYy00OTU0LWE1MWItMTU1OGJmYTU4YThm",
-  REDIRECT_CANCEL_URL: `${HOST}/order-taking-app/cancel`,
+  REDIRECT_CANCEL_URL: `${HOST_NAME}/order-taking-app/cancel`,
   REDIRECT_CONFIRM_URL:
-  `${HOST}/order-taking-app/success`,
+  `${HOST_NAME}/order-taking-app/success`,
 };
 
 const RupifiProduction = {
@@ -19,21 +20,21 @@ const RupifiProduction = {
   TEST_ACCOUNT: null,
   MERCHANT_ID: "NAVTATVA_FASHION",
   MERCHANT_SECRET: "YjZiMGViYzYtNGJjZS00NGM3LTgxNDMtMDVkNzRhNTcwYjAw",
-  REDIRECT_CANCEL_URL: `${HOST}/order-taking-app/cancel`,
+  REDIRECT_CANCEL_URL: `${HOST_NAME}/order-taking-app/cancel`,
   REDIRECT_CONFIRM_URL:
-  `${HOST}/order-taking-app/success`,
+  `${HOST_NAME}/order-taking-app/success`,
 };
 
 const RupifiUC = {
-  BASE_URL: "http://3.109.249.174:1880/rupifi/",
-  REDIRECT_CANCEL_URL: `${HOST}/checkout/cancel`,
-  REDIRECT_CONFIRM_URL: `${HOST}/checkout/thank-you`,
+  BASE_URL: API_BASE_URL+"/rupifi/",
+  REDIRECT_CANCEL_URL: `${HOST_NAME}/checkout/cancel`,
+  REDIRECT_CONFIRM_URL: `${HOST_NAME}/checkout/thank-you`,
   TEST_ACCOUNT: 7976545492, //8660178047 // 7976545492
 };
 
 const constants = {
-  assetsBaseURL: "http://3.109.249.174:1880",
-  baseURL: "http://3.109.249.174:1880/",
+  assetsBaseURL: API_BASE_URL,
+  baseURL: API_BASE_URL+"/",
   ACCESS_TOKEN: "0f40c705ef74aa0b3f20817c4aaf70d65938de66",
   RUPIFI: RupifiProduction,
   PAYMENT_METHOD: {
