@@ -202,7 +202,14 @@ const ThemeOne: NextPage = () => {
             setLoginPopup(true);
           }
         }}
-        onWishlist={(id) => { addToWishList(`${id}`) }}
+        onWishlist={(id) => {
+          if (LocalStorageService.getAccessToken()) {
+            addToWishList(`${id}`)
+          } else {
+            setLoginPopup(true);
+          }
+
+        }}
       />
       {/* Must haves In Your Wardrobe section */}
       <MustInWardrobe />
@@ -223,6 +230,14 @@ const ThemeOne: NextPage = () => {
             }
 
           }}
+          onWishlist={(id) => {
+            if (LocalStorageService.getAccessToken()) {
+              addToWishList(`${id}`)
+            } else {
+              setLoginPopup(true);
+            }
+
+          }}
 
         />
         {/* Top Collections */}
@@ -236,7 +251,14 @@ const ThemeOne: NextPage = () => {
               setLoginPopup(true);
             }
           }}
-          onWishlist={(id) => { addToWishList(`${id}`) }}
+          onWishlist={(id) => {
+            if (LocalStorageService.getAccessToken()) {
+              addToWishList(`${id}`)
+            } else {
+              setLoginPopup(true);
+            }
+
+          }}
         />
         {/* Shop By Preference */}
         <ShopByPreference
@@ -255,6 +277,14 @@ const ThemeOne: NextPage = () => {
               setProductId(`${id}`);
               setLoginPopup(true);
             }
+          }}
+          onWishlist={(id) => {
+            if (LocalStorageService.getAccessToken()) {
+              addToWishList(`${id}`)
+            } else {
+              setLoginPopup(true);
+            }
+
           }}
         />
         {/* Compliment your Outfits */}

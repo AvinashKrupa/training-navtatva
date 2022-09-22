@@ -3,6 +3,7 @@ import constants from "../../app/constants/constant";
 import { HTTPBaseService } from "../HTTPBaseService";
 import Toast from "../../utils/Toast";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
+import useWishlistStore from "../../zustand/wishlist";
 
 export class Wishlist extends HTTPBaseService {
   private static classInstance?: Wishlist;
@@ -158,6 +159,10 @@ export class Wishlist extends HTTPBaseService {
             }
             if (productIds?.length > 0) {
                 LocalStorageService.setWishlist(productIds);
+                useWishlistStore.setState({
+                  wishlistItems:productIds
+
+                });
             }else{
               productIds = [];
             }
@@ -216,7 +221,7 @@ export class Wishlist extends HTTPBaseService {
   };
 
   public deleteWishListEntry = async (id: any) => {
-   
+
     return new Promise((resolve: any, reject: any) => {
       this.instance
         .delete(

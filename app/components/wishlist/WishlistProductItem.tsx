@@ -34,11 +34,11 @@ const WishlistProductItem = (props: any) => {
                 //console.log("this is product data",data.data.data)
                 setWishlistITems(data.data.data.attributes)
                 setLoading(false)
-
             })
             .catch((error) => { });
         return aa
     }
+
     function addtoCart(id: any) {
         const params = {
             data: {
@@ -75,12 +75,10 @@ const WishlistProductItem = (props: any) => {
 
 
     function deleteWishList(id: any) {
-
         Wishlist.getInstance()
             .deleteWishListItem(id)
             .then((response: any) => {
-                console.log("this is delete wishlist", response)
-
+                //console.log("this is delete wishlist", response)
                 if (response.data) {
                     props.getAllWishist()
 
@@ -123,12 +121,7 @@ const WishlistProductItem = (props: any) => {
                         ) : null}
 
                     </div>
-                    {/* <div className="wishlistitem d-flex align-items-center justify-content-end">
-                        <h4 className="fs-13 font-sb me-1"><svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi me-1 bi-heart" viewBox="0 0 16 16">
-                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-                        </svg>234  <span className="fs-11 font-r  text-white me-1">Others</span></h4>
-                        <p className="fs-10 font-r text-color-8">have this in their wishlists</p>
-                    </div> */}
+
                 </a>
 
                 <div className="hoverBlock"><a href="#">

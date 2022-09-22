@@ -27,6 +27,8 @@ const TypeSenseProductSmallBlock = (props : any) => {
       let salePrice = document.sale_price
       setDiscount(Math.floor((price - salePrice) / price * 100))
   }
+
+  console.log("this is document",props)
   return (
     <div className="col-xl-6">
       {document.exploreBlock && <ExploreBlock />}
@@ -42,7 +44,7 @@ const TypeSenseProductSmallBlock = (props : any) => {
                 <a onClick={ ()=> router.replace(Permalink.ofProduct(document))}>
                   <img src={document.main_image} className="img-fluid"/>
                 </a>
-              ) : 
+              ) :
               <a onClick={ ()=> router.replace(Permalink.ofProduct(document))}>
                 <img src="/images/no-image.png" className="img-fluid"/>
               </a>
@@ -73,7 +75,7 @@ const TypeSenseProductSmallBlock = (props : any) => {
                   <p className="fs-13 font-r">22 : 38 : 18</p>
                 </div>
               )
-            }            
+            }
           </div>
           <div className="col-sm-5">
             <div className="product-content-area">

@@ -10,6 +10,7 @@ import WishlistLoader from "../../app/components/loader/WishlistLoader";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
 import Permalink from "../../utils/Permalink";
 import { useRouter } from "next/router";
+import EmptyCart from "../../app/components/wishlist/EmptyCart";
 
 const WishlistScreen: NextPage = () => {
 
@@ -20,7 +21,7 @@ const WishlistScreen: NextPage = () => {
     const [wishlistProductIds, setWishlistProductIds] = useState([])
 
     useEffect(() => {
-        if (isLogin) {            
+        if (isLogin) {
             getAllWishist();
         } else {
             setLoginPopup(true);
@@ -56,21 +57,12 @@ const WishlistScreen: NextPage = () => {
             <div className="wrapper">
                 {/* Header */}
                 <Header />
-                {loader && <WishlistLoader />}
-                {!loader && wishlistProductIds?.length ==0 && (
-                    <div className="row">
-                        <div className="col-md-12 text-center">
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <button className="btn btn-primary" onClick={() => route.replace(Permalink.ofShop())}>
-                                Wishlist is Empty!! click to Create Now
-                            </button>
-                        </div>
-                    </div>
-                )}
                 {/* End Header */}
+                {loader && <WishlistLoader />}
+                {!loader && wishlistProductIds?.length == 0 && (
+                    <EmptyCart />
+                )}
+
                 {
                     wishlistProductIds?.length > 0 &&
                     <section className="productBar mt-4 mt-md-5">
@@ -99,130 +91,7 @@ const WishlistScreen: NextPage = () => {
                         </div>
                     </section>
                 }
-                <div className="modal fade wishlistPopup" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header ">
-                                <h5 className="modal-title fs-32 font-b text-color-3 text-center mx-auto" id="exampleModalLabel"><svg xmlns="http://www.w3.org/2000/svg" width={40} height={40} fill="currentColor" className="bi bi-plus-lg" viewBox="0 0 16 16">
-                                    <path fillRule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
-                                </svg> Create Bundle</h5>
-                                <button type="button" className="btn-close mx-0" data-bs-dismiss="modal" aria-label="Close" />
-                            </div>
-                            <div className="modal-body">
-                                <p className="fs-16 font-sb text-color-1 mb-4">Choose upto 3 products in this Collection</p>
-                                <div className="row scroll">
-                                    <div className="col-md-6 col-lg-3 mb-4 mb-md-4">
-                                        <div className="category-area" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-                                            <label className="cateory-checkbox">
-                                                <input type="checkbox" />
-                                                <div className="imgsec"> <img className="w-100" src="images/img1.png" alt="" /></div>
-                                                <span className="checkmark" />
-                                                <div className="overlay   text-start">
-                                                    <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                                    <p className="fs-10 font-r text-color-1 py-2">Women Teal Blue &amp; Beige Ethnic Motifs Printed Straight Kurti
-                                                    </p></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6 col-lg-3 mb-4 mb-md-0">
-                                        <div className="category-area" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-                                            <label className="cateory-checkbox">
-                                                <input type="checkbox" />
-                                                <div className="imgsec"> <img className="w-100" src="images/img1.png" alt="" /></div>
-                                                <span className="checkmark" />
-                                                <div className="overlay   text-start">
-                                                    <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                                    <p className="fs-10 font-r text-color-1 py-2">Women Teal Blue &amp; Beige Ethnic Motifs Printed Straight Kurti
-                                                    </p></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6 col-lg-3 mb-4 mb-md-0">
-                                        <div className="category-area" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-                                            <label className="cateory-checkbox">
-                                                <input type="checkbox" />
-                                                <div className="imgsec"> <img className="w-100" src="images/img1.png" alt="" /></div>
-                                                <span className="checkmark" />
-                                                <div className="overlay   text-start">
-                                                    <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                                    <p className="fs-10 font-r text-color-1 py-2">Women Teal Blue &amp; Beige Ethnic Motifs Printed Straight Kurti
-                                                    </p></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6 col-lg-3 mb-4 mb-md-0">
-                                        <div className="category-area" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-                                            <label className="cateory-checkbox">
-                                                <input type="checkbox" />
-                                                <div className="imgsec"> <img className="w-100" src="images/img1.png" alt="" /></div>
-                                                <span className="checkmark" />
-                                                <div className="overlay   text-start">
-                                                    <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                                    <p className="fs-10 font-r text-color-1 py-2">Women Teal Blue &amp; Beige Ethnic Motifs Printed Straight Kurti
-                                                    </p></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6 col-lg-3 mb-4 mb-md-0">
-                                        <div className="category-area">
-                                            <label className="cateory-checkbox">
-                                                <input type="checkbox" />
-                                                <div className="imgsec"> <img className="w-100" src="images/img1.png" alt="" /></div>
-                                                <span className="checkmark" />
-                                                <div className="overlay   text-start">
-                                                    <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                                    <p className="fs-10 font-r text-color-1 py-2">Women Teal Blue &amp; Beige Ethnic Motifs Printed Straight Kurti
-                                                    </p></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6 col-lg-3 mb-4 mb-md-0">
-                                        <div className="category-area" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-                                            <label className="cateory-checkbox">
-                                                <input type="checkbox" />
-                                                <div className="imgsec"> <img className="w-100" src="images/img1.png" alt="" /></div>
-                                                <span className="checkmark" />
-                                                <div className="overlay   text-start">
-                                                    <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                                    <p className="fs-10 font-r text-color-1 py-2">Women Teal Blue &amp; Beige Ethnic Motifs Printed Straight Kurti
-                                                    </p></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6 col-lg-3 mb-4 mb-md-0">
-                                        <div className="category-area">
-                                            <label className="cateory-checkbox">
-                                                <input type="checkbox" />
-                                                <div className="imgsec"> <img className="w-100" src="images/img1.png" alt="" /></div>
-                                                <span className="checkmark" />
-                                                <div className="overlay   text-start">
-                                                    <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                                    <p className="fs-10 font-r text-color-1 py-2">Women Teal Blue &amp; Beige Ethnic Motifs Printed Straight Kurti
-                                                    </p></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6 col-lg-3 mb-4 mb-md-0">
-                                        <div className="category-area" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-                                            <label className="cateory-checkbox">
-                                                <input type="checkbox" />
-                                                <div className="imgsec"> <img className="w-100" src="images/img1.png" alt="" /></div>
-                                                <span className="checkmark" />
-                                                <div className="overlay   text-start">
-                                                    <h4 className="fs-16 font-sb text-color-2">Anubhutee</h4>
-                                                    <p className="fs-10 font-r text-color-1 py-2">Women Teal Blue &amp; Beige Ethnic Motifs Printed Straight Kurti
-                                                    </p></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn">Create Bundle</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     );

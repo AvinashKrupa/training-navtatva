@@ -28,8 +28,7 @@ const WhatsNewThisMonth = (props: iProps) => {
                         />
                         <div className="overlay text-start p-3">
                           <p className="fs-12 font-r text-color-1">
-                            Women Teal Blue &amp; Beige Ethnic Motifs Printed
-                            Straight Kurti
+                          {info.description}
                           </p>
                         </div>
                       </div>
