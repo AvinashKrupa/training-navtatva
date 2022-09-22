@@ -25,7 +25,7 @@ const MoreBrandsToExplore = (props: IProps) => {
                     style={{ backgroundColor: "white" }}
                     className="align-items-center justify-content-center d-inline-flex"
                   >
-                    <a  onClick={() => router.replace(Permalink.ofShop())} >
+                    <a onClick={() => router.replace(Permalink.ofShop())} >
                       <img
                         style={{ maxWidth: 180, maxHeight: 180 }}
                         src={info.image || "images/brand-1.png"}

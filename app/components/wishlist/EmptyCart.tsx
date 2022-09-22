@@ -1,20 +1,20 @@
 import React from "react";
 import { useRouter } from "next/router";
 import Permalink from "../../../utils/Permalink";
-
 const EmptyCart = (props: any) => {
-  const route = useRouter();
+    const route = useRouter();
   return (
     <>
-      <div>
-        <div className="text-center">
+      <div className="mt-5">
+        <div className="text-center mt-5">
           <h1 className="fs-30 font-b text-color-2 list-inline-item">
-            Your cart is empty!
+          Wishlist is Empty!!
           </h1>
           <p className="fs-15 mt-2 text-color-2">Add items to it now.</p>
           <div>
-            <a href="/shop" className="btn mt-3">
-              Shop Now!
+            <a className="btn mt-3" onClick={() => route.replace(Permalink.ofShop())}>
+            click to Create Now
+
             </a>
           </div>
         </div>

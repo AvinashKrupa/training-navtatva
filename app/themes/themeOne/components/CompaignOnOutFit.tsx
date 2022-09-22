@@ -15,7 +15,7 @@ const CompaignOnOutFit = (props: iProps) => {
     <section className="mt-4 mt-md-5 pb-5">
       <div className="wrapper">
         <div className="row">
-        <SectionHeader title={"Select your companion to try on your Outfit"} />
+          <SectionHeader title={"Select your companion to try on your Outfit"} />
           <div className="col-md-12 mt-4 mt-lg-5 position-relative sliderView">
             <div className="kurtis-slider">
               <Slider {...kurtiSettings}>
@@ -24,7 +24,7 @@ const CompaignOnOutFit = (props: iProps) => {
                     <a onClick={() => router.replace(Permalink.ofProduct(item))} key={index}>
                       <div className="thumb position-relative text-center" >
                         <img className="w-100" src={item.image} alt="" style={{ height: 423, objectFit: "contain" }} />
-                        {item.height || item.weight || item.size && <div className="overlay text-start">
+                        <div className="overlay text-start">
                           {item.height && <p className="fs-22 font-r">
                             Height<span className="font-sb ms-3">{item.height}</span>
                           </p>}
@@ -34,7 +34,7 @@ const CompaignOnOutFit = (props: iProps) => {
                           {item.size && <p className="fs-22 font-r">
                             Size<span className="font-sb ms-3">{item.size}</span>
                           </p>}
-                        </div>}
+                        </div>
                       </div> </a>)
                 })}
 

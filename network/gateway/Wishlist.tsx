@@ -3,6 +3,7 @@ import constants from "../../app/constants/constant";
 import { HTTPBaseService } from "../HTTPBaseService";
 import Toast from "../../utils/Toast";
 import LocalStorageService from "../../utils/storage/LocalStorageService";
+import useWishlistStore from "../../zustand/wishlist";
 
 export class Wishlist extends HTTPBaseService {
   private static classInstance?: Wishlist;
@@ -24,6 +25,7 @@ export class Wishlist extends HTTPBaseService {
     if (wishListId) {
       return new Promise((resolve: any, reject: any) => {
         resolve(wishListId);
+        //localStorage.removeItem("WISHLIST_ENTRY")
       });
     } else {
       let obj = Wishlist.getInstance();
@@ -142,31 +144,30 @@ export class Wishlist extends HTTPBaseService {
   };
 
   public getWishlist = async () => {
-    let entryId = await Wishlist.getWishlistEntry();
+
     return new Promise((resolve: any, reject: any) => {
       this.instance
         .get(API.GET_WISHLIST + LocalStorageService.getCustomerId())
         .then((response) => {
           if (response.status == 200) {
-            let message = response.data.msg ?? "";
-            localStorage.setItem("CART_ID", response.data.refId);
-
-            // console.log("sdad", response.data.data);
-            // return;
-
-            let customerWishList =
-              response.data.data?.relationships?.cwishlists?.data || [];
-
-            let productId = customerWishList.map((info: any) => {
-              return info.id;
-            });
-
-            if (productId.length > 0) {
-              if (productId) {
-                LocalStorageService.setWishlist(productId);
-              }
+            let productIds: any = [];
+            if(response?.data?.included){
+                response?.data?.included?.cwishlists[0]?.relationships?.wproducts?.data?.map((item: any) => {
+                  productIds.push(item.id)
+                }
+              )
             }
-            resolve(response);
+            if (productIds?.length > 0) {
+                LocalStorageService.setWishlist(productIds);
+                useWishlistStore.setState({
+                  wishlistItems:productIds
+
+                });
+            }else{
+              productIds = [];
+            }
+            localStorage.setItem("WISHLIST_ENTRY", response?.data?.included?.cwishlists[0]?.id);
+            resolve(productIds);
           } else {
             let message = response.data.msg ?? "";
             Toast.showError(message);
@@ -220,7 +221,7 @@ export class Wishlist extends HTTPBaseService {
   };
 
   public deleteWishListEntry = async (id: any) => {
-   
+
     return new Promise((resolve: any, reject: any) => {
       this.instance
         .delete(

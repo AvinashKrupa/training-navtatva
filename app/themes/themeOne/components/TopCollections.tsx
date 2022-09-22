@@ -6,6 +6,7 @@ import Permalink from "../../../../utils/Permalink";
 import { occasionSetting } from "../../../../utils/sliderConfig";
 import useCartStore from "../../../../zustand/cart";
 import SectionHeader from "./SectionHeader";
+import useWishlistStore from "../../../../zustand/wishlist";
 
 interface iProps {
   data: any;
@@ -16,6 +17,8 @@ interface iProps {
 const TopCollections = (props: iProps) => {
   const route = useRouter();
   const cartItems = useCartStore((state: any) => state.cartItems);
+  const wishItems = useWishlistStore((state: any) => state.wishlistItems);
+
   return (
     <section className="mt-4 mt-md-5 bg-outfits pb-5">
       <div className="wrapper">
@@ -26,7 +29,7 @@ const TopCollections = (props: iProps) => {
               <Slider {...occasionSetting}>
                 {props.data.map((info: any, index: number) => {
                   return (
-                    <div key={index} className="thumb position-relative text-center">
+                    <div key={index} className="thumb position-relative text-center product-block">
                       <div className="bg1">
                         <a href="/shop">
                           <img
@@ -43,7 +46,7 @@ const TopCollections = (props: iProps) => {
                                 className="fs-13 font-r text-color-1"
                                 href={Permalink.ofProduct(info)}
                               >
-                                {info.title}
+                                {info.description}
                               </a>
                             </p>
                             {/* <p className="fs-19 font-sb text-color-3 py-3">
@@ -89,16 +92,16 @@ const TopCollections = (props: iProps) => {
                             </a>
                           </div>
                           <div className="speaker">
-                            <a
+                            {wishItems?.includes(info.id) ? <div className="product-block-1 mb-5">
+                              <button type="button" className="btn-heart mb-5 "><i className=" far fa-heart fa-fw "></i></button>
+                            </div> : <a
                               onClick={() => {
                                 props.onWishlist(info.id);
                               }}
-                              href="#"
-                              className="d-block mb-5"
-                              tabIndex={0}
-                            >
+                              className=" mb-5 d-block"
+                              tabIndex={0} >
                               <img src="images/wishlist-detail.png" />
-                            </a>
+                            </a>}
                             <a href="#" className="d-block  mb-5" tabIndex={0}>
                               <img src="images/volume.png" />
                             </a>
