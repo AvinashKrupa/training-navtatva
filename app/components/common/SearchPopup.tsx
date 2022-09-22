@@ -197,11 +197,24 @@ const SearchPopup = (props: any) => {
                                 />
                             </div>
                             <div className="searchbar-popup-contnet">
-                                <SearchPopupItem 
-                                    {...categories} 
-                                    setSearchOption={setSearchOption}
-                                    selectedItem={category}
-                                />
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <SearchPopupItem 
+                                            {...categories} 
+                                            setSearchOption={setSearchOption}
+                                            selectedItem={category}
+                                        />
+                                    </div>
+                                    <div className="col-md-6">
+                                        <button
+                                            onClick={() => applyFilter()}
+                                            type="button"
+                                            className="btn btn-sm float-end"
+                                        >
+                                            Apply Search
+                                        </button>
+                                    </div>
+                                </div>                               
                                 <SearchPopupItem 
                                     {...materials} 
                                     setSearchOption={setSearchOption} 
@@ -223,7 +236,7 @@ const SearchPopup = (props: any) => {
                                     <button
                                         onClick={() => applyFilter()}
                                         type="button"
-                                        className="btn float-end"
+                                        className="btn btn-sm float-end"
                                     >
                                         Apply Search
                                     </button>

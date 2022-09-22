@@ -151,4 +151,16 @@ li.page-item.disabled {
   border: 2px dashed #300056;
   border-radius: 10px;
 }
-
+.selected-color {
+  border: 2px dashed #300056;
+  border-radius: 46px;
+  width: 43px;
+  height: 43px;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.product-block .btn-heart.active {
+  background: #eb1354;
+  color: #fff;
+}

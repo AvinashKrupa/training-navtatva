@@ -2,18 +2,21 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Cart } from "../../../network/gateway/Cart";
+import Permalink from "../../../utils/Permalink";
 import LocalStorageService from "../../../utils/storage/LocalStorageService";
 import useCartStore from "../../../zustand/cart";
 import Login from "../login";
 
 const ProductQuickView = (props: any) => {
+
+  const route = useRouter();
+  const [product, setProduct] = useState<any>(props?.data);
+  console.log("props?.data",props?.data)
   const [selectCombination, setSelectedCombination] = useState({
     color: "",
     size: "",
     id: "",
   });
-
-  const [productId, setProductId] = useState<string>("");
   const [login, setLogin] = useState<boolean>(false);
   const cartItems = useCartStore((state: any) => state.cartItems);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -52,8 +55,6 @@ const ProductQuickView = (props: any) => {
       if (idObj[i] == selectCombination.size) {
         let innerObj = props.data.meta.variation_matrix[idObj[i]];
         let innerObjKeys = Object.keys(innerObj);
-
-        console.log("YATISHinnerObjKeys", innerObjKeys);
         for (let j = 0; j < innerObjKeys.length; j++) {
           //color
 
@@ -146,8 +147,6 @@ const ProductQuickView = (props: any) => {
       });
   }
 
-  console.log("this is props from quick view", props.data);
-
   return (
     <Modal
       show={props.openProductQuickView}
@@ -197,6 +196,7 @@ const ProductQuickView = (props: any) => {
                         (info: any, index: number) => {
                           return (
                             <div
+                              key={index}
                               onClick={() => {
                                 setSelectedImage(index);
                               }}
@@ -284,20 +284,21 @@ const ProductQuickView = (props: any) => {
                 </div>
                 <div className="col-md-12 col-xl-4 mt-0 mt-md-5 mt-lg-0">
                   <div className="product-content">
-                    <h2 className="product-title fs-24 font-sb">
+                    <h2 className="product-title fs-24 font-sb cursor-pointer" onClick={() => route.replace(Permalink.ofProduct(product))}>
                       {props.data.attributes.name}
                     </h2>
                     <p className="fs-14 font-r text-color-1 mt-2">
                       {props.data.attributes.description}
                     </p>
                     <p className="fs-12 font-r text-color-1 mt-5 mb-3">
-                      size available
+                      Size available
                     </p>
                     <ul className="size d-flex">
-                      {getSizes().map((info: any) => {
+                      {getSizes().map((info: any, index: number) => {
                         if (selectCombination.size == info.id) {
                           return (
                             <li
+                              key={index}
                               // onClick={() =>
                               //   props.onSelectedProduct(selectCombination.id)
                               // }
@@ -309,6 +310,7 @@ const ProductQuickView = (props: any) => {
                         } else {
                           return (
                             <li
+                              key={index}
                               onClick={() => {
                                 let data = changeVariantBySize(info.id);
                                 if (data?.id != undefined) {
@@ -354,10 +356,10 @@ const ProductQuickView = (props: any) => {
                         Color
                       </p>
 
-                      {getColors().map((info: any) => {
+                      {getColors().map((info: any, index: number) => {
                         if (selectCombination.color == info.id) {
                           return (
-                            <div className="custom-radios" onClick={() => {}}>
+                            <div key={index} className="custom-radios selected-color" onClick={() => {}}>
                               <input
                                 type="radio"
                                 id="color-1"
@@ -366,7 +368,7 @@ const ProductQuickView = (props: any) => {
                               />
                               <label htmlFor="color-1">
                                 <span style={{ background: info.description }}>
-                                  <div></div>
+                                  
                                 </span>
                               </label>
                             </div>
@@ -374,6 +376,7 @@ const ProductQuickView = (props: any) => {
                         } else {
                           return (
                             <div
+                              key={index}
                               onClick={() => {
                                 if (info.description != colorCode) {
                                   setColorCode(info.description);
@@ -537,19 +540,17 @@ const ProductQuickView = (props: any) => {
                       </a>
                     </div>
                     <div className="purchase-info d-flex">
-                      <button type="button" className="btn w-50">
+                      <button type="button" className="btn w-50" onClick={() => route.replace(Permalink.ofProduct(product))}>
                         More Info
                       </button>
                       <button
                         onClick={() => {
                           if (Cart.isProductInCart(props?.data.id)) {
-                            router.push("/cart");
+                            router.replace("/cart");
                           } else {
                             if (LocalStorageService.getAccessToken()) {
-                              console.log("product detal", props);
                               addToCart(props?.data.id);
                             } else {
-                              setProductId(props?.data.id);
                               setLogin(true);
                             }
                           }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const SortByBlock = (props: any) => {
-    const [sortBy, setSortBy] = useState("created_at")
+    const [sortBy, setSortBy] = useState("")
 
     const handleSort = (type: string) => {
         setSortBy(type);

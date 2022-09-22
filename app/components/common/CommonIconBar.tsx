@@ -28,7 +28,7 @@ const CommonIconBar = () => {
             <Logout isShowing={isShowing} setIsShowing={setIsShowing} />
 
             <ul className="iconBar text-center">
-                <li className="list-inline-item">
+               {/*  <li className="list-inline-item">
                     <a
                         className="reverse rounded-circle d-block"
                         href="#"
@@ -36,7 +36,7 @@ const CommonIconBar = () => {
                     >
                         <img src="/images/refresh.png" alt="" />
                     </a>
-                </li>
+                </li> */}
                 <li className="list-inline-item">
                     <a
                         className="wishlist rounded-circle d-block"
