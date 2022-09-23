@@ -5,6 +5,7 @@ import { bannerSliderSettings } from "../../../../utils/sliderConfig";
 import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
 import constants from "../../../constants/constant";
+import Image from 'next/image';
 
 const FestiveSaleBanner = () => {
 
@@ -27,20 +28,26 @@ const FestiveSaleBanner = () => {
 
     return (
         <>
-            {  loading ?
-                    <Skeleton height={500} style={{ borderRadius: 25, }} /> :
-                    <section className="category mt-5 mt-md-5">
-                        <Slider {...bannerSliderSettings}>
-                            {banners?.map((items: any, index: number) => {
-                                return (
-                                    <div key={index}>
-                                        <div className="col-md-12 col-lg-12" >
-                                            <img className="w-100" src={`${constants.assetsBaseURL}${bannerUrl}`} alt="" />
-                                        </div>
-                                    </div>)
-                            })}
-                        </Slider>
-                    </section>
+            {loading ?
+                <Skeleton height={500} style={{ borderRadius: 25, }} /> :
+                <section className="category mt-5 mt-md-5">
+                    <Slider {...bannerSliderSettings}>
+                        {banners?.map((items: any, index: number) => {
+                            return (
+                                <div key={index}>
+                                    <div className="col-md-12 col-lg-12" >
+                                        <Image
+                                            className="w-100"
+                                            src={`${constants.assetsBaseURL}${bannerUrl}`}
+                                            alt=""
+                                            width={1440}
+                                            height={511}
+                                        />
+                                    </div>
+                                </div>)
+                        })}
+                    </Slider>
+                </section>
             }
         </>
     )

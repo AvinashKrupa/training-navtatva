@@ -26,7 +26,7 @@ import { TypeSenseService } from "../../network/gateway/TypeSenseService";
 
 const PLP = () => {
   const route = useRouter();
-  const { slug, id, q, category, color, price, brand, discount_percentage, material, occasion, print, page, sort_by } = route.query;
+  const { slug, id, q, category, color, price, brand, discount_percentage, material, occasion, print, page, sort_by, shop_by_price } = route.query;
   const [openSearchBox, setOpenSearchBox] = useState<boolean>(false);
   const [pageCount, setPageCount] = useState<number>(1);
   const [found, setFound] = useState<number>(0);
@@ -90,6 +90,7 @@ const PLP = () => {
 
   function getFilterQuery() {
     let queryString = "";
+    
     if(category){
       queryString+="category:="+category+"&&";
     }
@@ -116,6 +117,9 @@ const PLP = () => {
     if(print){
       queryString+="print:="+print+"&&";
     }
+    if(shop_by_price){
+      queryString+="sale_price:="+shop_by_price+"&&";
+    }    
     return queryString;
   }
 

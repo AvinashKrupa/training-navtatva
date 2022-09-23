@@ -45,6 +45,12 @@ const constants = {
     COD: "COD",
     CARD: "CARD",
     UPI: "UPI"
+  },
+  CURRENCY_SYMBOL: {
+    INR: {
+      HI: "₹",
+      EN: "Rs.",
+    }
   }
 };
 export default constants;

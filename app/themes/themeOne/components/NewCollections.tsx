@@ -4,6 +4,8 @@ import Permalink from "../../../../utils/Permalink";
 import { preferenceSliderSetting } from "../../../../utils/sliderConfig";
 import SectionHeader from "./SectionHeader";
 import { useRouter } from "next/router";
+import Image from 'next/image';
+import NoImage from '../../../../public/images/no-image.png';
 
 interface iProps {
   data: any;
@@ -21,8 +23,14 @@ const NewCollections = (props: iProps) => {
                 {props.data.map((info: any, index: number) => {
                   return (
                     <div key={index} className="collection mx-3 position-relative">
-                      <a onClick={() => router.replace(Permalink.ofShop())}>
-                        <img className="w-100" src={info.image} alt="" style={{ height: 448 }} />
+                      <a onClick={() => router.replace(Permalink.ofCategory(info))}>
+                        <Image 
+                          className="w-100" 
+                          src={info?.image? info?.image : NoImage} 
+                          alt="" 
+                          width={453}
+                          height={604}
+                        />
                         <div className="overlay text-start">
                           <p className="fs-32 pb-4 font-Bsoul text-white d-flex align-items-end justify-content-center h-100 w-50 mx-auto text-center">
                             {info.title}

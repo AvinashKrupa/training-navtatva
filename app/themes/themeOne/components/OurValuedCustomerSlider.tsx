@@ -3,6 +3,8 @@ import Slider from "react-slick";
 import { useRouter } from "next/router";
 import Permalink from "../../../../utils/Permalink";
 import { customerSliderSetting } from "../../../../utils/sliderConfig";
+import Image from 'next/image';
+import ModalImage from '../../../../public/images/modelslide-1.png';
 
 const OurValuedCustomerSlider = () => {
   const router = useRouter();
@@ -15,46 +17,56 @@ const OurValuedCustomerSlider = () => {
               <Slider {...customerSliderSetting}>
                 <div className="mx-0 ">
                   <a onClick={() => router.replace(Permalink.ofShop())}>
-                    <img
+                    <Image
                       className="w-100"
-                      src="images/modelslide-1.png"
+                      src={ModalImage}
                       alt=""
+                      width={440}
+                      height={669}
                     />
                   </a>
                 </div>
                 <div className="mx-0">
-                  <a  onClick={() => router.replace(Permalink.ofShop())}>
-                    <img
+                  <a onClick={() => router.replace(Permalink.ofShop())}>
+                    <Image
                       className="w-100"
-                      src="images/modelslide-2.png"
+                      src={ModalImage}
                       alt=""
+                      width={440}
+                      height={669}
                     />
                   </a>
                 </div>
                 <div className="mx-0">
-                  <a  onClick={() => router.replace(Permalink.ofShop())}>
-                    <img
+                  <a onClick={() => router.replace(Permalink.ofShop())}>
+                    <Image
                       className="w-100"
-                      src="images/modelslide-3.png"
+                      src={ModalImage}
                       alt=""
+                      width={440}
+                      height={669}
                     />
                   </a>
                 </div>
                 <div className="mx-0">
-                  <a  onClick={() => router.replace(Permalink.ofShop())}>
-                    <img
+                  <a onClick={() => router.replace(Permalink.ofShop())}>
+                    <Image
                       className="w-100"
-                      src="images/modelslide-3.png"
+                      src={ModalImage}
                       alt=""
+                      width={440}
+                      height={669}
                     />
                   </a>
                 </div>
                 <div className=" mx-0">
-                  <a  onClick={() => router.replace(Permalink.ofShop())}>
-                    <img
+                  <a onClick={() => router.replace(Permalink.ofShop())}>
+                    <Image
                       className="w-100"
-                      src="images/modelslide-3.png"
+                      src={ModalImage}
                       alt=""
+                      width={440}
+                      height={669}
                     />
                   </a>
                 </div>

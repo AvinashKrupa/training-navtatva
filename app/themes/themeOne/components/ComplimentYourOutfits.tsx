@@ -1,12 +1,16 @@
 import React from "react";
 import Slider from "react-slick";
 import { preferenceSliderSetting } from "../../../../utils/sliderConfig";
-
+import Image from 'next/image';
+import NoImage from '../../../../public/images/no-image.png';
+import { useRouter } from "next/router";
+import Permalink from "../../../../utils/Permalink";
 interface iProps {
   data: any;
 
 }
 const ComplimentYourOutfits = (props:iProps) => {
+  const route = useRouter();
   return (
     <section className="mt-4 mt-md-5 complement pb-5">
       <div className="wrapper">
@@ -23,14 +27,16 @@ const ComplimentYourOutfits = (props:iProps) => {
                   return (
                     <div className="thumb position-relative text-center" key={index}>
                       <div className="bg1" style={{backgroundImage:`url(${info.image})`}}>
-                        <img
-                          className="w-100"
-                          style={{ height: 420, }}
-                          src={info.image}
+                        <Image
+                          onClick={() => route.replace(Permalink.ofProduct(info))}
+                          className="w-100 cursor-pointer"                          
+                          src={info?.image ? info?.image: NoImage}
                           alt=""
+                          width={370}
+                          height={509}
                         />
                         <div className="overlay text-start p-3">
-                          <p className="fs-12 font-r text-color-1">
+                          <p className="fs-12 font-r text-color-1" onClick={() => route.replace(Permalink.ofProduct(info))}>
                           {info.description}
                           </p>
                         </div>

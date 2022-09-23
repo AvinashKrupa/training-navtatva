@@ -7,6 +7,9 @@ import SectionHeader from "./SectionHeader";
 import { useRouter } from "next/router";
 import useCartStore from "../../../../zustand/cart";
 import useWishlistStore from "../../../../zustand/wishlist";
+import Image from 'next/image';
+import NoImage from '../../../../public/images/no-image.png';
+
 interface iProps {
   data: any;
   onAddCart: (id: string) => void;
@@ -29,12 +32,14 @@ const KurtisForOccassion = (props: iProps) => {
                   return (
                     <div key={index} className="thumb position-relative text-center">
                       <div className="bg1">
-                        <a href="/shop">
-                          <img
-                            style={{ height: 380, objectFit: "contain" }}
+                        <a onClick={() => router.replace(Permalink.ofProduct(info))}>
+                          <Image
+                            style={{ objectFit: "contain" }}
                             className="w-100"
-                            src={info.image}
+                            src={info?.image ? info?.image: NoImage}
                             alt=""
+                            width={312}
+                            height={380}
                           />
                         </a>
                         <div className="hoverBlock">
@@ -108,15 +113,15 @@ const KurtisForOccassion = (props: iProps) => {
                               }}
                               className=" mb-5 d-block"
                               tabIndex={0} >
-                              <img src="images/wishlist-detail.png" />
+                              <img src="/images/wishlist-detail.png" />
                             </a>}
 
 
                             <a href="#" className="d-block  mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block  mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>
