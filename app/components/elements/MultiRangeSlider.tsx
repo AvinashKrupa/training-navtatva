@@ -6,7 +6,7 @@ const MultiRangeSlider = (props: any) => {
   const [minVal, setMinVal] = useState(props.min);
   const [maxVal, setMaxVal] = useState(props.max);
   // todo
-  const [selectedValue, setSelectedValue] = useState([props.min, props.max])
+  //const [selectedValue, setSelectedValue] = useState([props.min, props.max])
   const minValRef: any = useRef(null);
   const maxValRef: any = useRef(null);
   const range: any = useRef(null);
@@ -17,14 +17,14 @@ const MultiRangeSlider = (props: any) => {
     [props.min, props.max]
   );
 
-  useEffect( () => {
+  /* useEffect( () => {
         
     if(props.selectedValue){
       let valueArray = props.selectedValue.split(",")
       setSelectedValue(valueArray)
     }    
     return () => {}
-  },[props.selectedValue])
+  },[props.selectedValue]) */
 
   // Set width of the range to decrease from the left side
   useEffect(() => {

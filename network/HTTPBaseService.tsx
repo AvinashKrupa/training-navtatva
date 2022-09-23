@@ -72,18 +72,18 @@ export abstract class HTTPBaseService {
     //   }
     // }
 
-    let headerJson = {
+    let headerJson: any = {
       "Content-Type": `application/json`,
       Accept: `application/json`,
       Authorization: `Bearer ${this.token}`,
-      //accessToken: this.token,
+      "customer_access_token": this.token,
       api_key: "7e61357c-137b-4093-9220-87484f6cf87b",
     };
 
     config.headers = headerJson;
 
-    if (config.url?.startsWith(API.GET_CART)) {
-      //headerJson.accessToken = `${this.token}`;
+    if (config.url?.startsWith(API.GET_CUSTOMER_ORDER)) {
+      headerJson['customer_access_token'] = `${this.token}`;
     }
 
     return config;

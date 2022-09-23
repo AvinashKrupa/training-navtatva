@@ -86,7 +86,7 @@ const ProductDetailScreen: NextPage = () => {
     setSizeValues(newSizeValues);
   };
 
-  function addToCart(id: string) {
+  function addToCart(id: any) {
     const params = {
       data: {
         id: id,

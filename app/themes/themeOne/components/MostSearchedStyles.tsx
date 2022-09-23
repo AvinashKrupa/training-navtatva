@@ -2,6 +2,9 @@ import React from "react";
 import { useRouter } from "next/router";
 import SectionHeader from "./SectionHeader";
 import Permalink from "../../../../utils/Permalink";
+import Image from 'next/image';
+import AnarkaliKurtiImage from '../../../../public/images/anarkali-kutis.jpg';
+import BridalImage from '../../../../public/images/bridal.jpg';
 
 const MostSearchedStyles = () => {
     const router = useRouter();
@@ -9,16 +12,18 @@ const MostSearchedStyles = () => {
         <section className="mt-4 mt-md-5 mostSearch pb-5">
             <div className="wrapper">
                 <div className="row">
-                    <SectionHeader title={"Most Searched Styles"}/>
+                    <SectionHeader title={"Most Searched Styles"} />
                     <div className="col-md-12 mt-4 mt-lg-5 position-relative">
                         <div className="row">
                             <div className="col-width-5 mb-4  text-center">
                                 <div className="stylebg position-relative">
                                     <a onClick={() => router.replace(Permalink.ofShop())}>
-                                        <img
+                                        <Image
+                                            src={AnarkaliKurtiImage}
                                             className="w-100"
-                                            src="images/anarkali-kutis.jpg"
-                                            alt=""
+                                            alt="Detail image"
+                                            width={521}
+                                            height={344}
                                         />
                                         <div className="overlay text-start">
                                             <p className="fs-32 pb-4 font-Bsoul text-white d-flex align-items-end justify-content-center h-100">
@@ -31,10 +36,12 @@ const MostSearchedStyles = () => {
                             <div className="col-width-5 mb-4 text-center">
                                 <div className="stylebg position-relative">
                                     <a onClick={() => router.replace(Permalink.ofShop())} >
-                                        <img
+                                        <Image
+                                            src={AnarkaliKurtiImage}
                                             className="w-100"
-                                            src="images/anarkali-kutis.jpg"
-                                            alt=""
+                                            alt="Detail image"
+                                            width={521}
+                                            height={344}
                                         />
                                         <div className="overlay text-start">
                                             <p className="fs-32 pb-4 font-Bsoul text-white d-flex align-items-end justify-content-center h-100">
@@ -47,7 +54,13 @@ const MostSearchedStyles = () => {
                             <div className="col-width-2 mb-4  text-center">
                                 <div className="stylebg position-relative">
                                     <a onClick={() => router.replace(Permalink.ofShop())}>
-                                        <img className="w-100" src="images/bridal.jpg" alt="" />
+                                        <Image
+                                            src={BridalImage}
+                                            className="w-100"
+                                            alt="Detail image"
+                                            width={331}
+                                            height={341}
+                                        />
                                         <div className="overlay text-start">
                                             <p className="fs-32 pb-4 font-Bsoul text-white d-flex align-items-end justify-content-center h-100">
                                                 Bridal
@@ -59,7 +72,13 @@ const MostSearchedStyles = () => {
                             <div className="col-width-2 mb-4 text-center">
                                 <div className="stylebg position-relative">
                                     <a onClick={() => router.replace(Permalink.ofShop())}>
-                                        <img className="w-100" src="images/bridal.jpg" alt="" />
+                                        <Image
+                                            src={BridalImage}
+                                            className="w-100"
+                                            alt="Detail image"
+                                            width={331}
+                                            height={341}
+                                        />
                                         <div className="overlay text-start">
                                             <p className="fs-32 pb-4 font-Bsoul text-white d-flex align-items-end justify-content-center h-100">
                                                 Lehengas
@@ -71,10 +90,12 @@ const MostSearchedStyles = () => {
                             <div className="col-width-5 mb-4  text-center">
                                 <div className="stylebg position-relative">
                                     <a onClick={() => router.replace(Permalink.ofShop())}>
-                                        <img
+                                        <Image
+                                            src={AnarkaliKurtiImage}
                                             className="w-100"
-                                            src="images/anarkali-kutis.jpg"
-                                            alt=""
+                                            alt="Detail image"
+                                            width={521}
+                                            height={344}
                                         />
                                         <div className="overlay text-start">
                                             <p className="fs-32 pb-4 font-Bsoul text-white d-flex align-items-end justify-content-center h-100">
@@ -87,10 +108,12 @@ const MostSearchedStyles = () => {
                             <div className="col-width-5 mb-4 text-center">
                                 <div className="stylebg position-relative">
                                     <a onClick={() => router.replace(Permalink.ofShop())}>
-                                        <img
+                                        <Image
+                                            src={AnarkaliKurtiImage}
                                             className="w-100"
-                                            src="images/anarkali-kutis.jpg"
-                                            alt=""
+                                            alt="Detail image"
+                                            width={521}
+                                            height={344}
                                         />
                                         <div className="overlay text-start">
                                             <p className="fs-32 pb-4 font-Bsoul text-white d-flex align-items-end justify-content-center h-100">
@@ -103,10 +126,12 @@ const MostSearchedStyles = () => {
                             <div className="col-width-5 mb-4  text-center">
                                 <div className="stylebg position-relative">
                                     <a onClick={() => router.replace(Permalink.ofShop())}>
-                                        <img
+                                        <Image
+                                            src={AnarkaliKurtiImage}
                                             className="w-100"
-                                            src="images/anarkali-kutis.jpg"
-                                            alt=""
+                                            alt="Detail image"
+                                            width={521}
+                                            height={344}
                                         />
                                         <div className="overlay text-start">
                                             <p className="fs-32 pb-4 font-Bsoul text-white d-flex align-items-end justify-content-center h-100">
@@ -119,10 +144,12 @@ const MostSearchedStyles = () => {
                             <div className="col-width-5 mb-4 text-center">
                                 <div className="stylebg position-relative">
                                     <a onClick={() => router.replace(Permalink.ofShop())}>
-                                        <img
+                                        <Image
+                                            src={AnarkaliKurtiImage}
                                             className="w-100"
-                                            src="images/anarkali-kutis.jpg"
-                                            alt=""
+                                            alt="Detail image"
+                                            width={521}
+                                            height={344}
                                         />
                                         <div className="overlay text-start">
                                             <p className="fs-32 pb-4 font-Bsoul text-white d-flex align-items-end justify-content-center h-100">
@@ -135,7 +162,13 @@ const MostSearchedStyles = () => {
                             <div className="col-width-2  text-center">
                                 <div className="stylebg position-relative">
                                     <a onClick={() => router.replace(Permalink.ofShop())}>
-                                        <img className="w-100" src="images/bridal.jpg" alt="" />
+                                        <Image
+                                            src={BridalImage}
+                                            className="w-100"
+                                            alt="Detail image"
+                                            width={331}
+                                            height={341}
+                                        />
                                         <div className="overlay text-start">
                                             <p className="fs-32 pb-4 font-Bsoul text-white d-flex align-items-end justify-content-center h-100">
                                                 Bridal
