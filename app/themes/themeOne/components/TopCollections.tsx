@@ -7,6 +7,7 @@ import { occasionSetting } from "../../../../utils/sliderConfig";
 import useCartStore from "../../../../zustand/cart";
 import SectionHeader from "./SectionHeader";
 import useWishlistStore from "../../../../zustand/wishlist";
+import LocalStorageService from "../../../../utils/storage/LocalStorageService";
 
 interface iProps {
   data: any;
@@ -18,6 +19,7 @@ const TopCollections = (props: iProps) => {
   const route = useRouter();
   const cartItems = useCartStore((state: any) => state.cartItems);
   const wishItems = useWishlistStore((state: any) => state.wishlistItems);
+  console.log("this is top collections",LocalStorageService.getWishlist()?.length)
 
   return (
     <section className="mt-4 mt-md-5 bg-outfits pb-5">

@@ -8,9 +8,10 @@ import ProductQuickView from "../product/ProductQuickView";
 import ProductQuickViewLoader from "../loader/ProductQuickViewLoader";
 import LocalStorageService from "../../../utils/storage/LocalStorageService";
 import { Wishlist } from "../../../network/gateway/Wishlist";
-
+import useUserStore from "../../../zustand/store";
 
 const WishlistProductItem = (props: any) => {
+
     const router = useRouter();
     const [wishlistItems, setWishlistITems] = useState<any>([])
     const [loading, setLoading] = useState<boolean>(true)
@@ -21,9 +22,9 @@ const WishlistProductItem = (props: any) => {
     const [selectedProductData, setSelectedProductData] = useState<Array<any>>(
         []
     );
-
+    const setLoginPopup = useUserStore((state: any) => state.showLogin);
     useEffect(() => {
-        getProduct(props.id);
+        getProduct(props.id.id);
     }, []);
 
     function getProduct(id: any) {
@@ -31,30 +32,12 @@ const WishlistProductItem = (props: any) => {
         CatalogService.getInstance()
             .getProducDetail(id)
             .then((data: any) => {
-                //console.log("this is product data",data.data.data)
+
                 setWishlistITems(data.data.data.attributes)
                 setLoading(false)
             })
             .catch((error) => { });
         return aa
-    }
-
-    function addtoCart(id: any) {
-        const params = {
-            data: {
-                id: id,
-                type: "cart_item",
-                quantity: 1,
-            },
-        };
-        Cart.getInstance()
-            .addToCart(params)
-            .then((info: any) => {
-                console.log("info", info);
-            })
-            .catch((error) => {
-                console.log("error", error);
-            });
     }
 
     function getProductDetail(id: any) {
@@ -73,12 +56,10 @@ const WishlistProductItem = (props: any) => {
 
     }
 
-
-    function deleteWishList(id: any) {
+    function deleteWishList(entry_id: string, id: string) {
         Wishlist.getInstance()
-            .deleteWishListItem(id)
+            .deleteWishListItem(entry_id, id)
             .then((response: any) => {
-                //console.log("this is delete wishlist", response)
                 if (response.data) {
                     props.getAllWishist()
 
@@ -90,7 +71,7 @@ const WishlistProductItem = (props: any) => {
 
     }
 
-    function addToCart(id: string) {
+    function addToCart(entry_id: string, id: string) {
         const params = {
             data: {
                 id: id,
@@ -101,8 +82,7 @@ const WishlistProductItem = (props: any) => {
         Cart.getInstance()
             .addToCart(params)
             .then((info: any) => {
-                console.log("info", info);
-                deleteWishList(params.data.id)
+               deleteWishList(entry_id, id)
             })
             .catch((error) => {
                 console.log("error", error);
@@ -119,11 +99,8 @@ const WishlistProductItem = (props: any) => {
                                 <img src={wishlistItems.images[0]} className="w-100" style={{ height: 380 }} />
                             </a>
                         ) : null}
-
                     </div>
-
                 </a>
-
                 <div className="hoverBlock"><a href="#">
                 </a><div className="overlay   text-start"><a href="#">
                     <h4 className="fs-16 font-sb text-color-2">{wishlistItems.name}</h4>
@@ -138,14 +115,9 @@ const WishlistProductItem = (props: any) => {
                     <p className="fs-20 font-sb text-color-5">
                         <i className="fas fa-indian-rupee-sign fa-fw" />{" "}   {wishlistItems?.discountPrice?.currencies.INR.amount}
                     </p>
-
                 </a>
                         <a className="btn btnbg fs-13 " tabIndex={0}>
-                            {/* {cartItems?.includes(props.id) || false
-                                ? "Go To Cart"
-                                : "Add to Cart"} */}
                             MovetoCart
-
                         </a>
                         <div className="btnbarcart">
                             <a className="btn fs-13 quick m-2" tabIndex={0} onClick={() => {
@@ -156,19 +128,12 @@ const WishlistProductItem = (props: any) => {
                             </a>
                             <a className="btn fs-13 m-2" tabIndex={0} onClick={() => {
                                 if (LocalStorageService.getAccessToken()) {
-                                    // if (Cart.isProductInCart(props.id)) {
-                                    //     router.push("/cart");
-                                    // } else {
-                                    //     addToCart(props?.id)
-
-                                    // }
-                                    deleteWishList(props.id)
-                                    // console.log("this is id",props.id)
+                                    addToCart(props.id.entry_id, props.id.id)
+                                }
+                                else {
+                                    setLoginPopup(true);
                                 }
                             }}>
-                                {/* {cartItems?.includes(props.id) || false
-                                    ? "Go To Cart"
-                                    : "Add to Cart"} */}
                                 MovetoCart
                             </a>
                         </div>
@@ -194,7 +159,6 @@ const WishlistProductItem = (props: any) => {
         )}
 
     </>)
-
 }
 
 export default WishlistProductItem;

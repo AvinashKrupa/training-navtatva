@@ -85,13 +85,13 @@ export class Cart extends HTTPBaseService {
           if (response.status == 200) {
             let message = response.data.msg ?? "";
             let cartItems: any = LocalStorageService.getCartItems();
-            console.log("paradsa", cartItems);
+
             if (cartItems) {
               cartItems.push(data.data.id);
             } else {
               cartItems = [data.data.id];
             }
-            console.log("cartItemscartItems", cartItems);
+
             LocalStorageService.setCartItems(cartItems);
             useCartStore.setState({
               count: cartItems.length,

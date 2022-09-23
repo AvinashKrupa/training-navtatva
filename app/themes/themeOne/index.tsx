@@ -35,6 +35,7 @@ import { Cart } from "../../../network/gateway/Cart";
 import LocalStorageService from "../../../utils/storage/LocalStorageService";
 import useUserStore from "../../../zustand/store";
 import { Wishlist } from "../../../network/gateway/Wishlist";
+import useWishlistStore from "../../../zustand/wishlist";
 
 const ThemeOne: NextPage = () => {
   const [category, setCategory] = useState([]);
@@ -55,6 +56,8 @@ const ThemeOne: NextPage = () => {
   const [festivalProducts, setFestivalProducts] = useState([])
 
   const [loading, setLoading] = useState(true);
+  const wishItems = useWishlistStore((state: any) => state.wishlistItems);
+
   useEffect(() => {
     fetchDataFromServer();
     return () => { };
@@ -168,17 +171,28 @@ const ThemeOne: NextPage = () => {
         console.log("error", error);
       });
   }
+
   function addToWishList(id: string) {
     Wishlist.getInstance()
-      .addToWishList(id)
+      .createWishlistEntry()
       .then((info) => {
         console.log("info", info);
+      }).then(() => {
+        Wishlist.getInstance()
+          .addToWishList(id)
+          .then((info) => {
+            console.log("info", info);
+            localStorage.removeItem("WISHLIST_ENTRY")
+          })
+          .catch((error) => {
+            console.log("error", error);
+          });
       })
       .catch((error) => {
         console.log("error", error);
       });
   }
-  //console.log("this is top collection data",topCollection)
+
   return (
     <div className="home">
       <div className="wrapper">
