@@ -6,6 +6,8 @@ const nextConfig = {
     API_BASE_URL: process.env.API_BASE_URL,
   },
   images: {
+    loader: 'akamai',
+    path: '',
     domains: [
       'localhost',
       '3.109.249.174',
