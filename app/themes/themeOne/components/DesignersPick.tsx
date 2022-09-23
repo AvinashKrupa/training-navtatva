@@ -1,8 +1,18 @@
 import React from "react";
 import Link from 'next/link';
+import Image from 'next/image';
+import DetailThumb1 from '../../../../public/images/detail-thumb1.png';
+import DetailThumb2 from '../../../../public/images/detail-thumb2.png';
+import DetailThumb3 from '../../../../public/images/detail-thumb3.png';
+import DetailThumb4 from '../../../../public/images/detail-thumb4.png';
+import DetailPick from '../../../../public/images/detail-pick-1.png';
+import ViewImage from '../../../../public/images/view.png';
 
+import { useRouter } from "next/router";
+import Permalink from "../../../../utils/Permalink";
 
 const DesignersPick = () => {
+    const route = useRouter();
     return (
         <section>
             <div className="card-wrapper pb-5">
@@ -20,77 +30,80 @@ const DesignersPick = () => {
                                     <div className="product-imgs">
                                         <div className="img-select">
                                             <div className="img-item">
-                                                <a href="/shop" data-id={1}>
-                                                    <img
-                                                        src="images/detail-thumb1.png"
+                                                <a onClick={() => route.replace(Permalink.ofShop())}>
+                                                    <Image
+                                                        src={DetailThumb1}
                                                         alt="Detail image"
+                                                        width={86}
+                                                        height={115}
                                                     />
                                                 </a>
                                             </div>
                                             <div className="img-item">
-                                                <a href="/shop" data-id={2}>
-                                                    <img
-                                                        src="images/detail-thumb2.png"
+                                                <a onClick={() => route.replace(Permalink.ofShop())}>
+                                                    <Image
+                                                        src={DetailThumb2}
                                                         alt="Detail image"
+                                                        width={86}
+                                                        height={115}
                                                     />
                                                 </a>
                                             </div>
                                             <div className="img-item">
-                                                <a href="/shop" data-id={3}>
-                                                    <img
-                                                        src="images/detail-thumb3.png"
+                                                <a onClick={() => route.replace(Permalink.ofShop())}>
+                                                    <Image
+                                                        src={DetailThumb3}
                                                         alt="Detail image"
+                                                        width={86}
+                                                        height={115}
                                                     />
                                                 </a>
                                             </div>
                                             <div className="img-item">
-                                                <a href="/shop" data-id={4}>
-                                                    <img
-                                                        src="images/detail-thumb4.png"
+                                                <a onClick={() => route.replace(Permalink.ofShop())}>
+                                                    <Image
+                                                        src={DetailThumb4}
                                                         alt="Detail image"
+                                                        width={86}
+                                                        height={115}
                                                     />
                                                 </a>
                                             </div>
                                         </div>
                                         <div className="img-display">
                                             <div className="img-showcase">
-                                                <img
-                                                    src="images/detail-pick-1.png"
+                                                <Image
+                                                    src={DetailPick}
                                                     alt="Detail image"
-                                                />
-                                                <img
-                                                    src="images/detail-pick-1.png"
-                                                    alt="Detail image"
-                                                />
-                                                <img
-                                                    src="images/detail-pick-1.png"
-                                                    alt="Detail image"
-                                                />
-                                                <img
-                                                    src="images/detail-pick-1.png"
-                                                    alt="Detail image"
+                                                    width={479}
+                                                    height={675}
                                                 />
                                             </div>
                                         </div>
                                         <div className="view">
-                                            <img src="images/view.png" alt="Detail image" />
+                                            <Image
+                                                src={ViewImage}
+                                                alt="Detail image"
+                                                width={424}
+                                                height={109}
+                                            />
                                         </div>
                                         <div className="speaker pe-5">
                                             <a href="#" className="d-block mb-5">
-                                                <img src="images/wishlist-detail.png" />
+                                                <img src="/images/wishlist-detail.png" />
                                             </a>
                                             <a href="#" className="d-block  mb-5">
-                                                <img src="images/volume.png" />
+                                                <img src="/images/volume.png" />
                                             </a>
                                             <a href="#" className="d-block  mb-5">
-                                                <img src="images/swap.png" />
+                                                <img src="/images/swap.png" />
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-12 col-lg-6 mt-0 mt-md-5 mt-lg-0">
                                     <div className="product-content">
-                                        <h2 className="product-title fs-24 font-sb">Anubhutee</h2>
+                                        <h2 className="product-title fs-24 font-sb" onClick={() => route.replace(Permalink.ofDummyProduct())}>Anubhutee</h2>
                                         <p className="fs-14 font-r text-color-1 mt-2">
                                             Women Teal Blue &amp; Beige Ethnic Motifs Printed
                                             Straight Kurti
@@ -270,18 +283,18 @@ const DesignersPick = () => {
                                             </div>
                                         </div>
                                         <div className="resquest">
-                                            <a href="/shop" className="font-m" title={""}>
+                                            <a href="#" className="font-m" title={""}>
                                                 Request Sample
                                             </a>
                                         </div>
                                         <div className="purchase-info d-flex">
-                                        <Link href="/cart">
-                                            <button type="button" className="btn w-50">
+                                        <Link href="#">
+                                            <button type="button" className="btn w-50" onClick={() => route.replace(Permalink.ofDummyProduct())}>
                                                 Quick View
                                             </button>
                                             </Link>
-                                            <Link href="/cart">
-                                            <button type="button" className="btn w-50" >
+                                            <Link href="#">
+                                            <button type="button" className="btn w-50" onClick={() => route.replace(Permalink.ofShop())}>
                                                 Add to Cart
                                             </button>
                                             </Link>

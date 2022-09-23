@@ -3,6 +3,8 @@ import Skeleton from "react-loading-skeleton";
 import Permalink from "../../../../utils/Permalink";
 import SectionHeader from "./SectionHeader";
 import { useRouter } from "next/router";
+import Image from 'next/image';
+import BrandNoImage from '../../../../public/images/brand-1.png';
 interface IProps {
   brand: Array<any>;
   loading: boolean
@@ -38,10 +40,11 @@ const MoreBrandsToExplore = (props: IProps) => {
                       onClick={() => handleClick(info.name)} 
                       title={info.name}
                     >
-                      <img
-                        style={{ maxWidth: 180, maxHeight: 180 }}
-                        src={info.image || "images/brand-1.png"}
+                      <Image
+                        src={info?.image? info?.image: BrandNoImage}
                         alt="brand"
+                        width={180}
+                        height={180}
                       />
                     </a>
                   </li>

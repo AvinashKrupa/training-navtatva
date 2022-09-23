@@ -7,6 +7,8 @@ import { occasionSetting } from "../../../../utils/sliderConfig";
 import useCartStore from "../../../../zustand/cart";
 import SectionHeader from "./SectionHeader";
 import useWishlistStore from "../../../../zustand/wishlist";
+import Image from 'next/image';
+import NoImage from '../../../../public/images/no-image.png';
 
 interface iProps {
   data: any;
@@ -31,12 +33,14 @@ const TopCollections = (props: iProps) => {
                   return (
                     <div key={index} className="thumb position-relative text-center product-block">
                       <div className="bg1">
-                        <a href="/shop">
-                          <img
-                            style={{ height: 380, objectFit: "contain" }}
+                        <a onClick={() => route.replace(Permalink.ofProduct(info))}>
+                          <Image
+                            style={{objectFit: "contain" }}
                             className="w-100"
-                            src={info.image}
+                            src={info?.image ? info?.image: NoImage}
                             alt=""
+                            width={312}
+                            height={449}
                           />
                         </a>
                         <div className="hoverBlock">
@@ -44,7 +48,7 @@ const TopCollections = (props: iProps) => {
                             <p>
                               <a
                                 className="fs-13 font-r text-color-1"
-                                href={Permalink.ofProduct(info)}
+                                onClick={() => route.replace(Permalink.ofProduct(info))}
                               >
                                 {info.description}
                               </a>
@@ -69,7 +73,7 @@ const TopCollections = (props: iProps) => {
                               </p>
                             </div>
                             <a
-                              href={Permalink.ofProduct(info)}
+                              onClick={() => route.replace(Permalink.ofProduct(info))}
                               className="btn-border fs-13 text-color-3"
                               tabIndex={0}
                             >
@@ -100,13 +104,13 @@ const TopCollections = (props: iProps) => {
                               }}
                               className=" mb-5 d-block"
                               tabIndex={0} >
-                              <img src="images/wishlist-detail.png" />
+                              <img src="/images/wishlist-detail.png" />
                             </a>}
                             <a href="#" className="d-block  mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block  mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>

@@ -5,6 +5,16 @@ const nextConfig = {
     HOST_NAME: process.env.HOST_NAME,
     API_BASE_URL: process.env.API_BASE_URL,
   },
+  images: {
+    domains: [
+      'localhost',
+      '3.109.249.174',
+      '35.154.34.15',
+      'www.navtatva.fashion',
+      'navtatva-dev-public.s3.ap-south-1.amazonaws.com',
+      'files-eu.epusercontent.com',
+    ],
+  },
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.

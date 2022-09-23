@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import Slider from "react-slick";
 import { preferenceSliderSetting } from "../../../../utils/sliderConfig";
+import { useRouter } from "next/router";
+import Image from 'next/image';
+import VideoImage from '../../../../public/images/video-1.png';
+import IconImage from '../../../../public/images/video-icon.png';
 
 const VideoBlock = () => {
   const [openVideo, setOpenVideo] = useState<boolean>(false);
@@ -24,9 +28,20 @@ const VideoBlock = () => {
                         setOpenVideo(true);
                       }}
                     >
-                      <img className="w-100" src="images/video-1.png" alt="" />
+                      <Image
+                        className="w-100"
+                        src={VideoImage}
+                        alt=""
+                        width={440}
+                        height={670}
+                      />
                       <div className="overlay text-center p-3">
-                        <img src="images/video-icon.png" alt="" />
+                        <Image
+                          src={IconImage}
+                          alt=""
+                          width={89}
+                          height={89}
+                        />
                       </div>
                     </a>
                   </div>
@@ -40,9 +55,20 @@ const VideoBlock = () => {
                         setOpenVideo(true);
                       }}
                     >
-                      <img className="w-100" src="images/video-1.png" alt="" />
+                      <Image
+                        className="w-100"
+                        src={VideoImage}
+                        alt=""
+                        width={440}
+                        height={670}
+                      />
                       <div className="overlay text-center p-3">
-                        <img src="images/video-icon.png" alt="" />
+                        <Image
+                          src={IconImage}
+                          alt=""
+                          width={89}
+                          height={89}
+                        />
                       </div>
                     </a>
                   </div>
@@ -56,9 +82,20 @@ const VideoBlock = () => {
                         setOpenVideo(true);
                       }}
                     >
-                      <img className="w-100" src="images/video-1.png" alt="" />
+                      <Image
+                        className="w-100"
+                        src={VideoImage}
+                        alt=""
+                        width={440}
+                        height={670}
+                      />
                       <div className="overlay text-center p-3">
-                        <img src="images/video-icon.png" alt="" />
+                        <Image
+                          src={IconImage}
+                          alt=""
+                          width={89}
+                          height={89}
+                        />
                       </div>
                     </a>
                   </div>
@@ -72,9 +109,20 @@ const VideoBlock = () => {
                         setOpenVideo(true);
                       }}
                     >
-                      <img className="w-100" src="images/video-1.png" alt="" />
+                      <Image
+                        className="w-100"
+                        src={VideoImage}
+                        alt=""
+                        width={440}
+                        height={670}
+                      />
                       <div className="overlay text-center p-3">
-                        <img src="images/video-icon.png" alt="" />
+                        <Image
+                          src={IconImage}
+                          alt=""
+                          width={89}
+                          height={89}
+                        />
                       </div>
                     </a>
                   </div>

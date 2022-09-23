@@ -7,6 +7,9 @@ import SectionHeader from "./SectionHeader";
 import { useRouter } from "next/router";
 import useCartStore from "../../../../zustand/cart";
 import useWishlistStore from "../../../../zustand/wishlist";
+import Image from 'next/image';
+import NoImage from '../../../../public/images/no-image.png';
+
 interface iProps {
   data: any;
   onAddCart: (id: string) => void;
@@ -30,12 +33,14 @@ const NavTatvaTopPicks = (props: iProps) => {
                   return (
                     <div className="thumb position-relative text-center" key={index}>
                       <div className="bg1">
-                        <a href="#">
-                          <img
-                              style={{ height: 380, objectFit: "contain" }}
+                        <a onClick={() => route.replace(Permalink.ofProduct(info))}>
+                          <Image
+                            style={{objectFit: "contain" }}
                             className="w-100"
-                            src={info.image}
+                            src={info?.image ? info?.image: NoImage}
                             alt=""
+                            width={312}
+                            height={451}
                           />
                         </a>
                         <div className="hoverBlock">
@@ -43,7 +48,7 @@ const NavTatvaTopPicks = (props: iProps) => {
                             <p className="fs-13 font-r text-color-1">
                             <a
                                 className="fs-13 font-r text-color-1"
-                                href={Permalink.ofProduct(info)}
+                                onClick={() => route.replace(Permalink.ofProduct(info))}
                               >
                                 {info.description}
                               </a>
@@ -52,7 +57,7 @@ const NavTatvaTopPicks = (props: iProps) => {
                             ₹{info.sale_price}
                             </p>
                             <a
-                              href={Permalink.ofProduct(info)}
+                              onClick={() => route.replace(Permalink.ofProduct(info))}
                               className="btn-border fs-13 text-color-3"
                               tabIndex={0}
                             >
@@ -82,14 +87,14 @@ const NavTatvaTopPicks = (props: iProps) => {
                               }}
                               className=" mb-5 d-block"
                               tabIndex={0} >
-                              <img src="images/wishlist-detail.png" />
+                              <img src="/images/wishlist-detail.png" />
                             </a>}
 
                             <a href="#" className="d-block  mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block  mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>

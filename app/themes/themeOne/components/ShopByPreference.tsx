@@ -3,6 +3,10 @@ import Slider from "react-slick";
 import Permalink from "../../../../utils/Permalink";
 import { preferenceSliderSetting } from "../../../../utils/sliderConfig";
 import SectionHeader from "./SectionHeader";
+import Image from 'next/image';
+import NoImage from '../../../../public/images/no-image.png';
+import { useRouter } from "next/router";
+
 interface iProps {
   data: any;
   onAddCart: () => void;
@@ -10,6 +14,7 @@ interface iProps {
 }
 
 const ShopByPreference = (props: iProps) => {
+  const route = useRouter();
   return (
     <section className="mt-4 mt-md-5 preferrnece">
       <div className="wrapper">
@@ -24,15 +29,18 @@ const ShopByPreference = (props: iProps) => {
                       <div className="bg5">
                         <div className="text-start p-4">
                           <p className="fs-20 font-r text-color-1">For</p>
-                          <a href={Permalink.ofCategory(info)}>
+                          <a onClick={ () => route.replace(Permalink.ofCategory(info))}>
                             <h4 className="fs-36 font-Bsoul">{info.title}</h4>
                           </a>
                         </div>
-                        <img
-                          style={{ height: 450, objectFit: "contain" }}
-                          className="w-100"
-                          src={info.image}
+                        <Image
+                          onClick={ () => route.replace(Permalink.ofCategory(info))}
+                          style={{ objectFit: "contain" }}
+                          className="w-100 cursor-pointer"
+                          src={info?.image ? info?.image: NoImage}
                           alt=""
+                          width={434}
+                          height={450}
                         />
                       </div>
                     </div>
