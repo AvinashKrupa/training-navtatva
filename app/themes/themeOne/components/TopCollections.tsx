@@ -9,11 +9,14 @@ import SectionHeader from "./SectionHeader";
 import useWishlistStore from "../../../../zustand/wishlist";
 import Image from 'next/image';
 import NoImage from '../../../../public/images/no-image.png';
+import LocalStorageService from "../../../../utils/storage/LocalStorageService";
+import { Wishlist } from "../../../../network/gateway/Wishlist";
 
 interface iProps {
   data: any;
   onAddCart: (id: string) => void;
   onWishlist: (id: string) => void;
+  onDeletwishlistItem: (id: string) => void;
 }
 
 const TopCollections = (props: iProps) => {
@@ -21,8 +24,7 @@ const TopCollections = (props: iProps) => {
   const cartItems = useCartStore((state: any) => state.cartItems);
   const wishItems = useWishlistStore((state: any) => state.wishlistItems);
 
-
-  return (
+return (
     <section className="mt-4 mt-md-5 bg-outfits pb-5">
       <div className="wrapper">
         <div className="row">
@@ -36,9 +38,9 @@ const TopCollections = (props: iProps) => {
                       <div className="bg1">
                         <a onClick={() => route.replace(Permalink.ofProduct(info))}>
                           <Image
-                            style={{objectFit: "contain" }}
+                            style={{ objectFit: "contain" }}
                             className="w-100"
-                            src={info?.image ? info?.image: NoImage}
+                            src={info?.image ? info?.image : NoImage}
                             alt=""
                             width={312}
                             height={449}
@@ -98,7 +100,7 @@ const TopCollections = (props: iProps) => {
                           </div>
                           <div className="speaker">
                             {wishItems?.includes(info.id) ? <div className="product-block-1 mb-5">
-                              <button type="button" className="btn-heart mb-5 "><i className=" far fa-heart fa-fw "></i></button>
+                              <button type="button" className="btn-heart mb-5" onClick={() => { props.onDeletwishlistItem(info.id) }}><i className=" far fa-heart fa-fw "></i></button>
                             </div> : <a
                               onClick={() => {
                                 props.onWishlist(info.id);

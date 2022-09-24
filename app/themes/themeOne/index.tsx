@@ -193,6 +193,23 @@ const ThemeOne: NextPage = () => {
       });
   }
 
+  function deletwishlistItem(id: string) {
+    let entry_id
+    LocalStorageService.getWishlistIDEntry_ID().data?.map((each: any) => {
+      if (each.id === id) {
+        return entry_id = each.entry_id
+      }
+    })
+    Wishlist.getInstance()
+      .deleteWishListItem(entry_id, id)
+      .then((response: any) => {
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+
+  }
+
   return (
     <div className="home">
       <div className="wrapper">
@@ -222,8 +239,16 @@ const ThemeOne: NextPage = () => {
           } else {
             setLoginPopup(true);
           }
+        }}
+        onDeletwishlistItem={(id) => {
+          if (LocalStorageService.getAccessToken()) {
+            deletwishlistItem(`${id}`)
+          } else {
+            setLoginPopup(true);
+          }
 
         }}
+
       />
       {/* Must haves In Your Wardrobe section */}
       <MustInWardrobe />
@@ -250,6 +275,13 @@ const ThemeOne: NextPage = () => {
             } else {
               setLoginPopup(true);
             }
+          }}
+          onDeletwishlistItem={(id) => {
+            if (LocalStorageService.getAccessToken()) {
+              deletwishlistItem(`${id}`)
+            } else {
+              setLoginPopup(true);
+            }
 
           }}
 
@@ -268,6 +300,14 @@ const ThemeOne: NextPage = () => {
           onWishlist={(id) => {
             if (LocalStorageService.getAccessToken()) {
               addToWishList(`${id}`)
+            } else {
+              setLoginPopup(true);
+            }
+
+          }}
+          onDeletwishlistItem={(id) => {
+            if (LocalStorageService.getAccessToken()) {
+              deletwishlistItem(`${id}`)
             } else {
               setLoginPopup(true);
             }
@@ -295,6 +335,14 @@ const ThemeOne: NextPage = () => {
           onWishlist={(id) => {
             if (LocalStorageService.getAccessToken()) {
               addToWishList(`${id}`)
+            } else {
+              setLoginPopup(true);
+            }
+
+          }}
+          onDeletwishlistItem={(id) => {
+            if (LocalStorageService.getAccessToken()) {
+              deletwishlistItem(`${id}`)
             } else {
               setLoginPopup(true);
             }

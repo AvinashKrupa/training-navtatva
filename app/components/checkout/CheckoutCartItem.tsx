@@ -1,4 +1,5 @@
 import { TbCurrencyRupee } from "react-icons/tb";
+import { Wishlist } from "../../../network/gateway/Wishlist";
 import Permalink from "../../../utils/Permalink";
 
 const CheckoutCartItem = (props: any) => {
@@ -16,12 +17,33 @@ const CheckoutCartItem = (props: any) => {
     if (data && data.length > 0) return data[0].options?.name;
   }
 
-  //console.log("this is checkout props", props)
-
-  const removeCartitem = (id: any) => {
+const removeCartitem = (id: any) => {
     props.removeCart(id);
-    console.log("this is props", id);
+
   };
+
+
+  function moveToWishlist(product_id: string, id: string) {
+    Wishlist.getInstance()
+      .createWishlistEntry()
+      .then((info) => {
+
+      }).then(() => {
+        Wishlist.getInstance()
+          .addToWishList(product_id)
+          .then(() => {
+            localStorage.removeItem("WISHLIST_ENTRY")
+            props.removeCart(id);
+          })
+          .catch((error) => {
+            console.log("error", error);
+          });
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+
+  }
 
   function ItemLoop(item: any) {
     return (
@@ -66,7 +88,9 @@ const CheckoutCartItem = (props: any) => {
             </p>
           </div>
           <div className="d-flex mt-4 mb-4">
-            <a className="fs-14 font-sb text-color-3" href="#">
+            <a className="fs-14 font-sb text-color-3" onClick={()=>{
+              moveToWishlist(item.product_id,item.id)
+            }}>
               Move to Wishlist
             </a>
             <a

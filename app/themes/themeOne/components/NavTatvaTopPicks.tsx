@@ -14,6 +14,7 @@ interface iProps {
   data: any;
   onAddCart: (id: string) => void;
   onWishlist: (id: string) => void;
+  onDeletwishlistItem: (id: string) => void;
 
 }
 
@@ -35,9 +36,9 @@ const NavTatvaTopPicks = (props: iProps) => {
                       <div className="bg1">
                         <a onClick={() => route.replace(Permalink.ofProduct(info))}>
                           <Image
-                            style={{objectFit: "contain" }}
+                            style={{ objectFit: "contain" }}
                             className="w-100"
-                            src={info?.image ? info?.image: NoImage}
+                            src={info?.image ? info?.image : NoImage}
                             alt=""
                             width={312}
                             height={451}
@@ -46,7 +47,7 @@ const NavTatvaTopPicks = (props: iProps) => {
                         <div className="hoverBlock">
                           <div className="overlay   text-center">
                             <p className="fs-13 font-r text-color-1">
-                            <a
+                              <a
                                 className="fs-13 font-r text-color-1"
                                 onClick={() => route.replace(Permalink.ofProduct(info))}
                               >
@@ -54,7 +55,7 @@ const NavTatvaTopPicks = (props: iProps) => {
                               </a>
                             </p>
                             <p className="fs-19 font-sb text-color-3 py-3">
-                            ₹{info.sale_price}
+                              ₹{info.sale_price}
                             </p>
                             <a
                               onClick={() => route.replace(Permalink.ofProduct(info))}
@@ -63,14 +64,14 @@ const NavTatvaTopPicks = (props: iProps) => {
                             >
                               More Info
                             </a>
-                            <a  onClick={() => {
-                                if (Cart.isProductInCart(info.id)) {
-                                  route.replace(Permalink.ofCart());
-                                } else {
-                                  props.onAddCart(info.id);
-                                }
-                              }}className="btn fs-13 " tabIndex={0}>
-                           {cartItems?.includes(info.id) || false
+                            <a onClick={() => {
+                              if (Cart.isProductInCart(info.id)) {
+                                route.replace(Permalink.ofCart());
+                              } else {
+                                props.onAddCart(info.id);
+                              }
+                            }} className="btn fs-13 " tabIndex={0}>
+                              {cartItems?.includes(info.id) || false
                                 ? "Go To Cart"
                                 : "Add to Cart"}
                             </a>
@@ -80,7 +81,8 @@ const NavTatvaTopPicks = (props: iProps) => {
                               <img src="images/wishlist-detail.png" />
                             </a> */}
                             {wishItems?.includes(info.id) ? <div className="product-block-1 mb-5">
-                              <button type="button" className="btn-heart mb-5 "><i className=" far fa-heart fa-fw "></i></button>
+                              <button type="button" className="btn-heart mb-5" onClick={() => { props.onDeletwishlistItem(info.id) }}
+                              ><i className=" far fa-heart fa-fw "></i></button>
                             </div> : <a
                               onClick={() => {
                                 props.onWishlist(info.id);

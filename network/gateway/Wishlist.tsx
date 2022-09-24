@@ -168,7 +168,7 @@ export class Wishlist extends HTTPBaseService {
                         }
                     }
                 })
-
+                LocalStorageService.setWishlistIDEntry_ID(newWishlist)
 
                 LocalStorageService.setWishlist(productIds);
                 useWishlistStore.setState({
@@ -176,7 +176,6 @@ export class Wishlist extends HTTPBaseService {
                   count:productIds.lenght
 
                 });
-                console.log("this is response from api",Object.entries(productIds).length)
 
             resolve(newWishlist);
           } else {
@@ -215,6 +214,8 @@ export class Wishlist extends HTTPBaseService {
         .then(async (response) => {
           if (response.status == 200) {
             let message = response.data;
+            let obj = Wishlist.getInstance();
+            await obj.getWishlist();
             resolve(response);
           } else {
             let message = response.data.message;
