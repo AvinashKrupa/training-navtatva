@@ -84,7 +84,7 @@ const CategoryBox = (props: any,) => {
                   min={500}
                   max={10000}
                   onChange={({ min, max }) => setPriceRange(`${min},${max}`)}
-                  selectedValue={props.selectedValue}
+                  /* selectedValue={props.selectedValue} */
                 />
               </div>
 

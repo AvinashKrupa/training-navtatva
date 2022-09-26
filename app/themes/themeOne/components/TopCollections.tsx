@@ -6,17 +6,25 @@ import Permalink from "../../../../utils/Permalink";
 import { occasionSetting } from "../../../../utils/sliderConfig";
 import useCartStore from "../../../../zustand/cart";
 import SectionHeader from "./SectionHeader";
+import useWishlistStore from "../../../../zustand/wishlist";
+import Image from 'next/image';
+import NoImage from '../../../../public/images/no-image.png';
+import LocalStorageService from "../../../../utils/storage/LocalStorageService";
+import { Wishlist } from "../../../../network/gateway/Wishlist";
 
 interface iProps {
   data: any;
   onAddCart: (id: string) => void;
   onWishlist: (id: string) => void;
+  onDeletwishlistItem: (id: string) => void;
 }
 
 const TopCollections = (props: iProps) => {
   const route = useRouter();
   const cartItems = useCartStore((state: any) => state.cartItems);
-  return (
+  const wishItems = useWishlistStore((state: any) => state.wishlistItems);
+
+return (
     <section className="mt-4 mt-md-5 bg-outfits pb-5">
       <div className="wrapper">
         <div className="row">
@@ -26,14 +34,16 @@ const TopCollections = (props: iProps) => {
               <Slider {...occasionSetting}>
                 {props.data.map((info: any, index: number) => {
                   return (
-                    <div key={index} className="thumb position-relative text-center">
+                    <div key={index} className="thumb position-relative text-center product-block">
                       <div className="bg1">
-                        <a href="/shop">
-                          <img
-                            style={{ height: 380, objectFit: "contain" }}
+                        <a onClick={() => route.replace(Permalink.ofProduct(info))}>
+                          <Image
+                            style={{ objectFit: "contain" }}
                             className="w-100"
-                            src={info.image}
+                            src={info?.image ? info?.image : NoImage}
                             alt=""
+                            width={312}
+                            height={449}
                           />
                         </a>
                         <div className="hoverBlock">
@@ -41,9 +51,9 @@ const TopCollections = (props: iProps) => {
                             <p>
                               <a
                                 className="fs-13 font-r text-color-1"
-                                href={Permalink.ofProduct(info)}
+                                onClick={() => route.replace(Permalink.ofProduct(info))}
                               >
-                                {info.title}
+                                {info.description}
                               </a>
                             </p>
                             {/* <p className="fs-19 font-sb text-color-3 py-3">
@@ -66,7 +76,7 @@ const TopCollections = (props: iProps) => {
                               </p>
                             </div>
                             <a
-                              href={Permalink.ofProduct(info)}
+                              onClick={() => route.replace(Permalink.ofProduct(info))}
                               className="btn-border fs-13 text-color-3"
                               tabIndex={0}
                             >
@@ -89,21 +99,21 @@ const TopCollections = (props: iProps) => {
                             </a>
                           </div>
                           <div className="speaker">
-                            <a
+                            {wishItems?.includes(info.id) ? <div className="product-block-1 mb-5">
+                              <button type="button" className="btn-heart mb-5" onClick={() => { props.onDeletwishlistItem(info.id) }}><i className=" far fa-heart fa-fw "></i></button>
+                            </div> : <a
                               onClick={() => {
                                 props.onWishlist(info.id);
                               }}
-                              href="#"
-                              className="d-block mb-5"
-                              tabIndex={0}
-                            >
-                              <img src="images/wishlist-detail.png" />
+                              className=" mb-5 d-block"
+                              tabIndex={0} >
+                              <img src="/images/wishlist-detail.png" />
+                            </a>}
+                            <a href="#" className="d-block  mb-5" tabIndex={0}>
+                              <img src="/images/volume.png" />
                             </a>
                             <a href="#" className="d-block  mb-5" tabIndex={0}>
-                              <img src="images/volume.png" />
-                            </a>
-                            <a href="#" className="d-block  mb-5" tabIndex={0}>
-                              <img src="images/swap.png" />
+                              <img src="/images/swap.png" />
                             </a>
                           </div>
                         </div>

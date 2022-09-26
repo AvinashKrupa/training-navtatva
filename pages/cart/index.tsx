@@ -83,7 +83,7 @@ const CartScreen: NextPage = () => {
         }
       });
   }
-  console.log("this is cart items", cartItems);
+
   return (
     <div className="shoppingCart">
       <div className="wrapper">
@@ -233,7 +233,7 @@ const CartScreen: NextPage = () => {
                             ₹3,450
                           </p>
                           <a
-                            href="/product/dummy"
+                            onClick={() => route.replace(Permalink.ofDummyProduct())}
                             className="btn-border fs-13 text-color-3"
                           >
                             More Info
@@ -275,7 +275,7 @@ const CartScreen: NextPage = () => {
                             ₹3,450
                           </p>
                           <a
-                            href="/product/dummy"
+                            onClick={() => route.replace(Permalink.ofDummyProduct())}
                             className="btn-border fs-13 text-color-3"
                           >
                             More Info
@@ -317,7 +317,7 @@ const CartScreen: NextPage = () => {
                             ₹3,450
                           </p>
                           <a
-                            href="/product/dummy"
+                            onClick={() => route.replace(Permalink.ofDummyProduct())}
                             className="btn-border fs-13 text-color-3"
                           >
                             More Info
@@ -359,7 +359,7 @@ const CartScreen: NextPage = () => {
                             ₹3,450
                           </p>
                           <a
-                            href="/product/dummy"
+                            onClick={() => route.replace(Permalink.ofDummyProduct())}
                             className="btn-border fs-13 text-color-3"
                           >
                             More Info
@@ -401,7 +401,7 @@ const CartScreen: NextPage = () => {
                             ₹3,450
                           </p>
                           <a
-                            href="/product/dummy"
+                            onClick={() => route.replace(Permalink.ofDummyProduct())}
                             className="btn-border fs-13 text-color-3"
                           >
                             More Info

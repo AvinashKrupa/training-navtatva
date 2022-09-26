@@ -5,6 +5,7 @@ import CartButton from "../elements/cartButton";
 import useUserStore from "../../../zustand/store";
 import shallow from "zustand/shallow";
 import Logout from "../logout";
+import WishlistButton from "../elements/wishlistButton";
 const CommonIconBar = () => {
     const router = useRouter();
 
@@ -28,7 +29,7 @@ const CommonIconBar = () => {
             <Logout isShowing={isShowing} setIsShowing={setIsShowing} />
 
             <ul className="iconBar text-center">
-                <li className="list-inline-item">
+               {/*  <li className="list-inline-item">
                     <a
                         className="reverse rounded-circle d-block"
                         href="#"
@@ -36,8 +37,8 @@ const CommonIconBar = () => {
                     >
                         <img src="/images/refresh.png" alt="" />
                     </a>
-                </li>
-                <li className="list-inline-item">
+                </li> */}
+                {/* <li className="list-inline-item">
                     <a
                         className="wishlist rounded-circle d-block"
 
@@ -52,7 +53,7 @@ const CommonIconBar = () => {
                     >
                         <img src="/images/wishlist.png" alt="" />
                     </a>
-                </li>
+                </li> */} <WishlistButton />
                 <CartButton />
                 <li
                     className="list-inline-item"

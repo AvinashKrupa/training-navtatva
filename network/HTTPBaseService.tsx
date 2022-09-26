@@ -27,7 +27,7 @@ export abstract class HTTPBaseService {
       this.token = localStorage.getItem("access_token") ?? "";
 
       if (this.token == "") {
-        this.getToken();
+        //this.getToken();
       }
     }
 
@@ -72,18 +72,18 @@ export abstract class HTTPBaseService {
     //   }
     // }
 
-    let headerJson = {
+    let headerJson: any = {
       "Content-Type": `application/json`,
       Accept: `application/json`,
       Authorization: `Bearer ${this.token}`,
-      accessToken: this.token,
+      "customer_access_token": this.token,
       api_key: "7e61357c-137b-4093-9220-87484f6cf87b",
     };
 
     config.headers = headerJson;
 
-    if (config.url?.startsWith(API.GET_CART)) {
-      headerJson.accessToken = `${this.token}`;
+    if (config.url?.startsWith(API.GET_CUSTOMER_ORDER)) {
+      headerJson['customer_access_token'] = `${this.token}`;
     }
 
     return config;
@@ -91,14 +91,14 @@ export abstract class HTTPBaseService {
 
   private handleError = async (error: AxiosError) => {
     const originalRequest = error.config;
-    if (error.response?.status === 401) {
+    /* if (error.response?.status === 401) {
       const refreshToken = await this.refreshToken();
       if (refreshToken.status === 200) {
         this.token = refreshToken.data?.access_token || "";
         localStorage.setItem("hashToken", this.token);
         return this.instance(originalRequest);
       }
-    }
+    } */
     if (error.response?.status === 403) {
       LocalStorageService.logoutUser();
       useUserStore.setState({ isLogin: false });

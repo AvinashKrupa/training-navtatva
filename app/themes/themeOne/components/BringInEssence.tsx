@@ -5,21 +5,28 @@ import { exploreSliderSetting } from "../../../../utils/sliderConfig";
 import { useRouter } from "next/router";
 import useCartStore from "../../../../zustand/cart";
 import Permalink from "../../../../utils/Permalink";
+import useWishlistStore from "../../../../zustand/wishlist";
+import Image from 'next/image';
+import ExploreImage from '../../../../public/images/explore.png';
+import NoImage from '../../../../public/images/no-image.png';
 
 interface iProps {
   data: any;
   onAddCart: (id: string) => void;
+  onWishlist: (id: string) => void;
+  onDeletwishlistItem: (id: string) => void;
 
 }
 
 const BringInEssence = (props: iProps) => {
   const cartItems = useCartStore((state: any) => state.cartItems);
+  const wishItems = useWishlistStore((state: any) => state.wishlistItems);
   const router = useRouter();
   return (
     <section className="wardrobe mt-4 mt-md-5">
       <div className="row">
         <div className="col-md-12 col-lg-6 pe-3 pe-lg-0">
-          <img className="w-100" src="images/explore.png" alt="" />
+          <Image className="w-100" src={ExploreImage} alt="" width={703} height={768}/>
           <a onClick={() => router.replace(Permalink.ofShop())} className="btn fs-26 ms-0 ms-lg-4 mt-4">
             Explore the Holi Store
             <svg
@@ -49,42 +56,35 @@ const BringInEssence = (props: iProps) => {
               <Slider {...exploreSliderSetting}>
                 {props.data.map((info: any, index: number) => {
                   return (<div key={index} className="thumb position-relative text-center bg1">
-                    <a href="/shop">
-                      <img
-                        style={{ height: 380, }}
+                    <a onClick={() => router.replace(Permalink.ofProduct(info))}>
+                      <Image
                         className="w-100"
-                        src={info.image}
+                        src={info?.image ? info?.image: NoImage}
                         alt=""
+                        width={204}
+                        height={289}
                       />
                     </a>
                     <div className="hoverBlock">
-                      <div className="overlay   text-center">
+                      <div className="overlay text-center">
                         <p className="fs-13 font-r text-color-1">
-                          {info.title}
+                          {info.description}
                         </p>
                         {/* <p className="fs-19 font-sb text-color-3 py-2">{info.sale_price}</p> */}
                         <div className="product-price">
                           <span className="new-price mb-0 font-sb">
                             <span>₹{info.sale_price}</span>
                           </span>
-                          <span className="last-price mb-0 fs-12 font-r">
-                            <span className="text-color-1">
-                              ₹{info.list_price}
-                            </span>
-                          </span>
-
-                          <p className="save fs-10 font-r">
-                            You save ₹
-                            {info.list_price - (info.sale_price || 0)}
-                          </p>
                         </div>
                         <a
-                           href={Permalink.ofProduct(info)}
+                          onClick={() => router.replace(Permalink.ofProduct(info))}
                           className="btn-border fs-13 text-color-3"
                           tabIndex={0}
                         >
                           More Info
                         </a>
+                        <br/>
+                        <br/>
                         <a
                           onClick={() => {
                             if (Cart.isProductInCart(info.id)) {
@@ -93,7 +93,7 @@ const BringInEssence = (props: iProps) => {
                               props.onAddCart(info.id);
                             }
                           }}
-                          className="btn fs-12"
+                          className="btn fs-9 w-100"
                           tabIndex={0}
                         >
                           {cartItems?.includes(info.id) || false
@@ -102,22 +102,30 @@ const BringInEssence = (props: iProps) => {
                         </a>
                       </div>
                       <div className="speaker">
-                        <a href="#" className="d-block mb-2" tabIndex={0}>
+                        {/* <a href="#" className="d-block mb-2" tabIndex={0}>
                           <img src="images/wishlist-detail.png" />
+                        </a> */}
+                        {wishItems?.includes(info.id) ? <div className="product-block-1 mb-5">
+                          <button type="button" className="btn-heart mb-5" onClick={() => { props.onDeletwishlistItem(info.id) }}><i className=" far fa-heart fa-fw "></i></button>
+                        </div> : <a
+                          onClick={() => {
+                            props.onWishlist(info.id);
+                          }}
+                          className=" mb-5 d-block"
+                          tabIndex={0} >
+                          <img src="/images/wishlist-detail.png" />
+                        </a>}
+                        <a href="#" className="d-block  mb-2" tabIndex={0}>
+                          <img src="/images/volume.png" />
                         </a>
                         <a href="#" className="d-block  mb-2" tabIndex={0}>
-                          <img src="images/volume.png" />
-                        </a>
-                        <a href="#" className="d-block  mb-2" tabIndex={0}>
-                          <img src="images/swap.png" />
+                          <img src="/images/swap.png" />
                         </a>
                       </div>
                     </div>
                   </div>
                   )
                 })}
-
-
               </Slider>
             </div>
           </div>

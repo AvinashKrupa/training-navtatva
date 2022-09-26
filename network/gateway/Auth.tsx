@@ -88,7 +88,7 @@ export class Auth extends HTTPBaseService {
         })
         .catch((error) => {
           console.log("Error", error);
-          Toast.showError(
+          Toast.showError(error.message ??
             JSON.parse(error.response.request.response).msg.detail
           );
           reject(error);

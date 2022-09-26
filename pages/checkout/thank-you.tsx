@@ -166,7 +166,7 @@ const ThankYou: NextPage = (props: any) => {
                 <div className="row">
                   <div className="col-md-3 col-lg-3">
                     <div className="imgbar ">
-                      <img className="w-100" src="images/img1.png" alt="" />
+                      <img className="w-100" src="/images/img1.png" alt="" />
                     </div>
                   </div>
                   <div className="col-md-9 position-relative">
@@ -209,7 +209,7 @@ const ThankYou: NextPage = (props: any) => {
                 <div className="row">
                   <div className="col-md-3 col-lg-3">
                     <div className="imgbar ">
-                      <img className="w-100" src="images/img1.png" alt="" />
+                      <img className="w-100" src="/images/img1.png" alt="" />
                     </div>
                   </div>
                   <div className="col-md-9 position-relative">
@@ -252,7 +252,7 @@ const ThankYou: NextPage = (props: any) => {
                 <div className="row">
                   <div className="col-md-3 col-lg-3">
                     <div className="imgbar ">
-                      <img className="w-100" src="images/img1.png" alt="" />
+                      <img className="w-100" src="/images/img1.png" alt="" />
                     </div>
                   </div>
                   <div className="col-md-9 position-relative">

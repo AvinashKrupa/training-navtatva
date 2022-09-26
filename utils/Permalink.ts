@@ -7,7 +7,7 @@ export default class Permalink {
   }
 
   static ofProduct(item: any): string {
-    return "/product/" + item.slug + "/" + (item.product_id ? item.product_id : item.id);
+    return "/product/" + (item?.attributes?.slug ? item?.attributes?.slug: item.slug) + "/" + (item.product_id ? item.product_id : item.id);
   }
 
   static ofCategory(item: any): string {
@@ -54,7 +54,9 @@ export default class Permalink {
     return "/shop";
   }
 
-
+  static ofDummyProduct() {
+    return "/product/dummy"
+  }
 
 }
 

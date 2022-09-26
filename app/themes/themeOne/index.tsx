@@ -35,6 +35,7 @@ import { Cart } from "../../../network/gateway/Cart";
 import LocalStorageService from "../../../utils/storage/LocalStorageService";
 import useUserStore from "../../../zustand/store";
 import { Wishlist } from "../../../network/gateway/Wishlist";
+import useWishlistStore from "../../../zustand/wishlist";
 
 const ThemeOne: NextPage = () => {
   const [category, setCategory] = useState([]);
@@ -55,6 +56,8 @@ const ThemeOne: NextPage = () => {
   const [festivalProducts, setFestivalProducts] = useState([])
 
   const [loading, setLoading] = useState(true);
+  const wishItems = useWishlistStore((state: any) => state.wishlistItems);
+
   useEffect(() => {
     fetchDataFromServer();
     return () => { };
@@ -87,7 +90,7 @@ const ThemeOne: NextPage = () => {
             setCategoryByOccasion(
               response.data.data["Category By Occasion"].children
             );
-            console.log("category", response.data.data);
+
             resolve(response);
           } else {
             resolve([]);
@@ -168,17 +171,45 @@ const ThemeOne: NextPage = () => {
         console.log("error", error);
       });
   }
+
   function addToWishList(id: string) {
     Wishlist.getInstance()
-      .addToWishList(id)
+      .createWishlistEntry()
       .then((info) => {
         console.log("info", info);
+      }).then(() => {
+        Wishlist.getInstance()
+          .addToWishList(id)
+          .then((info) => {
+            console.log("info", info);
+            localStorage.removeItem("WISHLIST_ENTRY")
+          })
+          .catch((error) => {
+            console.log("error", error);
+          });
       })
       .catch((error) => {
         console.log("error", error);
       });
   }
-  //console.log("this is top collection data",topCollection)
+
+  function deletwishlistItem(id: string) {
+    let entry_id
+    LocalStorageService.getWishlistIDEntry_ID().data?.map((each: any) => {
+      if (each.id === id) {
+        return entry_id = each.entry_id
+      }
+    })
+    Wishlist.getInstance()
+      .deleteWishListItem(entry_id, id)
+      .then((response: any) => {
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+
+  }
+
   return (
     <div className="home">
       <div className="wrapper">
@@ -202,7 +233,22 @@ const ThemeOne: NextPage = () => {
             setLoginPopup(true);
           }
         }}
-        onWishlist={(id) => { addToWishList(`${id}`) }}
+        onWishlist={(id) => {
+          if (LocalStorageService.getAccessToken()) {
+            addToWishList(`${id}`)
+          } else {
+            setLoginPopup(true);
+          }
+        }}
+        onDeletwishlistItem={(id) => {
+          if (LocalStorageService.getAccessToken()) {
+            deletwishlistItem(`${id}`)
+          } else {
+            setLoginPopup(true);
+          }
+
+        }}
+
       />
       {/* Must haves In Your Wardrobe section */}
       <MustInWardrobe />
@@ -223,6 +269,21 @@ const ThemeOne: NextPage = () => {
             }
 
           }}
+          onWishlist={(id) => {
+            if (LocalStorageService.getAccessToken()) {
+              addToWishList(`${id}`)
+            } else {
+              setLoginPopup(true);
+            }
+          }}
+          onDeletwishlistItem={(id) => {
+            if (LocalStorageService.getAccessToken()) {
+              deletwishlistItem(`${id}`)
+            } else {
+              setLoginPopup(true);
+            }
+
+          }}
 
         />
         {/* Top Collections */}
@@ -236,7 +297,22 @@ const ThemeOne: NextPage = () => {
               setLoginPopup(true);
             }
           }}
-          onWishlist={(id) => { addToWishList(`${id}`) }}
+          onWishlist={(id) => {
+            if (LocalStorageService.getAccessToken()) {
+              addToWishList(`${id}`)
+            } else {
+              setLoginPopup(true);
+            }
+
+          }}
+          onDeletwishlistItem={(id) => {
+            if (LocalStorageService.getAccessToken()) {
+              deletwishlistItem(`${id}`)
+            } else {
+              setLoginPopup(true);
+            }
+
+          }}
         />
         {/* Shop By Preference */}
         <ShopByPreference
@@ -255,6 +331,22 @@ const ThemeOne: NextPage = () => {
               setProductId(`${id}`);
               setLoginPopup(true);
             }
+          }}
+          onWishlist={(id) => {
+            if (LocalStorageService.getAccessToken()) {
+              addToWishList(`${id}`)
+            } else {
+              setLoginPopup(true);
+            }
+
+          }}
+          onDeletwishlistItem={(id) => {
+            if (LocalStorageService.getAccessToken()) {
+              deletwishlistItem(`${id}`)
+            } else {
+              setLoginPopup(true);
+            }
+
           }}
         />
         {/* Compliment your Outfits */}

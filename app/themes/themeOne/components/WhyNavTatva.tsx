@@ -1,6 +1,9 @@
 import React from "react";
+import { useRouter } from "next/router";
+import Permalink from "../../../../utils/Permalink";
 
 const WhyNavTatva = () => {
+    const route = useRouter();
     return (
         <section className="whyNav position-relative pb-5">
             <div className="wrapper">
@@ -18,13 +21,13 @@ const WhyNavTatva = () => {
                                     <p className="fs-14 font-r text-color-1 py-3 py-md-4 pe-5">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                     </p>
-                                    <a href="#" className="fs-14 font-sb text-color-3">
+                                    <a onClick={() => route.replace(Permalink.ofShop())} className="fs-14 font-sb text-color-3">
                                         Learn More
                                     </a>
                                     <div className="text-end">
                                         <img src="images/offers.png" alt="" />
                                     </div>
-                                </div>
+                                </div> 
                             </div>
                             <div className="col-md-6 col-xl-7 mb-4 mb-lg-5">
                                 <div className="whyBlock  h-100">
@@ -32,7 +35,7 @@ const WhyNavTatva = () => {
                                     <p className="fs-14 font-r text-color-1 py-3 py-md-4 pe-5">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                     </p>
-                                    <a href="#" className="fs-14 font-sb text-color-3">
+                                    <a onClick={() => route.replace(Permalink.ofShop())} className="fs-14 font-sb text-color-3">
                                         Learn More
                                     </a>
                                     <div className="text-end">
@@ -50,7 +53,7 @@ const WhyNavTatva = () => {
                                     <p className="fs-14 font-r text-color-1 py-3 py-md-4 pe-5">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                     </p>
-                                    <a href="#" className="fs-14 font-sb text-color-3">
+                                    <a onClick={() => route.replace(Permalink.ofShop())} className="fs-14 font-sb text-color-3">
                                         Learn More
                                     </a>
                                     <div className="text-end">
@@ -68,7 +71,7 @@ const WhyNavTatva = () => {
                                     <p className="fs-14 font-r text-color-1 py-3 py-md-4 pe-5">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                     </p>
-                                    <a href="#" className="fs-14 font-sb text-color-3">
+                                    <a onClick={() => route.replace(Permalink.ofShop())} className="fs-14 font-sb text-color-3">
                                         Learn More
                                     </a>
                                     <div className="text-end">
@@ -88,7 +91,7 @@ const WhyNavTatva = () => {
                             <p className="fs-14 font-r text-color-1 py-4 pe-5">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                             </p>
-                            <a href="#" className="fs-14 font-sb text-color-3">
+                            <a onClick={() => route.replace(Permalink.ofShop())} className="fs-14 font-sb text-color-3">
                                 Learn More
                             </a>
                             <div className="text-end">

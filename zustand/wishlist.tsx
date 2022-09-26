@@ -2,21 +2,21 @@ import create from "zustand";
 import { devtools } from "zustand/middleware";
 import LocalStorageService from "../utils/storage/LocalStorageService";
 
-const useCartStore = create((set) => ({
-  count: false,
-  cartItems: [],
+const useWishlistStore = create((set) => ({
+  count: 0,
+  wishlistItems: [],
   updateCartCount: (data: any) => {
     set((state) => ({
       ...state,
       count: false,
     }));
   },
+
   synchronized: (data: boolean) => {
     set((state) => ({
-      count: LocalStorageService.getCartItems()?.length || 0,
-      cartItems: LocalStorageService.getCartItems() || [],
-
+      count: LocalStorageService.getWishlist()?.length || 0,
+      wishlistItems:LocalStorageService.getWishlist() || []
     }));
   },
 }));
-export default useCartStore;
+export default useWishlistStore

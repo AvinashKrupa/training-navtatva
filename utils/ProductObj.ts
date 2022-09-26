@@ -15,6 +15,9 @@ export default class ProductObj {
         this.data = item;
         this.currency = currency;
     }
+    getId(): string {
+        return this.data?.id;
+    }
     getName(): string {
         return this.data?.attributes?.name;
     }

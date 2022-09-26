@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Image from 'next/image';
 
 interface iProps {
   onClick?: () => void;
@@ -22,11 +23,12 @@ function NavMenuCategory(props: iProps) {
           props.onMouseLeave && props.onMouseLeave();
         }}
       >
-        <img
-          style={{ maxHeight: 240, height: 220 }}
-          className="img-fluid"
-          src={props.image}
-          alt={props.title}
+        <Image
+            className="img-fluid"
+            src={props.image}
+            alt={props.title}
+            width={220}
+            height={227}
         />
         <p className="fs-20">{props.title}</p>
         <div className="overlay" />

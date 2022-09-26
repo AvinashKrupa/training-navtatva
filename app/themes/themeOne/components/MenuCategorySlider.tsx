@@ -6,6 +6,8 @@ import Slider from "react-slick";
 import Permalink from "../../../../utils/Permalink";
 import CategoryLoader from "../../../components/loader/CategoryLoader";
 import { useRouter } from "next/router";
+import Image from 'next/image';
+import CategoryDefautImage from '../../../../public/images/cate-1.jpg';
 
 interface IProps {
   category: Array<any>;
@@ -33,7 +35,7 @@ const MenuCategorySlider = (props: IProps) => {
                       <NavMenuCategory
                         key={index}
                         title={info.name}
-                        image={info.image ?? "images/cate-1.jpg"}
+                        image={info?.image ?? CategoryDefautImage}
                         onClick={() => {
                           if (selectedSubCat.length == 0) {
                             setTempSelectedSubCat(info.children);
@@ -90,13 +92,14 @@ const MenuCategorySlider = (props: IProps) => {
                       );
                     })}
                   </div>
-                  <div className="col-md-12 col-lg-4 mt-4 mt-lg-0">
-                    <img
-                      style={{ maxHeight: 400, maxWidth: 200 }}
-                      className="h-100"
+                  <div className="col-md-12 col-lg-4 mt-4 mt-lg-0">                  
+                    {sideImageOnHover?.image && <Image
+                      className="h-100 category-hover-image"
                       src={sideImageOnHover.image}
                       alt=""
-                    />
+                      width={400}
+                      height={200}
+                    />}
                   </div>
                 </div>
               </div>
