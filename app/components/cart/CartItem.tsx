@@ -5,12 +5,16 @@ import useUserStore from "../../../zustand/store";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Permalink from "../../../utils/Permalink";
+import useWishlistStore from "../../../zustand/wishlist";
+import { Wishlist } from "../../../network/gateway/Wishlist";
 
 const CartItem = (props: any) => {
   const setLoginPopup = useUserStore((state: any) => state.showLogin);
   const [login, setLogin] = useState<boolean>(false);
+  const wishItems = useWishlistStore((state: any) => state.wishlistItems);
+  console.log("prop id", props.id);
   function getColor() {
-    //console.log("props.meta", props.meta);
+    console.log("props.meta", wishItems);
     let data = props.meta?.variant.filter((info: any) => {
       return info.name == "Color";
     });
@@ -28,11 +32,30 @@ const CartItem = (props: any) => {
   const removeCartitem = () => {
     //props.removeCart(1, 0)
     props.removeCart(props?.id);
-    //console.log("this is onclick working")
-    console.log("this is called");
   };
 
-  //console.log("this is cart data",props?.id)
+  function moveToWishlist(product_id: string, id: string) {
+    Wishlist.getInstance()
+      .createWishlistEntry()
+      .then((info) => {
+
+      }).then(() => {
+        Wishlist.getInstance()
+          .addToWishList(product_id)
+          .then(() => {
+            localStorage.removeItem("WISHLIST_ENTRY")
+            props.removeCart(props?.id);
+          })
+          .catch((error) => {
+            console.log("error", error);
+          });
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+
+  }
+
   return (
     <>
       <div className="bgbar position-relative mt-4">
@@ -68,9 +91,11 @@ const CartItem = (props: any) => {
               </p>
             </div>
             <div className="d-flex mt-4">
-              <a className="fs-14 font-sb text-color-3" href="#">
+              {!wishItems?.includes(props.product_id) && <a className="fs-14 font-sb text-color-3" onClick={() => {
+                moveToWishlist(props.product_id, props.id)
+              }}>
                 Move to Wishlist
-              </a>
+              </a>}
               <a
                 href="#"
                 className="fs-14 font-sb text-color-3 ms-4"

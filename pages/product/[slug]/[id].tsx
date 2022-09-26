@@ -116,10 +116,15 @@ const ProductDetailScreen: NextPage = () => {
   }
 
   function deleteFromWishlist(id: string) {
+    let entry_id
+    LocalStorageService.getWishlistIDEntry_ID().data?.map((each: any) => {
+      if (each.id === id) {
+        return entry_id = each.entry_id
+      }
+    })
     Wishlist.getInstance()
-      .deleteWishListItem(id)
-      .then((info) => {
-        console.log("info", info);
+      .deleteWishListItem(entry_id, id)
+      .then((response: any) => {
       })
       .catch((error) => {
         console.log("error", error);
@@ -1207,7 +1212,7 @@ const ProductDetailScreen: NextPage = () => {
                             deleteFromWishlist(product.getId())
                           }else{
                             addToWishList(product.getId())
-                          }                          
+                          }
                         }}
                         type="button"
                         className={`btn-heart ${
@@ -1246,7 +1251,7 @@ const ProductDetailScreen: NextPage = () => {
                         cartItems?.includes(product.getId()) || false
                           ? "Go To Cart"
                           : "Add to Cart"
-                      }  
+                      }
                     </a>
                   </li>
                 </ul>

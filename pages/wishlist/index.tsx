@@ -26,7 +26,7 @@ const WishlistScreen: NextPage = () => {
         } else {
             setLoginPopup(true);
         }
-        //deleteWishListEntry();
+       //deleteWishListEntry();
         return () => { };
     }, [isLogin]);
 
@@ -36,6 +36,8 @@ const WishlistScreen: NextPage = () => {
             .then((newWishlist: any) => {
                 setLoader(false)
                 setWishlistProductIds(newWishlist)
+
+
             })
             .catch((error) => { });
     }
@@ -52,6 +54,7 @@ const WishlistScreen: NextPage = () => {
         })
         return true;
     }
+   // console.log("this is all wishlists",wishlistProductIds)
     return (
         <div className="mycollection">
             <div className="wrapper">

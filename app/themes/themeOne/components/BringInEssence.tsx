@@ -14,6 +14,7 @@ interface iProps {
   data: any;
   onAddCart: (id: string) => void;
   onWishlist: (id: string) => void;
+  onDeletwishlistItem: (id: string) => void;
 
 }
 
@@ -56,7 +57,7 @@ const BringInEssence = (props: iProps) => {
                 {props.data.map((info: any, index: number) => {
                   return (<div key={index} className="thumb position-relative text-center bg1">
                     <a onClick={() => router.replace(Permalink.ofProduct(info))}>
-                      <Image                        
+                      <Image
                         className="w-100"
                         src={info?.image ? info?.image: NoImage}
                         alt=""
@@ -105,7 +106,7 @@ const BringInEssence = (props: iProps) => {
                           <img src="images/wishlist-detail.png" />
                         </a> */}
                         {wishItems?.includes(info.id) ? <div className="product-block-1 mb-5">
-                          <button type="button" className="btn-heart mb-5 "><i className=" far fa-heart fa-fw "></i></button>
+                          <button type="button" className="btn-heart mb-5" onClick={() => { props.onDeletwishlistItem(info.id) }}><i className=" far fa-heart fa-fw "></i></button>
                         </div> : <a
                           onClick={() => {
                             props.onWishlist(info.id);

@@ -14,6 +14,7 @@ interface iProps {
   data: any;
   onAddCart: (id: string) => void;
   onWishlist: (id: string) => void;
+  onDeletwishlistItem: (id: string) => void;
 }
 
 const KurtisForOccassion = (props: iProps) => {
@@ -106,7 +107,7 @@ const KurtisForOccassion = (props: iProps) => {
                             </a> */}
 
                             {wishItems?.includes(info.id) ? <div className="product-block-1 mb-5">
-                              <button type="button" className="btn-heart mb-5 "><i className=" far fa-heart fa-fw "></i></button>
+                              <button type="button" className="btn-heart mb-5 " onClick={() => { props.onDeletwishlistItem(info.id) }}><i className=" far fa-heart fa-fw "></i></button>
                             </div> : <a
                               onClick={() => {
                                 props.onWishlist(info.id);
